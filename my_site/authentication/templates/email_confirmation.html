@@ -1,0 +1,11 @@
+{% autoescape off %}
+
+Welcome to ADi meals mobile!
+
+Hello {{name | capfirst}}, 
+
+Please confirm your email by clicking on the link below.
+
+Confirmation link: http://{{domian}} <a href= "{% url 'authentication:activate' uidb64=uid token=token %}">Click me</a>
+
+{% endautoescape %}

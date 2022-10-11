@@ -1,0 +1,42 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search box</title>
+</head>
+<body>
+
+{#<h1>Search result found!</h1><br><br><br>#}
+    
+<ul>    
+{% for item in food %}
+{% if food %}
+<h1>Search result found!</h1><br><br><br>
+<a href= "{% url 'food_app:foodbox' %}"><li>{{ food }}</li></a>
+
+{% else %}
+<h1>Search result not found!</h1><br><br><br>
+<li>BOX NOT FOUND!</li> 
+
+{% endif %}
+
+{% endfor %}
+</ul>
+
+<ul>
+{% for item in soup %}
+
+{% if soup %}
+<li>{{ soup }}</li>
+
+{% else %}
+<li>BOX NOT FOUND!</li>
+
+{% endif %}
+
+{% endfor %}
+</ul>
+
+   </body>
+</html>

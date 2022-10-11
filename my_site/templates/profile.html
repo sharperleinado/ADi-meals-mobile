@@ -1,0 +1,34 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+</head>
+<body>
+
+    <h1>Profile page</h1>
+
+    {% if user.is_authenticated %}
+    <h3>Welcome !</h3>
+
+    <button><a href="{% url 'authentication:account_info' %}">Account information</a></button>
+    <button>My Orders</a></button>
+    <button>Social Media</a></button>
+    <button>Contact Us</a></button>
+
+    {% else %}
+    <h3>Welcome Anonymous!</h3>
+
+    <button><a href="{% url 'authentication:signin' %}">Account information</a></button>
+    <button>My Orders</a></button>
+    <button>Social Media</a></button>
+    <button>Contact Us</a></button>
+
+
+
+
+    {% endif %}
+
+   </body>
+</html>

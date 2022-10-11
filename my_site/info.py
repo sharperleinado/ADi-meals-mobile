@@ -1,0 +1,5 @@
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_HOST_USER = 'a639c6b713ea0e'
+EMAIL_HOST_PASSWORD = 'fc035baef4f7bf'
+EMAIL_PORT = '2525'

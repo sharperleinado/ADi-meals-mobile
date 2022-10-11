@@ -1,0 +1,158 @@
+{% load static %}
+<html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Document</title>
+        </head>
+        <body>
+        
+            <h1>This is soup box page</h1>
+
+            {% for message in messages %}
+            <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+            <strong>Message:</strong> {{message}}
+            <button type="button" class="close" data-dismissible="alert" aria-label="close">
+            <span aria-hidden="True">&times;</span>
+            </button>
+            </div>
+            {% endfor %}
+
+
+
+            {% if user.is_authenticated %}
+                <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image13.jpeg' %}"></a>
+                <h1>{{soup_box1.0 | capfirst}}</h1>
+                <h3>₦{{soup_box1.1}}</h3>
+                <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>Mini box!</strong></a></button>
+                <h3>₦{{soup_box1.2}}</h3>
+                <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>Medium box!</strong></a></button>
+                <h3>₦{{soup_box1.3}}</h3>
+                <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>Mega box!</strong></a></button><br><br><br><br>
+
+                <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image14.jpeg' %}"></a>
+                <h1>{{soup_box2.0 | capfirst}}</h1>
+                <h3>₦{{soup_box2.1}}</h3>
+                <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>Mini box!</strong></a></button>
+                <h3>₦{{soup_box2.2}}</h3>
+                <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>Medium box!</strong></a></button>
+                <h3>₦{{soup_box2.3}}</h3>
+                <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>Mega box!</strong></a></button><br><br><br><br>
+
+                <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image15.jpeg' %}"></a>
+                <h1>{{soup_box3.0 | capfirst}}</h1>
+                <h3>₦{{soup_box3.1}}</h3>
+                <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>Mini box!</strong></a></button>
+                <h3>₦{{soup_box3.2}}</h3>
+                <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>Medium box!</strong></a></button>
+                <h3>₦{{soup_box3.3}}</h3>
+                <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>Mega box!</strong></a></button><br><br><br><br>
+    
+                <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image16.jpeg' %}"></a>
+                <h1>{{soup_box4.0 | capfirst}}</h1>
+                <h3>₦{{soup_box4.1}}</h3>
+                <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>Mini box!</strong></a></button>
+                <h3>₦{{soup_box4.2}}</h3>
+                <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>Medium box!</strong></a></button>
+                <h3>₦{{soup_box4.3}}</h3>
+                <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>Mega box!</strong></a></button><br><br><br><br>
+            
+                <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image17.jpeg' %}"></a>
+                <h1>{{soup_box5.0 | capfirst}}</h1>
+                <h3>₦{{soup_box5.1}}</h3>
+                <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>Mini box!</strong></a></button>
+                <h3>₦{{soup_box5.2}}</h3>
+                <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>Medium box!</strong></a></button>
+                <h3>₦{{soup_box5.3}}</h3>
+                <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>Mega box!</strong></a></button><br><br><br><br>
+            
+                <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image18.jpeg' %}"></a>
+                <h1>{{soup_box6.0 | capfirst}}</h1>
+                <h3>₦{{soup_box6.1}}</h3>
+                <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>Mini box!</strong></a></button>
+                <h3>₦{{soup_box6.2}}</h3>
+                <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>Medium box!</strong></a></button>
+                <h3>₦{{soup_box6.3}}</h3>
+                <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>Mega box!</strong></a></button><br><br><br><br>
+    
+                <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image19.jpeg' %}"></a>
+                <h1>{{soup_box7.0 | capfirst}}</h1>
+                <h3>₦{{soup_box7.1}}</h3>
+                <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>Mini box!</strong></a></button>
+                <h3>₦{{soup_box7.2}}</h3>
+                <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>Medium box!</strong></a></button>
+                <h3>₦{{soup_box7.3}}</h3>
+                <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>Mega box!</strong></a></button><br><br><br><br>
+        
+            {% else %}
+
+                <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image13.jpeg' %}"></a>
+                <h1>{{soup_box1.0 | capfirst}}</h1>
+                <h3>₦{{soup_box1.1}}</h3>
+                <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>Mini box!</strong></a></button>
+                <h3>₦{{soup_box1.2}}</h3>
+                <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>Medium box!</strong></a></button>
+                <h3>₦{{soup_box1.3}}</h3>
+                <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>Mega box!</strong></a></button><br><br><br><br>
+
+                <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image14.jpeg' %}"></a>
+                <h1>{{soup_box2.0 | capfirst}}</h1>
+                <h3>₦{{soup_box2.1}}</h3>
+                <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>Mini box!</strong></a></button>
+                <h3>₦{{soup_box2.2}}</h3>
+                <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>Medium box!</strong></a></button>
+                <h3>₦{{soup_box2.3}}</h3>
+                <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>Mega box!</strong></a></button><br><br><br><br>
+
+                <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image15.jpeg' %}"></a>
+                <h1>{{soup_box3.0 | capfirst}}</h1>
+                <h3>₦{{soup_box3.1}}</h3>
+                <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>Mini box!</strong></a></button>
+                <h3>₦{{soup_box3.2}}</h3>
+                <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>Medium box!</strong></a></button>
+                <h3>₦{{soup_box3.3}}</h3>
+                <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>Mega box!</strong></a></button><br><br><br><br>
+    
+                <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image16.jpeg' %}"></a>
+                <h1>{{soup_box4.0 | capfirst}}</h1>
+                <h3>₦{{soup_box4.1}}</h3>
+                <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>Mini box!</strong></a></button>
+                <h3>₦{{soup_box4.2}}</h3>
+                <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>Medium box!</strong></a></button>
+                <h3>₦{{soup_box4.3}}</h3>
+                <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>Mega box!</strong></a></button><br><br><br><br>
+            
+                <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image17.jpeg' %}"></a>
+                <h1>{{soup_box5.0 | capfirst}}</h1>
+                <h3>₦{{soup_box5.1}}</h3>
+                <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>Mini box!</strong></a></button>
+                <h3>₦{{soup_box5.2}}</h3>
+                <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>Medium box!</strong></a></button>
+                <h3>₦{{soup_box5.3}}</h3>
+                <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>Mega box!</strong></a></button><br><br><br><br>
+            
+                <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image18.jpeg' %}"></a>
+                <h1>{{soup_box6.0 | capfirst}}</h1>
+                <h3>₦{{soup_box6.1}}</h3>
+                <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>Mini box!</strong></a></button>
+                <h3>₦{{soup_box6.2}}</h3>
+                <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>Medium box!</strong></a></button>
+                <h3>₦{{soup_box6.3}}</h3>
+                <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>Mega box!</strong></a></button><br><br><br><br>
+    
+                <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image19.jpeg' %}"></a>
+                <h1>{{soup_box7.0 | capfirst}}</h1>
+                <h3>₦{{soup_box7.1}}</h3>
+                <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>Mini box!</strong></a></button>
+                <h3>₦{{soup_box7.2}}</h3>
+                <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>Medium box!</strong></a></button>
+                <h3>₦{{soup_box7.3}}</h3>
+                <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>Mega box!</strong></a></button><br><br><br><br>
+            
+            {% endif %}
+
+
+           </body>
+        </html>
+        

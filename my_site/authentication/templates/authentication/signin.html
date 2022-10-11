@@ -1,0 +1,38 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in</title>
+</head>
+<body>
+
+    <h1>Sign in here</h1>
+
+    {% for message in messages %}
+    <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+    <strong>Message:</strong> {{message}}
+    <button type="button" class="close" data-dismissible="alert" aria-label="close">
+    <span aria-hidden="True">&times;</span>
+    </button>
+    </div>
+    {% endfor %}<br>
+    
+<form action="{#{% url 'home' %}#}" method="POST">
+{% csrf_token %}
+
+<label for="username">Username:</label>
+<input type="text" id="username" name="username" placeholder="Enter username"><br><br>
+
+<label for="password">Password:</label>
+<input type="password" id="password" name="password" placeholder="Enter password"><br><br>
+
+<input type="submit" >
+
+</form>
+
+<a href= "{% url 'authentication:setpassword' %}">forget password?</a>
+
+
+   </body>
+</html>

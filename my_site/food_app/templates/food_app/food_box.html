@@ -1,0 +1,464 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1>This is food box page</h1><br><br>
+
+    {% for message in messages %}
+    <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+    <strong>Message:</strong> {{message}}
+    <button type="button" class="close" data-dismissible="alert" aria-label="close">
+    <span aria-hidden="True">&times;</span>
+    </button>
+    </div>
+    {% endfor %}
+
+
+                {% comment %} in each  block, I first provided food images, then I linked each images to an anchor tag that links directly to the payment page.
+                That is, a user does not have to click on the "eat me" button to get directed to the payment page. A user can click on the food image to get directed to the payment page.
+                Secondly, I provided each food item and price objects from the model underneath each food images in each block.
+                Thirdly, I created a button a user can click on to get directed to the payment page.
+                lastly, I creeated a price in pack form i each block that handles user multiple request of each meal and also return the price in pack, and then direct the user to the price in pack page,
+                from which a user can click on the "eat me" button to get directed to the payment page.
+                {% endcomment %}
+                {% if user.is_authenticated %}
+                    <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image1.jpeg' %}"></a>
+                    <h2>{{food_box1.0 | capfirst}}</h2>
+                    <h3>{{food_box1.1}}</h3>
+                    <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
+
+                    <form action="{% url 'food_app:price' %}" method="POST">
+                    {% csrf_token %}
+                    
+                    <label for="price in packs"><strong>Price in packs</strong></label>
+                    <input type="hidden" name="form" value="form1">
+                    <input type="number" id="price1" name="price1" placeholder="Enter number between 20 and 500" min="20" max="500">
+                    <br><br><input type="submit" value="submit">
+                    
+                    </form>
+
+
+                    <br>
+                    <br>
+                    <br>
+                    <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image2.jpeg' %}"></a>
+                    <h2>{{food_box2.0 | capfirst}}</h2>
+                    <h3>{{food_box2.1}}</h3>
+                    <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
+                    <form action="{% url 'food_app:price' %}" method="POST">
+                    {% csrf_token %}
+                    
+                    <label for="price in packs"><strong>Price in packs</strong></label>
+                    <input type="hidden" name="form" value="form2">
+                    <input type="number" id="price2" name="price2" placeholder="Enter number between 20 and 500" min="20" max="500">
+                    <br><br><input type="submit" value="submit">
+                
+                    </form>
+
+
+                    <br>
+                    <br>
+                    <br>
+                    <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image3.jpeg' %}"></a>
+                    <h2>{{food_box3.0 | capfirst}}</h2>
+                    <h3>{{food_box3.1}}</h3>
+                    <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
+                    <form action="{% url 'food_app:price' %}" method="POST">
+                    {% csrf_token %}
+                    
+                    <label for="price in packs"><strong>Price in packs</strong></label>
+                    <input type="hidden" name="form" value="form3">
+                    <input type="number" id="price3" name="price3" placeholder="Enter number between 20 and 500" min="20" max="500">
+                    <br><br><input type="submit" value="submit">
+                    
+                    </form>
+                
+
+                    <br>
+                    <br>
+                    <br>
+                    <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image4.jpeg' %}"></a>
+                    <h2>{{food_box4.0 | capfirst}}</h2>
+                    <h3>{{food_box4.1}}</h3>
+                    <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
+                    <form action="{% url 'food_app:price' %}" method="POST">
+                    {% csrf_token %}
+                    
+                    <label for="price in packs"><strong>Price in packs</strong></label>
+                    <input type="hidden" name="form" value="form4">
+                    <input type="text" id="price in packs" name="price4" placeholder="Enter number between 20 and 500" min="20" max="500">
+                    <br><br><input type="submit" value="submit">
+                
+                    </form>
+                
+
+                    <br>
+                    <br>
+                    <br>
+                    <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image5.jpeg' %}"></a>
+                    <h2>{{food_box5.0 | capfirst}}</h2>
+                    <h3>{{food_box5.1}}</h3>
+                    <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
+                    <form action="{% url 'food_app:price' %}" method="POST">
+                    {% csrf_token %}
+                    
+                    <label for="price in packs"><strong>Price in packs</strong></label>
+                    <input type="hidden" name="form" value="form5">
+                    <input type="text" id="price in packs" name="price5" placeholder="Enter number between 20 and 500" min="20" max="500">
+                    <br><br><input type="submit" value="submit">
+                
+                    </form>
+
+
+                    <br>
+                    <br>
+                    <br>
+                    <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image6.jpeg' %}"></a>
+                    <h2>{{food_box6.0 | capfirst}}</h2>
+                    <h3>{{food_box6.1}}</h3>
+                    <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
+                    <form action="{% url 'food_app:price' %}" method="POST">
+                    {% csrf_token %}
+                    
+                    <label for="price in packs"><strong>Price in packs</strong></label>
+                    <input type="hidden" name="form" value="form6">
+                    <input type="text" id="price in packs" name="price6" placeholder="Enter number between 20 and 500" min="20" max="500">
+                    <br><br><input type="submit" value="submit">
+                
+                    </form>
+
+
+                    <br>
+                    <br>
+                    <br>
+                    <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image7.jpeg' %}"></a>
+                    <h2>{{food_box7.0 | capfirst}}</h2>
+                    <h3>{{food_box7.1}}</h3>
+                    <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
+                    <form action="{% url 'food_app:price' %}" method="POST">
+                    {% csrf_token %}
+                    
+                    <label for="price in packs"><strong>Price in packs</strong></label>
+                    <input type="hidden" name="form" value="form7">
+                    <input type="text" id="price in packs" name="price7" placeholder="Enter number between 20 and 500" min="20" max="500">
+                    <br><br><input type="submit" value="submit">
+                
+                    </form>
+
+
+                    <br>
+                    <br>
+                    <br>
+                    <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image8.jpeg' %}"></a>
+                    <h2>{{food_box8.0 | capfirst}}</h2>
+                    <h3>{{food_box8.1}}</h3>
+                    <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
+                    <form action="{% url 'food_app:price' %}" method="POST">
+                    {% csrf_token %}
+                    
+                    <label for="price in packs"><strong>Price in packs</strong></label>
+                    <input type="hidden" name="form" value="form8">
+                    <input type="text" id="price in packs" name="price8" placeholder="Enter number between 20 and 500" min="20" max="500">
+                    <br><br><input type="submit" value="submit">
+                
+                    </form>
+
+
+                    <br>
+                    <br>
+                    <br>
+                    <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image9.jpeg' %}"></a>
+                    <h2>{{food_box9.0 | capfirst}}</h2>
+                    <h3>{{food_box9.1}}</h3>
+                    <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
+                    <form action="{% url 'food_app:price' %}" method="POST">
+                    {% csrf_token %}
+                    
+                    <label for="price in packs"><strong>Price in packs</strong></label>
+                    <input type="hidden" name="form" value="form9">
+                    <input type="text" id="price in packs" name="price9" placeholder="Enter number between 20 and 500" min="20" max="500">
+                    <br><br><input type="submit" value="submit">
+                
+                    </form>
+
+
+                    <br>
+                    <br>
+                    <br>
+                    <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image10.jpg' %}"></a>
+                    <h2>{{food_box10.0 | capfirst}}</h2>
+                    <h3>{{food_box10.1}}</h3>
+                    <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
+                    <form action="{% url 'food_app:price' %}" method="POST">
+                    {% csrf_token %}
+                    
+                    <label for="price in packs"><strong>Price in packs</strong></label>
+                    <input type="hidden" name="form" value="form10">
+                    <input type="text" id="price in packs" name="price10" placeholder="Enter number between 20 and 500" min="20" max="500">
+                    <br><br><input type="submit" value="submit">
+                
+                    </form>
+
+
+                    <br>
+                    <br>
+                    <br>
+                    <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image11.jpeg' %}"></a>
+                    <h2>{{food_box11.0 | capfirst}}</h2>
+                    <h3>{{food_box11.1}}</h3>
+                    <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
+                    <form action="{% url 'food_app:price' %}" method="POST">
+                    {% csrf_token %}
+                    
+                    <label for="price in packs"><strong>Price in packs</strong></label>
+                    <input type="hidden" name="form" value="form11">
+                    <input type="text" id="price in packs" name="price11" placeholder="Enter number between 20 and 500" min="20" max="500">
+                    <br><br><input type="submit" value="submit">
+                
+                    </form>
+                
+
+                    <br>
+                    <br>
+                    <br>
+                    <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image12.jpeg' %}"></a>
+                    <h2>{{food_box12.0 | capfirst}}</h2>
+                    <h3>{{food_box12.1}}</h3>
+                    <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
+                    <form action="{% url 'food_app:price' %}" method="POST">
+                    {% csrf_token %}
+                    
+                    <label for="price in packs"><strong>Price in packs</strong></label>
+                    <input type="hidden" name="form" value="form12">
+                    <input type="text" id="price in packs" name="price12" placeholder="Enter number between 20 and 500" min="20" max="500">
+                    <br><br><input type="submit" value="submit">
+                
+                    </form><br><br><br>
+            
+
+                {% else %} 
+
+                    <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image1.jpeg' %}"></a>
+                    <h2>{{food_box1.0 | capfirst}}</h2>
+                    <h3>{{food_box1.1}}</h3>
+                    <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>EAT ME!</strong></a></button><br><br>
+
+                    <form action="{% url 'food_app:price' %}" method="POST">
+                    {% csrf_token %}
+                    
+                    <label for="price in packs"><strong>Price in packs</strong></label>
+                    <input type="hidden" name="form" value="form1">
+                    <input type="number" id="price1" name="price1" placeholder="Enter number between 20 and 500" min="20" max="500">
+                    <br><br><input type="submit" value="submit">
+                    
+                    </form>
+
+
+                    <br>
+                    <br>
+                    <br>
+                    <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image2.jpeg' %}"></a>
+                    <h2>{{food_box2.0 | capfirst}}</h2>
+                    <h3>{{food_box2.1}}</h3>
+                    <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>EAT ME!</strong></a></button><br><br>
+                    <form action="{% url 'food_app:price' %}" method="POST">
+                    {% csrf_token %}
+                    
+                    <label for="price in packs"><strong>Price in packs</strong></label>
+                    <input type="hidden" name="form" value="form2">
+                    <input type="number" id="price2" name="price2" placeholder="Enter number between 20 and 500" min="20" max="500">
+                    <br><br><input type="submit" value="submit">
+                
+                    </form>
+
+
+                    <br>
+                    <br>
+                    <br>
+                    <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image3.jpeg' %}"></a>
+                    <h2>{{food_box3.0 | capfirst}}</h2>
+                    <h3>{{food_box3.1}}</h3>
+                    <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>EAT ME!</strong></a></button><br><br>
+                    <form action="{% url 'food_app:price' %}" method="POST">
+                    {% csrf_token %}
+                    
+                    <label for="price in packs"><strong>Price in packs</strong></label>
+                    <input type="hidden" name="form" value="form3">
+                    <input type="number" id="price3" name="price3" placeholder="Enter number between 20 and 500" min="20" max="500">
+                    <br><br><input type="submit" value="submit">
+                    
+                    </form>
+                
+
+                    <br>
+                    <br>
+                    <br>
+                    <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image4.jpeg' %}"></a>
+                    <h2>{{food_box4.0 | capfirst}}</h2>
+                    <h3>{{food_box4.1}}</h3>
+                    <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>EAT ME!</strong></a></button><br><br>
+                    <form action="{% url 'food_app:price' %}" method="POST">
+                    {% csrf_token %}
+                    
+                    <label for="price in packs"><strong>Price in packs</strong></label>
+                    <input type="hidden" name="form" value="form4">
+                    <input type="text" id="price in packs" name="price4" placeholder="Enter number between 20 and 500" min="20" max="500">
+                    <br><br><input type="submit" value="submit">
+                
+                    </form>
+                
+
+                    <br>
+                    <br>
+                    <br>
+                    <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image5.jpeg' %}"></a>
+                    <h2>{{food_box5.0 | capfirst}}</h2>
+                    <h3>{{food_box5.1}}</h3>
+                    <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>EAT ME!</strong></a></button><br><br>
+                    <form action="{% url 'food_app:price' %}" method="POST">
+                    {% csrf_token %}
+                    
+                    <label for="price in packs"><strong>Price in packs</strong></label>
+                    <input type="hidden" name="form" value="form5">
+                    <input type="text" id="price in packs" name="price5" placeholder="Enter number between 20 and 500" min="20" max="500">
+                    <br><br><input type="submit" value="submit">
+                
+                    </form>
+
+
+                    <br>
+                    <br>
+                    <br>
+                    <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image6.jpeg' %}"></a>
+                    <h2>{{food_box6.0 | capfirst}}</h2>
+                    <h3>{{food_box6.1}}</h3>
+                    <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>EAT ME!</strong></a></button><br><br>
+                    <form action="{% url 'food_app:price' %}" method="POST">
+                    {% csrf_token %}
+                    
+                    <label for="price in packs"><strong>Price in packs</strong></label>
+                    <input type="hidden" name="form" value="form6">
+                    <input type="text" id="price in packs" name="price6" placeholder="Enter number between 20 and 500" min="20" max="500">
+                    <br><br><input type="submit" value="submit">
+                
+                    </form>
+
+
+                    <br>
+                    <br>
+                    <br>
+                    <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image7.jpeg' %}"></a>
+                    <h2>{{food_box7.0 | capfirst}}</h2>
+                    <h3>{{food_box7.1}}</h3>
+                    <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>EAT ME!</strong></a></button><br><br>
+                    <form action="{% url 'food_app:price' %}" method="POST">
+                    {% csrf_token %}
+                    
+                    <label for="price in packs"><strong>Price in packs</strong></label>
+                    <input type="hidden" name="form" value="form7">
+                    <input type="text" id="price in packs" name="price7" placeholder="Enter number between 20 and 500" min="20" max="500">
+                    <br><br><input type="submit" value="submit">
+                
+                    </form>
+
+
+                    <br>
+                    <br>
+                    <br>
+                    <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image8.jpeg' %}"></a>
+                    <h2>{{food_box8.0 | capfirst}}</h2>
+                    <h3>{{food_box8.1}}</h3>
+                    <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>EAT ME!</strong></a></button><br><br>
+                    <form action="{% url 'food_app:price' %}" method="POST">
+                    {% csrf_token %}
+                    
+                    <label for="price in packs"><strong>Price in packs</strong></label>
+                    <input type="hidden" name="form" value="form8">
+                    <input type="text" id="price in packs" name="price8" placeholder="Enter number between 20 and 500" min="20" max="500">
+                    <br><br><input type="submit" value="submit">
+                
+                    </form>
+
+
+                    <br>
+                    <br>
+                    <br>
+                    <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image9.jpeg' %}"></a>
+                    <h2>{{food_box9.0 | capfirst}}</h2>
+                    <h3>{{food_box9.1}}</h3>
+                    <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>EAT ME!</strong></a></button><br><br>
+                    <form action="{% url 'food_app:price' %}" method="POST">
+                    {% csrf_token %}
+                    
+                    <label for="price in packs"><strong>Price in packs</strong></label>
+                    <input type="hidden" name="form" value="form9">
+                    <input type="text" id="price in packs" name="price9" placeholder="Enter number between 20 and 500" min="20" max="500">
+                    <br><br><input type="submit" value="submit">
+                
+                    </form>
+
+
+                    <br>
+                    <br>
+                    <br>
+                    <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image10.jpg' %}"></a>
+                    <h2>{{food_box10.0 | capfirst}}</h2>
+                    <h3>{{food_box10.1}}</h3>
+                    <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>EAT ME!</strong></a></button><br><br>
+                    <form action="{% url 'food_app:price' %}" method="POST">
+                    {% csrf_token %}
+                    
+                    <label for="price in packs"><strong>Price in packs</strong></label>
+                    <input type="hidden" name="form" value="form10">
+                    <input type="text" id="price in packs" name="price10" placeholder="Enter number between 20 and 500" min="20" max="500">
+                    <br><br><input type="submit" value="submit">
+                
+                    </form>
+
+
+                    <br>
+                    <br>
+                    <br>
+                    <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image11.jpeg' %}"></a>
+                    <h2>{{food_box11.0 | capfirst}}</h2>
+                    <h3>{{food_box11.1}}</h3>
+                    <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>EAT ME!</strong></a></button><br><br>
+                    <form action="{% url 'food_app:price' %}" method="POST">
+                    {% csrf_token %}
+                    
+                    <label for="price in packs"><strong>Price in packs</strong></label>
+                    <input type="hidden" name="form" value="form11">
+                    <input type="text" id="price in packs" name="price11" placeholder="Enter number between 20 and 500" min="20" max="500">
+                    <br><br><input type="submit" value="submit">
+                
+                    </form>
+                
+
+                    <br>
+                    <br>
+                    <br>
+                    <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image12.jpeg' %}"></a>
+                    <h2>{{food_box12.0 | capfirst}}</h2>
+                    <h3>{{food_box12.1}}</h3>
+                    <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>EAT ME!</strong></a></button><br><br>
+                    <form action="{% url 'food_app:price' %}" method="POST">
+                    {% csrf_token %}
+                    
+                    <label for="price in packs"><strong>Price in packs</strong></label>
+                    <input type="hidden" name="form" value="form12">
+                    <input type="text" id="price in packs" name="price12" placeholder="Enter number between 20 and 500" min="20" max="500">
+                    <br><br><input type="submit" value="submit">
+                
+                    </form><br><br><br>
+            
+
+                {% endif %}
+
+   </body>
+</html>

@@ -1,0 +1,168 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<h1>Price in packs page!</h1>
+
+{% if user.is_authenticated %}
+    {% if new_price1.0 %}
+        <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image1.jpeg' %}"></a>
+        <h1>{{new_price1.1}} Pack of Ewa aganyin and bread</h1>
+        <h2>₦{{new_price1.0}}</h2><br>
+        <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
+
+    {% elif new_price2.0 %}
+        <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image2.jpeg' %}"></a>
+        <h1>{{new_price2.1}} Pack of Pounded yam and egusi soup</h1>
+        <h2>₦{{new_price2.0}}</h2><br>
+        <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
+
+    {% elif new_price3.0 %}
+        <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image3.jpeg' %}"></a>
+        <h1>{{new_price3.1}} Pack of Pounded yam and efo riro</h1>
+        <h2>₦{{new_price3.0}}</h2><br>
+        <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
+
+    {% elif new_price4.0 %}
+        <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image4.jpeg' %}"></a>
+        <h1>{{new_price4.1}} Pack of Semo and egusi soup</h1>
+        <h2>₦{{new_price4.0}}</h2><br>
+        <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
+
+    {% elif new_price5.0 %}
+        <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image5.jpeg' %}"></a>
+        <h1>{{new_price5.1}} Pack of Semo and efo riro</h1>
+        <h2>₦{{new_price5.0}}</h2><br>
+        <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
+
+    {% elif new_price6.0 %}
+        <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image6.jpeg' %}"></a>
+        <h1>{{new_price6.1}} Pack of Eba and egusi soup</h1>
+        <h2>₦{{new_price6.0}}</h2><br>
+        <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
+
+    {% elif new_price7.0 %}
+        <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image7.jpeg' %}"></a>
+        <h1>{{new_price7.1}} Pack of Eba and efo riro</h1>
+        <h2>₦{{new_price7.0}}</h2><br>
+        <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
+
+    {% elif new_price8.0 %}
+        <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image8.jpeg' %}"></a>
+        <h1>{{new_price8.1}} Pack of Ofada rice </h1>
+        <h2>₦{{new_price8.0}}</h2><br>
+        <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
+
+    {% elif new_price9.0 %}
+        <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image9.jpeg' %}"></a>
+        <h1>{{new_price9.1}} Pack of Jollof rice</h1>
+        <h2>₦{{new_price9.0}}</h2><br>
+        <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
+    
+    {% elif new_price10.0 %}
+        <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image10.jpg' %}"></a>
+        <h1>{{new_price10.1}} Pack of Rice, beans and stew</h1>
+        <h2>₦{{new_price10.1}}</h2><br>
+        <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
+
+    {% elif new_price11.0 %}
+        <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image11.jpeg' %}"></a>
+        <h1>{{new_price11.1}} Pack of Fried rice and chicken</h1>
+        <h2>₦{{new_price11.0}}</h2><br>
+        <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
+
+    {% elif new_price12.0 %}
+        <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image12.jpeg' %}"></a>
+        <h1>{{new_price12.1}} Pack of pepper soup</h1>
+        <h2>₦{{new_price12.0}}</h2><br>
+        <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
+    
+    {% endif %}
+
+{% else %}
+
+    {% if new_price1.0 %}
+        <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image1.jpeg' %}"></a>
+        <h1>{{new_price1.1}} Pack of Ewa aganyin and bread</h1>
+        <h2>₦{{new_price1.0}}</h2><br>
+        <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>EAT ME!</strong></a></button><br><br>
+
+    {% elif new_price2.0 %}
+        <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image2.jpeg' %}"></a>
+        <h1>{{new_price2.1}} Pack of Pounded yam and egusi soup</h1>
+        <h2>₦{{new_price2.0}}</h2><br>
+        <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>EAT ME!</strong></a></button><br><br>
+
+    {% elif new_price3.0 %}
+        <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image3.jpeg' %}"></a>
+        <h1>{{new_price3.1}} Pack of Pounded yam and efo riro</h1>
+        <h2>₦{{new_price3.0}}</h2><br>
+        <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>EAT ME!</strong></a></button><br><br>
+
+    {% elif new_price4.0 %}
+        <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image4.jpeg' %}"></a>
+        <h1>{{new_price4.1}} Pack of Semo and egusi soup</h1>
+        <h2>₦{{new_price4.0}}</h2><br>
+        <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>EAT ME!</strong></a></button><br><br>
+
+    {% elif new_price5.0 %}
+        <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image5.jpeg' %}"></a>
+        <h1>{{new_price5.1}} Pack of Semo and efo riro</h1>
+        <h2>₦{{new_price5.0}}</h2><br>
+        <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>EAT ME!</strong></a></button><br><br>
+
+    {% elif new_price6.0 %}
+        <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image6.jpeg' %}"></a>
+        <h1>{{new_price6.1}} Pack of Eba and egusi soup</h1>
+        <h2>₦{{new_price6.0}}</h2><br>
+        <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>EAT ME!</strong></a></button><br><br>
+
+    {% elif new_price7.0 %}
+        <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image7.jpeg' %}"></a>
+        <h1>{{new_price7.1}} Pack of Eba and efo riro</h1>
+        <h2>₦{{new_price7.0}}</h2><br>
+        <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>EAT ME!</strong></a></button><br><br>
+
+    {% elif new_price8.0 %}
+        <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image8.jpeg' %}"></a>
+        <h1>{{new_price8.1}} Pack of Ofada rice </h1>
+        <h2>₦{{new_price8.0}}</h2><br>
+        <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>EAT ME!</strong></a></button><br><br>
+
+    {% elif new_price9.0 %}
+        <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image9.jpeg' %}"></a>
+        <h1>{{new_price9.1}} Pack of Jollof rice</h1>
+        <h2>₦{{new_price9.0}}</h2><br>
+        <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>EAT ME!</strong></a></button><br><br>
+
+    {% elif new_price10.0 %}
+        <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image10.jpg' %}"></a>
+        <h1>{{new_price10.1}} Pack of Rice, beans and stew</h1>
+        <h2>₦{{new_price10.1}}</h2><br>
+        <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>EAT ME!</strong></a></button><br><br>
+
+    {% elif new_price11.0 %}
+        <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image11.jpeg' %}"></a>
+        <h1>{{new_price11.1}} Pack of Fried rice and chicken</h1>
+        <h2>₦{{new_price11.0}}</h2><br>
+        <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>EAT ME!</strong></a></button><br><br>
+
+    {% elif new_price12.0 %}
+        <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image12.jpeg' %}"></a>
+        <h1>{{new_price12.1}} Pack of pepper soup</h1>
+        <h2>₦{{new_price12.0}}</h2><br>
+        <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>EAT ME!</strong></a></button><br><br>
+
+    {% endif %}
+
+
+{% endif %}
+
+</body>
+</html>
