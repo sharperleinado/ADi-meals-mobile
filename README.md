@@ -1,5 +1,6 @@
 # ADi-meals-mobile
-A food web application that will serve the needs of users like Elon Musk, Baba Ijebu and co,
+A food web application that will serve the needs of users like Elon Musk, Baba Ijebu and co.
+
 This Food order web app consist of two buttons that is shown to the user after a successful login. the button are "food box" and "soup box"
 A food box consist of the major African meal such as: "ewa aganyin", "pound yam and egusi soup", and others while the Soup box consist of major Nigerian soup such as: "egusi soup", "efo riro", "ewedu soup", and others.
 The Soup box category has three boxes a user can select food from, the boxes includes: mini, medium, and mega box.
