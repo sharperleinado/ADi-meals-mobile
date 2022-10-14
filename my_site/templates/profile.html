@@ -10,7 +10,7 @@
     <h1>Profile page</h1>
 
     {% if user.is_authenticated %}
-    <h3>Welcome !</h3>
+    <h3>Welcome Anonymous!</h3>
 
     <button><a href="{% url 'authentication:account_info' %}">Account information</a></button>
     <button>My Orders</a></button>
