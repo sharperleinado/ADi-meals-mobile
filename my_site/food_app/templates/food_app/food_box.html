@@ -32,7 +32,7 @@
                     <h2>{{food_box1.0 | capfirst}}</h2>
                     <h3>{{food_box1.1}}</h3>
                     <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
-
+{# After clicking on the submit button, the form action takes user to the price page. #}
                     <form action="{% url 'food_app:price' %}" method="POST">
                     {% csrf_token %}
                     
