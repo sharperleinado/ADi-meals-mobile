@@ -7,36 +7,24 @@
 </head>
 <body>
 
-{#<h1>Search result found!</h1><br><br><br>#}
-    
-<ul>    
-{% for item in food %}
 {% if food %}
-<h1>Search result found!</h1><br><br><br>
-<a href= "{% url 'food_app:foodbox' %}"><li>{{ food }}</li></a>
-
-{% else %}
-<h1>Search result not found!</h1><br><br><br>
-<li>BOX NOT FOUND!</li> 
-
-{% endif %}
-
+<h1><center>Search result found!</center></h1><br><br><br>
+{% for item in food %}
+<center><a href= "{% url 'food_app:foodbox' %}"><li>{{item | capfirst}}</li></a></center>
 {% endfor %}
-</ul>
 
-<ul>
+{% elif soup %}
+<h1><center>Search result found!<center></h1><br><br><br> 
 {% for item in soup %}
-
-{% if soup %}
-<li>{{ soup }}</li>
+<center><a href= "{% url 'food_app:soupbox' %}"><li>{{item | capfirst}}</li></a></center>
+{% endfor %}
 
 {% else %}
-<li>BOX NOT FOUND!</li>
+<h1><center>Search result not found!</center></h1><br><br><br>
+<h3><center>We've searched our boxes, and couldn't find the meal you searched for.....</center></h3>
 
 {% endif %}
 
-{% endfor %}
-</ul>
 
    </body>
 </html>
