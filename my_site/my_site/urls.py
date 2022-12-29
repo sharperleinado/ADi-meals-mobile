@@ -17,15 +17,35 @@ from django.contrib import admin
 from django.urls import path,include 
 from django.shortcuts import render
 from django.contrib.auth.models import User 
+from django.shortcuts import redirect
+from django.conf import settings
+from django.conf.urls.static import static
+from food_app.views import food_box_func,slug_view
+
+
+
+
 
 def home(request):
+    fname=""
+    try:
+        fname = request.user.first_name
+    except:
+        pass
 
-   return render(request,'home.html',)
+    return render(request,'home.html',{'fname':fname,'all':slug_view()})
 
 
 def profile(request):
+    fname=""
+    try:
+        fname = request.user.first_name
+    except:
+        pass
 
-    return render(request,'profile.html',{'name':request.user})
+    return render(request,'profile.html',{'fname':fname})
+
+
 
      
 urlpatterns = [
@@ -37,4 +57,4 @@ urlpatterns = [
     path('payments/',include('payments.urls')),
     path('profile/',profile,name='profile'),
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

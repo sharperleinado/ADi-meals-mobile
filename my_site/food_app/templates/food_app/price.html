@@ -4,160 +4,216 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Price</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bangers">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'food_app/master.css' %}">
 </head>
 <body>
     
-<h1>Price in packs page!</h1>
+<br><br><h1><center>Price in packs page!</center></h1><br><br>
+{#I made use of a dynamic view that links to the payment page#}
 
 {% if user.is_authenticated %}
+
     {% if new_price1.0 %}
-        <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image1.jpeg' %}"></a>
-        <h1>{{new_price1.1}} Pack of Ewa aganyin and bread</h1>
+    <div class="container">
+        <image src= "{% static 'food_app/image1.jpeg' %}">
+        <h2>{{new_price1.1}} Pack of Ewa aganyin and bread</h2>
         <h2>₦{{new_price1.0}}</h2><br>
-        <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
+        <button type="submit" class="btn btn-success" {#onClick="window.location='{% url 'payments:payment' pk="ewa aganyin and bread pack" %}';"#}><strong>Payment by Paystack</strong></button><br><br> 
+    </div>
 
     {% elif new_price2.0 %}
-        <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image2.jpeg' %}"></a>
-        <h1>{{new_price2.1}} Pack of Pounded yam and egusi soup</h1>
+    <div class="container">
+        <image src= "{% static 'food_app/image2.jpeg' %}">
+        <h2>{{new_price2.1}} Pack of Pounded yam and egusi soup</h2>
         <h2>₦{{new_price2.0}}</h2><br>
-        <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
+        <button type="submit" class="btn btn-success" {#onClick="window.location='{% url 'payments:payment' pk="pound yam and egusi pack" %}';"#}><strong>Payment by Paystack</strong></button><br><br>
+    </div>
 
     {% elif new_price3.0 %}
-        <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image3.jpeg' %}"></a>
-        <h1>{{new_price3.1}} Pack of Pounded yam and efo riro</h1>
+    <div class="container">
+        <image src= "{% static 'food_app/image3.jpeg' %}">
+        <h2>{{new_price3.1}} Pack of Pounded yam and efo riro</h2>
         <h2>₦{{new_price3.0}}</h2><br>
-        <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
+        <button type="submit" class="btn btn-success" {#onClick="window.location='{% url 'payments:payment' pk="pound yam and eforiro pack" %}';"#}><strong>Payment by Paystack</strong></button><br><br>
+    </div>
 
     {% elif new_price4.0 %}
-        <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image4.jpeg' %}"></a>
-        <h1>{{new_price4.1}} Pack of Semo and egusi soup</h1>
+    <div class="container">
+        <image src= "{% static 'food_app/image4.jpeg' %}">
+        <h2>{{new_price4.1}} Pack of Semo and egusi soup</h2>
         <h2>₦{{new_price4.0}}</h2><br>
-        <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
+        <button type="submit" class="btn btn-success" {#onClick="window.location='{% url 'payments:payment' pk="semo and egusi pack" %}';"#}><strong>Payment by Paystack</strong></button><br><br>
+    </div>
 
     {% elif new_price5.0 %}
-        <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image5.jpeg' %}"></a>
-        <h1>{{new_price5.1}} Pack of Semo and efo riro</h1>
+    <div class="container">
+        <image src= "{% static 'food_app/image5.jpeg' %}">
+        <h2>{{new_price5.1}} Pack of Semo and efo riro</h2>
         <h2>₦{{new_price5.0}}</h2><br>
-        <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
+        <button type="submit" class="btn btn-success" {#onClick="window.location='{% url 'payments:payment' pk="semo and eforiro pack" %}';"#}><strong>Payment by Paystack</strong></button><br><br>
+    </div>
 
     {% elif new_price6.0 %}
-        <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image6.jpeg' %}"></a>
-        <h1>{{new_price6.1}} Pack of Eba and egusi soup</h1>
+    <div class="container">
+        <image src= "{% static 'food_app/image6.jpeg' %}">
+        <h2>{{new_price6.1}} Pack of Eba and egusi soup</h2>
         <h2>₦{{new_price6.0}}</h2><br>
-        <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
+        <button type="submit" class="btn btn-success" {#onClick="window.location='{% url 'payments:payment' pk="eba and egusi pack" %}';"#}><strong>Payment by Paystack</strong></button><br><br>
+    </div>
 
     {% elif new_price7.0 %}
-        <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image7.jpeg' %}"></a>
-        <h1>{{new_price7.1}} Pack of Eba and efo riro</h1>
+    <div class="container">
+        <image src= "{% static 'food_app/image7.jpeg' %}">
+        <h2>{{new_price7.1}} Pack of Eba and efo riro</h2>
         <h2>₦{{new_price7.0}}</h2><br>
-        <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
+        <button type="submit" class="btn btn-success" {#onClick="window.location='{% url 'payments:payment' pk="eba and eforiro pack" %}';"#}><strong>Payment by Paystack</strong></button><br><br>
+    </div>
 
     {% elif new_price8.0 %}
-        <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image8.jpeg' %}"></a>
-        <h1>{{new_price8.1}} Pack of Ofada rice </h1>
+    <div class="container">
+        <image src= "{% static 'food_app/image8.jpeg' %}">
+        <h2>{{new_price8.1}} Pack of Ofada rice </h2>
         <h2>₦{{new_price8.0}}</h2><br>
-        <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
+        <button type="submit" class="btn btn-success" {#onClick="window.location='{% url 'payments:payment' pk="ofada rice pack" %}';"#}><strong>Payment by Paystack</strong></button><br><br>
+    </div>
 
     {% elif new_price9.0 %}
-        <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image9.jpeg' %}"></a>
-        <h1>{{new_price9.1}} Pack of Jollof rice</h1>
+    <div class="container">
+        <image src= "{% static 'food_app/image9.jpeg' %}">
+        <h2>{{new_price9.1}} Pack of Jollof rice</h2>
         <h2>₦{{new_price9.0}}</h2><br>
-        <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
-    
+        <button type="submit" class="btn btn-success" {#onClick="window.location='{% url 'payments:payment' pk="jollof rice and chicken pack" %}';"#}><strong>Payment by Paystack</strong></button><br><br>
+    </div>
+
     {% elif new_price10.0 %}
-        <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image10.jpg' %}"></a>
-        <h1>{{new_price10.1}} Pack of Rice, beans and stew</h1>
+    <div class="container">
+        <image src= "{% static 'food_app/image10.jpg' %}">
+        <h2>{{new_price10.1}} Pack of Rice, beans and stew</h2>
         <h2>₦{{new_price10.1}}</h2><br>
-        <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
+        <button type="submit" class="btn btn-success" {#onClick="window.location='{% url 'payments:payment' pk="rice and beans pack" %}';"#}><strong>Payment by Paystack</strong></button><br><br>
+    </div>
 
     {% elif new_price11.0 %}
-        <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image11.jpeg' %}"></a>
-        <h1>{{new_price11.1}} Pack of Fried rice and chicken</h1>
+    <div class="container">
+        <image src= "{% static 'food_app/image11.jpeg' %}">
+        <h2>{{new_price11.1}} Pack of Fried rice</h2>
         <h2>₦{{new_price11.0}}</h2><br>
-        <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
+        <button type="submit" class="btn btn-success" {#onClick="window.location='{% url 'payments:payment' pk="fried rice pack" %}';"#}><strong>Payment by Paystack</strong></button><br><br>
+    </div>
 
     {% elif new_price12.0 %}
-        <a href= "{% url 'payments:payment' %}"><image src= "{% static 'food_app/image12.jpeg' %}"></a>
-        <h1>{{new_price12.1}} Pack of pepper soup</h1>
+    <div class="container">
+        <image src= "{% static 'food_app/image12.jpeg' %}">
+        <h2>{{new_price12.1}} Pack of pepper soup</h2>
         <h2>₦{{new_price12.0}}</h2><br>
-        <button type= "button"><a href= "{% url 'payments:payment' %}"><strong>EAT ME!</strong></a></button><br><br>
+        <button type="submit" class="btn btn-success" {#onClick="window.location='{% url 'payments:payment' pk="pepper soup pack" %}';"#}><strong>Payment by Paystack</strong></button><br><br>
+    </div>
     
     {% endif %}
 
 {% else %}
 
     {% if new_price1.0 %}
+    <div class="container">
         <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image1.jpeg' %}"></a>
-        <h1>{{new_price1.1}} Pack of Ewa aganyin and bread</h1>
+        <h2>{{new_price1.1}} Pack of Ewa aganyin and bread</h2>
         <h2>₦{{new_price1.0}}</h2><br>
-        <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>EAT ME!</strong></a></button><br><br>
-
+        <button type="submit" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Eat Me!</strong></button><br><br>
+    </div>
+    
     {% elif new_price2.0 %}
+    <div class="container">
         <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image2.jpeg' %}"></a>
-        <h1>{{new_price2.1}} Pack of Pounded yam and egusi soup</h1>
+        <h2>{{new_price2.1}} Pack of Pounded yam and egusi soup</h2>
         <h2>₦{{new_price2.0}}</h2><br>
-        <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>EAT ME!</strong></a></button><br><br>
+        <button type="submit" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Eat Me!</strong></button><br><br>
+    </div>
 
     {% elif new_price3.0 %}
+    <div class="container">
         <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image3.jpeg' %}"></a>
-        <h1>{{new_price3.1}} Pack of Pounded yam and efo riro</h1>
+        <h2>{{new_price3.1}} Pack of Pounded yam and efo riro</h2>
         <h2>₦{{new_price3.0}}</h2><br>
-        <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>EAT ME!</strong></a></button><br><br>
+        <button type="submit" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Eat Me!</strong></button><br><br>
+    </div>
 
     {% elif new_price4.0 %}
+    <div class="container">
         <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image4.jpeg' %}"></a>
-        <h1>{{new_price4.1}} Pack of Semo and egusi soup</h1>
+        <h2>{{new_price4.1}} Pack of Semo and egusi soup</h2>
         <h2>₦{{new_price4.0}}</h2><br>
-        <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>EAT ME!</strong></a></button><br><br>
+        <button type="submit" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Eat Me!</strong></button><br><br>
+    </div>
 
     {% elif new_price5.0 %}
+    <div class="container">
         <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image5.jpeg' %}"></a>
-        <h1>{{new_price5.1}} Pack of Semo and efo riro</h1>
+        <h2>{{new_price5.1}} Pack of Semo and efo riro</h2>
         <h2>₦{{new_price5.0}}</h2><br>
-        <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>EAT ME!</strong></a></button><br><br>
+        <button type="submit" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Eat Me!</strong></button><br><br>
+    </div>
 
     {% elif new_price6.0 %}
+    <div class="container">
         <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image6.jpeg' %}"></a>
-        <h1>{{new_price6.1}} Pack of Eba and egusi soup</h1>
+        <h2>{{new_price6.1}} Pack of Eba and egusi soup</h2>
         <h2>₦{{new_price6.0}}</h2><br>
-        <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>EAT ME!</strong></a></button><br><br>
+        <button type="submit" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Eat Me!</strong></button><br><br>
+    </div>
 
     {% elif new_price7.0 %}
+    <div class="container">
         <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image7.jpeg' %}"></a>
-        <h1>{{new_price7.1}} Pack of Eba and efo riro</h1>
+        <h2>{{new_price7.1}} Pack of Eba and efo riro</h2>
         <h2>₦{{new_price7.0}}</h2><br>
-        <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>EAT ME!</strong></a></button><br><br>
+        <button type="submit" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Eat Me!</strong></button><br><br>
+    </div>
 
     {% elif new_price8.0 %}
+    <div class="container">
         <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image8.jpeg' %}"></a>
-        <h1>{{new_price8.1}} Pack of Ofada rice </h1>
+        <h2>{{new_price8.1}} Pack of Ofada rice </h2>
         <h2>₦{{new_price8.0}}</h2><br>
-        <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>EAT ME!</strong></a></button><br><br>
+        <button type="submit" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Eat Me!</strong></button><br><br>
+    </div>
 
     {% elif new_price9.0 %}
+    <div class="container">
         <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image9.jpeg' %}"></a>
-        <h1>{{new_price9.1}} Pack of Jollof rice</h1>
+        <h2>{{new_price9.1}} Pack of Jollof rice</h2>
         <h2>₦{{new_price9.0}}</h2><br>
-        <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>EAT ME!</strong></a></button><br><br>
+        <button type="submit" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Eat Me!</strong></button><br><br>
+    </div>
 
     {% elif new_price10.0 %}
+    <div class="container">
         <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image10.jpg' %}"></a>
-        <h1>{{new_price10.1}} Pack of Rice, beans and stew</h1>
+        <h2>{{new_price10.1}} Pack of Rice, beans and stew</h2>
         <h2>₦{{new_price10.1}}</h2><br>
-        <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>EAT ME!</strong></a></button><br><br>
+        <button type="submit" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Eat Me!</strong></button><br><br>
+    </div>
 
     {% elif new_price11.0 %}
+    <div class="container">
         <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image11.jpeg' %}"></a>
-        <h1>{{new_price11.1}} Pack of Fried rice and chicken</h1>
+        <h2>{{new_price11.1}} Pack of Fried rice and chicken</h2>
         <h2>₦{{new_price11.0}}</h2><br>
-        <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>EAT ME!</strong></a></button><br><br>
+        <button type="submit" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Eat Me!</strong></button><br><br>
+    </div>
 
     {% elif new_price12.0 %}
+    <div class="container">
         <a href= "{% url 'authentication:signin' %}"><image src= "{% static 'food_app/image12.jpeg' %}"></a>
-        <h1>{{new_price12.1}} Pack of pepper soup</h1>
+        <h2>{{new_price12.1}} Pack of pepper soup</h2>
         <h2>₦{{new_price12.0}}</h2><br>
-        <button type= "button"><a href= "{% url 'authentication:signin' %}"><strong>EAT ME!</strong></a></button><br><br>
+        <button type="submit" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Eat Me!</strong></button><br><br>
+    </div>
 
     {% endif %}
 

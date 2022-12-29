@@ -7,23 +7,30 @@
 </head>
 <body>
 
+    
+{% if searched %}
 {% if food %}
-<h1><center>Search result found!</center></h1><br><br><br>
+<br><br><h1><center>Search result found!</center></h1><br><br><br>
 {% for item in food %}
-<center><a href= "{% url 'food_app:foodbox' %}"><li>{{item | capfirst}}</li></a></center>
+<center><a href= "{% url 'food_app:foodbox' slug=item.slug %}"><li>{{item.food_item | capfirst}}</li></a></center>
 {% endfor %}
 
 {% elif soup %}
-<h1><center>Search result found!<center></h1><br><br><br> 
+<br><br><h1><center>Search result found!<center></h1><br><br><br> 
 {% for item in soup %}
-<center><a href= "{% url 'food_app:soupbox' %}"><li>{{item | capfirst}}</li></a></center>
+<center><a href= "{% url 'food_app:soupbox' %}"><li>{{item.soup_item | capfirst}}</li></a></center>
 {% endfor %}
 
 {% else %}
-<h1><center>Search result not found!</center></h1><br><br><br>
-<h3><center>We've searched our boxes, but couldn't find the meal you searched for.....</center></h3>
+<br><br><h1><center>Search result not found!</center></h1><br><br><br>
+<br><br><h3><center>We've searched our boxes, but couldn't find the meal you searched for.....</center></h3>
 
 {% endif %}
+{% else %}
+<br><br><h1><center>Ooooooooops! You forgot to search for an item.<center></h1><br><br><br> 
+{% endif %}
+
+
 
 
    </body>

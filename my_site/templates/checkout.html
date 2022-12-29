@@ -1,0 +1,42 @@
+{% load seerbit %}
+<html>
+  <head>
+    <title>SeerBit Simple Checkout</title>
+    <script src="https://checkout.seerbitapi.com/api/v2/seerbit.js"></script>
+  </head>
+  <body>
+
+    {% if user.is_authenticated %}
+
+    <form action="" method="POST">
+      {% csrf_token %}
+    <button onlick="paywithSeerbit()">Pay Now</button>
+
+    <script type ="text/javascript">
+      function paywithSeerbit() {
+        SeerbitPay ({
+        //replace with your public key
+        "public key",
+        "tranref": new Date().getTime(),
+        "currency": "NGN",
+        "country": "NG",
+        "amount": "150.00",
+        "email",
+        //optional field. Set to true to allow customer set the amount
+        "setAmountByCustomer": false,
+        "full_name": "John Doe", //optional
+        "callbackurl": "http://127.0.0.1:8000/",
+        },
+        function callback(response, closeModal) {
+         console.log(response) //response of transaction
+        },
+        function close(close) {
+         console.log(close) //transaction close
+        })
+        }
+    </script>
+  </form>
+    {% endif %}
+  
+  </body>
+</html>

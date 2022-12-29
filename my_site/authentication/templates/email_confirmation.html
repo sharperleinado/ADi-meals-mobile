@@ -1,11 +1,33 @@
-{% autoescape off %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit account</title>
+</head>
+<body>
+    {#{% autoescape off %}#}
 
-Welcome to ADi meals mobile!
 
-Hello {{name | capfirst}}, 
+    <h1>Welcome to ADi meals mobile!</h1><br><br>
 
-Please confirm your email by clicking on the link below.
+    
 
-Confirmation link: http://{{domian}} <a href= "{% url 'authentication:activate' uidb64=uid token=token %}">Click me</a>
+    <h2>Hello {{name | capfirst}},</h2><br><br>
+    
+    <h2>Please confirm your email by clicking on the link below.</h2><br><br>
+    
+    <h2>Confirmation link: <a http://{{domian}} href= "{% url 'authentication:activate' uidb64=uid token=token %}">Click me</a></h2>
+    
 
-{% endautoescape %}
+    {#{% endautoescape %}#}
+
+
+
+   </body>
+</html>
+
+
+
+
+
