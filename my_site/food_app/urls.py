@@ -7,6 +7,6 @@ app_name = 'food_app'
 
 urlpatterns = [
     path('food_box/<slug:slug>',views.food_box,name='foodbox'),
-    path('soup_box/',views.soup_box,name='soupbox'),
+    path('soup_box/<slug:slug>',views.soup_box,name='soupbox'),
 
 ] 

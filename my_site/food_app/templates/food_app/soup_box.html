@@ -38,21 +38,19 @@ Here I am displaying all kind of soup I have which has two categories of views t
                 {% for item in item2 %}
                 
                 <div class="container"> 
-                <a href= "{% url 'payments:payment' slug=item.5 %}"><img src={{item.0.url}} class="img-fluid"></a><br><br>
+                <a href= "{% url 'payments:payment' price=item.2 slug=item.5 %}"><img src={{item.0.url}} class="img-fluid"></a><br><br>
                 <h2>{{item.1|capfirst}}</h2>  
                 <h3>₦{{item.2}}</h3>
-                <button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:payment' slug=item.5 %}';"><strong>Mini box!</strong></button><br><br>
+                <button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:payment' price=item.2 slug=item.5 %}';"><strong>Mini box!</strong></button><br><br>
                 <h3>₦{{item.3}}</h3>
-                <button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:payment' slug=item.5 %}';"><strong>Medium box!</strong></button><br><br>
+                <button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:payment' price=item.3 slug=item.5 %}';"><strong>Medium box!</strong></button><br><br>
                 <h3>₦{{item.4}}</h3>
-                <button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:payment' slug=item.5 %}';"><strong>Mega box!</strong></button><br><br><br><br><br><br>
+                <button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:payment' price=item.4 slug=item.5 %}';"><strong>Mega box!</strong></button><br><br><br><br><br><br>
                 </div>
 
                 {% endfor %}
-                
 
             {% else %}
-
 
             {% for item in item2 %}
                 
@@ -70,7 +68,6 @@ Here I am displaying all kind of soup I have which has two categories of views t
             {% endfor %}
 
      {% endif %}
-
 
            </body>
         </html>

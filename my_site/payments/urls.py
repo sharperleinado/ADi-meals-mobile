@@ -8,6 +8,6 @@ app_name = 'payments'
 
 
 urlpatterns = [
-    path('<slug:slug>/',views.payment,name='payment'),
+    path('<int:price><slug:slug>/',views.payment,name='payment'),
 ]
 

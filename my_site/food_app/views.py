@@ -15,6 +15,16 @@ def slug_view():
     return append_list_item3
 
 
+def slug_view2():
+    my_soup_box = Soup.objects.all()
+
+    append_list_item3 = []
+    for item in my_soup_box:
+        soup_slug = item.slug
+        new_append = append_list_item3.append(soup_slug)
+    return append_list_item3
+
+
 #what food box function does is, first, I used a for loop on the model Food, then listed all the field in the models
 #such as: image,food_item,food_price and food slug. put the=m in a list
 #and then append them into a list and did the same for all the objects in the model.
@@ -50,7 +60,7 @@ def soup_box_func():
 
 
 
-def food_box(request,slug):
+def food_box(request, slug):
     item1 =""
     total_price = ""
     my_food_box = Food.objects.all()
@@ -63,17 +73,20 @@ def food_box(request,slug):
         food_slug = item.slug
         list_item = [image,food_item,food_price,food_slug]
         new_list_item = append_list_item.append(list_item)
-        
+          
+
         if request.method == "POST":
+            food = my_food_box.get(slug=food_slug)
             try:
                 item1 = int(request.POST.get("price in pack"))
                 print(item1)
-                total_price = item1*food_price
-                print(total_price)
+                print(food)
                 break
+                #total_price = item1
+                #print(total_price)    
             except ValueError:
                 return render(request,'food_app/404.html')
-    
+            break
     return render(request,'food_app/food_box.html',{'item':append_list_item,})
 
 
@@ -103,9 +116,9 @@ def food_box(request,slug):
 
 
 
-def soup_box(request):
-    
+def soup_box(request, slug):
 
+    
     return render(request,'food_app/soup_box.html',{'item2':soup_box_func()})
 
 

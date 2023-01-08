@@ -35,12 +35,12 @@
                 {% for item in item %}
                 
                 <div class="container">
-                <a href= "{% url 'payments:payment' slug=item.3  %}"><img src={{item.0.url}} class="img-fluid"></a><br><br>
+                <a href= "{% url 'payments:payment' price=item.2 slug=item.3 %}"><img src={{item.0.url}} class="img-fluid"></a><br><br>
                 <h2>{{item.1|capfirst}}</h2>
                 <h3>₦{{item.2}}</h3>
-                <button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:payment' slug=item.3 %}';"><strong>Eat Me!</strong></button><br><br>
+                <button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:payment' price=item.2 slug=item.3 %}';"><strong>Eat Me!</strong></button><br><br>
 
-                <form action="{#{% url 'payments:payment' slug=item.3 %}#}" method="POST">
+                <form action="{#{% url 'payments:payment' price=item.2 slug=item.3 %}#}" method="POST">
                   {% csrf_token %}
 
                 <div class="input-group mb-3">
@@ -57,7 +57,7 @@
                 {% else %} 
 
 
-          {% for item in item %}
+                {% for item in item %}
                 
                 <div class="container"> 
                 <a href= "{% url 'authentication:signin' %}"><img src={{item.0.url}} class="img-fluid"></a><br><br>

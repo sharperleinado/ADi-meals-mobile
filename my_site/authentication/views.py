@@ -11,7 +11,7 @@ from .tokens import generate_token
 from .models import User 
 from django.contrib.auth.password_validation import password_changed,validate_password,UserAttributeSimilarityValidator,CommonPasswordValidator,MinimumLengthValidator,NumericPasswordValidator
 from .custom_authentication import EmailorUsernameModelBackend
-from food_app.views import slug_view
+from food_app.views import slug_view,slug_view2
 #from .custom_authentication2 import EmailorUsernameModelBackend
 
 
@@ -24,7 +24,7 @@ def main(request):
     except AttributeError:
         return redirect('authentication:signin')
     
-    return render(request,'authentication/landing_page.html',{'fname':fname,'all':slug_view()})
+    return render(request,'authentication/landing_page.html',{'fname':fname,'all':slug_view(),'all':slug_view2()})
 
 
 def all(request):
