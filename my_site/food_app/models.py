@@ -17,7 +17,7 @@ class Soup(models.Model):
         my_soup = f"{self.soup_item}"
         return my_soup
 
-     
+
 
 class Food(models.Model):
     image = models.ImageField(upload_to="media", height_field=None, width_field=None, max_length=None)
@@ -28,7 +28,6 @@ class Food(models.Model):
     def __str__(self):
         my_food = f"{self.food_item}\n\n₦{self.food_price}"
         return my_food.capitalize()
-
     
 
 def slug_generator(sender,instance,*args,**kwargs):
@@ -38,9 +37,14 @@ def slug_generator(sender,instance,*args,**kwargs):
         except:
             pass
 
-
 pre_save.connect(slug_generator, sender=Food)
 pre_save.connect(slug_generator, sender=Soup)  
 
-    
+
+#class Review(Food,Soup): 
+#    user = models.ForeignKey(unique=True,on_delete=False,null=False)
+#    image = models.ImageField(upload_to="media2", height_field=None, width_field=None, max_length=None)
+#    food = models.CharField(max_length=50)
+#    review = models.IntegerField()
+#    pass   
 

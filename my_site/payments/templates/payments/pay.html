@@ -26,11 +26,37 @@
 <h3>₦{{item.2}}</h3>
 <button type="submit" class="btn btn-success" {#onClick="window.location='{% url '' slug=item.3 %}';"#}><strong>Paystack!</strong></button><br><br>
 <button type="submit" class="btn btn-primary" {#onClick="window.location='{% url '' slug=item.3 %}';"#}><strong>Flutterwave!</strong></button><br><br>
-<button type="submit" class="btn btn-success" {#onClick="window.location='{% url '' slug=item.3 %}';"#}><strong>Stripe!</strong></button><br><br>
+<button type="submit" class="btn btn-success" {#onClick="window.location='{% url '' slug=item.3 %}';"#}><strong>Stripe!</strong></button><br><br><br><br>
 {% endif %}
 
 
-{% if price == item2.2 and slug == item2.5 %}
+{% if price == 11 and slug == item2.5 %}
+<img src={{item2.0.url}} class="img-fluid"><br><br>
+<h2>{{item2.1|capfirst}}</h2>
+<p>Mini box</p>
+<h3>₦{{item2.2}}</h3>
+<button type="submit" class="btn btn-success" {#onClick="window.location='{% url '' slug=item.3 %}';"#}><strong>Paystack!</strong></button><br><br>
+<button type="submit" class="btn btn-primary" {#onClick="window.location='{% url '' slug=item.3 %}';"#}><strong>Flutterwave!</strong></button><br><br>
+<button type="submit" class="btn btn-success" {#onClick="window.location='{% url '' slug=item.3 %}';"#}><strong>Stripe!</strong></button><br><br><br><br>
+
+<img src={{item2.0.url}} class="img-fluid"><br><br>
+<h2>{{item2.1|capfirst}}</h2>
+<p>Medium box</p>
+<h3>₦{{item2.3}}</h3>
+<button type="submit" class="btn btn-success" {#onClick="window.location='{% url '' slug=item.3 %}';"#}><strong>Paystack!</strong></button><br><br>
+<button type="submit" class="btn btn-primary" {#onClick="window.location='{% url '' slug=item.3 %}';"#}><strong>Flutterwave!</strong></button><br><br>
+<button type="submit" class="btn btn-success" {#onClick="window.location='{% url '' slug=item.3 %}';"#}><strong>Stripe!</strong></button><br><br><br><br>
+
+<img src={{item2.0.url}} class="img-fluid"><br><br>
+<h2>{{item2.1|capfirst}}</h2>
+<p>Mega box</p>
+<h3>₦{{item2.4}}</h3>
+<button type="submit" class="btn btn-success" {#onClick="window.location='{% url '' slug=item.3 %}';"#}><strong>Paystack!</strong></button><br><br>
+<button type="submit" class="btn btn-primary" {#onClick="window.location='{% url '' slug=item.3 %}';"#}><strong>Flutterwave!</strong></button><br><br>
+<button type="submit" class="btn btn-success" {#onClick="window.location='{% url '' slug=item.3 %}';"#}><strong>Stripe!</strong></button><br><br><br><br>
+
+
+{% elif price == item2.2 and slug == item2.5 %}
 
 <img src={{item2.0.url}} class="img-fluid"><br><br>
 <h2>{{item2.1|capfirst}}</h2>
@@ -38,7 +64,7 @@
 <h3>₦{{item2.2}}</h3>
 <button type="submit" class="btn btn-success" {#onClick="window.location='{% url '' slug=item.3 %}';"#}><strong>Paystack!</strong></button><br><br>
 <button type="submit" class="btn btn-primary" {#onClick="window.location='{% url '' slug=item.3 %}';"#}><strong>Flutterwave!</strong></button><br><br>
-<button type="submit" class="btn btn-success" {#onClick="window.location='{% url '' slug=item.3 %}';"#}><strong>Stripe!</strong></button><br><br>
+<button type="submit" class="btn btn-success" {#onClick="window.location='{% url '' slug=item.3 %}';"#}><strong>Stripe!</strong></button><br><br><br><br>
 
 {% elif price == item2.3 and slug == item2.5 %}
 
@@ -48,7 +74,7 @@
 <h3>₦{{item2.3}}</h3>
 <button type="submit" class="btn btn-success" {#onClick="window.location='{% url '' slug=item.3 %}';"#}><strong>Paystack!</strong></button><br><br>
 <button type="submit" class="btn btn-primary" {#onClick="window.location='{% url '' slug=item.3 %}';"#}><strong>Flutterwave!</strong></button><br><br>
-<button type="submit" class="btn btn-success" {#onClick="window.location='{% url '' slug=item.3 %}';"#}><strong>Stripe!</strong></button><br><br>
+<button type="submit" class="btn btn-success" {#onClick="window.location='{% url '' slug=item.3 %}';"#}><strong>Stripe!</strong></button><br><br><br><br>
 
 {% elif price == item2.4 and slug == item2.5 %}
 <img src={{item2.0.url}} class="img-fluid"><br><br>
@@ -57,7 +83,7 @@
 <h3>₦{{item2.4}}</h3>
 <button type="submit" class="btn btn-success" {#onClick="window.location='{% url '' slug=item.3 %}';"#}><strong>Paystack!</strong></button><br><br>
 <button type="submit" class="btn btn-primary" {#onClick="window.location='{% url '' slug=item.3 %}';"#}><strong>Flutterwave!</strong></button><br><br>
-<button type="submit" class="btn btn-success" {#onClick="window.location='{% url '' slug=item.3 %}';"#}><strong>Stripe!</strong></button><br><br>
+<button type="submit" class="btn btn-success" {#onClick="window.location='{% url '' slug=item.3 %}';"#}><strong>Stripe!</strong></button><br><br><br><br>
 {% endif %}
 {% endif %}
 

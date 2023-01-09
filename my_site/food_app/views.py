@@ -42,7 +42,6 @@ def food_box_func():
     return append_list_item
 
 
-
 def soup_box_func():
     my_soup_box = Soup.objects.all()
 
@@ -93,25 +92,7 @@ def food_box(request, slug):
 
 #def food_box(request, slug):
 
-    #slug = Food.objects.filter(slug=slug)
-    #if slug is not None:
-    #    slug = slug.first()
-    #else:
-    #    return render(request,'food_app.404.html')
-
-#    item1 =""
-#    total_price = ""
-#    if request.method == "POST":
-#        try:
-#            item1 = int(request.POST.get("price in pack"))
-#            print(item1)
-#            for item in food_box_func():
-#                #if item1:
-#                total_price = item1*item[2]
-#            print(total_price)
-#        except ValueError:
-#            return render(request,'food_app/404.html')
-#    
+        
 #    return render(request,'food_app/food_box.html',{'item':food_box_func()})
 
 
