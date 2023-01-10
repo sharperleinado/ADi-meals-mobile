@@ -59,41 +59,50 @@ def soup_box_func():
 
 
 
+#def food_box(request, slug):
+#    item1 =""
+#    total_price = ""
+#    my_food_box = Food.objects.all()
+#
+#    append_list_item = []
+#    for item in my_food_box:
+#        image = item.image
+#        food_item = item.food_item
+#        food_price = item.food_price
+#        food_slug = item.slug
+#        list_item = [image,food_item,food_price,food_slug]
+#        new_list_item = append_list_item.append(list_item)
+#          
+#
+#        if request.method == "POST":
+#            food = my_food_box.get(slug=food_slug)
+#            try:
+#                item1 = int(request.POST.get("price in pack"))
+#                print(item1)
+#                print(food)
+#                break
+#                #total_price = item1
+#                #print(total_price)    
+#            except ValueError:
+#                return render(request,'food_app/404.html')
+#            break
+#    return render(request,'food_app/food_box.html',{'item':append_list_item,})
+
+
+
 def food_box(request, slug):
-    item1 =""
-    total_price = ""
-    my_food_box = Food.objects.all()
-
-    append_list_item = []
-    for item in my_food_box:
-        image = item.image
-        food_item = item.food_item
-        food_price = item.food_price
-        food_slug = item.slug
-        list_item = [image,food_item,food_price,food_slug]
-        new_list_item = append_list_item.append(list_item)
-          
-
+    
+    for item in food_box_func():
         if request.method == "POST":
-            food = my_food_box.get(slug=food_slug)
+
             try:
                 item1 = int(request.POST.get("price in pack"))
                 print(item1)
-                print(food)
-                break
-                #total_price = item1
-                #print(total_price)    
             except ValueError:
                 return render(request,'food_app/404.html')
-            break
-    return render(request,'food_app/food_box.html',{'item':append_list_item,})
-
-
-
-#def food_box(request, slug):
-
+    
         
-#    return render(request,'food_app/food_box.html',{'item':food_box_func()})
+    return render(request,'food_app/food_box.html',{'item':food_box_func()})
 
 
 
@@ -101,5 +110,4 @@ def soup_box(request, slug):
 
     
     return render(request,'food_app/soup_box.html',{'item2':soup_box_func()})
-
 
