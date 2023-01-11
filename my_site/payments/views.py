@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from food_app.models import Food, Soup
 from food_app.views import food_box_func,soup_box_func
+from .forms import PaymentForm
 # Create your views here.
 
 
@@ -10,6 +11,7 @@ from food_app.views import food_box_func,soup_box_func
 
 
 def payment(request, price, slug):
+    payment_form = PaymentForm()
     
     try:
         for item in food_box_func():
@@ -24,6 +26,5 @@ def payment(request, price, slug):
                 break
     except:
         pass
-    return render(request,'payments/pay.html',{'price':price,'slug':slug,'item':item,'item2':item2})
-    
+    return render(request,'payments/pay.html',{'price':price,'slug':slug,'item':item,'item2':item2,'form':payment_form})
 
