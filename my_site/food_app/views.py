@@ -2,6 +2,7 @@ from django.http import Http404
 from django.shortcuts import redirect,render
 from food_app.models import Food, Soup
 from django.urls import reverse
+from payments.forms import PaymentForm
 
 # Create your views here.
 
@@ -60,22 +61,28 @@ def soup_box_func():
 
 
 
-
 def food_box(request, slug):
+    try:
+        payment_form = PaymentForm()
+        quantity = ""
+        total_price = ""
+        item = ""
     
-    
+        for item in food_box_func():
+            my_food = Food.objects.all()
         
-    if request.method == "POST":
-
-        try:
-            item1 = int(request.POST.get("price in pack"))
-            print(item1)
-            #return reverse('payments':'payment')
-        except ValueError:
-            return render(request,'food_app/404.html')
-    
+            if request.method == "POST":
+                try:
+                    quantity = int(request.POST.get("price in pack"))
+                    total_price = quantity*item[2]
+                    return render(request,'payments/price.html',{'total_price':total_price,'slug':item[3],'form':payment_form,'quantity':quantity,'item':item})
+                except ValueError:
+                    return render(request,'food_app/404.html')
+    except:
+        pass
         
-    return render(request,'food_app/food_box.html',{'item':food_box_func()})
+        
+    return render(request,'food_app/food_box.html',{'item':food_box_func()})    
 
 
 

@@ -16,47 +16,69 @@
 
 <div class="container">
 <br><h1><center>Pay here!</center></h1><br>
+{% if user.is_authenticated %}
 {#Here, slug is the slug in the model #}
 
-{% if user.is_authenticated %}
 {#food box#}
 {% if price == item.2 and slug == item.3 %}
 <img src={{item.0.url}} class="img-fluid"><br><br>
 <h2>{{item.1|capfirst}}</h2>
-<h3>₦{{item.2}}</h3><br><br>
+<h3>₦{{item.2}}</h3><br>
+
 <p><strong style = "color:red;">Payment Information</strong></p>
+<p><strong style = "color:red;">Name and e-mail can be left blank, and will be automatically autofilled by your name and e-mail.</strong></p>
+<form action="" method="POST">
+{% csrf_token %}
 {{form.as_p}}
 <button type="submit" class="btn btn-success" {#onClick="window.location='{% url '' %}';"#}><strong>Proceed to pay!</strong></button><br><br><br><br>
+</form>
 {% endif %}
 
 
+
+{#for soup box#}
 {#Image#}
 {% if price == 11 and slug == item2.5 %}
 <img src={{item2.0.url}} class="img-fluid"><br><br>
 <h2>{{item2.1|capfirst}}</h2>
 <p>Mini box</p>
 <h3>₦{{item2.2}}</h3><br>
+
 <p><strong style = "color:red;">Payment Information</strong></p>
+<p><strong style = "color:red;">Name and e-mail can be left blank, and will be automatically autofilled by your name and e-mail.</strong></p>
+<form action="" method="POST">
+{% csrf_token %}
 {{form.as_p}}
 <button type="submit" class="btn btn-success" {#onClick="window.location='{% url '' %}';"#}><strong>Proceed to pay!</strong></button><br><br><br><br><br><br><br>
+</form>
 
 
 <img src={{item2.0.url}} class="img-fluid"><br><br>
 <h2>{{item2.1|capfirst}}</h2>
 <p>Medium box</p>
 <h3>₦{{item2.3}}</h3><br>
+
 <p><strong style = "color:red;">Payment Information</strong></p>
+<p><strong style = "color:red;">Name and e-mail can be left blank, and will be automatically autofilled by your name and e-mail.</strong></p>
+<form action="" method="POST">
+{% csrf_token %}
 {{form.as_p}}
 <button type="submit" class="btn btn-success" {#onClick="window.location='{% url '' %}';"#}><strong>Proceed to pay!</strong></button><br><br><br><br><br><br><br>
+</form>
 
 
 <img src={{item2.0.url}} class="img-fluid"><br><br>
 <h2>{{item2.1|capfirst}}</h2>
 <p>Mega box</p>
 <h3>₦{{item2.4}}</h3><br>
+
 <p><strong style = "color:red;">Payment Information</strong></p>
+<p><strong style = "color:red;">Name and e-mail can be left blank, and will be automatically autofilled by your name and e-mail.</strong></p>
+<form action="" method="POST">
+{% csrf_token %}
 {{form.as_p}}
-<button type="submit" class="btn btn-success" {#onClick="window.location='{% url '' %}';"#}><strong>Proceed to pay!</strong></button><br><br><br><br><br><br><br
+<button type="submit" class="btn btn-success" {#onClick="window.location='{% url '' %}';"#}><strong>Proceed to pay!</strong></button><br><br><br><br><br><br><br>
+</form>
 
 
 {% elif price == item2.2 and slug == item2.5 %}
@@ -64,10 +86,15 @@
 <img src={{item2.0.url}} class="img-fluid"><br><br>
 <h2>{{item2.1|capfirst}}</h2>
 <p>Mini box</p>
-<h3>₦{{item2.2}}</h3><br><br>
+<h3>₦{{item2.2}}</h3><br>
+
 <p><strong style = "color:red;">Payment Information</strong></p>
+<p><strong style = "color:red;">Name and e-mail can be left blank, and will be automatically autofilled by your name and e-mail.</strong></p>
+<form action="" method="POST">
+{% csrf_token %}
 {{form.as_p}}
-<button type="submit" class="btn btn-success" {#onClick="window.location='{% url '' %}';"#}><strong>Proceed to pay!</strong></button><br><br><br><br>
+<button type="submit" class="btn btn-success" {#onClick="window.location='{% url '' %}';"#}><strong>Proceed to pay!</strong></button><br><br><br><br><br><br><br>
+</form>
 
 
 {% elif price == item2.3 and slug == item2.5 %}
@@ -75,10 +102,15 @@
 <img src={{item2.0.url}} class="img-fluid"><br><br>
 <h2>{{item2.1|capfirst}}</h2>
 <p>Medium box</p>
-<h3>₦{{item2.3}}</h3><br><br>
+<h3>₦{{item2.3}}</h3><br>
+
 <p><strong style = "color:red;">Payment Information</strong></p>
+<p><strong style = "color:red;">Name and e-mail can be left blank, and will be automatically autofilled by your name and e-mail.</strong></p>
+<form action="" method="POST">
+{% csrf_token %}
 {{form.as_p}}
-<button type="submit" class="btn btn-success" {#onClick="window.location='{% url '' %}';"#}><strong>Proceed to pay!</strong></button><br><br><br><br>
+<button type="submit" class="btn btn-success" {#onClick="window.location='{% url '' %}';"#}><strong>Proceed to pay!</strong></button><br><br><br><br><br><br><br>
+</form>
 
 
 {% elif price == item2.4 and slug == item2.5 %}
@@ -86,10 +118,16 @@
 <img src={{item2.0.url}} class="img-fluid"><br><br>
 <h2>{{item2.1|capfirst}}</h2>
 <p>Mega box</p>
-<h3>₦{{item2.4}}</h3><br><br>
+<h3>₦{{item2.4}}</h3><br>
+
 <p><strong style = "color:red;">Payment Information</strong></p>
+<p><strong style = "color:red;">Name and e-mail can be left blank, and will be automatically autofilled by your name and e-mail.</strong></p>
+<form action="" method="POST">
+{% csrf_token %}
 {{form.as_p}}
-<button type="submit" class="btn btn-success" {#onClick="window.location='{% url '' %}';"#}><strong>Proceed to pay!</strong></button><br><br><br><br>
+<button type="submit" class="btn btn-success" {#onClick="window.location='{% url '' %}';"#}><strong>Proceed to pay!</strong></button><br><br><br><br><br><br><br>
+</form>
+
 {% endif %}
 {% endif %}
 

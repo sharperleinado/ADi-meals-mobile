@@ -28,3 +28,4 @@ def payment(request, price, slug):
         pass
     return render(request,'payments/pay.html',{'price':price,'slug':slug,'item':item,'item2':item2,'form':payment_form})
 
+
