@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from food_app.models import Food, Soup
 from food_app.views import food_box_func,soup_box_func
 from .forms import PaymentForm
@@ -12,11 +12,10 @@ from .forms import PaymentForm
 
 def payment(request, price, slug):
     payment_form = PaymentForm()
-    
     try:
         for item in food_box_func():
             if price == item[2] and slug == item[3]:
-                break
+                break    
     except:
         pass
 
@@ -26,6 +25,23 @@ def payment(request, price, slug):
                 break
     except:
         pass
+
     return render(request,'payments/pay.html',{'price':price,'slug':slug,'item':item,'item2':item2,'form':payment_form})
 
 
+
+def price_in_pack(request, slug):
+    total_price = ""
+    quantity = ""
+    if request.method == "POST":
+            try:
+                quantity = int(request.POST.get("quantity"))
+                print(quantity)
+                for item in food_box_func():
+                    if slug == item[3]:
+                        break
+                total_price = quantity*item[2]
+            except ValueError:
+                return render(request,'food_app/404.html')
+
+    return render(request,'payments/price.html',{'form':PaymentForm(),'slug':slug,'quantity':quantity,'total_price':total_price,'item':item})

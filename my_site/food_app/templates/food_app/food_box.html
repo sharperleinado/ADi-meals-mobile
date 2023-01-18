@@ -40,12 +40,12 @@
                 <h3>₦{{item.2}}</h3>
                 <button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:payment' price=item.2 slug=item.3 %}';"><strong>Eat Me!</strong></button><br><br>
 
-                <form action="" method="POST">
+                <form action="{% url 'payments:price' slug=item.3 %}" method="POST">
                   {% csrf_token %}
 
                 <div class="input-group mb-3">
                   <span class="input-group-text">Price in packs</span>
-                  <input type="number" class="form-control" name="price in pack"  aria-describedby="price in pack" placeholder="Input numbers between 20 and 100" aria-label="Input numbers between 20 and 500" min="20" max="100">
+                  <input type="number" class="form-control" name="quantity"  aria-describedby="quantity" placeholder="Input numbers between 20 and 100" aria-label="Input numbers between 20 and 500" min="20" max="100">
                   <button type="submit" class="btn btn-success"><strong>Click Me!</strong></button>
                 </div>
                 </form><br><br><br><br>

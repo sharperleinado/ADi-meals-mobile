@@ -62,26 +62,8 @@ def soup_box_func():
 
 
 def food_box(request, slug):
-    try:
-        payment_form = PaymentForm()
-        quantity = ""
-        total_price = ""
-        item = ""
     
-        for item in food_box_func():
-            my_food = Food.objects.all()
-        
-            if request.method == "POST":
-                try:
-                    quantity = int(request.POST.get("price in pack"))
-                    total_price = quantity*item[2]
-                    return render(request,'payments/price.html',{'total_price':total_price,'slug':item[3],'form':payment_form,'quantity':quantity,'item':item})
-                except ValueError:
-                    return render(request,'food_app/404.html')
-    except:
-        pass
-        
-        
+
     return render(request,'food_app/food_box.html',{'item':food_box_func()})    
 
 
