@@ -144,3 +144,11 @@ AUTH_USER_MODEL = 'authentication.User'
 MEDIA_URL = os.path.join(BASE_DIR, '/image/')
 MEDIA_ROOT = '/image/'
 
+
+USE_THOUSAND_SEPARATOR=True
+
+THOUSAND_SEPARATOR=','
+
+DECIMAL_SEPARATOR='.'
+
+NUMBER_GROUPING=3

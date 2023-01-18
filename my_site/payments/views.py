@@ -36,7 +36,6 @@ def price_in_pack(request, slug):
     if request.method == "POST":
             try:
                 quantity = int(request.POST.get("quantity"))
-                print(quantity)
                 for item in food_box_func():
                     if slug == item[3]:
                         break
