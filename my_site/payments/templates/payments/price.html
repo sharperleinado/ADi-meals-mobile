@@ -36,6 +36,16 @@
 
 </div>
 {% endif %}
+
+{% else %}
+
+<div class = "container">
+<a href= "{% url 'authentication:signin' %}"><img src={{item.0.url}} class="img-fluid"></a><br><br>
+<h3>{{quantity}} pack of {{item.1|capfirst}}</h3>
+<h3>₦{{total_price}}</h3>
+<button type="submit" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Eat Me!</strong></button><br><br>
+
+</div>
 {% endif %}
 </body>
 </html>
