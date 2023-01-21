@@ -20,10 +20,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.conf import settings
 from django.conf.urls.static import static
-from food_app.views import food_box_func,slug_view,slug_view2
-
-
-
+from food_app.views import food_box_func
 
 
 def home(request):
@@ -33,7 +30,7 @@ def home(request):
     except:
         pass
 
-    return render(request,'home.html',{'fname':fname,'all':slug_view(),'all':slug_view2()})
+    return render(request,'home.html',{'fname':fname})
 
 
 def profile(request):
@@ -44,8 +41,6 @@ def profile(request):
         pass
 
     return render(request,'profile.html',{'fname':fname})
-
-
 
      
 urlpatterns = [

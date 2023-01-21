@@ -44,3 +44,11 @@ def price_in_pack(request, slug):
                 return render(request,'food_app/404.html')
 
     return render(request,'payments/price.html',{'form':PaymentForm(),'slug':slug,'quantity':quantity,'total_price':total_price,'item':item})
+
+
+
+def payment_api(request):
+
+    return render(request,'payments/payment_api.html')
+
+    

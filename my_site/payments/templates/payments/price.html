@@ -28,10 +28,10 @@
 
 <p><strong style = "color:red;">Payment Information</strong></p>
 <p><strong style = "color:red;">Name and e-mail can be left blank, and will be autofilled with your registered name and e-mail.</strong></p>
-<form action="" method="POST">
+<form action="{% url 'payments:payment_api' %}" method="POST">
 {% csrf_token %}
 {{form.as_p}}
-<button type="submit" class="btn btn-success" {#onClick="window.location='{% url '' %}';"#}><strong>Proceed to pay!</strong></button><br><br><br><br>
+<button type="submit" class="btn btn-success"><strong>Proceed to pay!</strong></button><br><br><br><br>
 </form>
 
 </div>
@@ -43,7 +43,7 @@
 <a href= "{% url 'authentication:signin' %}"><img src={{item.0.url}} class="img-fluid"></a><br><br>
 <h3>{{quantity}} pack of {{item.1|capfirst}}</h3>
 <h3>₦{{total_price}}</h3>
-<button type="submit" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Eat Me!</strong></button><br><br>
+<button type="submit" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Click Me!</strong></button><br><br>
 
 </div>
 {% endif %}

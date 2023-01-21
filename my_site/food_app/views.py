@@ -1,35 +1,14 @@
 from django.http import Http404
 from django.shortcuts import redirect,render
 from food_app.models import Food, Soup
-from django.urls import reverse
 from payments.forms import PaymentForm
 
 # Create your views here.
 
-
-def slug_view():
-    my_food_box = Food.objects.all()
-
-    append_list_item3 = []
-    for item in my_food_box:
-        food_slug = item.slug
-        new_append = append_list_item3.append(food_slug)
-    return append_list_item3
-
-
-def slug_view2():
-    my_soup_box = Soup.objects.all()
-
-    append_list_item3 = []
-    for item in my_soup_box:
-        soup_slug = item.slug
-        new_append = append_list_item3.append(soup_slug)
-    return append_list_item3
-
-
 #what food box function does is, first, I used a for loop on the model Food, then listed all the field in the models
 #such as: image,food_item,food_price and food slug. put the=m in a list
 #and then append them into a list and did the same for all the objects in the model.
+
 def food_box_func():
     my_food_box = Food.objects.all()
 
@@ -61,15 +40,32 @@ def soup_box_func():
 
 
 
-def food_box(request, slug):
-    
+def food_box(request):
 
     return render(request,'food_app/food_box.html',{'item':food_box_func()})    
 
 
-
-def soup_box(request, slug):
-
+def soup_box(request):
     
     return render(request,'food_app/soup_box.html',{'item2':soup_box_func()})
+
+
+#Food_search renders all the food and soup search on a different template and accepts a slug request when sent from the user
+#which filters the provided slug in the model and display the object model searched by the user to the user.
+def food_search(request,slug):
+    my_food_box = ""
+    my_soup_box = ""
+    price = 11
+    
+    try:
+        my_food_box = Food.objects.get(slug=slug)
+    except:
+        pass
+
+    try:
+        my_soup_box = Soup.objects.get(slug=slug)
+    except:
+        pass
+
+    return render(request,'food_app/food_search.html',{'price':price,'item':my_food_box,'item2':my_soup_box}) 
 

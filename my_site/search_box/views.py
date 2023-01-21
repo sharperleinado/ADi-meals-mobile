@@ -8,8 +8,8 @@ from food_app.models import Food,Soup
 
 def search_box(request):
 
-    if request.method == "GET":
-        search_box = request.GET.get("search")
+    if request.method == "POST":
+        search_box = request.POST.get("search").strip()
         food_box = Food.objects.filter(food_item__contains = search_box).all()
         soup_box = Soup.objects.filter(soup_item__contains = search_box).all()
         search_list = [search_box,food_box,soup_box]
@@ -17,6 +17,3 @@ def search_box(request):
         return render(request,'search_box/search.html',{'searched':search_box,'food':food_box,'soup':soup_box,
         'search_list':search_list})
     
-
-        
-        

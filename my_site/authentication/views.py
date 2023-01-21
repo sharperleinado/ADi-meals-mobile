@@ -11,7 +11,6 @@ from .tokens import generate_token
 from .models import User 
 from django.contrib.auth.password_validation import password_changed,validate_password,UserAttributeSimilarityValidator,CommonPasswordValidator,MinimumLengthValidator,NumericPasswordValidator
 from .custom_authentication import EmailorUsernameModelBackend
-from food_app.views import slug_view,slug_view2
 #from .custom_authentication2 import EmailorUsernameModelBackend
 
 
@@ -24,7 +23,7 @@ def main(request):
     except AttributeError:
         return redirect('authentication:signin')
     
-    return render(request,'authentication/landing_page.html',{'fname':fname,'all':slug_view(),'all':slug_view2()})
+    return render(request,'authentication/landing_page.html',{'fname':fname})
 
 
 def all(request):
@@ -35,12 +34,12 @@ def all(request):
 def signup(request):
 
     if request.method == "POST":
-        username = request.POST.get("username")
-        fname = request.POST.get("fname")
-        lname = request.POST.get("lname")
-        email = request.POST.get("email")
-        password = request.POST.get("password")
-        password2 = request.POST.get("password2")
+        username = request.POST.get("username").strip()
+        fname = request.POST.get("fname").strip()
+        lname = request.POST.get("lname").strip()
+        email = request.POST.get("email").strip()
+        password = request.POST.get("password").strip()
+        password2 = request.POST.get("password2").strip()
 
 
         if User.objects.filter(username=username):
@@ -137,8 +136,8 @@ def signup(request):
 def signin(request):
     
     if request.method == "POST":
-        username = request.POST.get("username")
-        password = request.POST.get("password")
+        username = request.POST.get("username").strip()
+        password = request.POST.get("password").strip()
         remember_me = request.POST.get("checkbox")
 
         user = EmailorUsernameModelBackend.authenticate(EmailorUsernameModelBackend,request,username,password)
@@ -225,10 +224,10 @@ def edit_account(request):
         user = User.objects.get(username=user_uname)
     
         if request.method == "POST":
-            uname = request.POST.get("username")       
-            fname = request.POST.get("fname")
-            lname = request.POST.get("lname")
-            email = request.POST.get("email")
+            uname = request.POST.get("username").strip()       
+            fname = request.POST.get("fname").strip()
+            lname = request.POST.get("lname").strip()
+            email = request.POST.get("email").strip()
 
             if User.objects.filter(username=uname):
                 messages.error(request, "Username has been taken!\nPlease, try another username.")
@@ -272,8 +271,8 @@ def setpassword(request):
     try:
         username = request.user.username
         if request.method == "POST":
-            password = request.POST.get("password")
-            password2 = request.POST.get("password2")
+            password = request.POST.get("password").strip()
+            password2 = request.POST.get("password2").strip()
 
             user = User.objects.get(username=username)
     

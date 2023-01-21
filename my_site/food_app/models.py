@@ -40,11 +40,3 @@ def slug_generator(sender,instance,*args,**kwargs):
 pre_save.connect(slug_generator, sender=Food)
 pre_save.connect(slug_generator, sender=Soup)  
 
-
-#class Review(Food,Soup): 
-#    user = models.ForeignKey(unique=True,on_delete=False,null=False)
-#    image = models.ImageField(upload_to="media2", height_field=None, width_field=None, max_length=None)
-#    food = models.CharField(max_length=50)
-#    review = models.IntegerField()
-#    pass   
-
