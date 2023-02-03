@@ -51,5 +51,6 @@ urlpatterns = [
     path('search/',include('search_box.urls')),
     path('payments/',include('payments.urls')),
     path('profile/',profile,name='profile'),
+    path('address/',include('address.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

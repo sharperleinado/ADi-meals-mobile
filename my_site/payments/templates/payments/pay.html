@@ -10,14 +10,18 @@
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'food_app/master.css' %}">
+    {% block content %}
+    {% endblock  %}
     <title>Food box</title>
 </head>
 <body>
 
+{% if user.is_authenticated %}
+
 <div class="container">
 <br><h1><center>Pay here!</center></h1><br>
-{% if user.is_authenticated %}
-{#Here, slug is the slug in the model #}
+{#Here, this is the rendered template for "payment view". it takes in two arguments which are: price and slug #}
+{#I used if-statements to diffrentiate the type of price and slug request by the user, and render that particular price and slug item.#}
 
 {#food box#}
 {% if price == item.2 and slug == item.3 %}

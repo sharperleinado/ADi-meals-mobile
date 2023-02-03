@@ -2,6 +2,8 @@ from django.shortcuts import render,redirect
 from food_app.models import Food, Soup
 from food_app.views import food_box_func,soup_box_func
 from .forms import PaymentForm
+#from paystack.utils import create_payment
+#from paystackapi.paystack import Paystack
 # Create your views here.
 
 
@@ -50,5 +52,7 @@ def price_in_pack(request, slug):
 def payment_api(request):
 
     return render(request,'payments/payment_api.html')
+
+
 
     

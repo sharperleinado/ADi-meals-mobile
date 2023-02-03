@@ -57,7 +57,6 @@
 
 
 <div class="container">
-
     {% for message in messages %}
     <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
     <strong>Message:</strong> {{message}}
@@ -66,9 +65,11 @@
     </button>
     </div>
     {% endfor %}
+  </div>
 
 {% if user.is_authenticated %}
-    
+
+<div class="container"> 
     <br><br><h1>Welcome to ADi meals mobile!</h1><br><br>
 
     <p>Hi {{fname | capfirst}}, Welcome to Adi meals mobile!</p><br>

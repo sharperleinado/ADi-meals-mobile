@@ -41,6 +41,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'paystackapi',
+    'paystack',
+    'address.apps.AddressConfig',
     'payments.apps.PaymentsConfig',
     'search_box.apps.SearchBoxConfig',
     'food_app.apps.FoodAppConfig',
@@ -152,3 +155,10 @@ THOUSAND_SEPARATOR=','
 DECIMAL_SEPARATOR='.'
 
 NUMBER_GROUPING=3
+
+
+
+PAYSTACK_SECRET_KEY = 'sk_test_0622d0a65b3a21fbf4f8b517e4ddbc9c3c9a73f8'
+PAYSTACK_PUBLIC_KEY = 'pk_test_7d87cf74e30b9b84ad4e9ee2302e43cf672347b3'
+
+PAYSTACK_PAYMENT_BACKEND = 'paystack.PaystackBackend'
