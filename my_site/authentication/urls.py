@@ -17,6 +17,7 @@ urlpatterns = [
     path('setpassword/',views.setpassword,name='setpassword'),
     path('account_info/',views.account_info,name='account_info'),
     path('edit_account/',views.edit_account,name='edit_account'), 
+    path('mobile/',views.mobile,name='mobile'),
 ]
 
 

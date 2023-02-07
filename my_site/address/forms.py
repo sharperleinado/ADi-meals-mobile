@@ -14,3 +14,4 @@ class UpdateForm(forms.Form):
     city = forms.ChoiceField(choices=city, required=True)
     area = forms.ChoiceField(choices=area, required=True)
     street_name = forms.CharField(max_length=200, required=True)
+

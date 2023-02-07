@@ -16,16 +16,31 @@
 
 {% if user.is_authenticated %}
 
+    <div class="container">
+
+    {% for message in messages %}
+    <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+    <strong>Message:</strong> {{message}}
+    <button type="button" class="close" data-dismissible="alert" aria-label="close">
+    <span aria-hidden="True">&times;</span>
+    </button>
+    </div>
+    {% endfor %}<br>
+
     <h1>Account information</h1><br><br><br><br>
 
-<div class="container">
+
     <h3>Username: {{names.0}}<h3>
     <h3>Names: {{names.1|capfirst}} {{names.2|capfirst}}</h3>
     <h3>E-mail: {{names.3}}</h3>
+    <h3>Phone-no: {{names.4.phone_no}}</h3>
 
     <button class="btn btn-success" onClick = "window.location= '{% url 'authentication:edit_account' %}';">Edit me</button><br><br>
 
-    <a href="{% url 'authentication:setpassword' %}">Reset password</a>
+    <a href="{% url 'authentication:setpassword' %}">Reset password</a><br><br><br><br><br><br><br>
+
+    <button class="btn btn-success" onClick = "window.location= '{% url 'authentication:landing_page' %}';">Go Home</button><br><br>
+
     </div>
     
     {% endif %}

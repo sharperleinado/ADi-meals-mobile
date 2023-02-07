@@ -33,7 +33,7 @@
 <div class="container">
 
 <h2>Username:</h2> {{form.user|capfirst}}<br>
-<h2>Address:</h2> {{form.street_name|capfirst}}, {{form.area|capfirst}}, {{form.city|capfirst}}, {{form.state|capfirst}}, {{form.country|capfirst}}<br><br>
+<h2>Address:</h2> {{form.street_name|capfirst}}, {{form.area|capfirst}}, {{form.city|capfirst}}, {{form.state|capfirst}} state, {{form.country|capfirst}}<br><br>
 <button class="btn btn-success" onClick = "window.location= '{% url 'address:update_address' %}';">Edit me</button><br><br><br>
 
 </div>

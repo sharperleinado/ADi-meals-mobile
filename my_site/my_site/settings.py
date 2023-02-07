@@ -41,8 +41,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'paystackapi',
-    'paystack',
+    'phonenumber_field',
     'address.apps.AddressConfig',
     'payments.apps.PaymentsConfig',
     'search_box.apps.SearchBoxConfig',
@@ -162,3 +161,6 @@ PAYSTACK_SECRET_KEY = 'sk_test_0622d0a65b3a21fbf4f8b517e4ddbc9c3c9a73f8'
 PAYSTACK_PUBLIC_KEY = 'pk_test_7d87cf74e30b9b84ad4e9ee2302e43cf672347b3'
 
 PAYSTACK_PAYMENT_BACKEND = 'paystack.PaystackBackend'
+
+PHONENUMBER_DEFAULT_FORMAT = 'NATIONAL'
+PHONENUMBER_DEFAULT_REGION = 'NG'
