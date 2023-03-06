@@ -31,7 +31,8 @@
 Here I am displaying all kind of soup I have which has two categories of views to show to the user. 
 1 - if a user is logged in, each buttons directs the user the payment page 
 2 - if a user is not logged in, each buttons directs the user to the sign in page to either sign in or sign up. 
-3 - payments page takes in two argument, which is a slug and price of each object item.
+3 - payments page takes in two argument, which is a slug and price of each object item
+# and I permanent price=11.0 to be able to focus on each item slug instead.
 {% endcomment %}
 
             {% if user.is_authenticated %}
@@ -46,7 +47,11 @@ Here I am displaying all kind of soup I have which has two categories of views t
                 <h3>₦{{item.3}}</h3>
                 <button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:payment' price=item.3 slug=item.5 %}';"><strong>Medium box!</strong></button><br><br>
                 <h3>₦{{item.4}}</h3>
-                <button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:payment' price=item.4 slug=item.5 %}';"><strong>Mega box!</strong></button><br><br><br><br><br><br>
+                <button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:payment' price=item.4 slug=item.5 %}';"><strong>Mega box!</strong></button><br><br>
+                
+                <button type="submit" class="btn btn-success" {#onClick="window.location='{% url 'cart:cart_add' slug=item.3 %}';"#} name="add-item" id="add-item">Add to cart</button>
+                  
+                <button type="submit" class="btn btn-danger" {#onClick="window.location='{% url 'cart:cart_add' slug=item.3 %}';"#} name="delete-item" id="delete-item">Delete item</button><br><br><br><br><br><br>
                 </div>
 
                 {% endfor %}

@@ -8,9 +8,9 @@ from my_site.utils import unique_slug_generator
 class Soup(models.Model):
     image = models.ImageField(upload_to="media", height_field=None, width_field=None, max_length=None)
     soup_item = models.CharField(max_length=30)
-    mini_box = models.IntegerField()
-    medium_box = models.IntegerField()
-    mega_box = models.IntegerField()
+    mini_box = models.DecimalField(max_digits=30,decimal_places=2)
+    medium_box = models.DecimalField(max_digits=30,decimal_places=2)
+    mega_box = models.DecimalField(max_digits=30,decimal_places=2)
     slug = models.SlugField(max_length=250,null=True,blank=True)
 
     def __str__(self):
@@ -22,7 +22,7 @@ class Soup(models.Model):
 class Food(models.Model):
     image = models.ImageField(upload_to="media", height_field=None, width_field=None, max_length=None)
     food_item = models.CharField(max_length=30)
-    food_price = models.IntegerField()
+    food_price = models.DecimalField(max_digits=30,decimal_places=2)
     slug = models.SlugField(max_length=250,null=True,blank=True)
 
     def __str__(self):

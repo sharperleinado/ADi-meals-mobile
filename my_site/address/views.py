@@ -16,7 +16,13 @@ def register_address(request):
             form = AddressForm(request.POST)
             if form.is_valid():
                 instance = form.save(commit=False)
-                instance.user = request.user 
+                instance.user = request.user
+                try:
+                    if UserAddress.objects.get(user=instance.user):
+                        messages.error(request, "You have already created address, you can go ahead to Update or Edit your address.")
+                        return redirect('address:billing_address')
+                except:
+                    pass
                 instance.save()
                 messages.success(request, "You have successfully added a shipping address!")
                 messages.success(request, "You can proceed to order a meal now!")

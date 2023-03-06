@@ -2,6 +2,7 @@ from django.http import Http404
 from django.shortcuts import redirect,render
 from food_app.models import Food, Soup
 from payments.forms import PaymentForm
+from cart.models import Cart
 
 # Create your views here.
 
@@ -16,7 +17,7 @@ def food_box_func():
     for item in my_food_box:
         image = item.image
         food_item = item.food_item
-        food_price = item.food_price
+        food_price = int(item.food_price)
         food_slug = item.slug
         list_item = [image,food_item,food_price,food_slug]
         new_list_item = append_list_item.append(list_item)
@@ -30,9 +31,9 @@ def soup_box_func():
     for item in my_soup_box:
         image = item.image
         soup_item = item.soup_item
-        mini = item.mini_box
-        medium = item.medium_box
-        mega = item.mega_box
+        mini = int(item.mini_box)
+        medium = int(item.medium_box)
+        mega = int(item.mega_box)
         slug = item.slug
         list_item2 = [image,soup_item,mini,medium,mega,slug]
         new_list_item2 = append_list_item2.append(list_item2)
@@ -41,6 +42,28 @@ def soup_box_func():
 
 
 def food_box(request):
+    cart = ""
+    cart_items = ""
+    if request.method == "POST":
+        add_item = request.POST.get("add-item")
+        if add_item:
+            try:  
+                cart = Cart.objects.create(user=request.user, is_paid=False, total_price=0)
+                cart.save()
+            except AttributeError:
+                pass
+            
+    #try:
+    #    product_food = Food.objects.get(slug=slug)
+    #    product_soup = Soup.objects.get(slug=slug)
+    #    if product_food is not None:
+    #        cart.total_price += 1
+    #        cart_items = CartItems.objects.create(cart=cart,content_type=Food,object_id=1,quantity=1)
+    #    else:
+    #        cart.total_price += 1
+    #        cart_items2 = CartItems.objects.create(cart=cart,content_type=Soup,object_id=1,quantity=1)
+    #except:
+    #    pass
 
     return render(request,'food_app/food_box.html',{'item':food_box_func()})    
 

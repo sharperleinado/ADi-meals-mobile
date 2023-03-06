@@ -52,5 +52,7 @@ urlpatterns = [
     path('payments/',include('payments.urls')),
     path('profile/',profile,name='profile'),
     path('address/',include('address.urls')),
+    path('review/',include('review.urls')),
+    path('cart/',include('cart.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

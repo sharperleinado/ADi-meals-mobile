@@ -41,6 +41,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'cart.apps.CartConfig',
+    'review.apps.ReviewConfig',
     'phonenumber_field',
     'address.apps.AddressConfig',
     'payments.apps.PaymentsConfig',
@@ -132,7 +134,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
-
+#This is for static files in root, and application directory
 STATIC_URL = 'static/'
 STATICFILES = [os.path.join(BASE_DIR, 'static')]
 

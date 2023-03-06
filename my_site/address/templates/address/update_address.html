@@ -21,9 +21,9 @@
 
 <br><br><div class="container">
 
-<p style = "color:red;"><strong>What a street name should look like: "No 10, Iya basira, Eleko junction."</strong></p>
 <p style = "color:red;"><strong>Please, ensure the information in the STREET NAME field is precise enough to help our deliverer locate you.</strong></p>
-<p style = "color:red;"><strong>If "Other" is selected in the STREET NAME field, perhaps our location data does not capture your area, include the precise area in the street name field.</strong></p><br><br>
+<p style = "color:red;"><strong>If "Other" is selected in the STREET NAME field, perhaps our location data does not capture your area, include the precise area in the street name field.</strong></p>
+<p style = "color:red;"><strong>What a street name should look like: "No 10, Iya basira, Eleko junction."</strong></p><br><br>
 
 
 <h2>Update Adress</h2><br>
@@ -36,6 +36,10 @@
 {#<button class="btn btn-primary" onClick = "window.location= '{% url 'address:billing_address' %}';">View Billing Address</button>#}
 
 </div>
+
+{% else %}
+
+<h3><center>You must be logged in to view this page!</center></h3>
 
 {% endif %}
 
