@@ -2,7 +2,8 @@ from django.http import Http404
 from django.shortcuts import redirect,render
 from food_app.models import Food, Soup
 from payments.forms import PaymentForm
-from cart.models import Cart
+from cart.models import Cart,CartItemsFood,CartItemsSoup
+from django.contrib import messages
 
 # Create your views here.
 
@@ -43,27 +44,25 @@ def soup_box_func():
 
 def food_box(request):
     cart = ""
-    cart_items = ""
+    cart_items = "" 
+    caritems_food = ""
+    caritems_soup = ""
     if request.method == "POST":
         add_item = request.POST.get("add-item")
         if add_item:
-            try:  
-                cart = Cart.objects.create(user=request.user, is_paid=False, total_price=0)
-                cart.save()
+            cart = Cart.objects.get_or_create(user=request.user,is_paid=False,total_price=0)
+            slug = request.POST.get("slug")
+            food = Food.objects.get(slug=slug)
+            
+            try:
+
+                cart_user = Cart.objects.get(user=request.user)
+                cart_user.total_price += 1 
+                cart_user.save()
+                cartitems = CartItemsFood.objects.create(cart=cart_user,product=food,quantity=1)
+                #print(caritems_food.cart)
             except AttributeError:
                 pass
-            
-    #try:
-    #    product_food = Food.objects.get(slug=slug)
-    #    product_soup = Soup.objects.get(slug=slug)
-    #    if product_food is not None:
-    #        cart.total_price += 1
-    #        cart_items = CartItems.objects.create(cart=cart,content_type=Food,object_id=1,quantity=1)
-    #    else:
-    #        cart.total_price += 1
-    #        cart_items2 = CartItems.objects.create(cart=cart,content_type=Soup,object_id=1,quantity=1)
-    #except:
-    #    pass
 
     return render(request,'food_app/food_box.html',{'item':food_box_func()})    
 

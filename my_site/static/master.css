@@ -8,3 +8,27 @@ h1{
 }
 
 
+.btn-success{
+
+    padding-left: 5ch;
+    padding-right: 5ch;
+    padding-top: 5ch;
+    padding-bottom: 5ch;
+    /*font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;*/
+    font-size: 25px;
+    font-weight: 450;
+
+}
+
+.btn-primary{
+
+    padding-left: 5ch;
+    padding-right: 5ch;
+    padding-top: 5ch;
+    padding-bottom: 5ch;
+    /*font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;*/
+    font-size: 25px;
+    font-weight: 450;
+
+}
+

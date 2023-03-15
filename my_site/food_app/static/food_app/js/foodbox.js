@@ -1,4 +1,4 @@
-let btns = document.querySelectorAll('.addProduct button')
+let btns = document.querySelectorAll('.productContainer button')
 
 
 btns.forEach(btn=>{
@@ -12,7 +12,7 @@ function addToCart(e){
 }
 
 
-
 console.log("hello world!")
+console.log("What is happening to this Javascript")
 
 

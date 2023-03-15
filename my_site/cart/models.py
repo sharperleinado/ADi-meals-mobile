@@ -1,7 +1,6 @@
 from django.db import models
 from authentication.models import User 
-from django.contrib.contenttypes.fields import GenericForeignKey
-from django.contrib.contenttypes.models import ContentType
+from food_app.models import Food, Soup
 
 # Create your models here.
 
@@ -15,13 +14,21 @@ class Cart(models.Model):
         return self.user.username
     
 
-class CartItems(models.Model):
+class CartItemsFood(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.PositiveIntegerField()
-    content_object = GenericForeignKey('content_type','object_id')
+    product = models.ForeignKey(Food, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
 
-    #def __str__(self):
-    #    return self.object_id
+    def __str__(self):
+        return self.product.food_item
+    
+
+
+class CartItemsSoup(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    product = models.ForeignKey(Soup, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+
+    def __str__(self):
+        return self.product.soup_item
     

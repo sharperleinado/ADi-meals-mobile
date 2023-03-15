@@ -1,16 +1,12 @@
 from django.shortcuts import render
 from django.contrib.contenttypes.models import ContentType
 from food_app.models import Food,Soup
-from .models import Cart,CartItems
+from .models import Cart
 from django.contrib import messages
 from django.shortcuts import redirect
 
 
 # Create your views here.
-
-
-#content = ContentType.objects.get_for_model(Food)
-
 
 
 def cart_add(request,slug):      
