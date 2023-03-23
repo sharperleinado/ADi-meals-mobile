@@ -175,8 +175,6 @@ def signin(request):
                 
             messages.success(request, "You have successfully logged in")
             return redirect('authentication:account_info')
-            #return redirect('authentication:landing_page')
-
 
         else:
             messages.error(request, "Bad credentials! or Check your mail to verify account if you have not!")

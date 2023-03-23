@@ -13,12 +13,24 @@
     <title>Cart Items</title>
 </head>
 <body>
+<div class="container">
 
 {% if user.is_authenticated %}
-<h2>Cart page!</h2>
+<h1>Cart page!</h1>
 
+{% for item in item %}
+                
+<img src={{item.0.url}} class="img-fluid"><br><br>
+<h2>{{item.1|capfirst}}</h2>
+<h3>₦{{item.2}}</h3>
+<button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:payment' price=item.2 slug=item.3 %}';"><strong>Eat Me!</strong></button><br><br>
+
+{{len}}
+
+{% endfor %}
 {% endif %}
 
+</div>
    </body>
 </html>
 

@@ -46,24 +46,18 @@ def food_box(request):
     cart = ""
     cart_items = "" 
     caritems_food = ""
-    caritems_soup = ""
+    aritems_soup = ""
     if request.method == "POST":
         add_item = request.POST.get("add-item")
         if add_item:
             cart = Cart.objects.get_or_create(user=request.user,is_paid=False,total_price=0)
+                        
             slug = request.POST.get("slug")
             food = Food.objects.get(slug=slug)
             
-            try:
-
-                cart_user = Cart.objects.get(user=request.user)
-                cart_user.total_price += 1 
-                cart_user.save()
-                cartitems = CartItemsFood.objects.create(cart=cart_user,product=food,quantity=1)
-                #print(caritems_food.cart)
-            except AttributeError:
-                pass
-
+            cart_user = Cart.objects.get(user=request.user)
+            cartitems = CartItemsFood.objects.create(cart=cart_user,product=food,quantity=1)
+            
     return render(request,'food_app/food_box.html',{'item':food_box_func()})    
 
 

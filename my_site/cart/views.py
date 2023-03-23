@@ -4,16 +4,15 @@ from food_app.models import Food,Soup
 from .models import Cart
 from django.contrib import messages
 from django.shortcuts import redirect
-
+from .models import CartItemsFood
 
 # Create your views here.
 
 
-def cart_add(request,slug):      
+def cart_items(request): 
+
+    items_in_cart = CartItemsFood.objects.all()
+    length = len(items_in_cart)
         
-    return render(request,'cart/cart-items.html',{})
+    return render(request,'cart/cart-items.html',{'items':items_in_cart,'len':length})
 
-
-def cart_delete(request,slug):
-
-    return render(request,'cart/cart-items.html',{})
