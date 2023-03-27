@@ -16,18 +16,33 @@
 <div class="container">
 
 {% if user.is_authenticated %}
-<h1>Cart page!</h1>
+<h1>Cart page!</h1><br><br><br>
 
-{% for item in item %}
-                
-<img src={{item.0.url}} class="img-fluid"><br><br>
-<h2>{{item.1|capfirst}}</h2>
-<h3>₦{{item.2}}</h3>
-<button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:payment' price=item.2 slug=item.3 %}';"><strong>Eat Me!</strong></button><br><br>
+{% for message in messages %}
+    <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+    <strong>Message:</strong> {{message}}
+    <button type="button" class="close" data-dismissible="alert" aria-label="close">
+    <span aria-hidden="True">&times;</span>
+    </button>
+    </div>
+{% endfor %}<br><br><br><br><br>
 
-{{len}}
+{% for item in items %}
 
+<img src={{item.product.image.url}} class="img-fluid"><br><br>
+<p>{{item.product.food_item|capfirst}}</p>
+<p>{{item.product.food_price}}</p>
+<p>{{item.quantity}}</p>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="+" class="btn btn-success" name="add" id="add">
+        <input type="hidden" value={{item.id}} name="slug" id="slug">
+        <input type="submit" value="-" class="btn btn-danger" name="subtract" id="subtract">
+    </form><br><br><br>
 {% endfor %}
+<p><strong>Total items in cart:</strong> {{len}}</p>
+<p><strong>Total price of items in cart:</strong> </p>
+<button type="submit" class="btn btn-success" {#onClick="window.location='{% url 'payments:payment' price=item.2 slug=item.3 %}';"#}><strong>Proceed to pay!</strong></button>
 {% endif %}
 
 </div>

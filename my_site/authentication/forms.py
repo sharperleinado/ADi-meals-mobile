@@ -12,3 +12,8 @@ class MobileForm(forms.ModelForm):
 #This form is for updating existing phone number.   
 class UpdateMobileForm(forms.Form):
     phone_no = forms.CharField(required=True)
+
+
+class EmailReset(forms.Form):
+    email = forms.CharField(required=True, label="E-mail or Username",max_length=100,widget=forms.TextInput(attrs={'placeholder':"Please, enter your email or username"}))
+

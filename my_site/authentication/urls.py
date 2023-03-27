@@ -18,6 +18,10 @@ urlpatterns = [
     path('account_info/',views.account_info,name='account_info'),
     path('edit_account/',views.edit_account,name='edit_account'), 
     path('mobile/',views.mobile,name='mobile'),
+    path('resetpasswordbymail/',views.email_reset_password,name='email_reset_password'),
+    path('activate2/<uidb64>/<token>',views.activate2,name='activate2'),
+    path('reset/<uid>/<token>',views.password_reset_by_mail,name='reset'),
 ]
+
 
 

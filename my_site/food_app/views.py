@@ -46,7 +46,8 @@ def food_box(request):
     cart = ""
     cart_items = "" 
     caritems_food = ""
-    aritems_soup = ""
+    caritems_soup = ""
+    latest = ""
     if request.method == "POST":
         add_item = request.POST.get("add-item")
         if add_item:
@@ -56,7 +57,12 @@ def food_box(request):
             food = Food.objects.get(slug=slug)
             
             cart_user = Cart.objects.get(user=request.user)
-            cartitems = CartItemsFood.objects.create(cart=cart_user,product=food,quantity=1)
+            cartitems = CartItemsFood.objects.get_or_create(cart=cart_user,product=food)
+            latest_item = CartItemsFood.objects.latest('id')
+            latest = latest_item.product.food_item
+            latest_price = latest_item.product.food_price
+            messages.error(request, f"You have added {latest.capitalize()}, price: {latest_price} to cart!")
+            return redirect('food_app:foodbox')
             
     return render(request,'food_app/food_box.html',{'item':food_box_func()})    
 
