@@ -4,30 +4,52 @@ from food_app.models import Food,Soup
 from django.contrib import messages
 from django.shortcuts import redirect
 from .models import CartItemsFood,Cart
+from django.http import JsonResponse
+from django.db.models import Q
 
 # Create your views here.
 
 
-def cart_items(request): 
-    items_in_cart = CartItemsFood.objects.all()
+def cart_items(request):
+    model = ""
+    new_price = ""
+    add = ""
+    cart = ""
+    subtract = ""
+    items_in_cart = ""
+    
+    try:
+        cart = Cart.objects.get(user=request.user)
+        items_in_cart = CartItemsFood.objects.filter(cart=cart)
+    except:
+        messages.info(request, "No items in cart! Add items to cart to view cart items!")
+        return redirect('home')
+    
     length = len(items_in_cart)
+    if length < 1:
+        cart.delete()
+        return redirect('cart:cart_items')
+
+
     if request.method == "POST":
         add = request.POST.get("add")
         subtract = request.POST.get("subtract")
-        slug = request.POST.get("slug")
         if add:
-            model = CartItemsFood.objects.get(pk=slug)
+            model = items_in_cart.get(pk=add)
             model.quantity += 1
-            current_price = model.product.food_price * model.quantity
+            model.product.food_price = model.total_quantity()
             model.save()
         elif subtract:
-            model = CartItemsFood.objects.get(pk=slug)
+            model = CartItemsFood.objects.get(pk=subtract)
             model.quantity -= 1
-            if model.quantity < 0:
+            model.product.food_price = model.total_quantity()
+            if model.quantity < 1:
                 model.delete()
-                messages.error(request, "You have delted item from cart!")
+                #model.save()
+                messages.error(request, "You have deleted item from cart!")
                 return redirect('cart:cart_items')
-            model.save()
+            else:
+                model.save()
 
-    return render(request,'cart/cart-items.html',{'items':items_in_cart,'len':length})
+    return render(request,'cart/cart-items.html',{'items':items_in_cart,'len':length,})#'new_price':model.product.food_price})
 

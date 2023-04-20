@@ -5,20 +5,26 @@ from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.conf import settings
 from django.conf.urls.static import static
-from food_app.views import food_box_func
-from cart.models import CartItemsFood
+from cart.models import CartItemsFood,Cart
+
 
 
 def home(request):
-    fname=""
+    fname = ""
+    cart = ""
+    items_in_cart = ""
+    length =""
+    
     try:
         fname = request.user.first_name
+        cart = Cart.objects.get(user=request.user)
+        items_in_cart = CartItemsFood.objects.filter(cart=cart)
+        length = len(items_in_cart)
+
     except:
         pass
-    items_in_cart = CartItemsFood.objects.all()
-    length = len(items_in_cart)
 
-    return render(request,'home.html',{'fname':fname,'len':length})
+    return render(request,'home.html',{'fname':fname,'len':length,'cart':cart})
 
 
 def profile(request):

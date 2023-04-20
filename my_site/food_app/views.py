@@ -4,6 +4,8 @@ from food_app.models import Food, Soup
 from payments.forms import PaymentForm
 from cart.models import Cart,CartItemsFood,CartItemsSoup
 from django.contrib import messages
+from django.http import JsonResponse,HttpResponse
+
 
 # Create your views here.
 
@@ -53,8 +55,7 @@ def food_box(request):
         if add_item:
             cart = Cart.objects.get_or_create(user=request.user,is_paid=False,total_price=0)
                         
-            slug = request.POST.get("slug")
-            food = Food.objects.get(slug=slug)
+            food = Food.objects.get(slug=add_item)
             
             cart_user = Cart.objects.get(user=request.user)
             cartitems = CartItemsFood.objects.get_or_create(cart=cart_user,product=food)
@@ -90,4 +91,11 @@ def food_search(request,slug):
         pass
 
     return render(request,'food_app/food_search.html',{'price':price,'item':my_food_box,'item2':my_soup_box}) 
+
+
+def add_to_cart(request):
+
+    return JsonResponse("It is working", safe=False)
+
+
 

@@ -26,9 +26,9 @@ btns.forEach(btn=>{
 
 function addToCart(e){
     let product_id = e.target.value
-    let url = "/food_app/add_to_cart"
+    let url = "/add_to_cart"
     let data = {id:product_id}
-
+    
     fetch(url, {
         method: "POST",
         headers: {
@@ -39,10 +39,11 @@ function addToCart(e){
     })
     .then(res=>res.json())
     .then(data=>{
-        /*document.getElementById("num_of_items").innerHTML = data*/
+        document.getElementById("num_of_items").innerHTML = data
         console.log(data)
     })
     .catch(error=>{
         console.log(error)
     })
 }
+

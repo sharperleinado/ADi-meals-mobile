@@ -15,14 +15,17 @@ class Cart(models.Model):
     
 
 class CartItemsFood(models.Model):
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
-    product = models.ForeignKey(Food, on_delete=models.CASCADE)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name="cart_items")
+    product = models.ForeignKey(Food, on_delete=models.CASCADE, related_name="products")
     quantity = models.IntegerField(default=1)
 
+    def total_quantity(self):
+        new_quantity = self.quantity*self.product.food_price
+        return new_quantity
+    
     def __str__(self):
         return self.product.food_item
     
-
 
 class CartItemsSoup(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
