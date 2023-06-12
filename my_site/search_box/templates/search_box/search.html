@@ -6,19 +6,18 @@
     <title>Search box</title>
 </head>
 <body>
-
     
 {% if searched %}
 {% if food %}
 <br><br><h1><center>Search result found!</center></h1><br><br><br>
 {% for item in food %}
-<center><a href= "{% url 'food_app:food_search' slug=item.slug %}"><li>{{item.food_item | capfirst}}</li></a></center>
+<center><a href= "{% url 'search_box:food_result' slug=item.slug %}"><li>{{item.food_item | capfirst}}</li></a></center>
 {% endfor %}
 
 {% elif soup %}
 <br><br><h1><center>Search result found!<center></h1><br><br><br> 
 {% for item in soup %}
-<center><a href= "{% url 'food_app:food_search' slug=item.slug %}"><li>{{item.soup_item | capfirst}}</li></a></center>
+<center><a href= "{% url 'search_box:food_result' slug=item.slug %}"><li>{{item.soup_item | capfirst}}</li></a></center>
 {% endfor %}
 
 {% else %}

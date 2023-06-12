@@ -20,7 +20,6 @@ def home(request):
         cart = Cart.objects.get(user=request.user)
         items_in_cart = CartItemsFood.objects.filter(cart=cart)
         length = len(items_in_cart)
-
     except:
         pass
 

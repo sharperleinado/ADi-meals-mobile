@@ -32,18 +32,27 @@
 
 <img src={{item.product.image.url}} class="img-fluid"><br><br>
 <p>{{item.product.food_item|capfirst}}</p>
-<p>{{item.product.food_price|capfirst}}</p>
-{#<p>{{new_price}}</p>if you use item.product.food_price, it will keep showing the original food price and not the updated version#}
-<p>{{item.quantity}}</p>
-    <form action="" method="POST">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-success" value={{item.id}} name="add" id="add">+</button>
-        <button type="submit" class="btn btn-danger" value={{item.id}} name="subtract" id="subtract">-</button>
-    </form><br><br><br>
-{% endfor %}
-<p><strong>Total items in cart:</strong> {{len}}</p>
-<p><strong>Total price of items in cart:</strong> </p>
+<p><strong>Unit price: </strong>₦{{item.product.food_price}}</p>
+<p><strong>Quantity: </strong>{{item.quantity}}</p>
+<p><strong>Quantity price: </strong>₦{{item.total_quantity}}</p><br>
+
+
+<div class="productContainer">
+    <button type="submit" class="btn btn-success" name="add-item" value={{item.4}} id="add-item">+</button>
+  </div>
+  <div class="productContainer">
+    <button type="submit" class="btn btn-success" name="add-item" value={{item.4}} id="add-item">-</button>
+  </div><br>
+  <div class="productContainer">
+    <button type="submit" class="btn btn-danger" name="add-item" value={{item.4}} id="add-item">Delete</button>
+  </div><br>
+
+    {% endfor %}
+
+<p><strong>Total items in cart: </strong>0</p>
+<p><strong>Total price of items in cart: ₦</strong>{{new}}</p>
 <button type="submit" class="btn btn-success" {#onClick="window.location='{% url 'payments:payment' price=item.2 slug=item.3 %}';"#}><strong>Proceed to pay!</strong></button>
+
 {% endif %}
 </div>
    </body>

@@ -8,5 +8,6 @@ app_name = 'search_box'
 
 
 urlpatterns = [
-    path('',views.search_box,name='search')
+    path('',views.search_box,name='search'),
+    path('food_result/<slug:slug>/',views.food_result,name='food_result'),
 ]

@@ -8,6 +8,5 @@ app_name = 'cart'
 
 
 urlpatterns = [
-    #path('<str:cart>/<slug:slug>/',views.cart_items,name='cart_items'),
-    path('',views.cart_items,name='cart_items'),
+    path('cart-items/',views.cart_items,name='cart_items'),
 ]

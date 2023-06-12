@@ -16,6 +16,7 @@ from .models import Mobile
 from django.urls import reverse 
 from .forms import UpdateMobileForm
 from django.db.models import Q
+from django.http import HttpResponse
 
 #from .custom_authentication2 import EmailorUsernameModelBackend
 
@@ -497,4 +498,3 @@ def password_reset_by_mail(request, uid, token):
         return redirect('authentication/connection_error.html')
         
     return render(request,'authentication/reset.html')
-
