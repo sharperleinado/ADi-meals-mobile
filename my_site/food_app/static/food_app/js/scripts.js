@@ -16,7 +16,6 @@ function getCookie(name) {
 const csrftoken = getCookie('csrftoken');
 
 
-
 let btns = document.querySelectorAll('.productContainer button')
 
 btns.forEach(btn=>{

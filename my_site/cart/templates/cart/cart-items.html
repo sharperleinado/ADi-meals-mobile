@@ -36,7 +36,6 @@
 <p><strong>Quantity: </strong>{{item.quantity}}</p>
 <p><strong>Quantity price: </strong>₦{{item.total_quantity}}</p><br>
 
-
 <div class="productContainer">
     <button type="submit" class="btn btn-success" name="add-item" value={{item.4}} id="add-item">+</button>
   </div>
@@ -45,12 +44,12 @@
   </div><br>
   <div class="productContainer">
     <button type="submit" class="btn btn-danger" name="add-item" value={{item.4}} id="add-item">Delete</button>
-  </div><br>
+  </div><br><br><br>
 
     {% endfor %}
 
-<p><strong>Total items in cart: </strong>0</p>
-<p><strong>Total price of items in cart: ₦</strong>{{new}}</p>
+<p><strong>Total items in cart: </strong>{{new_sum2}}</p>
+<p><strong>Total price of items in cart: ₦</strong>{{new_sum}}</p>
 <button type="submit" class="btn btn-success" {#onClick="window.location='{% url 'payments:payment' price=item.2 slug=item.3 %}';"#}><strong>Proceed to pay!</strong></button>
 
 {% endif %}

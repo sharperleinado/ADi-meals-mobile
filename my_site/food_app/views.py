@@ -34,41 +34,21 @@ def soup_box_func():
 
     append_list_item2 = []
     for item in my_soup_box:
+        pk = item.pk
         image = item.image
         soup_item = item.soup_item
         mini = item.mini_box
         medium = item.medium_box
         mega = item.mega_box
         slug = item.slug
-        list_item2 = [image,soup_item,mini,medium,mega,slug]
+        list_item2 = [image,soup_item,mini,medium,mega,slug,pk]
         new_list_item2 = append_list_item2.append(list_item2)
     return append_list_item2
 
 
 
 def food_box(request):
-    #this view is for the buttom add button
-    #cart = ""
-    #cart_items = "" 
-    #caritems_food = ""
-    #caritems_soup = ""
-    #latest = ""
-    #if request.method == "POST":
-    #    add_item = request.POST.get("add-item")
-    #    if add_item:
-    #        cart = Cart.objects.get_or_create(user=request.user,is_paid=False,total_price=0)
-    #                    
-    #        food = Food.objects.get(slug=add_item)
-    #        
-    #        cart_user = Cart.objects.get(user=request.user)
-    #        #cartitems = CartItemsFood.product.get_object(product=food)
-    #        #print(cartitems)
-    #        latest_item = CartItemsFood.objects.latest('id')
-    #        latest = latest_item.product.food_item
-    #        latest_price = latest_item.product.food_price
-    #        messages.success(request, f"You have added {latest.capitalize()}, price: {latest_price} to cart!")
-    #        return redirect('food_app:foodbox')
-            
+
     return render(request,'food_app/food_box.html',{'item':food_box_func()})    
 
 
@@ -79,25 +59,29 @@ def soup_box(request):
 
 
 def add_to_cart(request):
+    cart_object = ""
+    product = ""
+    product2 = ""
     data = json.loads(request.body)
     product_id = data['id']
     product = Food.objects.get(pk=product_id)   
-    print(product_id) 
-    print(product)
+    #product2 = Soup.objects.get(pk=product_id) 
     
-    if data:
+    if request.user.is_authenticated:
         cart = Cart.objects.get_or_create(user=request.user,is_paid=False)
-                        
-        food = Food.objects.get(pk=product_id)
             
         cart_user = Cart.objects.get(user=request.user)
-        cartitems = CartItemsFood.objects.get_or_create(cart=cart_user,product=food)
-        cart_object = CartItemsFood.objects.get(product=food)
-        print(cart_object)
+        cartitems = CartItemsFood.objects.get_or_create(cart=cart_user,product=product)
+        
+        #cartitems2 = CartItemsSoup.objects.get_or_create(cart=cart_user,product=product2)
+
+        cart_object = CartItemsFood.objects.get(product=product,cart=cart_user)
         cart_object.quantity += 1
         cart_object.save()
-    
-            
-    return JsonResponse("i am now working!",safe=False)
+        #else:
+        #    cart_object2 = CartItemsSoup.objects.get(product=product2,cart=cart_user)
+        #    cart_object2.quantity += 1
+        #   cart_object2.save()
 
+    return JsonResponse("i am now working!",safe=False)
 

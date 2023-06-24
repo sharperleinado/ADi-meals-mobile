@@ -219,11 +219,9 @@ def signup(request):
                 return redirect('authentication:signin')
         
             except:
-                return render(request, 'authentication/connection_error.html',{'fname':fname})
-                #messages.error(request, "There was an error in connection. Please try again!")
-                #return redirect('authentication:signup')
-                #messages.success(request,"Your account has been successfully created!\nWe have also sent you a confirmation email, please confirm your email address to login into your account.")
-                #return redirect('authentication:signin')
+                #return render(request, 'authentication/connection_error.html',{'fname':fname})
+                messages.success(request,"Your account has been successfully created!\nWe have also sent you a confirmation email, please confirm your email address to login into your account.")
+                return redirect('authentication:signin')
 
     return render(request,'authentication/signup.html')
 
