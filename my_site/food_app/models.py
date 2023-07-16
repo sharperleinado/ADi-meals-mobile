@@ -1,6 +1,8 @@
 from django.db import models
 from django.db.models.signals import pre_save
 from my_site.utils import unique_slug_generator
+from django.contrib.contenttypes.fields import GenericRelation
+from cart.models import CartItemsFood
 
 
 
@@ -12,6 +14,7 @@ class Soup(models.Model):
     medium_box = models.DecimalField(max_digits=30,decimal_places=2)
     mega_box = models.DecimalField(max_digits=30,decimal_places=2)
     slug = models.SlugField(max_length=250,null=True,blank=True)
+    cart = GenericRelation(CartItemsFood)
 
     def __str__(self):
         my_soup = f"{self.soup_item}"
@@ -24,7 +27,9 @@ class Food(models.Model):
     food_item = models.CharField(max_length=30)
     food_price = models.DecimalField(max_digits=30,decimal_places=2)
     slug = models.SlugField(max_length=250,null=True,blank=True)
+    cart = GenericRelation(CartItemsFood)
 
+    
     def __str__(self):
         my_food = f"{self.food_item}\n\n₦{self.food_price}"
         return my_food.capitalize()

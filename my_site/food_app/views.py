@@ -2,10 +2,12 @@ from django.http import Http404
 from django.shortcuts import redirect,render
 from food_app.models import Food, Soup
 from payments.forms import PaymentForm
-from cart.models import Cart,CartItemsFood,CartItemsSoup
+from cart.models import Cart,CartItemsFood
 from django.contrib import messages
 from django.http.response import JsonResponse,HttpResponse
 import json
+from django.contrib.contenttypes.models import ContentType
+
 
 
 # Create your views here.
@@ -65,23 +67,18 @@ def add_to_cart(request):
     data = json.loads(request.body)
     product_id = data['id']
     product = Food.objects.get(pk=product_id)   
-    #product2 = Soup.objects.get(pk=product_id) 
+    id = product.pk
     
     if request.user.is_authenticated:
         cart = Cart.objects.get_or_create(user=request.user,is_paid=False)
             
         cart_user = Cart.objects.get(user=request.user)
-        cartitems = CartItemsFood.objects.get_or_create(cart=cart_user,product=product)
+        content = ContentType.objects.get_for_model(product)
+        cartitems = CartItemsFood.objects.get_or_create(cart=cart_user,content_type=content,object_id=id)
         
-        #cartitems2 = CartItemsSoup.objects.get_or_create(cart=cart_user,product=product2)
-
-        cart_object = CartItemsFood.objects.get(product=product,cart=cart_user)
+        cart_object = CartItemsFood.objects.get(cart=cart_user,content_type=content,object_id=id)
         cart_object.quantity += 1
         cart_object.save()
-        #else:
-        #    cart_object2 = CartItemsSoup.objects.get(product=product2,cart=cart_user)
-        #    cart_object2.quantity += 1
-        #   cart_object2.save()
 
     return JsonResponse("i am now working!",safe=False)
 

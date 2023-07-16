@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Cart
-from cart.models import CartItemsFood,CartItemsSoup
+from cart.models import CartItemsFood
 
 # Register your models here.
 
@@ -8,4 +8,3 @@ from cart.models import CartItemsFood,CartItemsSoup
 
 admin.site.register(Cart)
 admin.site.register(CartItemsFood)
-admin.site.register(CartItemsSoup)

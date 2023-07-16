@@ -1,8 +1,8 @@
 from django.db import models
 from authentication.models import User 
-from food_app.models import Food, Soup
 import uuid
-
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes import fields
 
 # Create your models here.
 
@@ -19,32 +19,36 @@ class Cart(models.Model):
 
 class CartItemsFood(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name="cart_items")
-    product = models.ForeignKey(Food, on_delete=models.CASCADE, related_name="products")
-    quantity = models.IntegerField(default=1)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=0)
+    object_id = models.PositiveIntegerField()
+    content_object = fields.GenericForeignKey('content_type', 'object_id')
 
-    @property
-    def total_quantity(self):
-        new_quantity = self.quantity*self.product.food_price
-        return new_quantity
+    #@property
+    #def total_quantity(self):
+    #    content = ContentType.objects.get_for_id(self.object_id)
+    #    
+    #    new_quantity = self.quantity
+    #    return new_quantity
     
     def __str__(self):
-        return self.product.food_item
+        return str(self.content_object)
     
 
-class CartItemsSoup(models.Model):
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
-    product = models.ForeignKey(Soup, on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=1)
-
-    @property
-    def total_quantity(self):
-        new_quantity = self.quantity*self.product.mini_box
-        new_quantity2 = self.quantity*self.product.medium_box
-        new_quantity3 = self.quantity*self.product.mega_box
-        new_quantity_list = [new_quantity,new_quantity2,new_quantity3]
-        return new_quantity_list
-
-    def __str__(self):
-        return self.product.soup_item
+#class CartItemsSoup(models.Model):
+#    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+#    product = models.ForeignKey(Soup, on_delete=models.CASCADE, default=1)
+#    quantity = models.IntegerField(default=1)
+#    
+#    @property
+#    def total_quantity(self):
+#        new_quantity = self.quantity*self.product.mini_box
+#        new_quantity2 = self.quantity*self.product.medium_box
+#        new_quantity3 = self.quantity*self.product.mega_box
+#        new_quantity_list = [new_quantity,new_quantity2,new_quantity3]
+#        return new_quantity_list
+#
+#    def __str__(self):
+#        return self.product.soup_item
     
     

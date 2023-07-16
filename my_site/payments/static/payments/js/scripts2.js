@@ -16,8 +16,6 @@ function getCookie(name) {
 const csrftoken = getCookie('csrftoken');
 
 
-
-
 let btns = document.querySelectorAll('.productContainer button')
 
 btns.forEach(btn=>{
@@ -26,20 +24,23 @@ btns.forEach(btn=>{
 
 function addToCart(e){
     let product_id = e.target.value
-    let url = "/add_to_cart"
-    let data = {id:product_id}
+    console.log(product_id)
+
+    let url = '/payments/add_to_cart/'
+    
+    let data = {'id':product_id}
     
     fetch(url, {
         method: "POST",
         headers: {
-        "Content-Type":"application/json",
+        'Content-Type':'application/json',
          'X-CSRFToken': csrftoken,
         },
         body: JSON.stringify(data),
     })
     .then(res=>res.json())
     .then(data=>{
-        document.getElementById("num_of_items").innerHTML = data
+        /*document.getElementById("num_of_items").innerHTML = data*/
         console.log(data)
     })
     .catch(error=>{

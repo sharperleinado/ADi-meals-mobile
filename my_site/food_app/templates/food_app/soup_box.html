@@ -4,7 +4,6 @@
             <meta charset="UTF-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <script src="{% static 'food_app/js/scripts.js' %}" defer="true"></script>
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bangers">
             <!-- CSS only -->
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
@@ -47,7 +46,7 @@ Here I am displaying all kind of soup I have which has two categories of views t
                 <h3>₦{{item.3}}</h3>
                 <button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:payment' price=item.3 slug=item.5 %}';"><strong>Medium box!</strong></button><br><br>
                 <h3>₦{{item.4}}</h3>
-                <button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:payment' price=item.4 slug=item.5 %}';"><strong>Mega box!</strong></button><br><br>
+                <button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:payment' price=item.4 slug=item.5 %}';"><strong>Mega box!</strong></button><br><br><br><br><br><br><br>
 
                 {% endfor %}
 

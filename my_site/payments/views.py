@@ -2,6 +2,8 @@ from django.shortcuts import render
 from food_app.models import Food, Soup
 from food_app.views import food_box_func,soup_box_func
 from .forms import PaymentForm
+from django.http.response import JsonResponse,HttpResponse
+import json
 # Create your views here.
 
 
@@ -43,6 +45,8 @@ def price_in_pack(request, slug):
                 total_price = quantity*item[2]
             except ValueError:
                 return render(request,'food_app/404.html')
+            except:
+                return render(request,'food_app/404.html')
 
     return render(request,'payments/price.html',{'form':PaymentForm(),'slug':slug,'quantity':quantity,'total_price':total_price,'item':item})
 
@@ -50,5 +54,10 @@ def price_in_pack(request, slug):
 def payment_api(request):
 
     return render(request,'payments/payment_api.html')
+
+
+def add_to_cart(request):
+
+    return JsonResponse("I am also working", safe=False)
 
     
