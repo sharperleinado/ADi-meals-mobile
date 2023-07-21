@@ -48,6 +48,27 @@
 
   {% endfor %}
 
+
+  {% for item in items_2 %}
+
+<img src={{item.0.url}} class="img-fluid"><br><br>
+<p>{{item.1|capfirst}}</p>
+<p><strong>Unit price: </strong></p>
+<p><strong>Quantity: </strong>{{item.2}}</p>
+<p><strong>Quantity price: </strong></p><br>
+
+<div class="productContainer">
+    <button type="submit" class="btn btn-success" name="add-item" value={{item.4}} id="add-item">+</button>
+  </div>
+  <div class="productContainer">
+    <button type="submit" class="btn btn-success" name="add-item" value={{item.4}} id="add-item">-</button>
+  </div><br>
+  <div class="productContainer">
+    <button type="submit" class="btn btn-danger" name="add-item" value={{item.4}} id="add-item">Delete</button>
+  </div><br><br><br>
+
+  {% endfor %}
+
 <p><strong>Total items in cart: </strong>{{new_sum}}</p>
 <p><strong>Total price of items in cart: ₦</strong>{{new_sum2}}</p>
 <button type="submit" class="btn btn-success" {#onClick="window.location='{% url 'payments:payment' price=item.2 slug=item.3 %}';"#}><strong>Proceed to pay!</strong></button>

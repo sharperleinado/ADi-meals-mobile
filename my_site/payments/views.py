@@ -4,6 +4,8 @@ from food_app.views import food_box_func,soup_box_func
 from .forms import PaymentForm
 from django.http.response import JsonResponse,HttpResponse
 import json
+from cart.models import Cart,CartItemsFood
+from django.contrib.contenttypes.models import ContentType
 # Create your views here.
 
 
@@ -57,6 +59,26 @@ def payment_api(request):
 
 
 def add_to_cart(request):
+    #cart_object = ""
+    #product = ""
+    #data = json.loads(request.body)
+    #product_id = data['id']
+    #product = Soup.objects.get(pk=product_id)   
+    #id = product.pk
+    #print(id)
+    #print(product)
+    
+    #if request.user.is_authenticated:
+    #   cart = Cart.objects.get_or_create(user=request.user,is_paid=False)
+    #        
+    #    cart_user = Cart.objects.get(user=request.user)
+    #    content = ContentType.objects.get_for_model(product)
+    #    cartitems = CartItemsFood.objects.get_or_create(cart=cart_user,content_type=content,object_id=id)
+    #    
+    #    cart_object = CartItemsFood.objects.get(cart=cart_user,content_type=content,object_id=id)
+    #    cart_object.quantity += 1
+    #    cart_object.save()
+    #    print(cart_object.content_object)
 
     return JsonResponse("I am also working", safe=False)
 

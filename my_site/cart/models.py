@@ -23,13 +23,6 @@ class CartItemsFood(models.Model):
     quantity = models.IntegerField(default=0)
     object_id = models.PositiveIntegerField()
     content_object = fields.GenericForeignKey('content_type', 'object_id')
-
-    #@property
-    #def total_quantity(self):
-    #    content = ContentType.objects.get_for_id(self.object_id)
-    #    
-    #    new_quantity = self.quantity
-    #    return new_quantity
     
     def __str__(self):
         return str(self.content_object)

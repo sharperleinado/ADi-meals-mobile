@@ -24,6 +24,7 @@ btns.forEach(btn=>{
 
 function addToCart(e){
     let product_id = e.target.value
+    console.log(product_id)
     
     let url = '/food_app/add_to_cart/'
     

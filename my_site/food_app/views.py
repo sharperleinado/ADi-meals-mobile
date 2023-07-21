@@ -63,22 +63,34 @@ def soup_box(request):
 def add_to_cart(request):
     cart_object = ""
     product = ""
-    product2 = ""
+    product_2 = ""
     data = json.loads(request.body)
     product_id = data['id']
-    product = Food.objects.get(pk=product_id)   
+    product = Food.objects.get(pk=product_id) 
+    product_2 = Soup.objects.get(pk=product_id)  
     id = product.pk
+    id_2 = product_2.pk
     
     if request.user.is_authenticated:
         cart = Cart.objects.get_or_create(user=request.user,is_paid=False)
             
         cart_user = Cart.objects.get(user=request.user)
         content = ContentType.objects.get_for_model(product)
-        cartitems = CartItemsFood.objects.get_or_create(cart=cart_user,content_type=content,object_id=id)
+        content_2 = ContentType.objects.get_for_model(product_2)
+        if content:
+            cartitems = CartItemsFood.objects.get_or_create(cart=cart_user,content_type=content,object_id=id)
+
+            cart_object = CartItemsFood.objects.get(cart=cart_user,content_type=content,object_id=id)
+            cart_object.quantity += 1
+            cart_object.save()
+
+        if content_2:
+            cartitems = CartItemsFood.objects.get_or_create(cart=cart_user,content_type=content_2,object_id=id_2)
+
+            cart_object_2 = CartItemsFood.objects.get(cart=cart_user,content_type=content_2,object_id=id_2)
+            cart_object_2.quantity += 1
+            cart_object_2.save()
         
-        cart_object = CartItemsFood.objects.get(cart=cart_user,content_type=content,object_id=id)
-        cart_object.quantity += 1
-        cart_object.save()
 
     return JsonResponse("i am now working!",safe=False)
 
