@@ -59,17 +59,14 @@ def payment_api(request):
 
 
 def add_to_cart(request):
-    #cart_object = ""
-    #product = ""
-    #data = json.loads(request.body)
-    #product_id = data['id']
-    #product = Soup.objects.get(pk=product_id)   
-    #id = product.pk
-    #print(id)
-    #print(product)
+    data = json.loads(request.body)
+    product_id = data['id']
+    product = Soup.objects.get(pk=product_id)   
+    id = product.pk
+    print(id)
     
     #if request.user.is_authenticated:
-    #   cart = Cart.objects.get_or_create(user=request.user,is_paid=False)
+    #    cart = Cart.objects.get_or_create(user=request.user,is_paid=False)
     #        
     #    cart_user = Cart.objects.get(user=request.user)
     #    content = ContentType.objects.get_for_model(product)
@@ -78,7 +75,6 @@ def add_to_cart(request):
     #    cart_object = CartItemsFood.objects.get(cart=cart_user,content_type=content,object_id=id)
     #    cart_object.quantity += 1
     #    cart_object.save()
-    #    print(cart_object.content_object)
 
     return JsonResponse("I am also working", safe=False)
 

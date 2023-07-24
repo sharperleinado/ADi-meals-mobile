@@ -124,7 +124,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 #This is for static files in root directory
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+    ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -149,8 +151,6 @@ NUMBER_GROUPING=3
 
 PAYSTACK_SECRET_KEY = 'sk_test_0622d0a65b3a21fbf4f8b517e4ddbc9c3c9a73f8'
 PAYSTACK_PUBLIC_KEY = 'pk_test_7d87cf74e30b9b84ad4e9ee2302e43cf672347b3'
-
-PAYSTACK_PAYMENT_BACKEND = 'paystack.PaystackBackend'
 
 PHONENUMBER_DEFAULT_FORMAT = 'NATIONAL'
 PHONENUMBER_DEFAULT_REGION = 'NG'
