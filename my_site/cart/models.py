@@ -3,6 +3,7 @@ from authentication.models import User
 import uuid
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import fields
+#from food_app.views import food_box_func,soup_box_func
 
 # Create your models here.
 
@@ -28,20 +29,3 @@ class CartItemsFood(models.Model):
         return str(self.content_object)
     
 
-#class CartItemsSoup(models.Model):
-#    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
-#    product = models.ForeignKey(Soup, on_delete=models.CASCADE, default=1)
-#    quantity = models.IntegerField(default=1)
-#    
-#    @property
-#    def total_quantity(self):
-#        new_quantity = self.quantity*self.product.mini_box
-#        new_quantity2 = self.quantity*self.product.medium_box
-#        new_quantity3 = self.quantity*self.product.mega_box
-#        new_quantity_list = [new_quantity,new_quantity2,new_quantity3]
-#        return new_quantity_list
-#
-#    def __str__(self):
-#        return self.product.soup_item
-    
-    

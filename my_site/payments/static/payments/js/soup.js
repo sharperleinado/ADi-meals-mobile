@@ -24,11 +24,13 @@ btns.forEach(btn=>{
 
 function addToCart(e){
     let product_id = e.target.value
+    let product_price = e.target.name
     console.log(product_id)
+    console.log(product_price)
     
     let url = '/payments/add_to_cart/'
     
-    let data = {'id':product_id}
+    let data = {'id':product_id,'price':product_price}
 
     fetch(url, {
         method: "POST",
@@ -40,12 +42,11 @@ function addToCart(e){
     })
     .then(res=>res.json())
     .then(data=>{
-        /*document.getElementById("num_of_items").innerHTML = data
-        console.log(data)*/
+        /*document.getElementById("num_of_items").innerHTML = data*/
+        console.log(data)
     })
     .catch(error=>{
         console.log(error)
-        console.warn(xhr.responseText)
     })
 }
 

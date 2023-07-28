@@ -38,12 +38,14 @@ def payment(request, price, slug):
 def price_in_pack(request, slug):
     total_price = ""
     quantity = ""
+    item = ""
     if request.method == "POST":
             try:
                 quantity = int(request.POST.get("quantity"))
                 for item in food_box_func():
                     if slug == item[3]:
                         break
+                    item = item
                 total_price = quantity*item[2]
             except ValueError:
                 return render(request,'food_app/404.html')
@@ -63,19 +65,18 @@ def add_to_cart(request):
     product_id = data['id']
     product = Soup.objects.get(pk=product_id)   
     id = product.pk
-    print(id)
     
-    #if request.user.is_authenticated:
-    #    cart = Cart.objects.get_or_create(user=request.user,is_paid=False)
-    #        
-    #    cart_user = Cart.objects.get(user=request.user)
-    #    content = ContentType.objects.get_for_model(product)
-    #    cartitems = CartItemsFood.objects.get_or_create(cart=cart_user,content_type=content,object_id=id)
-    #    
-    #    cart_object = CartItemsFood.objects.get(cart=cart_user,content_type=content,object_id=id)
-    #    cart_object.quantity += 1
-    #    cart_object.save()
+    if request.user.is_authenticated:
+        cart = Cart.objects.get_or_create(user=request.user,is_paid=False)
+            
+        cart_user = Cart.objects.get(user=request.user)
+        content = ContentType.objects.get_for_model(product)
+        cartitems = CartItemsFood.objects.get_or_create(cart=cart_user,content_type=content,object_id=id)
+        
+        cart_object = CartItemsFood.objects.get(cart=cart_user,content_type=content,object_id=id)
+        cart_object.quantity += 1
+        cart_object.save()
 
-    return JsonResponse("I am also working", safe=False)
+    return JsonResponse("I am also working",safe=False)
 
     

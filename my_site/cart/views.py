@@ -11,7 +11,6 @@ from django.contrib.contenttypes.models import ContentType
 
 
 def cart_items(request):
-    
     try:
         cart = Cart.objects.get(user=request.user)
         items_in_cart = CartItemsFood.objects.filter(cart=cart)
@@ -54,26 +53,37 @@ def cart_items(request):
                 soup_mega = soup.mega_box
                 soup_total.append(quantity)
                 
-                def mini_box():
-                    new_quantity = quantity*soup_mini
-                    return new_quantity
+                def mini(*args):
+                    if args == "mini":
+                        return list(soup_image,soup_item,soup_mini)
                 
-                def medium_box():
-                    new_quantity = quantity*soup_medium
-                    return new_quantity
+                def medium(*args):
+                    if args == "medium":
+                        return list(soup_image,soup_item,soup_medium)
                 
-                def mega_box():
-                    new_quantity = quantity*soup_mega
-                    return new_quantity
+                def mega(*args):
+                    if args == "mega":
+                        return list(soup_image,soup_item,soup_mega)
+                #def mini_box():
+                #    new_quantity = quantity*soup_mini
+                #    return new_quantity
+                
+                #def medium_box():
+                #    new_quantity = quantity*soup_medium
+                #    return new_quantity
+                
+                #def mega_box():
+                #    new_quantity = quantity*soup_mega
+                #    return new_quantity
 
-                soup_total_2.append(mini_box())
+                #soup_total_2.append(mini_box())
                     
-                list_items_2 = [soup_image,soup_item,quantity]
-                new_soup.append(list_items_2)
+                #list_items_2 = [soup_image,soup_item,quantity]
+                #new_soup.append(list_items_2)
 
         sum_of_new_total = sum(food_total)
         sum_of_new_total_2 = sum(food_total_2)
-
+        
     except:
         messages.info(request, "No items in cart! Add items to cart to view cart items!")
         return redirect('home')
