@@ -37,18 +37,18 @@ Here I am displaying all kind of soup I have which has two categories of views t
 
             {% if user.is_authenticated %}
 
-                {% for item in item2 %}
+            {% for item in item2 %}
                 
-                <a href= "{% url 'payments:payment' price=11 slug=item.5 %}"><img src={{item.0.url}} class="img-fluid"></a><br><br>
-                <h2>{{item.1|capfirst}}</h2>  
-                <h3>₦{{item.2}}</h3>
-                <button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:payment' price=item.2 slug=item.5 %}';"><strong>Mini box!</strong></button><br><br>
-                <h3>₦{{item.3}}</h3>
-                <button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:payment' price=item.3 slug=item.5 %}';"><strong>Medium box!</strong></button><br><br>
-                <h3>₦{{item.4}}</h3>
-                <button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:payment' price=item.4 slug=item.5 %}';"><strong>Mega box!</strong></button><br><br><br><br><br><br><br>
+            <a href= "{% url 'payments:payment' price=11 slug=item.8 %}"><img src={{item.0.url}} class="img-fluid"></a><br><br>
+            <h2>{{item.1|capfirst}}</h2>  
+            <h3>₦{{item.3}}</h3>
+            <button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:payment' price=item.3 slug=item.8 %}';"><strong>{{item.2|capfirst}}!</strong></button><br><br>
+            <h3>₦{{item.5}}</h3>
+            <button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:payment' price=item.5 slug=item.8 %}';"><strong>{{item.4|capfirst}}!</strong></button><br><br>
+            <h3>₦{{item.7}}</h3>
+            <button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:payment' price=item.7 slug=item.8 %}';"><strong>{{item.6|capfirst}}!</strong></button><br><br><br><br><br><br><br>
 
-                {% endfor %}
+            {% endfor %}
 
             {% else %}
 
@@ -56,12 +56,12 @@ Here I am displaying all kind of soup I have which has two categories of views t
  
             <a href= "{% url 'authentication:signin' %}"><img src={{item.0.url}} class="img-fluid"></a><br><br>
             <h2>{{item.1|capfirst}}</h2>  
-            <h3>₦{{item.2}}</h3>
-            <button type="submit" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Mini box!</strong></button><br><br>
             <h3>₦{{item.3}}</h3>
-            <button type="submit" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Medium box!</strong></button><br><br>
-            <h3>₦{{item.4}}</h3>
-            <button type="submit" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Mega box!</strong></button><br><br><br>
+            <button type="submit" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>{{item.2|capfirst}}!</strong></button><br><br>
+            <h3>₦{{item.5}}</h3>
+            <button type="submit" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>{{item.4|capfirst}}!</strong></button><br><br>
+            <h3>₦{{item.7}}</h3>
+            <button type="submit" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>{{item.6|capfirst}}!</strong></button><br><br><br>
 
             {% endfor %}
 

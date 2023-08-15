@@ -20,13 +20,15 @@ def payment(request, price, slug):
         for item in food_box_func():
             if price == item[2] and slug == item[3]:
                 break
+        item = item
     except:
         pass
-
+    
     try:
         for item2 in soup_box_func():
-            if price == item2[2] and slug == item2[5] or price == item2[3] and slug == item2[5] or price == item2[4] and slug == item2[5] or price == 11 and slug == item2[5]:
+            if price == item2[3] and slug == item2[8] or price == item2[5] and slug == item2[8] or price == item2[7] and slug == item2[8] or price == 11 and slug == item2[8]:
                 break
+        item2 = item2
     except:
         pass
     
@@ -65,17 +67,19 @@ def add_to_cart(request):
     product_id = data['id']
     product = Soup.objects.get(pk=product_id)   
     id = product.pk
+    product_price = data['price']
+    
     
     if request.user.is_authenticated:
         cart = Cart.objects.get_or_create(user=request.user,is_paid=False)
             
         cart_user = Cart.objects.get(user=request.user)
         content = ContentType.objects.get_for_model(product)
-        cartitems = CartItemsFood.objects.get_or_create(cart=cart_user,content_type=content,object_id=id)
+        cartitems = CartItemsFood.objects.get_or_create(cart=cart_user,content_type=content,object_id=id,food_category=product_price)
         
-        cart_object = CartItemsFood.objects.get(cart=cart_user,content_type=content,object_id=id)
+        cart_object = CartItemsFood.objects.get(cart=cart_user,content_type=content,object_id=id,food_category=product_price)
         cart_object.quantity += 1
-        cart_object.save()
+        cart_object.save()   
 
     return JsonResponse("I am also working",safe=False)
 

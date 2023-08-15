@@ -43,30 +43,30 @@
 
 {#for soup box#}
 {#Image click#}
-{% if price == 11 and slug == item2.5 %}
+{% if price == 11 and slug == item2.8 %}
 <img src={{item2.0.url}} class="img-fluid"><br><br>
 <h2>{{item2.1|capfirst}}</h2>
-<p>Mini box</p>
-<h3>₦{{item2.2}}</h3>
-<div class="productContainer">
-<button type="submit" class="btn btn-success" name={{item2.2}} value={{item2.6}} id="add-item">Add to cart</button><br><br><br><br><br><br>
-</div>
-
-<p><strong style = "color:red;">Payment Information</strong></p>
-<p><strong style = "color:red;">Name and e-mail can be left blank, and will be autofilled with your registered name and e-mail.</strong></p>
-<form action="{% url 'payments:payment_api' %}" method="POST">
-{% csrf_token %}
-{{form.as_p}}
-<button type="submit" class="btn btn-success"><strong>Proceed to pay!</strong></button><br><br><br><br><br><br><br>
-</form>
-
-
-<img src={{item2.0.url}} class="img-fluid"><br><br>
-<h2>{{item2.1|capfirst}}</h2>
-<p>Medium box</p>
+<p>{{item2.2}}</p>
 <h3>₦{{item2.3}}</h3>
 <div class="productContainer">
-<button type="submit" class="btn btn-success" name={{item2.3}} value={{item2.6}} id="add-item">Add to cart</button><br><br><br><br><br><br>
+<button type="submit" class="btn btn-success" name={{item2.2}} value={{item2.9}} id="add-item">Add to cart</button><br><br><br><br><br><br>
+</div>
+
+<p><strong style = "color:red;">Payment Information</strong></p>
+<p><strong style = "color:red;">Name and e-mail can be left blank, and will be autofilled with your registered name and e-mail.</strong></p>
+<form action="{% url 'payments:payment_api' %}" method="POST">
+{% csrf_token %}
+{{form.as_p}}
+<button type="submit" class="btn btn-success"><strong>Proceed to pay!</strong></button><br><br><br><br><br><br><br>
+</form>
+
+
+<img src={{item2.0.url}} class="img-fluid"><br><br>
+<h2>{{item2.1|capfirst}}</h2>
+<p>{{item2.4}}</p>
+<h3>₦{{item2.5}}</h3>
+<div class="productContainer">
+<button type="submit" class="btn btn-success" name={{item2.4}} value={{item2.9}} id="add-item">Add to cart</button><br><br><br><br><br><br>
 </div>
 
 
@@ -81,10 +81,10 @@
 
 <img src={{item2.0.url}} class="img-fluid"><br><br>
 <h2>{{item2.1|capfirst}}</h2>
-<p>Mega box</p>
-<h3>₦{{item2.4}}</h3>
+<p>{{item2.6}}</p>
+<h3>₦{{item2.7}}</h3>
 <div class="productContainer">
-<button type="submit" class="btn btn-success" name={{item2.4}} value={{item2.6}} id="add-item">Add to cart</button><br><br><br><br><br><br>
+<button type="submit" class="btn btn-success" name={{item2.6}} value={{item2.9}} id="add-item">Add to cart</button><br><br><br><br><br><br>
 </div>
 
 <p><strong style = "color:red;">Payment Information</strong></p>
@@ -96,14 +96,14 @@
 </form>
 
 
-{% elif price == item2.2 and slug == item2.5 %}
+{% elif price == item2.3 and slug == item2.8 %}
 {#Mini box#}
 <img src={{item2.0.url}} class="img-fluid"><br><br>
 <h2>{{item2.1|capfirst}}</h2>
-<p>Mini box</p>
-<h3>₦{{item2.2}}</h3>
+<p>{{item2.2}}</p>
+<h3>₦{{item2.3}}</h3>
 <div class="productContainer">
-<button type="submit" class="btn btn-success" name={{item2.2}} value={{item2.6}} id="add-item">Add to cart</button><br><br><br><br><br><br>
+<button type="submit" class="btn btn-success" name={{item2.2}} value={{item2.9}} id="add-item">Add to cart</button><br><br><br><br><br><br>
 </div>
 
 <p><strong style = "color:red;">Payment Information</strong></p>
@@ -115,14 +115,14 @@
 </form>
 
 
-{% elif price == item2.3 and slug == item2.5 %}
+{% elif price == item2.5 and slug == item2.8 %}
 {#Medium box#}
 <img src={{item2.0.url}} class="img-fluid"><br><br>
 <h2>{{item2.1|capfirst}}</h2>
-<p>Medium box</p>
-<h3>₦{{item2.3}}</h3><br>
+<p>{{item2.4}}</p>
+<h3>₦{{item2.5}}</h3><br>
 <div class="productContainer">
-<button type="submit" class="btn btn-success" name={{item2.3}} value={{item2.6}} id="add-item">Add to cart</button><br><br><br><br><br><br>
+<button type="submit" class="btn btn-success" name={{item2.4}} value={{item2.9}} id="add-item">Add to cart</button><br><br><br><br><br><br>
 </div>
 
 <p><strong style = "color:red;">Payment Information</strong></p>
@@ -134,14 +134,14 @@
 </form>
 
 
-{% elif price == item2.4 and slug == item2.5 %}
+{% elif price == item2.7 and slug == item2.8 %}
 {#Mega box#}
 <img src={{item2.0.url}} class="img-fluid"><br><br>
 <h2>{{item2.1|capfirst}}</h2>
-<p>Mega box</p>
-<h3>₦{{item2.4}}</h3>
+<p>{{item2.6}}</p>
+<h3>₦{{item2.7}}</h3>
 <div class="productContainer">
-<button type="submit" class="btn btn-success" name={{item2.4}} value={{item2.6}} id="add-item">Add to cart</button><br><br><br><br><br><br>
+<button type="submit" class="btn btn-success" name={{item2.6}} value={{item2.9}} id="add-item">Add to cart</button><br><br><br><br><br><br>
 </div>
 
 <p><strong style = "color:red;">Payment Information</strong></p>

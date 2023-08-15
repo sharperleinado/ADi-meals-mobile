@@ -28,9 +28,58 @@
     </div>
 {% endfor %}<br><br><br><br><br>
 
-{% for item in items %}
 
-<img src={{item.0.url}} class="img-fluid"><br><br>
+
+{% for item in items %}
+{% if item.1 == food_model %}
+
+<img src={{item.0.image.url}} class="img-fluid"><br><br>
+<p>{{item.0.food_item|capfirst}}</p>
+<p><strong>Unit price: </strong>₦{{item.0.food_price}}</p>
+<p><strong>Quantity: </strong>{{item.3}}</p>
+<p><strong>Quantity price+Unit price: </strong>₦{{item.5}}</p><br>
+
+<div class="productContainer">
+    <button type="submit" class="btn btn-success" name="add-item" value={{item.4}} id="add-item">+</button>
+  </div>
+  <div class="productContainer">
+    <button type="submit" class="btn btn-success" name="add-item" value={{item.4}} id="add-item">-</button>
+  </div><br>
+  <div class="productContainer">
+    <button type="submit" class="btn btn-danger" name="add-item" value={{item.4}} id="add-item">Delete</button>
+  </div><br><br><br>
+
+  {% else %}
+
+<img src={{item.0.image.url}} class="img-fluid"><br><br>
+<p>{{item.0.soup_item|capfirst}} | {{item.4|capfirst}} box </p>
+<p><strong>Unit price: </strong>₦{{item.5}}</p>
+<p><strong>Quantity: </strong>{{item.3}}</p>
+<p><strong>Quantity price: </strong>₦{{item.6}}</p><br>
+
+<div class="productContainer">
+    <button type="submit" class="btn btn-success" name="add-item" value={{item.4}} id="add-item">+</button>
+  </div>
+  <div class="productContainer">
+    <button type="submit" class="btn btn-success" name="add-item" value={{item.4}} id="add-item">-</button>
+  </div><br>
+  <div class="productContainer">
+    <button type="submit" class="btn btn-danger" name="add-item" value={{item.4}} id="add-item">Delete</button>
+  </div><br><br><br>
+  
+  {% endif %}
+{% endfor %}
+
+
+
+
+
+
+
+{% comment "" %}
+{% for item in items %}
+{% if item.content_type == food_model %}
+<img src={{item.image.url}} class="img-fluid"><br><br>
 <p>{{item.1|capfirst}}</p>
 <p><strong>Unit price: </strong>₦{{item.2}}</p>
 <p><strong>Quantity: </strong>{{item.3}}</p>
@@ -46,16 +95,13 @@
     <button type="submit" class="btn btn-danger" name="add-item" value={{item.4}} id="add-item">Delete</button>
   </div><br><br><br>
 
-  {% endfor %}
-
-
-  {% for item in items_2 %}
-
+  {% else %}
+samuel
 <img src={{item.0.url}} class="img-fluid"><br><br>
 <p>{{item.1|capfirst}}</p>
-<p><strong>Unit price: </strong></p>
+<p><strong>Unit price: </strong>₦</p>
 <p><strong>Quantity: </strong>{{item.2}}</p>
-<p><strong>Quantity price: </strong></p><br>
+<p><strong>Quantity price: </strong>₦</p><br>
 
 <div class="productContainer">
     <button type="submit" class="btn btn-success" name="add-item" value={{item.4}} id="add-item">+</button>
@@ -66,8 +112,11 @@
   <div class="productContainer">
     <button type="submit" class="btn btn-danger" name="add-item" value={{item.4}} id="add-item">Delete</button>
   </div><br><br><br>
+  
+  {% endif %}
+{% endfor %}
+{% endcomment %}
 
-  {% endfor %}
 
 <p><strong>Total items in cart: </strong>{{new_sum}}</p>
 <p><strong>Total price of items in cart: ₦</strong>{{new_sum2}}</p>

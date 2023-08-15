@@ -39,11 +39,15 @@ def soup_box_func():
         pk = item.pk
         image = item.image
         soup_item = item.soup_item
-        mini = item.mini_box
-        medium = item.medium_box
-        mega = item.mega_box
+        mini_name = item.mini_box_name
+        mini_price = item.mini_box_price
+        medium_name = item.medium_box_name
+        medium_price = item.medium_box_price
+        mega_name = item.mega_box_name
+        mega_price = item.mega_box_price
         slug = item.slug
-        list_item2 = [image,soup_item,mini,medium,mega,slug,pk]
+        uuid = item.uid
+        list_item2 = [image,soup_item,mini_name,mini_price,medium_name,medium_price,mega_name,mega_price,slug,pk,uuid]
         new_list_item2 = append_list_item2.append(list_item2)
     return append_list_item2
 

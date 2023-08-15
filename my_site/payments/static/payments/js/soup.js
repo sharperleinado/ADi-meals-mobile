@@ -25,11 +25,9 @@ btns.forEach(btn=>{
 function addToCart(e){
     let product_id = e.target.value
     let product_price = e.target.name
-    console.log(product_id)
-    console.log(product_price)
     
     let url = '/payments/add_to_cart/'
-    
+
     let data = {'id':product_id,'price':product_price}
 
     fetch(url, {
