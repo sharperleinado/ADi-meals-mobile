@@ -24,18 +24,44 @@
 {#I used if-statements to diffrentiate the type of price and slug request by the user, and render that particular price and slug item.#}
 
 {#food box#}
-{% if price == item.2 and slug == item.3 %}
-<img src={{item.0.url}} class="img-fluid"><br><br>
-<h2>{{item.1|capfirst}}</h2>
-<h3>₦{{item.2}}</h3><br>
+{% if price == item.food_price and slug == item.slug %}
+<img src={{item.image.url}} class="img-fluid"><br><br>
+<h2>{{item.food_item|capfirst}}</h2>
+<h3>₦{{item.food_price}}</h3><br>
 
-<p><strong style = "color:red;">Payment Information</strong></p>
-<p><strong style = "color:red;">Name and e-mail can be left blank, and will be autofilled with your registered name and e-mail.</strong></p>
-<form action="{% url 'payments:payment_api' %}" method="POST">
-{% csrf_token %}
-{{form.as_p}}
-<button type="submit" class="btn btn-success"><strong>Proceed to pay!</strong></button><br><br><br><br>
-</form>
+<button type="submit" class="btn btn-success" onClick="makePayment()"><strong>Flutterwave</strong></button><br><br><br><br><br><br><br>
+
+<script src="https://checkout.flutterwave.com/v3.js"></script>
+      <script>
+
+      let food_price = "{{item.food_price}}"
+      let tx_ref = "{{tx_ref}}"
+
+        function makePayment() {
+            FlutterwaveCheckout({
+              public_key: "FLWPUBK_TEST-28bc811c5116187d1b308d076c2e0672-X",
+              tx_ref: {{tx_ref}},
+              amount: {{item.food_price}},
+              currency: "NGN",
+              payment_options: "card, mobilemoneyghana, ussd",
+              redirect_url: "http://localhost:8000/payments/verify_payment" + item.pk,
+              meta: {
+                consumer_id: 23,
+                consumer_mac: "92a3-912ba-1192a",
+              },
+              customer: {
+                email: {{email}},
+                phone_number: {{phone_no}},
+                name: {{username}},
+              },
+              customizations: {
+                title: "Adi Meals Limited",
+                description: "Your number one online food and soup vendor",
+                logo: "https://www.logolynx.com/images/logolynx/22/2239ca38f5505fbfce7e55bbc0604386.jpeg",
+              },
+            });
+          }
+    </script>
 {% endif %}
 
 
@@ -43,114 +69,70 @@
 
 {#for soup box#}
 {#Image click#}
-{% if price == 11 and slug == item2.8 %}
-<img src={{item2.0.url}} class="img-fluid"><br><br>
-<h2>{{item2.1|capfirst}}</h2>
-<p>{{item2.2}}</p>
-<h3>₦{{item2.3}}</h3>
+{% if price == 11 and slug == item2.slug %}
+<img src={{item2.image.url}} class="img-fluid"><br><br>
+<h2>{{item2.soup_item|capfirst}}</h2>
+<p>{{item2.mini_box_name}}</p>
+<h3>₦{{item2.mini_box_price}}</h3>
 <div class="productContainer">
-<button type="submit" class="btn btn-success" name={{item2.2}} value={{item2.9}} id="add-item">Add to cart</button><br><br><br><br><br><br>
+<button type="submit" class="btn btn-success" name={{item2.mini_box_name}} value={{item2.pk}} id="add-item">Add to cart</button><br><br><br><br><br><br>
 </div>
-
-<p><strong style = "color:red;">Payment Information</strong></p>
-<p><strong style = "color:red;">Name and e-mail can be left blank, and will be autofilled with your registered name and e-mail.</strong></p>
-<form action="{% url 'payments:payment_api' %}" method="POST">
-{% csrf_token %}
-{{form.as_p}}
-<button type="submit" class="btn btn-success"><strong>Proceed to pay!</strong></button><br><br><br><br><br><br><br>
-</form>
+<button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:flutter_api' username=username email=email phone_no=phone_no price=price %}';"><strong>Proceed to pay!</strong></button><br><br><br><br><br><br><br>
 
 
-<img src={{item2.0.url}} class="img-fluid"><br><br>
-<h2>{{item2.1|capfirst}}</h2>
-<p>{{item2.4}}</p>
-<h3>₦{{item2.5}}</h3>
+<img src={{item2.image.url}} class="img-fluid"><br><br>
+<h2>{{item2.soup_item|capfirst}}</h2>
+<p>{{item2.medium_box_name}}</p>
+<h3>₦{{item2.medium_box_price}}</h3>
 <div class="productContainer">
-<button type="submit" class="btn btn-success" name={{item2.4}} value={{item2.9}} id="add-item">Add to cart</button><br><br><br><br><br><br>
+<button type="submit" class="btn btn-success" name={{item2.medium_box_name}} value={{item2.pk}} id="add-item">Add to cart</button><br><br><br><br><br><br>
 </div>
+<button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:flutter_api' username=username email=email phone_no=phone_no price=price %}';"><strong>Proceed to pay!</strong></button><br><br><br><br><br><br><br>
 
 
-<p><strong style = "color:red;">Payment Information</strong></p>
-<p><strong style = "color:red;">Name and e-mail can be left blank, and will be autofilled with your registered name and e-mail.</strong></p>
-<form action="{% url 'payments:payment_api' %}" method="POST">
-{% csrf_token %}
-{{form.as_p}}
-<button type="submit" class="btn btn-success"><strong>Proceed to pay!</strong></button><br><br><br><br><br><br><br>
-</form>
-
-
-<img src={{item2.0.url}} class="img-fluid"><br><br>
-<h2>{{item2.1|capfirst}}</h2>
-<p>{{item2.6}}</p>
-<h3>₦{{item2.7}}</h3>
+<img src={{item2.image.url}} class="img-fluid"><br><br>
+<h2>{{item2.soup_item|capfirst}}</h2>
+<p>{{item2.mega_box_name}}</p>
+<h3>₦{{item2.mega_box_price}}</h3>
 <div class="productContainer">
-<button type="submit" class="btn btn-success" name={{item2.6}} value={{item2.9}} id="add-item">Add to cart</button><br><br><br><br><br><br>
+<button type="submit" class="btn btn-success" name={{item2.mega_box_name}} value={{item2.pk}} id="add-item">Add to cart</button><br><br><br><br><br><br>
 </div>
+<button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:flutter_api' username=username email=email phone_no=phone_no price=price %}';"><strong>Proceed to pay!</strong></button><br><br><br><br><br><br><br>
 
-<p><strong style = "color:red;">Payment Information</strong></p>
-<p><strong style = "color:red;">Name and e-mail can be left blank, and will be autofilled with your registered name and e-mail.</strong></p>
-<form action="{% url 'payments:payment_api' %}" method="POST">
-{% csrf_token %}
-{{form.as_p}}
-<button type="submit" class="btn btn-success"><strong>Proceed to pay!</strong></button><br><br><br><br><br><br><br>
-</form>
-
-
-{% elif price == item2.3 and slug == item2.8 %}
+{% elif price == item2.mini_box_price and slug == item2.slug %}
 {#Mini box#}
-<img src={{item2.0.url}} class="img-fluid"><br><br>
-<h2>{{item2.1|capfirst}}</h2>
-<p>{{item2.2}}</p>
-<h3>₦{{item2.3}}</h3>
+<img src={{item2.image.url}} class="img-fluid"><br><br>
+<h2>{{item2.soup_item|capfirst}}</h2>
+<p>{{item2.mini_box_name}}</p>
+<h3>₦{{item2.mini_box_price}}</h3>
 <div class="productContainer">
-<button type="submit" class="btn btn-success" name={{item2.2}} value={{item2.9}} id="add-item">Add to cart</button><br><br><br><br><br><br>
+<button type="submit" class="btn btn-success" name={{item2.mini_box_name}} value={{item2.pk}} id="add-item">Add to cart</button><br><br><br><br><br><br>
 </div>
-
-<p><strong style = "color:red;">Payment Information</strong></p>
-<p><strong style = "color:red;">Name and e-mail can be left blank, and will be autofilled with your registered name and e-mail.</strong></p>
-<form action="{% url 'payments:payment_api' %}" method="POST">
-{% csrf_token %}
-{{form.as_p}}
-<button type="submit" class="btn btn-success"><strong>Proceed to pay!</strong></button><br><br><br><br><br><br><br>
-</form>
+<button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:flutter_api' username=username email=email phone_no=phone_no price=price %}';"><strong>Proceed to pay!</strong></button><br><br><br><br><br><br><br>
 
 
-{% elif price == item2.5 and slug == item2.8 %}
+{% elif price == item2.medium_box_price and slug == item2.slug %}
 {#Medium box#}
-<img src={{item2.0.url}} class="img-fluid"><br><br>
-<h2>{{item2.1|capfirst}}</h2>
-<p>{{item2.4}}</p>
-<h3>₦{{item2.5}}</h3><br>
+<img src={{item2.image.url}} class="img-fluid"><br><br>
+<h2>{{item2.soup_item|capfirst}}</h2>
+<p>{{item2.medium_box_name}}</p>
+<h3>₦{{item2.medium_box_price}}</h3><br>
 <div class="productContainer">
-<button type="submit" class="btn btn-success" name={{item2.4}} value={{item2.9}} id="add-item">Add to cart</button><br><br><br><br><br><br>
+<button type="submit" class="btn btn-success" name={{item2.medium_box_name}} value={{item2.pk}} id="add-item">Add to cart</button><br><br><br><br><br><br>
 </div>
-
-<p><strong style = "color:red;">Payment Information</strong></p>
-<p><strong style = "color:red;">Name and e-mail can be left blank, and will be autofilled with your registered name and e-mail.</strong></p>
-<form action="{% url 'payments:payment_api' %}" method="POST">
-{% csrf_token %}
-{{form.as_p}}
-<button type="submit" class="btn btn-success"><strong>Proceed to pay!</strong></button><br><br><br><br><br><br><br>
-</form>
+<button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:flutter_api' username=username email=email phone_no=phone_no price=price %}';"><strong>Proceed to pay!</strong></button><br><br><br><br><br><br><br>
 
 
-{% elif price == item2.7 and slug == item2.8 %}
+{% elif price == item2.mega_box_price and slug == item2.slug %}
 {#Mega box#}
-<img src={{item2.0.url}} class="img-fluid"><br><br>
-<h2>{{item2.1|capfirst}}</h2>
-<p>{{item2.6}}</p>
-<h3>₦{{item2.7}}</h3>
+<img src={{item2.image.url}} class="img-fluid"><br><br>
+<h2>{{item2.soup_item|capfirst}}</h2>
+<p>{{item2.mega_box_name}}</p>
+<h3>₦{{item2.mega_box_price}}</h3>
 <div class="productContainer">
-<button type="submit" class="btn btn-success" name={{item2.6}} value={{item2.9}} id="add-item">Add to cart</button><br><br><br><br><br><br>
+<button type="submit" class="btn btn-success" name={{item2.mega_box_name}} value={{item2.pk}} id="add-item">Add to cart</button><br><br><br><br><br><br>
 </div>
-
-<p><strong style = "color:red;">Payment Information</strong></p>
-<p><strong style = "color:red;">Name and e-mail can be left blank, and will be autofilled with your registered name and e-mail.</strong></p>
-<form action="{% url 'payments:payment_api' %}" method="POST">
-{% csrf_token %}
-{{form.as_p}}
-<button type="submit" class="btn btn-success"><strong>Proceed to pay!</strong></button><br><br><br><br><br><br><br>
-</form>
+<button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:flutter_api' username=username email=email phone_no=phone_no price=price %}';"><strong>Proceed to pay!</strong></button><br><br><br><br><br><br><br>
 
 {% endif %}
 

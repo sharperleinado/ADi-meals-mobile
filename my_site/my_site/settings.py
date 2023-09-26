@@ -1,6 +1,7 @@
 from pathlib import Path
 import os
 from info import *
+import environ
 
 EMAIL_USE_TLS = EMAIL_USE_TLS
 EMAIL_HOST = EMAIL_HOST
@@ -19,6 +20,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-38w+yczvta+h61ca9jq6^&z%18)dd!g)ktznjmw)n5cw+qmhd7'
+
+#PUBLIV_KEKY = 'FLWPUBK_TEST-28bc811c5116187d1b308d076c2e0672-X'
+#SECRET_KEY = 'FLWSECK_TEST-967edbec4647ca0ac9fc3bf58e534e93-X'
+env = environ.Env()
+environ.Env.read_env()
+def get_env_variable(var_name):
+    try:
+        return os.environ.get(var_name)
+    except KeyError:
+        error_msg = "set the %s environment variable" % var_name
+        raise error_msg
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

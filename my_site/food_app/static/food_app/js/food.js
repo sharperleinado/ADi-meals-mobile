@@ -24,7 +24,6 @@ btns.forEach(btn=>{
 
 function addToCart(e){
     let product_id = e.target.value
-    console.log(product_id)
     
     let url = '/food_app/add_to_cart/'
     
@@ -40,8 +39,8 @@ function addToCart(e){
     })
     .then(res=>res.json())
     .then(data=>{
-        /*document.getElementById("num_of_items").innerHTML = data*/
-        console.log(data)
+        document.getElementById("cart").innerHTML = data
+        
     })
     .catch(error=>{
         console.log(error)

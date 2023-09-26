@@ -19,11 +19,11 @@
 
 {% if user.is_authenticated %}
 
-{% if slug == item.3 %}
+{% if slug == item.slug %}
 
 <div class = "container">
-<img src={{item.0.url}} class="img-fluid"><br><br>
-<h3>{{quantity}} pack of {{item.1|capfirst}}</h3>
+<img src={{item.image.url}} class="img-fluid"><br><br>
+<h3>{{quantity}} pack of {{item.food_item|capfirst}}</h3>
 <h3>₦{{total_price}}</h3><br>
 
 <p><strong style = "color:red;">Payment Information</strong></p>
@@ -40,7 +40,7 @@
 {% else %}
 
 <div class = "container">
-<a href= "{% url 'authentication:signin' %}"><img src={{item.0.url}} class="img-fluid"></a><br><br>
+<a href= "{% url 'authentication:signin' %}"><img src={{item.image.url}} class="img-fluid"></a><br><br>
 <h3>{{quantity}} pack of {{item.1|capfirst}}</h3>
 <h3>₦{{total_price}}</h3>
 <button type="submit" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Click Me!</strong></button><br><br>

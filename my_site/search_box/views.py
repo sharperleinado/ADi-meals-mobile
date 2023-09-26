@@ -3,6 +3,7 @@ from tkinter.tix import FileEntry
 from django.shortcuts import render,redirect
 from food_app.models import Food,Soup
 from django.contrib import messages
+from django.contrib.contenttypes.models import ContentType
 
 # Create your views here.
 
@@ -15,6 +16,7 @@ def search_box(request):
     try:
         if request.method == "POST":
             search_box = request.POST.get("search").strip()
+            #food  = ContentType.objects.get()
             food_box = Food.objects.filter(food_item__contains = search_box).all()
             soup_box = Soup.objects.filter(soup_item__contains = search_box).all()
             search_list = [search_box,food_box,soup_box]

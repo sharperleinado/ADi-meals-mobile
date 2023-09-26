@@ -1,6 +1,6 @@
 from django.db import models
 from authentication.models import User
-from food_app.views import food_box_func,soup_box_func
+from food_app.views import food,soup
 
 # Create your models here.
 
@@ -15,7 +15,6 @@ class ReviewModel(models.Model):
         soup_box = []
         try:
             if self.food_type == "food":
-                food = food_box_func()
                 for item in food:
                     food_box.append(item[1])
                 food_box = food_box
@@ -25,7 +24,6 @@ class ReviewModel(models.Model):
             pass
         else:
             try:
-                soup = soup_box_func()
                 for item in soup:
                     soup_box.append(item[1])
                 soup_box = soup_box

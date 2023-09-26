@@ -14,10 +14,53 @@
     <title>Cart Items</title>
 </head>
 <body>
-<div class="container">
-
 {% if user.is_authenticated %}
-<h1>Cart page!</h1><br><br><br>
+
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button type="submit" id="cart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>cart({{len}})</strong></button>
+      <button type="submit" id="signout" class="btn btn-success" onClick="window.location='{% url 'authentication:signout' %}';"><strong>Sign out</strong></button>
+      <ul class="navbar-nav ml-auto">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button></ul>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Main</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled">Disabled</a>
+          </li>
+        </ul>
+        <form class="d-flex" role="search" action= "{% url 'search_box:search' %}" method="POST">
+          {% csrf_token %}
+          <input type="search" class="form-control me-2" id= "search" name="search" placeholder="Search boxes!" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+
+    <div class="container">
+
+    <h1>Cart page!</h1><br><br><br>
 
 {% for message in messages %}
     <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
@@ -27,6 +70,7 @@
     </button>
     </div>
 {% endfor %}<br><br><br><br><br>
+
 
 
 
@@ -71,59 +115,13 @@
 {% endfor %}
 
 
-
-
-
-
-
-{% comment "" %}
-{% for item in items %}
-{% if item.content_type == food_model %}
-<img src={{item.image.url}} class="img-fluid"><br><br>
-<p>{{item.1|capfirst}}</p>
-<p><strong>Unit price: </strong>₦{{item.2}}</p>
-<p><strong>Quantity: </strong>{{item.3}}</p>
-<p><strong>Quantity price: </strong>₦{{item.4}}</p><br>
-
-<div class="productContainer">
-    <button type="submit" class="btn btn-success" name="add-item" value={{item.4}} id="add-item">+</button>
-  </div>
-  <div class="productContainer">
-    <button type="submit" class="btn btn-success" name="add-item" value={{item.4}} id="add-item">-</button>
-  </div><br>
-  <div class="productContainer">
-    <button type="submit" class="btn btn-danger" name="add-item" value={{item.4}} id="add-item">Delete</button>
-  </div><br><br><br>
-
-  {% else %}
-samuel
-<img src={{item.0.url}} class="img-fluid"><br><br>
-<p>{{item.1|capfirst}}</p>
-<p><strong>Unit price: </strong>₦</p>
-<p><strong>Quantity: </strong>{{item.2}}</p>
-<p><strong>Quantity price: </strong>₦</p><br>
-
-<div class="productContainer">
-    <button type="submit" class="btn btn-success" name="add-item" value={{item.4}} id="add-item">+</button>
-  </div>
-  <div class="productContainer">
-    <button type="submit" class="btn btn-success" name="add-item" value={{item.4}} id="add-item">-</button>
-  </div><br>
-  <div class="productContainer">
-    <button type="submit" class="btn btn-danger" name="add-item" value={{item.4}} id="add-item">Delete</button>
-  </div><br><br><br>
-  
-  {% endif %}
-{% endfor %}
-{% endcomment %}
-
-
-<p><strong>Total items in cart: </strong>{{new_sum}}</p>
-<p><strong>Total price of items in cart: ₦</strong>{{new_sum2}}</p>
+<p><strong>Total items in cart: </strong>{{total_quantities}}</p>
+<p><strong>Total price of items in cart: ₦</strong>{{total_price}}</p>
 <button type="submit" class="btn btn-success" {#onClick="window.location='{% url 'payments:payment' price=item.2 slug=item.3 %}';"#}><strong>Proceed to pay!</strong></button>
 
 {% endif %}
+
 </div>
-   </body>
+</body>
 </html>
 
