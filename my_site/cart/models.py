@@ -52,15 +52,19 @@ class CartItemsFood(models.Model):
 #for the total amount of food and soup prices in the cart
     def all_soup_and_food_prices(self):
         all_prices = []
-        for item in CartItemsFood.objects.all():
+        cart = Cart.objects.get(user=self.cart.user)
+        cart_items = CartItemsFood.objects.filter(cart=cart)
+        for item in cart_items:
             all_prices.append(item.total_price())
             total_price = sum(all_prices)
         return total_price
     
-#for the total number of food and soup quantites in the cart    
+#for the total number of food and soup quantites in the cart  
     def all_food_and_soup_quantities(self):
         all_total =[]
-        for item in CartItemsFood.objects.all():
+        cart = Cart.objects.get(user=self.cart.user)
+        cart_items = CartItemsFood.objects.filter(cart=cart)
+        for item in cart_items:
             all_total.append(item.quantity)
             total = sum(all_total)
         return total

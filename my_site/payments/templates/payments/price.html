@@ -26,13 +26,8 @@
 <h3>{{quantity}} pack of {{item.food_item|capfirst}}</h3>
 <h3>₦{{total_price}}</h3><br>
 
-<p><strong style = "color:red;">Payment Information</strong></p>
-<p><strong style = "color:red;">Name and e-mail can be left blank, and will be autofilled with your registered name and e-mail.</strong></p>
-<form action="{% url 'payments:payment_api' %}" method="POST">
-{% csrf_token %}
-{{form.as_p}}
-<button type="submit" class="btn btn-success"><strong>Proceed to pay!</strong></button><br><br><br><br>
-</form>
+<p><strong style = "color:red;">Please, note that for quantities above 50 should be given a day or two before use.</strong></p>
+<button type="submit" class="btn btn-success" onClick="makePayment({{total_price}},{{item.pk}})"><strong>Proceed to pay!</strong></button><br><br><br><br>
 
 </div>
 {% endif %}
@@ -48,5 +43,39 @@
 </div>
 
 {% endif %}
+
+<script src="https://checkout.flutterwave.com/v3.js"></script>
+<script>
+    let tx_ref = "{{tx_ref}}"
+    let username = "{{ username }}"
+    let email = "{{ email }}"
+    let phone_no = "{{ phone_no }}"
+
+function makePayment(price, pk) {
+    FlutterwaveCheckout({
+      public_key: "FLWPUBK_TEST-28bc811c5116187d1b308d076c2e0672-X",
+      tx_ref: tx_ref,
+      amount: price,
+      currency: "NGN",
+      payment_options: "card, mobilemoneyghana, ussd",
+      redirect_url: "https://127.0.0.1:8000/payments/verify_payment/" + pk,
+      meta: {
+        consumer_id: 23,
+        consumer_mac: "92a3-912ba-1192a",
+      },
+      customer: {
+        email: email,
+        phone_number: phone_no,
+        name: username,
+      },
+      customizations: {
+        title: "ADi meals limited",
+        description: "Your go to place for food and soup service",
+        logo: "https://www.logolynx.com/images/logolynx/22/2239ca38f5505fbfce7e55bbc0604386.jpeg",
+      },
+    });
+  }
+</script>
+
 </body>
 </html>

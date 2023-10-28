@@ -21,7 +21,7 @@
   <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Navbar</a>
-      <button type="submit" id="cart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>Cart({{total_quantities}})</strong></button>
+      <button type="submit" id="food_addtocart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>Cart({{total_quantities}})</strong></button>
       <button type="submit" id="signout" class="btn btn-success" onClick="window.location='{% url 'authentication:signout' %}';"><strong>Sign out</strong></button>
       <ul class="navbar-nav ml-auto">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

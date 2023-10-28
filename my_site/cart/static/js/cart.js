@@ -18,12 +18,55 @@ const csrftoken = getCookie('csrftoken');
 
 let btns = document.querySelectorAll('.productContainer button')
 
+
 btns.forEach(btn=>{
     btn.addEventListener("click", addToCart)
+    
 })
 
 function addToCart(e){
-    let product_id = e.target.value
+    let btn_name = e.target.name
+    let btn_value = e.target.value
+    let food_category = e.target.dataset.item
+    
+    /*console.log(btn_name + ", object value = " + btn_value)*/
+    console.log(btn_name)
+    console.log(food_category)
+    
+
+    let url = '/cart/cart-buttons/'
+    
+    let data = {'id':btn_value,'btn_name':btn_name,'form':food_category}
+    
+    fetch(url, {
+        method: "POST",
+        headers: {
+        'Content-Type':'application/json',
+         'X-CSRFToken': csrftoken,
+        },
+        body: JSON.stringify(data),
+    })
+    .then(res=>res.json())
+    .then(data=>{
+        
+    })
+    .catch(error=>{
+        console.log(error)
+    })
+}
+
+
+/*
+
+let btns = document.querySelectorAll('.productContainer button')
+
+btns.forEach(btn=>{
+    btn.addEventListener("click", addToCart)
+
+})
+
+function addToCart(e){
+    let product_id = e.target.name
     
     let url = '/food_app/add_to_cart/'
     
@@ -39,12 +82,11 @@ function addToCart(e){
     })
     .then(res=>res.json())
     .then(data=>{
-        document.getElementById("food_addtocart").innerHTML = data
-        console.log(data)
+        document.getElementById("cart").innerHTML = data
         
     })
     .catch(error=>{
         console.log(error)
     })
-}
+}*/
 

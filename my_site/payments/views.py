@@ -7,11 +7,15 @@ from django.contrib.contenttypes.models import ContentType
 from authentication.models import Mobile
 import math
 import random
-from my_site.settings import get_env_variable
+#from my_site.settings import get_env_variable
 import requests
 # Create your views here.
 
 
+
+def tx_ref():
+    tx_ref = ''+str(math.floor(1000000 + random.random()*9000000))
+    return  tx_ref
 
 #What I did here is that I called the food and soup model function, then I looped through the items,
 #Set an if-statement condition so that once the price and slug request == any of the particular request item, 
@@ -20,24 +24,15 @@ def payment(request, price, slug):
     username = request.user.username
     email = request.user.email
     mobile = Mobile.objects.get(user=request.user)
-    phone_no = mobile.phone_no
-    item = ""
-    item2 = ""   
-    
-    def tx_ref():
-        tx_ref = ''+str(math.floor(1000000 + random.random()*9000000))
-        return  tx_ref
+    phone_no = mobile.phone_no  
     
     try:
         for item in food:
             if price == item.food_price and slug == item.slug:
                 break
         item = item
-        print(item.__class__)
-    except:
-        pass
-    
-    try:
+        print(item.food_item)
+        
         for item2 in soup:
             if price == item2.mini_box_price and slug == item2.slug or price == item2.medium_box_price and slug == item2.slug or price == item2.mega_box_price and slug == item2.slug or price == 11 and slug == item2.slug:
                 break
@@ -48,9 +43,12 @@ def payment(request, price, slug):
     return render(request,'payments/pay.html',{'tx_ref':tx_ref,'price':price,'slug':slug,'item':item,'item2':item2,'email':email,'username':username,'phone_no':phone_no})
 
 
+
 #What I did here is, I first got the price_in_pack input from the user,
 #Then if the slug request taken from the price_in_pack form is equal to the slug in the price_in_pack, the program breaks out of the loop and return the view to the user 
 def price_in_pack(request, slug):
+    mobile = Mobile.objects.get(user=request.user)
+    phone_no = mobile.phone_no
     total_price = ""
     quantity = ""
     item = ""
@@ -67,10 +65,10 @@ def price_in_pack(request, slug):
             except:
                 return render(request,'food_app/404.html')
 
-    return render(request,'payments/price.html',{'slug':slug,'quantity':quantity,'total_price':total_price,'item':item})
+    return render(request,'payments/price.html',{'slug':slug,'quantity':quantity,'total_price':total_price,'item':item,'tx_ref':tx_ref,'email':request.user.email,'username':request.user.username,'phone_no':phone_no})
 
 
-
+'''
 def flutter_api(request,username,email,phone_no,price):
     auth_token= get_env_variable('SECRET_KEY')#env('SECRET_KEY')
     hed = {'Authorization': f"Bearer {auth_token}"}
@@ -99,34 +97,38 @@ def flutter_api(request,username,email,phone_no,price):
     response = requests.post(url, json=data, headers=hed)
     response_data=response.json()
     link=response_data['data'], response_data['link']
-    return link
+    return link'''
 
-def verify_payment(request, pk):
+def verify_payment(request, pk, item):
+    print(pk)
+    print(item)
     
     return HttpResponse("finished")
 
 
 def add_to_cart(request):
-    data = json.loads(request.body)
-    product_id = data['id']
-    product = soup.get(pk=product_id)   
-    id = product.pk
-    product_price = data['price']
+    try:
+        data = json.loads(request.body)
+        product_id = data['id']
+        product = soup.get(pk=product_id)   
+        id = product.pk
+        product_price = data['price']
     
     
-    if request.user.is_authenticated:
-        cart = Cart.objects.get_or_create(user=request.user,is_paid=False)
+        if request.user.is_authenticated:
+            cart = Cart.objects.get_or_create(user=request.user,is_paid=False)
             
-        cart_user = Cart.objects.get(user=request.user)
-        content = ContentType.objects.get_for_model(product)
-        cartitems = CartItemsFood.objects.get_or_create(cart=cart_user,content_type=content,object_id=id,food_category=product_price)
+            cart_user = Cart.objects.get(user=request.user)
+            content = ContentType.objects.get_for_model(product)
+            cartitems = CartItemsFood.objects.get_or_create(cart=cart_user,content_type=content,object_id=id,food_category=product_price)
         
-        cart_object = CartItemsFood.objects.get(cart=cart_user,content_type=content,object_id=id,food_category=product_price)
-        cart_object.quantity += 1
-        cart_object.save()   
+            cart_object = CartItemsFood.objects.get(cart=cart_user,content_type=content,object_id=id,food_category=product_price)
+            cart_object.quantity += 1
+            cart_object.save()   
         
-        num_of_items = cart_object.all_food_and_soup_quantities()
-        
+            num_of_items = cart_object.all_food_and_soup_quantities()
+    except:
+        pass
     return JsonResponse(num_of_items,safe=False)
 
     

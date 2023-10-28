@@ -1,10 +1,11 @@
-{% load static %}
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="{% static 'js/cart.js' %}" defer="true"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bangers">
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
@@ -19,7 +20,7 @@
   <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Navbar</a>
-      <button type="submit" id="cart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>cart({{len}})</strong></button>
+      <button type="submit" id="soup_addtocart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>cart({{total_quantities}})</strong></button>
       <button type="submit" id="signout" class="btn btn-success" onClick="window.location='{% url 'authentication:signout' %}';"><strong>Sign out</strong></button>
       <ul class="navbar-nav ml-auto">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,19 +79,17 @@
 {% if item.1 == food_model %}
 
 <img src={{item.0.image.url}} class="img-fluid"><br><br>
-<p>{{item.0.food_item|capfirst}}</p>
+<p id="unknown">{{item.0.food_item|capfirst}}</p>
 <p><strong>Unit price: </strong>₦{{item.0.food_price}}</p>
 <p><strong>Quantity: </strong>{{item.3}}</p>
 <p><strong>Quantity price+Unit price: </strong>₦{{item.5}}</p><br>
 
-<div class="productContainer">
-    <button type="submit" class="btn btn-success" name="add-item" value={{item.4}} id="add-item">+</button>
-  </div>
-  <div class="productContainer">
-    <button type="submit" class="btn btn-success" name="add-item" value={{item.4}} id="add-item">-</button>
-  </div><br>
-  <div class="productContainer">
-    <button type="submit" class="btn btn-danger" name="add-item" value={{item.4}} id="add-item">Delete</button>
+<div class="productContainers">
+    <button type="submit" class="btn btn-success" name="add-item" value={{item.2}} id="add-item">+</button>
+
+    <button type="submit" class="btn btn-success" name="subtract-item" value={{item.2}} id="subtract-item">-</button><br><br>
+
+    <button type="submit" class="btn btn-danger" name="delete-item" value={{item.2}} id="delete-item">Delete</button>
   </div><br><br><br>
 
   {% else %}
@@ -101,27 +100,59 @@
 <p><strong>Quantity: </strong>{{item.3}}</p>
 <p><strong>Quantity price: </strong>₦{{item.6}}</p><br>
 
+
 <div class="productContainer">
-    <button type="submit" class="btn btn-success" name="add-item" value={{item.4}} id="add-item">+</button>
-  </div>
-  <div class="productContainer">
-    <button type="submit" class="btn btn-success" name="add-item" value={{item.4}} id="add-item">-</button>
-  </div><br>
-  <div class="productContainer">
-    <button type="submit" class="btn btn-danger" name="add-item" value={{item.4}} id="add-item">Delete</button>
+    <button type="submit" class="btn btn-success" name="add-item" value={{item.2}} data-item="{{item.4}}" id="add-item">+</button>
+
+    <button type="submit" class="btn btn-success" name="subtract-item" value={{item.2}} data-item="{{item.4}}" id="subtract-item">-</button><br><br>
+
+    <button type="submit" class="btn btn-danger" name="delete-item" value={{item.2}} data-item="{{item.4}}" id="delete-item">Delete</button>
   </div><br><br><br>
   
   {% endif %}
 {% endfor %}
 
-
+<button type="submit" class="btn btn-danger" name="add-item" id="add-item">Clear all</button>
 <p><strong>Total items in cart: </strong>{{total_quantities}}</p>
 <p><strong>Total price of items in cart: ₦</strong>{{total_price}}</p>
-<button type="submit" class="btn btn-success" {#onClick="window.location='{% url 'payments:payment' price=item.2 slug=item.3 %}';"#}><strong>Proceed to pay!</strong></button>
+<button type="button" class="btn btn-success" onClick="makePayment({{total_price}},{{cart.pk}})">Proceed to pay</button>
 
 {% endif %}
 
 </div>
+
+<script src="https://checkout.flutterwave.com/v3.js"></script>
+<script>
+    let tx_ref = "{{tx_ref}}"
+    let username = "{{ username }}"
+    let email = "{{ email }}"
+    let phone_no = "{{ phone_no }}"
+
+function makePayment(price, pk) {
+    FlutterwaveCheckout({
+      public_key: "FLWPUBK_TEST-28bc811c5116187d1b308d076c2e0672-X",
+      tx_ref: tx_ref,
+      amount: price,
+      currency: "NGN",
+      payment_options: "card, mobilemoneyghana, ussd",
+      redirect_url: "https://127.0.0.1:8000/payments/verify_payment/" + pk,
+      meta: {
+        consumer_id: 23,
+        consumer_mac: "92a3-912ba-1192a",
+      },
+      customer: {
+        email: email,
+        phone_number: phone_no,
+        name: username,
+      },
+      customizations: {
+        title: "ADi meals limited",
+        description: "Your go to place for food and soup service",
+        logo: "https://www.logolynx.com/images/logolynx/22/2239ca38f5505fbfce7e55bbc0604386.jpeg",
+      },
+    });
+  }
+</script>
 </body>
 </html>
 
