@@ -78,30 +78,30 @@
 {% for item in items %}
 {% if item.1 == food_model %}
 
-<img src={{item.0.image.url}} class="img-fluid"><br><br>
-<p id="unknown">{{item.0.food_item|capfirst}}</p>
-<p><strong>Unit price: </strong>₦{{item.0.food_price}}</p>
-<p><strong>Quantity: </strong>{{item.3}}</p>
+<img src={{item.2.image.url}} class="img-fluid"><br><br>
+<p>{{item.2.food_item|capfirst}}</p>
+<p><strong>Unit price: </strong>₦{{item.2.food_price}}</p>
+<p id="quantity_{{ item.0 }}"><strong>Quantity: </strong>{{item.3}}</p>
 <p><strong>Quantity price+Unit price: </strong>₦{{item.5}}</p><br>
 
-<div class="productContainers">
-    <button type="submit" class="btn btn-success" name="add-item" value={{item.2}} id="add-item">+</button>
+<div class="productContainer">
+    <button type="submit" class="btn btn-success" name="add-item" value={{item.2}} data-item="{{item.4}}" id="add-item">+</button>
 
-    <button type="submit" class="btn btn-success" name="subtract-item" value={{item.2}} id="subtract-item">-</button><br><br>
+    <button type="submit" class="btn btn-success" name="subtract-item" value={{item.2}} data-item="{{item.4}}" id="subtract-item">-</button><br><br>
 
-    <button type="submit" class="btn btn-danger" name="delete-item" value={{item.2}} id="delete-item">Delete</button>
+    <button type="submit" class="btn btn-danger" name="delete-item" value={{item.2}} data-item="{{item.4}}" id="delete-item">Delete</button>
   </div><br><br><br>
 
   {% else %}
 
-<img src={{item.0.image.url}} class="img-fluid"><br><br>
-<p>{{item.0.soup_item|capfirst}} | {{item.4|capfirst}} box </p>
+<img src={{item.2.image.url}} class="img-fluid"><br><br>
+<p>{{item.2.soup_item|capfirst}} | {{item.4|capfirst}} box </p>
 <p><strong>Unit price: </strong>₦{{item.5}}</p>
 <p><strong>Quantity: </strong>{{item.3}}</p>
 <p><strong>Quantity price: </strong>₦{{item.6}}</p><br>
 
 
-<div class="productContainer">
+<div class="productContainersss">
     <button type="submit" class="btn btn-success" name="add-item" value={{item.2}} data-item="{{item.4}}" id="add-item">+</button>
 
     <button type="submit" class="btn btn-success" name="subtract-item" value={{item.2}} data-item="{{item.4}}" id="subtract-item">-</button><br><br>

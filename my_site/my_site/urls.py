@@ -12,18 +12,13 @@ from cart.models import CartItemsFood,Cart
 def home(request):
     fname = ""
     cart = ""
-    items_in_cart = ""
-    length =""
-    
     try:
         fname = request.user.first_name
         cart = Cart.objects.get(user=request.user)
-        items_in_cart = CartItemsFood.objects.filter(cart=cart)
-        length = len(items_in_cart)
     except:
         pass
 
-    return render(request,'home.html',{'fname':fname,'len':length,'cart':cart})
+    return render(request,'home.html',{'fname':fname,'cart':cart})
 
 
 def profile(request):

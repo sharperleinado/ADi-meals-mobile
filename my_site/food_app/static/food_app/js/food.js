@@ -41,7 +41,6 @@ function addToCart(e){
     .then(data=>{
         document.getElementById("food_addtocart").innerHTML = data
         console.log(data)
-        
     })
     .catch(error=>{
         console.log(error)

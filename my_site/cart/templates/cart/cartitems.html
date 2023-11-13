@@ -1,25 +1,26 @@
-<!Doctype html>
+<!DOCTYPE html>
 {% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="{% static 'payments/js/soup.js' %}" defer="true"></script>
+    <script src="{% static 'js/cart.js' %}" defer="true"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bangers">
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <!-- JavaScript Bundle with Pocpper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">}</script>
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'food_app/master.css' %}">
-    <title>Payment</title>
+    <title>Cart Items</title>
 </head>
 <body>
+{% if user.is_authenticated %}
 
   <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Navbar</a>
-      <button type="submit" id="soup_addtocart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>Cart({{cart.total_quantity}})</strong></button>
+      <button type="submit" id="soup_addtocart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>cart({{cart.total_quantity}})</strong></button>
       <button type="submit" id="signout" class="btn btn-success" onClick="window.location='{% url 'authentication:signout' %}';"><strong>Sign out</strong></button>
       <ul class="navbar-nav ml-auto">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,74 +59,53 @@
   </nav>
 
 
-<div class="container">
+    <div class="container">
 
-    {% for message in messages %}
+    <h1>Cart page!</h1><br><br><br>
+
+{% for message in messages %}
     <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
     <strong>Message:</strong> {{message}}
     <button type="button" class="close" data-dismissible="alert" aria-label="close">
     <span aria-hidden="True">&times;</span>
     </button>
     </div>
-    {% endfor %}<br><br><br><br><br>
-
-{% if user.is_authenticated %}
-
-<h1><center>Pay here!</center></h1><br>
-{# for food #}
-{% if item and slug == item.slug %}
-<img src={{item.image.url}} class="img-fluid"><br><br>
-<h2>{{item.food_item|capfirst}}</h2>
-<h3>₦{{item.food_price}}</h3><br>
-<button type="button" class="btn btn-success" onClick="makePayment({{item.food_price}},{{item.pk}})"><strong>Flutterwave</strong></button><br><br><br><br><br><br><br>
-
-
-
-{#for soup#}
-{#image#}
-{% if item2 and price == 11.0 and slug == item.slug %}
-<p>Yo! I am working.</p>
+{% endfor %}<br><br><br><br><br>
 
 
 
 
+{% for item in items %}
 
-{% elif item2 and price == item2.mini_box_price and slug == item2.slug %}
-{#Mini box#}
-<img src={{item2.image.url}} class="img-fluid"><br><br>
-<h2>{{item2.soup_item|capfirst}}</h2>
-<p>{{item2.mini_box_name}}</p>
-<h3>₦{{item2.mini_box_price}}</h3>
+<img src={{item.content_object.image.url}} class="img-fluid"><br><br>
+{#Here I differentiated between the two content_types to display it differently to the user#}
+{% if item.content_type == food %}
+<p>{{item.content_object.food_item|capfirst}}</p>
+<p><strong>Unit price: </strong>₦{{item.content_object.food_price}}</p>
+{% else %}
+<p>{{item.content_object.soup_item|capfirst}} | {{item.food_category|capfirst}} box </p>
+<p><strong>Unit price: </strong>₦{{item.soup_price}}</p>
+{% endif %}
+<p id="quantity"><strong>Quantity: </strong>{{item.quantity}}</p>
+<p><strong>Quantity price+Unit price: </strong>₦{{item.total_price}}</p><br>
+
 <div class="productContainer">
-<button type="submit" class="btn btn-success" name={{item2.mini_box_name}} value={{item2.pk}} id="add-item">Add to cart</button><br><br>
-</div>
-<button type="button" class="btn btn-success" onClick="makePayment({{item2.mini_box_price}},{{item2.pk}})"><strong>Flutterwave</strong></button><br><br><br><br><br><br><br>
+    <button type="submit" class="btn btn-success" name="add-item" value={{item.object_id}} data-item="{{item.food_category}}" id="add-item">+</button>
 
-{% elif item2 and price == item2.medium_box_price and slug == item2.slug %}
-{#Medium box#}
-<img src={{item2.image.url}} class="img-fluid"><br><br>
-<h2>{{item2.soup_item|capfirst}}</h2>
-<p>{{item2.medium_box_name}}</p>
-<h3>₦{{item2.medium_box_price}}</h3><br>
-<div class="productContainer">
-<button type="submit" class="btn btn-success" name={{item2.medium_box_name}} value={{item2.pk}} id="add-item">Add to cart</button><br><br>
-</div>
-<button type="button" class="btn btn-success" onClick="makePayment({{item2.medium_box_price}},{{item2.pk}})"><strong>Flutterwave</strong></button><br><br><br><br><br><br><br>
+    <button type="submit" class="btn btn-success" name="subtract-item" value={{item.object_id}} data-item="{{item.food_category}}" id="subtract-item">-</button><br><br>
 
-{% elif item2 and price == item2.mega_box_price and slug == item2.slug %}
-{#Mega box#}
-<img src={{item2.image.url}} class="img-fluid"><br><br>
-<h2>{{item2.soup_item|capfirst}}</h2>
-<p>{{item2.mega_box_name}}</p>
-<h3>₦{{item2.mega_box_price}}</h3>
-<div class="productContainer">
-<button type="submit" class="btn btn-success" name={{item2.mega_box_name}} value={{item2.pk}} id="add-item">Add to cart</button><br><br>
-</div>
-<button type="button" class="btn btn-success" onClick="makePayment({{item2.mega_box_price}},{{item2.pk}})"><strong>Flutterwave</strong></button><br><br><br><br><br><br><br>
+    <button type="submit" class="btn btn-danger" name="delete-item" value={{item.object_id}} data-item="{{item.food_category}}" id="delete-item">Delete</button>
+  </div><br><br><br>
+
+{% endfor %}
+
+<button type="submit" class="btn btn-danger" name="add-item" id="add-item">Clear all</button>
+<p><strong>Total items in cart: </strong>{{cart.total_quantity}}</p>
+<p><strong>Total price of items in cart: ₦</strong>{{cart.total_price}}</p>
+<button type="button" class="btn btn-success" onClick="makePayment({{cart.total_price}},{{cart.pk}})">Proceed to pay</button>
 
 {% endif %}
 
-{% endif %}
 </div>
 
 <script src="https://checkout.flutterwave.com/v3.js"></script>
@@ -135,7 +115,7 @@
     let email = "{{ email }}"
     let phone_no = "{{ phone_no }}"
 
-function makePayment(price,pk) {
+function makePayment(price, pk) {
     FlutterwaveCheckout({
       public_key: "FLWPUBK_TEST-28bc811c5116187d1b308d076c2e0672-X",
       tx_ref: tx_ref,
@@ -160,5 +140,6 @@ function makePayment(price,pk) {
     });
   }
 </script>
-    </body>
+</body>
 </html>
+

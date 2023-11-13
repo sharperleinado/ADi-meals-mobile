@@ -36,10 +36,6 @@ def food_result(request,slug):
     
     try:
         my_food_box = Food.objects.get(slug=slug)
-    except:
-        pass
-
-    try:
         my_soup_box = Soup.objects.get(slug=slug)
     except:
         pass

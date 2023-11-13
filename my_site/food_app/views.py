@@ -21,18 +21,23 @@ soup = Soup.objects.all().order_by('soup_item')
 
 
 def food_box(request):
-    cart = Cart.objects.get(user=request.user)
-    cart_items = CartItemsFood.objects.filter(cart=cart)
-    for item in cart_items:
-        total_quantities = item.all_food_and_soup_quantities()
-    print(total_quantities)
+    cart = ""
+    try:
+        cart = Cart.objects.get(user=request.user)
+    except:
+        pass
     
-    return render(request,'food_app/food_box.html',{'food':food,'total_quantities':total_quantities})
+    return render(request,'food_app/food_box.html',{'food':food,'cart':cart})
 
 
 def soup_box(request):
+    cart = ""
+    try:
+        cart = Cart.objects.get(user=request.user)
+    except:
+        pass
     
-    return render(request,'food_app/soup_box.html',{'soup':soup})
+    return render(request,'food_app/soup_box.html',{'soup':soup,'cart':cart})
 
 
 
@@ -54,7 +59,8 @@ def add_to_cart(request):
             cart_object.quantity += 1
             cart_object.save()
         
-            num_of_items = cart_object.all_food_and_soup_quantities()
+            new_cart = Cart.objects.get(user=request.user)
+            num_of_items = new_cart.total_quantity()
     except:
         pass
 

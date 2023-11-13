@@ -29,8 +29,8 @@ function addToCart(e){
     let btn_value = e.target.value
     let food_category = e.target.dataset.item
     
-    /*console.log(btn_name + ", object value = " + btn_value)*/
     console.log(btn_name)
+    console.log(btn_value)
     console.log(food_category)
     
 
@@ -48,45 +48,19 @@ function addToCart(e){
     })
     .then(res=>res.json())
     .then(data=>{
+        console.log(document.getElementById("quantity"))/*.innerHTML = data
+        console.log(data)*/
         
+        /*let quantityElement = document.getElementById("quantity_${btn_value}")
+        console.log(quantityElement)
+        if (quantityElement) {
+            quantityElement.innerHTML = '<strong>Quantity: </strong>${data}'
+        }
+        console.log(data)*/
+
     })
     .catch(error=>{
         console.log(error)
     })
 }
-
-
-/*
-
-let btns = document.querySelectorAll('.productContainer button')
-
-btns.forEach(btn=>{
-    btn.addEventListener("click", addToCart)
-
-})
-
-function addToCart(e){
-    let product_id = e.target.name
-    
-    let url = '/food_app/add_to_cart/'
-    
-    let data = {'id':product_id}
-    
-    fetch(url, {
-        method: "POST",
-        headers: {
-        'Content-Type':'application/json',
-         'X-CSRFToken': csrftoken,
-        },
-        body: JSON.stringify(data),
-    })
-    .then(res=>res.json())
-    .then(data=>{
-        document.getElementById("cart").innerHTML = data
-        
-    })
-    .catch(error=>{
-        console.log(error)
-    })
-}*/
 

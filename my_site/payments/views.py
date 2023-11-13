@@ -9,6 +9,7 @@ import math
 import random
 #from my_site.settings import get_env_variable
 import requests
+from food_app.views import food,soup
 # Create your views here.
 
 
@@ -24,24 +25,30 @@ def payment(request, price, slug):
     username = request.user.username
     email = request.user.email
     mobile = Mobile.objects.get(user=request.user)
-    phone_no = mobile.phone_no  
+    phone_no = mobile.phone_no
+    item = ""
+    cart = ""
     
     try:
+        cart = Cart.objects.get(user=request.user)
+    except:
+        pass
+    
+    def new_food():   
         for item in food:
             if price == item.food_price and slug == item.slug:
                 break
-        item = item
-        print(item.food_item)
-        
-        for item2 in soup:
-            if price == item2.mini_box_price and slug == item2.slug or price == item2.medium_box_price and slug == item2.slug or price == item2.mega_box_price and slug == item2.slug or price == 11 and slug == item2.slug:
+            item = item
+        return item
+    
+    def new_soup(): 
+        for item in soup:
+            if price == item.mini_box_price and slug == item.slug or price == item.medium_box_price and slug == item.slug or price == item.mega_box_price and slug == item.slug or price == 11.0 and slug == item.slug:
                 break
-        item2 = item2
-    except:
-        pass
-
-    return render(request,'payments/pay.html',{'tx_ref':tx_ref,'price':price,'slug':slug,'item':item,'item2':item2,'email':email,'username':username,'phone_no':phone_no})
-
+            item = item
+        return item
+    
+    return render(request,'payments/pay.html',{'item':new_food(),'item2':new_soup(),'cart':cart,'tx_ref':tx_ref,'price':price,'slug':slug,'email':email,'username':username,'phone_no':phone_no})
 
 
 #What I did here is, I first got the price_in_pack input from the user,
@@ -126,7 +133,8 @@ def add_to_cart(request):
             cart_object.quantity += 1
             cart_object.save()   
         
-            num_of_items = cart_object.all_food_and_soup_quantities()
+            new_cart = Cart.objects.get(user=request.user)
+            num_of_items = new_cart.total_quantity()
     except:
         pass
     return JsonResponse(num_of_items,safe=False)
