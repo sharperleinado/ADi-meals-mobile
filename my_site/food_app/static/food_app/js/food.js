@@ -39,7 +39,7 @@ function addToCart(e){
     })
     .then(res=>res.json())
     .then(data=>{
-        document.getElementById("food_addtocart").innerHTML = data
+        document.getElementById("food_addtocart").innerHTML = '<strong>Cart(</strong>' + data + '<strong>)</strong>'
         console.log(data)
     })
     .catch(error=>{

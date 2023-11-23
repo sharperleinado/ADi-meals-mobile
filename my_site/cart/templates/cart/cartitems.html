@@ -72,29 +72,27 @@
     </div>
 {% endfor %}<br><br><br><br><br>
 
-
-
-
-{% for item in items %}
-
-<img src={{item.content_object.image.url}} class="img-fluid"><br><br>
-{#Here I differentiated between the two content_types to display it differently to the user#}
-{% if item.content_type == food %}
-<p>{{item.content_object.food_item|capfirst}}</p>
-<p><strong>Unit price: </strong>₦{{item.content_object.food_price}}</p>
+{% comment "" %}Here I listed out the list from the view by calling out on each item [item,total_price] of all items in CartitemsFood{% endcomment %}
+{% for item in new %}
+<img src={{item.0.content_object.image.url}} class="img-fluid"><br><br>
+{% if item.0.content_type == food %}
+<p>{{item.0.content_object.food_item|capfirst}} | ₦{{item.0.content_object.food_price}}</p>
+{% elif item.0.content_type == soup and item.0.food_category == "mini" %}
+<p>{{item.0.content_object.soup_item|capfirst}} | {{item.0.food_category|capfirst}} box | ₦{{item.0.content_object.mini_box_price}}</p>
+{% elif item.0.content_type == soup and item.0.food_category == "medium" %}
+<p>{{item.0.content_object.soup_item|capfirst}} | {{item.0.food_category|capfirst}} box | ₦{{item.0.content_object.medium_box_price}}</p>
 {% else %}
-<p>{{item.content_object.soup_item|capfirst}} | {{item.food_category|capfirst}} box </p>
-<p><strong>Unit price: </strong>₦{{item.soup_price}}</p>
+<p>{{item.0.content_object.soup_item|capfirst}} | {{item.0.food_category|capfirst}} box | ₦{{item.0.content_object.mega_box_price}}</p>
 {% endif %}
-<p id="quantity"><strong>Quantity: </strong>{{item.quantity}}</p>
-<p><strong>Quantity price+Unit price: </strong>₦{{item.total_price}}</p><br>
+<p id="{{item.0.object_id}}"><strong>Quantity: </strong>{{item.0.quantity}}</p>
+<p id="ngozi"><strong>Quantity price+Unit price: </strong>₦{{item.1}}</p><br>
 
 <div class="productContainer">
-    <button type="submit" class="btn btn-success" name="add-item" value={{item.object_id}} data-item="{{item.food_category}}" id="add-item">+</button>
+    <button type="submit" class="btn btn-success" name="add-item" value={{item.0.object_id}} data-item="{{item.0.food_category}}" id="add-item">+</button>
 
-    <button type="submit" class="btn btn-success" name="subtract-item" value={{item.object_id}} data-item="{{item.food_category}}" id="subtract-item">-</button><br><br>
+    <button type="submit" class="btn btn-success" name="subtract-item" value={{item.0.object_id}} data-item="{{item.0.food_category}}" id="subtract-item">-</button><br><br>
 
-    <button type="submit" class="btn btn-danger" name="delete-item" value={{item.object_id}} data-item="{{item.food_category}}" id="delete-item">Delete</button>
+    <button type="submit" class="btn btn-danger" name="delete-item" value={{item.0.object_id}} data-item="{{item.0.food_category}}" id="delete-item">Delete</button>
   </div><br><br><br>
 
 {% endfor %}

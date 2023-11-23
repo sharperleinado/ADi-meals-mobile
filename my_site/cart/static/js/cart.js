@@ -29,9 +29,9 @@ function addToCart(e){
     let btn_value = e.target.value
     let food_category = e.target.dataset.item
     
-    console.log(btn_name)
+    /*console.log(btn_name)
     console.log(btn_value)
-    console.log(food_category)
+    console.log(food_category)*/
     
 
     let url = '/cart/cart-buttons/'
@@ -48,15 +48,18 @@ function addToCart(e){
     })
     .then(res=>res.json())
     .then(data=>{
-        console.log(document.getElementById("quantity"))/*.innerHTML = data
-        console.log(data)*/
-        
-        /*let quantityElement = document.getElementById("quantity_${btn_value}")
+        document.getElementById("soup_addtocart").innerHTML = '<strong>Cart(</strong>' + data[2] + '<strong>)</strong>'
+        let quantityElement = document.getElementById(btn_value)
         console.log(quantityElement)
-        if (quantityElement) {
-            quantityElement.innerHTML = '<strong>Quantity: </strong>${data}'
+        /*if (btn_name == 'delete-item') {
+            quantityElement.id.remove();
+
+        }*/
+
+        if (quantityElement); {
+            quantityElement.innerHTML = '<strong>Quantity: </strong>' + data[1]
         }
-        console.log(data)*/
+        console.log(data)
 
     })
     .catch(error=>{

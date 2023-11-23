@@ -17,6 +17,7 @@ from food_app.views import food,soup
 
 def cart_items(request):
     food_model = ContentType.objects.get(model="food")
+    soup_model = ContentType.objects.get(model="soup")
     try:
         cart = None
         cartitems = []
@@ -25,59 +26,25 @@ def cart_items(request):
             cart = Cart.objects.get(user=request.user)
             cartitems = cart.cartitems.all()
             
+            def returns_item(items,food_category):
+                new_items = []
+                for item in items:
+                    if item.content_type == food_model:
+                        total_price = item.total_price(item.food_category)
+                        new_list = [item,total_price]
+                        new_items.append(new_list)
+                    elif item.content_type == soup_model and item.food_category == item.food_category:
+                        total_price = item.total_price(item.food_category)
+                        new_list = [item,total_price]
+                        new_items.append(new_list)
+                return new_items
+            new_cartitems = returns_item(cartitems,"mini_box")
+            
     except Cart.DoesNotExist:
         messages.info(request,"Add items to cart to view items!")
         return redirect('home')
     
-    return render(request,'cart/cartitems.html',{'cart':cart,'items':cartitems,'food':food_model})
-
-'''
-def cart_items(request):
-    try:   
-        cart = Cart.objects.get(user=request.user)
-        print(cart.cartitems.all())
-        username = request.user.username
-        email = request.user.email
-        mobile = Mobile.objects.get(user=request.user)
-        phone_no = mobile.phone_no
-        food_list = []
-        food_model = ContentType.objects.get(model="food")
-        soup_model = ContentType.objects.get(model="soup")
-    
-        cart = Cart.objects.get(user=request.user)
-        cart_items = CartItemsFood.objects.filter(cart=cart)
-                                                                                                                                         
-        for item in cart_items:
-            if item.content_type == food_model:
-                id = item.object_id
-                content_type = item.content_type
-                food = Food.objects.get(pk=id)
-                quantity = item.quantity
-                food_category = item.food_category
-                total_food_price = item.total_price()
-                item_list = [id,content_type,food,quantity,food_category,total_food_price]
-                food_list.append(item_list)
-            else:
-                id = item.object_id
-                content_type = item.content_type
-                food = Soup.objects.get(pk=id)
-                quantity = item.quantity
-                food_category = item.food_category
-                soup_price = item.soup_price()
-                total_food_price = item.total_price()
-                item_list = [id,content_type,food,quantity,food_category,soup_price,total_food_price]
-                food_list.append(item_list)
-              
-        total_quantities = item.all_food_and_soup_quantities()
-        total_price = item.all_soup_and_food_prices()
-    except Cart.DoesNotExist:
-        messages.info(request,"Add items to cart to view items!")
-        return redirect('home')
-    
-    return render(request,'cart/cart-items.html',{'cart':cart,'tx_ref':tx_ref(),'items':food_list,'food_model':food_model,'soup_model':soup_model,
-                                                  'total_quantities':total_quantities,'total_price':total_price,
-                                                  'username':username,'email':email,'phone_no':phone_no})
-'''   
+    return render(request,'cart/cartitems.html',{'cart':cart,'items':cartitems,'food':food_model,'soup':soup_model,'new':new_cartitems})
 
 
 def cart_buttons(request):
@@ -90,27 +57,30 @@ def cart_buttons(request):
         
         cart = Cart.objects.get(user=request.user)
         cart_items = CartItemsFood.objects.filter(cart=cart)
-        for item in cart_items:
-            total_quantities = item.all_food_and_soup_quantities()
-        total_quantities = total_quantities
+        total_quantities = cart.total_quantity()
         
         if name == "add-item":
-            item = cart_items.get(object_id=object_id)
+            item = cart_items.get(object_id=object_id,food_category=form)
             item.quantity += 1
             item.save()
-            new_item = item.quantity
+            total_quantities = total_quantities + 1
         elif name == "subtract-item":
-            item = cart_items.get(object_id=object_id)
+            item = cart_items.get(object_id=object_id,food_category=form)
             item.quantity -= 1
             item.save()
             if item.quantity < 1:
                 item.delete()
-            new_item = item.quantity
+            total_quantities = total_quantities - 1
         else:
-            item = cart_items.get(object_id=object_id)
-            new_item = item.delete()
+            item = cart_items.get(object_id=object_id,food_category=form)
+            item.delete()
+            total_quantities = total_quantities - item.quantity
+        cartitem_price = item.total_price(item.food_category)
+        new_quantity = item.quantity
+        total_quantities = total_quantities
+        list_item = [cartitem_price,new_quantity,total_quantities]
+        
     except:
         pass
-    
-    return JsonResponse(new_item, safe=False)
+    return JsonResponse(list_item, safe=False)
 

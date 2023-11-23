@@ -10,7 +10,6 @@ from django.contrib.contenttypes import fields
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     is_paid = models.BooleanField(default=False)
-    total_price = models.FloatField(default=0)
     uid = models.UUIDField(default=uuid.uuid4)
     
     #for the total number of food and soup quantites in the cart
@@ -21,9 +20,8 @@ class Cart(models.Model):
 
     #for the total amount of food and soup prices in the cart
     def total_price(self): 
-        all_prices = []
         cartitems = self.cartitems.all() 
-        total_price = sum(item.total_price() for item in cartitems)
+        total_price = sum(item.total_price(item.food_category) for item in cartitems)
         return total_price  
     
     def __str__(self):
@@ -38,23 +36,19 @@ class CartItemsFood(models.Model):
     object_id = models.PositiveIntegerField()
     content_object = fields.GenericForeignKey('content_type', 'object_id')
     
-    #This view checks if the food category of a soup object and returns the price of item
-    def soup_price(self):
-        if self.food_category == "mini":
-            price = 5000
-        elif self.food_category == "medium":
-            price = 7000
-        else:
-            price = 10000
-        return price
-    
-    def total_price(self):
+    def total_price(self,food_category):
         food_model = ContentType.objects.get(model="food")
+        soup_model = ContentType.objects.get(model="soup")
         if self.content_type == food_model:
             total_price = self.quantity*self.content_object.food_price 
+        elif self.content_type == soup_model and food_category == "mini":
+            total_price = self.quantity*self.content_object.mini_box_price
+        elif self.content_type == soup_model and food_category == "medium":
+            total_price = self.quantity*self.content_object.medium_box_price
         else:
-            total_price = self.quantity*self.soup_price()
+            total_price = self.quantity*self.content_object.mega_box_price
         return total_price
+    
 
     def __str__(self):
         return f"{self.content_object} {self.food_category}"
