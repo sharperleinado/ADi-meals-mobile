@@ -15,6 +15,7 @@ from food_app.views import food,soup
 # Create your views here.
 
 
+
 def cart_items(request):
     food_model = ContentType.objects.get(model="food")
     soup_model = ContentType.objects.get(model="soup")
@@ -45,6 +46,7 @@ def cart_items(request):
         return redirect('home')
     
     return render(request,'cart/cartitems.html',{'cart':cart,'items':cartitems,'food':food_model,'soup':soup_model,'new':new_cartitems})
+
 
 
 def cart_buttons(request):

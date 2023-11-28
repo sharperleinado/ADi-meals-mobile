@@ -84,15 +84,15 @@
 {% else %}
 <p>{{item.0.content_object.soup_item|capfirst}} | {{item.0.food_category|capfirst}} box | ₦{{item.0.content_object.mega_box_price}}</p>
 {% endif %}
-<p id="{{item.0.object_id}}"><strong>Quantity: </strong>{{item.0.quantity}}</p>
-<p id="ngozi"><strong>Quantity price+Unit price: </strong>₦{{item.1}}</p><br>
+<p id="{{item.0.object_id}}" class="food" name="soup"><strong>Quantity: </strong>{{item.0.quantity}}</p>
+<p id="{{item.0.content_object}}"><strong>Quantity + Unit price: ₦</strong>{{item.1}}</p><br>
 
 <div class="productContainer">
-    <button type="submit" class="btn btn-success" name="add-item" value={{item.0.object_id}} data-item="{{item.0.food_category}}" id="add-item">+</button>
+    <button type="submit" class="btn btn-success" name="add-item" value={{item.0.object_id}} data-content="{{item.0.content_object}}" data-item="{{item.0.food_category}}" id="add-item">+</button>
 
-    <button type="submit" class="btn btn-success" name="subtract-item" value={{item.0.object_id}} data-item="{{item.0.food_category}}" id="subtract-item">-</button><br><br>
+    <button type="submit" class="btn btn-success" name="subtract-item" value={{item.0.object_id}} data-content="{{item.0.content_object}}" data-item="{{item.0.food_category}}" id="subtract-item">-</button><br><br>
 
-    <button type="submit" class="btn btn-danger" name="delete-item" value={{item.0.object_id}} data-item="{{item.0.food_category}}" id="delete-item">Delete</button>
+    <button type="submit" class="btn btn-danger" name="delete-item" value={{item.0.object_id}} data-content="{{item.0.content_object}}" data-item="{{item.0.food_category}}" id="delete-item">Delete</button>
   </div><br><br><br>
 
 {% endfor %}
@@ -108,14 +108,14 @@
 
 <script src="https://checkout.flutterwave.com/v3.js"></script>
 <script>
-    let tx_ref = "{{tx_ref}}"
+    let tx_ref = "{{ tx_ref }}"
     let username = "{{ username }}"
     let email = "{{ email }}"
     let phone_no = "{{ phone_no }}"
 
 function makePayment(price, pk) {
     FlutterwaveCheckout({
-      public_key: "FLWPUBK_TEST-28bc811c5116187d1b308d076c2e0672-X",
+      public_key: "FLWPUBK-88c1243af19624d4b741295b1782a009-X",
       tx_ref: tx_ref,
       amount: price,
       currency: "NGN",

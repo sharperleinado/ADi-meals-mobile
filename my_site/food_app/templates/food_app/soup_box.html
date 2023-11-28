@@ -82,7 +82,7 @@ Here I am displaying all kind of soup I have which has two categories of views t
 
             {% for item in soup %}
                 
-            <a href= "{% url 'payments:payment' price=11.0 slug=item.slug %}"><img src={{item.image.url}} class="img-fluid"></a><br><br>
+            <a href= "{% url 'payments:payment' price=item.pk slug=item.slug %}"><img src={{item.image.url}} class="img-fluid"></a><br><br>
             <h2>{{item.soup_item|capfirst}}</h2>  
             <p>₦{{item.mini_box_price}}</p>
             <button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:payment' price=item.mini_box_price slug=item.slug %}';"><strong>{{item.mini_box_name|capfirst}}!</strong></button><br><br>

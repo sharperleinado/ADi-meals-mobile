@@ -73,7 +73,7 @@
 
 <h1><center>Pay here!</center></h1><br>
 {# for food #}
-{% if item and slug == item.slug %}
+{% if item %}
 <img src={{item.image.url}} class="img-fluid"><br><br>
 <h2>{{item.food_item|capfirst}}</h2>
 <h3>₦{{item.food_price}}</h3><br>
@@ -83,7 +83,7 @@
 
 {#for soup#}
 {#image#}
-{% elif item2 and price == 11.0 and slug == item2.slug %}
+{% elif item2 and price == item2.pk and slug == item2.slug %}
 <img src={{item2.image.url}} class="img-fluid"><br><br>
 <h2>{{item2.soup_item|capfirst}}</h2>
 <p>{{item2.mini_box_name}}</p>

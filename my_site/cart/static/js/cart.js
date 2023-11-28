@@ -28,10 +28,12 @@ function addToCart(e){
     let btn_name = e.target.name
     let btn_value = e.target.value
     let food_category = e.target.dataset.item
+    let content_object = e.target.dataset.content
     
     /*console.log(btn_name)
     console.log(btn_value)
-    console.log(food_category)*/
+    console.log(food_category)
+    console.log(content_object)*/
     
 
     let url = '/cart/cart-buttons/'
@@ -50,14 +52,17 @@ function addToCart(e){
     .then(data=>{
         document.getElementById("soup_addtocart").innerHTML = '<strong>Cart(</strong>' + data[2] + '<strong>)</strong>'
         let quantityElement = document.getElementById(btn_value)
-        console.log(quantityElement)
+        let quantityElement2 = document.getElementById(content_object)
+        /*console.log(quantityElement)
+        console.log(quantityElement2)*/
         /*if (btn_name == 'delete-item') {
             quantityElement.id.remove();
 
         }*/
 
-        if (quantityElement); {
+        if (quantityElement && quantityElement2) {
             quantityElement.innerHTML = '<strong>Quantity: </strong>' + data[1]
+            quantityElement2.innerHTML = '<strong>Quantity + Unit price: ₦</strong>' + data[0]
         }
         console.log(data)
 
