@@ -120,7 +120,13 @@
                   <input type="number" class="form-control" name="quantity" aria-describedby="quantity" placeholder="Input numbers between 20 and 100" aria-label="Input numbers between 20 and 500" min="20" max="100">
                   <button type="submit" class="btn btn-success"><strong>Click Me!</strong></button>
                 </div>
-                </form><br><br><br><br>
+                </form>
+                
+                <div class="productContainer">
+                  <button type="submit" class="btn btn-success" name="add-item" value={{item.pk}} id="add-item">Add to cart</button>
+                </div><br><br>
+
+                <br><br><br><br>
               
                 {% endfor %}
             </div>

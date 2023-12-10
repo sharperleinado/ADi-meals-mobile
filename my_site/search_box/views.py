@@ -16,7 +16,6 @@ def search_box(request):
     try:
         if request.method == "POST":
             search_box = request.POST.get("search").strip()
-            #food  = ContentType.objects.get()
             food_box = Food.objects.filter(food_item__contains = search_box).all()
             soup_box = Soup.objects.filter(soup_item__contains = search_box).all()
             search_list = [search_box,food_box,soup_box]
@@ -32,12 +31,21 @@ def search_box(request):
 def food_result(request,slug):
     my_food_box = ""
     my_soup_box = ""
-    price = 11
-    
-    try:
-        my_food_box = Food.objects.get(slug=slug)
-        my_soup_box = Soup.objects.get(slug=slug)
-    except:
-        pass
 
-    return render(request,'food_app/food_search.html',{'price':price,'item':my_food_box,'item2':my_soup_box}) 
+    def my_foodbox():
+        my_food_box = ""
+        try:
+            my_food_box = Food.objects.get(slug=slug)
+        except Food.DoesNotExist:
+            pass
+        return my_food_box
+    
+    def my_soupbox():
+        my_soup_box = ""
+        try:
+            my_soup_box = Soup.objects.get(slug=slug)
+        except Soup.DoesNotExist:
+            pass
+        return my_soup_box
+
+    return render(request,'search_box/food_search.html',{'item':my_foodbox(),'item2':my_soupbox()}) 

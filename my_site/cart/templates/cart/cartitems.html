@@ -71,9 +71,12 @@
     </button>
     </div>
 {% endfor %}<br><br><br><br><br>
+<div id="notification-container"></div><br><br>
+
 
 {% comment "" %}Here I listed out the list from the view by calling out on each item [item,total_price] of all items in CartitemsFood{% endcomment %}
 {% for item in new %}
+<div class="item-container" id="{{item.0.object_id}}-{{item.0.food_category}}">
 <img src={{item.0.content_object.image.url}} class="img-fluid"><br><br>
 {% if item.0.content_type == food %}
 <p>{{item.0.content_object.food_item|capfirst}} | ₦{{item.0.content_object.food_price}}</p>
@@ -84,8 +87,8 @@
 {% else %}
 <p>{{item.0.content_object.soup_item|capfirst}} | {{item.0.food_category|capfirst}} box | ₦{{item.0.content_object.mega_box_price}}</p>
 {% endif %}
-<p id="{{item.0.object_id}}" class="food" name="soup"><strong>Quantity: </strong>{{item.0.quantity}}</p>
-<p id="{{item.0.content_object}}"><strong>Quantity + Unit price: ₦</strong>{{item.1}}</p><br>
+<p class="quantity" id="{{item.0.object_id}}-{{item.0.food_category}}"><strong>Quantity: </strong>{{item.0.quantity}}</p>
+<p class="quantity-unit-price" id="{{item.0.content_object}}-{{item.0.food_category}}"><strong>Quantity + Unit price: ₦</strong>{{item.1}}</p><br>
 
 <div class="productContainer">
     <button type="submit" class="btn btn-success" name="add-item" value={{item.0.object_id}} data-content="{{item.0.content_object}}" data-item="{{item.0.food_category}}" id="add-item">+</button>
@@ -95,9 +98,10 @@
     <button type="submit" class="btn btn-danger" name="delete-item" value={{item.0.object_id}} data-content="{{item.0.content_object}}" data-item="{{item.0.food_category}}" id="delete-item">Delete</button>
   </div><br><br><br>
 
+</div>
 {% endfor %}
 
-<button type="submit" class="btn btn-danger" name="add-item" id="add-item">Clear all</button>
+<button type="submit" class="btn btn-danger" name="clear-all" id="clear-all">Clear all</button>
 <p><strong>Total items in cart: </strong>{{cart.total_quantity}}</p>
 <p><strong>Total price of items in cart: ₦</strong>{{cart.total_price}}</p>
 <button type="button" class="btn btn-success" onClick="makePayment({{cart.total_price}},{{cart.pk}})">Proceed to pay</button>

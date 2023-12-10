@@ -7,19 +7,20 @@ import uuid
 from authentication.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import fields
+from django.core.validators import FileExtensionValidator
 
 
 
 
 # Create your models here.
 class Soup(models.Model):
-    image = models.ImageField(upload_to="media", height_field=None, width_field=None, max_length=None)
+    image = models.ImageField(upload_to="media", height_field=None, width_field=None, max_length=None,validators=[FileExtensionValidator(['jpg', 'jpeg', 'png'])])
     soup_item = models.CharField(max_length=30)
     mini_box_name = models.CharField(max_length=30,default="mini box")
     mini_box_price = models.DecimalField(max_digits=30,decimal_places=2,default=5000)
-    medium_box_name = models.CharField(max_length=30,default="mini box")
+    medium_box_name = models.CharField(max_length=30,default="medium box")
     medium_box_price = models.DecimalField(max_digits=30,decimal_places=2,default=7000)
-    mega_box_name = models.CharField(max_length=30,default="mini box")
+    mega_box_name = models.CharField(max_length=30,default="mega box")
     mega_box_price = models.DecimalField(max_digits=30,decimal_places=2,default=10000)
     slug = models.SlugField(max_length=250,null=True,blank=True)
     cart = GenericRelation(CartItemsFood)

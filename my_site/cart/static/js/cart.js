@@ -29,6 +29,9 @@ function addToCart(e){
     let btn_value = e.target.value
     let food_category = e.target.dataset.item
     let content_object = e.target.dataset.content
+
+    let combinedId = btn_value + '-' + food_category;
+    let combinedContentObject = content_object + '-' + food_category;
     
     /*console.log(btn_name)
     console.log(btn_value)
@@ -51,18 +54,40 @@ function addToCart(e){
     .then(res=>res.json())
     .then(data=>{
         document.getElementById("soup_addtocart").innerHTML = '<strong>Cart(</strong>' + data[2] + '<strong>)</strong>'
-        let quantityElement = document.getElementById(btn_value)
-        let quantityElement2 = document.getElementById(content_object)
-        /*console.log(quantityElement)
-        console.log(quantityElement2)*/
-        /*if (btn_name == 'delete-item') {
-            quantityElement.id.remove();
+        
+        if (btn_name === 'delete-item') {
+            // If it's a delete operation, remove the HTML elements for the deleted item
+            let itemContainer = document.getElementById(combinedId);
 
-        }*/
+            if (itemContainer) {
+                itemContainer.parentNode.removeChild(itemContainer);
+        
+            }
+        } else {
+            // If it's not a delete operation, update the quantity and unit price as usual
+            let itemContainer = document.getElementById(combinedId);
+            if (itemContainer) {
 
-        if (quantityElement && quantityElement2) {
-            quantityElement.innerHTML = '<strong>Quantity: </strong>' + data[1]
-            quantityElement2.innerHTML = '<strong>Quantity + Unit price: ₦</strong>' + data[0]
+                let quantityElement = itemContainer.querySelector('.quantity');
+                let quantityUnitPriceElement = itemContainer.querySelector('.quantity-unit-price');
+
+                if (quantityElement && quantityUnitPriceElement) {
+                    quantityElement.innerHTML = '<strong>Quantity: </strong>' + data[1];
+                    quantityUnitPriceElement.innerHTML = '<strong>Quantity + Unit price: ₦</strong>' + data[0];
+                }
+
+                    // Check if the quantity is zero, and if so, remove the entire item block
+                    if (parseInt(data[1]) === 0) {
+                        itemContainer.parentNode.removeChild(itemContainer);
+            }
+        }
+        }
+        if (btn_name === 'add-item') {
+            showNotification('Item added to the cart', '#4CAF50');
+        } else if (btn_name === 'subtract-item') {
+            showNotification('Item quantity updated', '#FF9800');
+        } else if (btn_name === 'delete-item' && parseInt(data[1]) === 0) {
+            showNotification('Item removed from the cart', '#F44336');
         }
         console.log(data)
 
@@ -71,4 +96,22 @@ function addToCart(e){
         console.log(error)
     })
 }
+
+function showNotification(message, color) {
+    let notificationContainer = document.getElementById('notification-container');
+    notificationContainer.innerHTML = message;
+    notificationContainer.style.backgroundColor = color;
+    notificationContainer.style.display = 'block';
+
+    // Hide the notification after a few seconds (adjust as needed)
+    setTimeout(() => {
+        hideNotification();
+    }, 3000);
+}
+
+function hideNotification() {
+    let notificationContainer = document.getElementById('notification-container');
+    notificationContainer.style.display = 'none';
+}
+
 

@@ -12,7 +12,9 @@ import requests
 from food_app.views import food,soup
 from food_app.models import Soup
 from django.db.models import Q
+from django.shortcuts import get_object_or_404
 # Create your views here.
+
 
 
 
@@ -27,16 +29,19 @@ def payment(request, price, slug):
     email = request.user.email
     mobile = Mobile.objects.get(user=request.user)
     phone_no = mobile.phone_no
+    cart = ""
 
-    cart = Cart.objects.get(user=request.user)
+    try:
+        cart = Cart.objects.get(user=request.user)
+    except Cart.DoesNotExist:
+        pass
+    
 
     def get_food_item():
         return food.filter(food_price=price, slug=slug).first()
-    print(get_food_item())
 
     def get_soup_item():
-        return soup.filter(Q(mini_box_price = price) | Q(medium_box_price = price) | Q(mega_box_price = price) | Q(pk = price) & Q(slug = slug)).first()
-    print(get_soup_item())
+        return soup.filter(Q(mini_box_price = price) & Q(slug = slug) | Q(medium_box_price = price) & Q(slug = slug) | Q(mega_box_price = price) & Q(slug = slug) | Q(pk = price) & Q(slug = slug)).first()
 
     return render(request, 'payments/pay.html', {
         'item': get_food_item(),
@@ -51,38 +56,43 @@ def payment(request, price, slug):
     })
 
 
-'''
+
 #What I did here is that I called the food and soup model function, then I looped through the items,
 #Set an if-statement condition so that once the price and slug request == any of the particular request item, 
-# it returns the item objects in the front end  
+#it returns the item objects in the front end  
+'''
 def payment(request, price, slug):
-    username = request.user.username
-    email = request.user.email
-    mobile = Mobile.objects.get(user=request.user)
-    phone_no = mobile.phone_no
-    item = ""
-    cart = ""
-    
     try:
+        username = request.user.username
+        email = request.user.email
+        mobile = Mobile.objects.get(user=request.user)
+        phone_no = mobile.phone_no
+        cart = ""
+        item = ""
+        item2 = ""
+        
         cart = Cart.objects.get(user=request.user)
+    
+        def food_item():
+            for item in food:
+                if price == item.food_price and slug == item.slug:
+                    break
+                item = item
+            return item
+        print(food_item())
+    
+        
+        def soup_item():    
+            for item2 in soup:
+                if price == item2.mini_box_price and slug == item2.slug or price == item2.medium_box_price and slug == item2.slug or price == item2.mega_box_price and slug == item2.slug or price == item2.pk and slug == item2.slug:
+                    break
+                item2 = item2
+            return item2
+        print(soup_item())
     except:
         pass
     
-    def new_food():   
-        for item in food:
-            if price == item.food_price and slug == item.slug:
-                break
-            item = item
-        return item
-    
-    def new_soup(): 
-        for item in soup:
-            if price == item.mini_box_price and slug == item.slug or price == item.medium_box_price and slug == item.slug or price == item.mega_box_price and slug == item.slug or price == item.pk and slug == item.slug:
-                break
-            item = item
-        return item
-    
-    return render(request,'payments/pay.html',{'item':new_food(),'item2':new_soup(),'cart':cart,'tx_ref':tx_ref,'price':price,'slug':slug,'email':email,'username':username,'phone_no':phone_no})
+    return render(request,'payments/pay.html',{'item':food_item(),'item2':soup_item(),'cart':cart,'tx_ref':tx_ref,'price':price,'slug':slug,'email':email,'username':username,'phone_no':phone_no})
 '''
 
 

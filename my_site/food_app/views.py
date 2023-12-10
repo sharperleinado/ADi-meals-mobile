@@ -46,7 +46,6 @@ def add_to_cart(request):
     data = json.loads(request.body)
     product_id = data['id']
     product = food.get(pk=product_id)
-    print(product) 
     id = product.pk
     num_of_items = ""
     
@@ -54,19 +53,22 @@ def add_to_cart(request):
         cart = Cart.objects.get_or_create(user=request.user,is_paid=False)
             
         cart_user = Cart.objects.get(user=request.user)
-        #content = ContentType.objects.get_for_model(product)
         content = ContentType.objects.get(model="food")
         cartitems = CartItemsFood.objects.get_or_create(cart=cart_user,content_type=content,object_id=id)
 
         cart_object = CartItemsFood.objects.get(cart=cart_user,content_type=content,object_id=id)
-        print(cart_object.quantity)
-        print(cart_object.content_object)
         cart_object.quantity += 1
         cart_object.save()
         
         new_cart = Cart.objects.get(user=request.user)
         num_of_items = new_cart.total_quantity()
+    else:
+        pass
+        
 
     return JsonResponse(num_of_items,safe=False)
+
+
+
 
 

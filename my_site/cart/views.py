@@ -19,6 +19,8 @@ from food_app.views import food,soup
 def cart_items(request):
     food_model = ContentType.objects.get(model="food")
     soup_model = ContentType.objects.get(model="soup")
+    new_cartitems = ""
+
     try:
         cart = None
         cartitems = []
@@ -40,6 +42,9 @@ def cart_items(request):
                         new_items.append(new_list)
                 return new_items
             new_cartitems = returns_item(cartitems,"mini_box")
+        else:
+            cart = request.session['cart'] = "blue","red"
+            print(cart)
             
     except Cart.DoesNotExist:
         messages.info(request,"Add items to cart to view items!")

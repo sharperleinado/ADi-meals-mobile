@@ -10,6 +10,7 @@
             <!-- JavaScript Bundle with Popper -->
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
             <link rel="stylesheet" href="{% static 'food_app/master.css' %}">
+            <script src="{% static 'food_app/js/soup.js' %}" defer="true"></script>
             <title>Soup box</title>
         </head>
         <body>
@@ -81,15 +82,15 @@ Here I am displaying all kind of soup I have which has two categories of views t
             {% if user.is_authenticated %}
 
             {% for item in soup %}
-                
+              
             <a href= "{% url 'payments:payment' price=item.pk slug=item.slug %}"><img src={{item.image.url}} class="img-fluid"></a><br><br>
-            <h2>{{item.soup_item|capfirst}}</h2>  
+            <p>{{item.soup_item|capfirst}}</p>  
             <p>₦{{item.mini_box_price}}</p>
             <button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:payment' price=item.mini_box_price slug=item.slug %}';"><strong>{{item.mini_box_name|capfirst}}!</strong></button><br><br>
             <p>₦{{item.medium_box_price}}</p>
             <button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:payment' price=item.medium_box_price slug=item.slug %}';"><strong>{{item.medium_box_name|capfirst}}!</strong></button><br><br>
             <p>₦{{item.mega_box_price}}</p>
-            <button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:payment' price=item.mega_box_price slug=item.slug %}';"><strong>{{item.mega_box_name|capfirst}}!</strong></button><br><br><br><br><br><br><br>
+            <button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:payment' price=item.mega_box_price slug=item.slug %}';"><strong>{{item.mega_box_name|capfirst}}!</strong></button><br><br><br><br><br><br><br><br><br>
 
             {% endfor %}
 
@@ -98,16 +99,16 @@ Here I am displaying all kind of soup I have which has two categories of views t
             {% for item in soup %}
  
             <a href= "{% url 'authentication:signin' %}"><img src={{item.image.url}} class="img-fluid"></a><br><br>
-            <h2>{{item.1|capfirst}}</h2>  
+            <div id="productContainer">
+            <p>{{item.soup_item|capfirst}}</p>
             <p>₦{{item.mini_box_price}}</p>
             <button type="submit" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>{{item.mini_box_name|capfirst}}!</strong></button><br><br>
             <p>₦{{item.medium_box_price}}</p>
             <button type="submit" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>{{item.medium_box_name|capfirst}}!</strong></button><br><br>
             <p>₦{{item.mega_box_price}}</p>
-            <button type="submit" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>{{item.mega_box_name|capfirst}}!</strong></button><br><br><br>
+            <button type="submit" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>{{item.mega_box_name|capfirst}}!</strong></button><br><br><br><br><br>
 
             {% endfor %}
-
     {% endif %}
         </div>
            </body>

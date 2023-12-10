@@ -112,16 +112,16 @@
   <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Navbar</a>
+      <button type="submit" id="cart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>cart({{cart.total_quantity}})</strong></button>
+      <button type="submit" class="btn btn-secondary" id="signout" onClick="window.location='{% url 'profile' %}';"><strong>Profile</strong></button>
       <ul class="navbar-nav ml-auto">
-      <button type="submit" class="btn btn-success" onClick="window.location='{% url 'authentication:all_signups' %}';"><strong>Sign up</strong></button>
-      <button type="submit" class="btn btn-primary" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Sign in</strong></button>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button></ul>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link active" aria-current="page" href="#">Main</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Link</a>
@@ -169,7 +169,6 @@
 
     <br><br><br>
 
-    <button type="button" class="btn btn-secondary" onClick="window.location='{% url 'profile' %}';">profile</button>
 
     <br><br><br><br><br>
     
@@ -178,7 +177,7 @@
     <br>
     <br>
 
-    <button type="button" class="btn btn-success" onClick="window.location='{% url 'food_app:foodbox' %}';">food box</button>     <button type="button" class="btn btn-primary" onClick="window.location='{% url 'food_app:soupbox' %}';">soup box</button>
+    <button type="button" class="btn btn-success" id="success" onClick="window.location='{% url 'food_app:foodbox' %}';">food box</button>     <button type="button" class="btn btn-primary" onClick="window.location='{% url 'food_app:soupbox' %}';">soup box</button>
 
 </div>
 

@@ -6,28 +6,38 @@
     <title>Search box</title>
 </head>
 <body>
-    
+
 {% if searched %}
-{% if food %}
-<br><br><h1><center>Search result found!</center></h1><br><br><br>
-{% for item in food %}
-<center><a href= "{% url 'search_box:food_result' slug=item.slug %}"><li>{{item.food_item | capfirst}}</li></a></center>
-{% endfor %}
+<br><br><h1><center>Search box!</center></h1><br><br><br>
 
-{% elif soup %}
-<br><br><h1><center>Search result found!<center></h1><br><br><br> 
-{% for item in soup %}
-<center><a href= "{% url 'search_box:food_result' slug=item.slug %}"><li>{{item.soup_item | capfirst}}</li></a></center>
-{% endfor %}
+    <!-- Display the searched term -->
+    <p><center>Searched for: {{ searched | capfirst }}</center></p>
 
-{% else %}
-<br><br><h1><center>Search result not found!</center></h1><br><br><br>
-<br><br><h3><center>We've searched our boxes, but couldn't find the meal you searched for.....</center></h3>
+    <!-- Display food items -->
+    <h2><center>Food Items</center></h2>
+    {% if food %}
+            {% for food_item in food %}
+            <p><center><a href= "{% url 'search_box:food_result' slug=food_item.slug %}">{{ food_item.food_item | capfirst }}</a></center></p>
+            {% endfor %}
+    {% else %}
+        <p><center>No food items found.</center></p>
+    {% endif %}
 
-{% endif %}
-{% else %}
+    <!-- Display soup items -->
+    <br><h2><center>Soup Items</center></h2>
+    {% if soup %}
+            {% for soup_item in soup %}
+                <p><center><a href= "{% url 'search_box:food_result' slug=soup_item.slug %}">{{ soup_item.soup_item | capfirst }}</a></center></p>
+                <!-- Add other fields as needed -->
+            {% endfor %}
+    {% else %}
+        <p><center>No soup items found.</center></p>
+    {% endif %}
+
+    {% else %}
 <br><br><h1><center>Ooooooooops! You forgot to search for an item.<center></h1><br><br><br> 
 {% endif %}
+
 
    </body>
 </html>
