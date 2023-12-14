@@ -7,6 +7,7 @@ import json
 from django.contrib.contenttypes.models import ContentType
 import math
 import random
+import uuid
 
 
 
@@ -55,17 +56,36 @@ def add_to_cart(request):
         cart_user = Cart.objects.get(user=request.user)
         content = ContentType.objects.get(model="food")
         cartitems = CartItemsFood.objects.get_or_create(cart=cart_user,content_type=content,object_id=id)
-
+        
         cart_object = CartItemsFood.objects.get(cart=cart_user,content_type=content,object_id=id)
         cart_object.quantity += 1
         cart_object.save()
-        
-        new_cart = Cart.objects.get(user=request.user)
-        num_of_items = new_cart.total_quantity()
+        num_of_items = cart_user.total_quantity()
+    
     else:
-        pass
-        
-
+        '''
+        try:
+            cart = Cart.objects.get(session_id=request.session['cart'],completed=False)
+            content = ContentType.objects.get(model="food")
+            cartitems = CartItemsFood.objects.get_or_create(cart=cart,content_type=content,object_id=id)
+            
+            cart_object = CartItemsFood.objects.get(cart=cart,content_type=content,object_id=id)
+            cart_object.quantity += 1
+            cart_object.save()
+            num_of_items = cart.total_quantity()
+        except:
+            request.session['cart'] = str(uuid.uuid4())
+            cart = Cart.objects.get_or_create(cart=request.session['cart'],completed=False)
+            cart_user = Cart.objects.get(cart=request.session['cart'],completed=False)
+            content = ContentType.objects.get(model="food")
+            cartitems = CartItemsFood.objects.get_or_create(cart=cart,content_type=content,object_id=id)
+            
+            cart_object = CartItemsFood.objects.get(cart=cart,content_type=content,object_id=id)
+            cart_object.quantity += 1
+            cart_object.save()
+            num_of_items = cart_user.total_quantity()
+        '''
+        pass    
     return JsonResponse(num_of_items,safe=False)
 
 

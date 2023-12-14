@@ -43,9 +43,8 @@ def cart_items(request):
                 return new_items
             new_cartitems = returns_item(cartitems,"mini_box")
         else:
-            cart = request.session['cart'] = "blue","red"
-            print(cart)
-            
+            pass
+    
     except Cart.DoesNotExist:
         messages.info(request,"Add items to cart to view items!")
         return redirect('home')

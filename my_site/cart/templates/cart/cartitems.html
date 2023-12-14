@@ -1,83 +1,29 @@
-<!DOCTYPE html>
+{% extends "home.html" %}
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="{% static 'js/cart.js' %}" defer="true"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bangers">
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="{% static 'food_app/master.css' %}">
-    <title>Cart Items</title>
-</head>
-<body>
+{% block jscript_attribute %}
+<title>Cart</title>
+<link rel="stylesheet" href="{% static 'food_app/master.css' %}">{#if you want to use it own css file, change to cart/master.css#}
+<script src="{% static 'cart/js/cart.js' %}" defer="true"></script>
+{% endblock jscript_attribute %}
+
 {% if user.is_authenticated %}
 
-  <nav class="navbar navbar-dark bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
-      <button type="submit" id="soup_addtocart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>cart({{cart.total_quantity}})</strong></button>
-      <button type="submit" id="signout" class="btn btn-success" onClick="window.location='{% url 'authentication:signout' %}';"><strong>Sign out</strong></button>
-      <ul class="navbar-nav ml-auto">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button></ul>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Main</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled">Disabled</a>
-          </li>
-        </ul>
-        <form class="d-flex" role="search" action= "{% url 'search_box:search' %}" method="POST">
-          {% csrf_token %}
-          <input type="search" class="form-control me-2" id= "search" name="search" placeholder="Search boxes!" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-      </div>
-    </div>
-  </nav>
+{% block cart_button %}
+    <button type="submit" id="soup_addtocart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>Cart({{cart.total_quantity}})</strong></button>
+    {% endblock cart_button %}
+    
+    {% block content_is_authenticated %}
 
+<div class="container">
+    <br><br><h1><center>Cart page!</center></h1><br><br>
 
-    <div class="container">
-
-    <h1>Cart page!</h1><br><br><br>
-
-{% for message in messages %}
-    <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
-    <strong>Message:</strong> {{message}}
-    <button type="button" class="close" data-dismissible="alert" aria-label="close">
-    <span aria-hidden="True">&times;</span>
-    </button>
-    </div>
-{% endfor %}<br><br><br><br><br>
 <div id="notification-container"></div><br><br>
 
 
 {% comment "" %}Here I listed out the list from the view by calling out on each item [item,total_price] of all items in CartitemsFood{% endcomment %}
 {% for item in new %}
 <div class="item-container" id="{{item.0.object_id}}-{{item.0.food_category}}">
-<img src={{item.0.content_object.image.url}} class="img-fluid"><br><br>
+<br><br><br><img src={{item.0.content_object.image.url}} class="img-fluid"><br><br>
 {% if item.0.content_type == food %}
 <p>{{item.0.content_object.food_item|capfirst}} | ₦{{item.0.content_object.food_price}}</p>
 {% elif item.0.content_type == soup and item.0.food_category == "mini" %}
@@ -106,6 +52,23 @@
 <p><strong>Total price of items in cart: ₦</strong>{{cart.total_price}}</p>
 <button type="button" class="btn btn-success" onClick="makePayment({{cart.total_price}},{{cart.pk}})">Proceed to pay</button>
 
+</div>{% endblock content_is_authenticated %}
+{% else %}
+
+{% block content_not_authenticated %}
+
+<div class="container">
+
+  <h1><center>Cart page!</center></h1><br><br>
+
+
+
+
+
+
+  
+        
+</div>{% endblock content_not_authenticated%}
 {% endif %}
 
 </div>
@@ -142,6 +105,5 @@ function makePayment(price, pk) {
     });
   }
 </script>
-</body>
-</html>
+
 

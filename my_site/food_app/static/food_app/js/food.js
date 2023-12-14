@@ -28,6 +28,8 @@ function addToCart(e){
     let url = '/food_app/add_to_cart/'
     
     let data = {'id':product_id}
+    console.log(product_id)
+    
     
     fetch(url, {
         method: "POST",

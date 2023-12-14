@@ -25,24 +25,28 @@ def tx_ref():
 
 
 def payment(request, price, slug):
-    username = request.user.username
-    email = request.user.email
-    mobile = Mobile.objects.get(user=request.user)
-    phone_no = mobile.phone_no
     cart = ""
-
+    email = ""
+    username = ""
+    mobile = ""
+    phone_no = ""
     try:
+        username = request.user.username
+        email = request.user.email
+        mobile = Mobile.objects.get(user=request.user)
+        phone_no = mobile.phone_no
+        
         cart = Cart.objects.get(user=request.user)
-    except Cart.DoesNotExist:
+    
+    except:
         pass
     
-
     def get_food_item():
         return food.filter(food_price=price, slug=slug).first()
 
     def get_soup_item():
         return soup.filter(Q(mini_box_price = price) & Q(slug = slug) | Q(medium_box_price = price) & Q(slug = slug) | Q(mega_box_price = price) & Q(slug = slug) | Q(pk = price) & Q(slug = slug)).first()
-
+    
     return render(request, 'payments/pay.html', {
         'item': get_food_item(),
         'item2': get_soup_item(),
@@ -56,56 +60,16 @@ def payment(request, price, slug):
     })
 
 
-
-#What I did here is that I called the food and soup model function, then I looped through the items,
-#Set an if-statement condition so that once the price and slug request == any of the particular request item, 
-#it returns the item objects in the front end  
-'''
-def payment(request, price, slug):
-    try:
-        username = request.user.username
-        email = request.user.email
-        mobile = Mobile.objects.get(user=request.user)
-        phone_no = mobile.phone_no
-        cart = ""
-        item = ""
-        item2 = ""
-        
-        cart = Cart.objects.get(user=request.user)
-    
-        def food_item():
-            for item in food:
-                if price == item.food_price and slug == item.slug:
-                    break
-                item = item
-            return item
-        print(food_item())
-    
-        
-        def soup_item():    
-            for item2 in soup:
-                if price == item2.mini_box_price and slug == item2.slug or price == item2.medium_box_price and slug == item2.slug or price == item2.mega_box_price and slug == item2.slug or price == item2.pk and slug == item2.slug:
-                    break
-                item2 = item2
-            return item2
-        print(soup_item())
-    except:
-        pass
-    
-    return render(request,'payments/pay.html',{'item':food_item(),'item2':soup_item(),'cart':cart,'tx_ref':tx_ref,'price':price,'slug':slug,'email':email,'username':username,'phone_no':phone_no})
-'''
-
-
 #What I did here is, I first got the price_in_pack input from the user,
 #Then if the slug request taken from the price_in_pack form is equal to the slug in the price_in_pack, the program breaks out of the loop and return the view to the user 
 def price_in_pack(request, slug):
-    mobile = Mobile.objects.get(user=request.user)
-    phone_no = mobile.phone_no
     total_price = ""
     quantity = ""
     item = ""
     if request.method == "POST":
             try:
+                mobile = Mobile.objects.get(user=request.user)
+                phone_no = mobile.phone_no
                 quantity = int(request.POST.get("quantity"))
                 for item in food:
                     if slug == item.slug:

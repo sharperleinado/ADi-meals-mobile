@@ -120,7 +120,7 @@ background-color: black;
     padding-left: 5ch;
 }
 
-#signout{
+/*#signout{
     margin-top: 5px;
     margin-right: 0px;
     margin-left: 1600px;
@@ -134,7 +134,7 @@ background-color: black;
 
 #signout :hover{
     color: greenyellow;
-}
+}*/
 
 #cart{
     margin-top: 5px;

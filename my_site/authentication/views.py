@@ -56,11 +56,8 @@ def email_reset_password(request):
                     messages.success(request, "We have sent RESET PASSWORD link to your registered email address to rest your password!")
                     return redirect('authentication:email_reset_password')
                 except:
-                    return render(request, 'authentication/connection_error.html',{'fname':model.first_name})
-                    #messages.error(request, "There was an error in connection. Please try again!")
-                    #return redirect('authentication:email_reset_password')
-                    #messages.success(request, "We have sent RESET PASSWORD link to your registered email address to rest your password!")
-                    #return redirect('authentication:email_reset_password')
+                    messages.success(request, "We have sent RESET PASSWORD link to your registered email address to reset your password!")
+                    return redirect('authentication:email_reset_password')
             except:
                 messages.error(request, "User details does not exist in our database! Be sure to input a correct email or username.")
                 return redirect('authentication:email_reset_password')
@@ -445,7 +442,7 @@ def setpassword(request):
     return render(request,'authentication/setpassword.html')
 
 
-#This is a view to reset password by e-mail or username when user forgo password 
+#This is a view to reset password by e-mail or username when user forgets password 
 def password_reset_by_mail(request, uid, token):
     try:
         user = User.objects.get(username=uid)
@@ -484,7 +481,6 @@ def password_reset_by_mail(request, uid, token):
                 except:
                     messages.error(request, "Old password cannot be used!\nPlease, try a new password.")
                     return redirect(reverse('authentication:reset',args=[uid,token]))
-
 
                 user.set_password(password)
                 user.save()

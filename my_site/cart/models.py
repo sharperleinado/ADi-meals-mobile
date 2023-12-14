@@ -36,6 +36,7 @@ class CartItemsFood(models.Model):
     object_id = models.PositiveIntegerField()
     content_object = fields.GenericForeignKey('content_type', 'object_id')
     
+    #for each items in cart amount
     def total_price(self,food_category):
         food_model = ContentType.objects.get(model="food")
         soup_model = ContentType.objects.get(model="soup")

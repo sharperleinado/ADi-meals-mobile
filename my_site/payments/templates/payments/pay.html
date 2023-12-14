@@ -1,82 +1,27 @@
-<!Doctype html>
+{% extends "home.html" %}
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="{% static 'payments/js/soup.js' %}" defer="true"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bangers">
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <!-- JavaScript Bundle with Pocpper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">}</script>
-    <link rel="stylesheet" href="{% static 'food_app/master.css' %}">
-    <title>Payment</title>
-</head>
-<body>
-
-  <nav class="navbar navbar-dark bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
-      <button type="submit" id="soup_addtocart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>Cart({{cart.total_quantity}})</strong></button>
-      <button type="submit" id="signout" class="btn btn-success" onClick="window.location='{% url 'authentication:signout' %}';"><strong>Sign out</strong></button>
-      <ul class="navbar-nav ml-auto">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button></ul>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Main</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled">Disabled</a>
-          </li>
-        </ul>
-        <form class="d-flex" role="search" action= "{% url 'search_box:search' %}" method="POST">
-          {% csrf_token %}
-          <input type="search" class="form-control me-2" id= "search" name="search" placeholder="Search boxes!" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-      </div>
-    </div>
-  </nav>
-
-
-<div class="container">
-
-    {% for message in messages %}
-    <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
-    <strong>Message:</strong> {{message}}
-    <button type="button" class="close" data-dismissible="alert" aria-label="close">
-    <span aria-hidden="True">&times;</span>
-    </button>
-    </div>
-    {% endfor %}<br><br><br><br><br>
+{% block jscript_attribute %}
+<title>Payment</title>
+<link rel="stylesheet" href="{% static 'food_app/master.css' %}">{#if you want to use it own css file, change this to payment/master.css#}
+<script src="{% static 'payment/js/cart.js' %}" defer="true"></script>
+{% endblock jscript_attribute %}
 
 {% if user.is_authenticated %}
 
-<h1><center>Pay here!</center></h1><br>
+{% block cart_button %}
+    <button type="submit" id="food_addtocart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>Cart({{cart.total_quantity}})</strong></button>
+    {% endblock cart_button %}
+    
+    {% block content_is_authenticated %}
+
+<div class="container">
+    <br><br><h1><center>Payment here!</center></h1><br><br>
+
 {# for food #}
 {% if item %}
 <img src={{item.image.url}} class="img-fluid"><br><br>
-<h2>{{item.food_item|capfirst}}</h2>
-<h3>₦{{item.food_price}}</h3><br>
+<p>{{item.food_item|capfirst}}</p>
+<p>₦{{item.food_price}}</p>
 <button type="button" class="btn btn-success" onClick="makePayment({{item.food_price}},{{item.pk}})"><strong>Flutterwave</strong></button><br><br><br><br><br><br><br>
 {% endif %}
 
@@ -84,27 +29,27 @@
 {#image#}
 {% if item2 and price == item2.pk and slug == item2.slug %}
 <img src={{item2.image.url}} class="img-fluid"><br><br>
-<h2>{{item2.soup_item|capfirst}}</h2>
+<p>{{item2.soup_item|capfirst}}</p>
 <p>{{item2.mini_box_name}}</p>
-<h3>₦{{item2.mini_box_price}}</h3>
+<p>₦{{item2.mini_box_price}}</p>
 <div class="productContainer">
 <button type="submit" class="btn btn-success" name={{item2.mini_box_name}} value={{item2.pk}} id="add-item">Add to cart</button><br><br>
 </div>
 <button type="button" class="btn btn-success" onClick="makePayment({{item2.mini_box_price}},{{item2.pk}})"><strong>Flutterwave</strong></button><br><br><br><br><br><br><br>
 
 <img src={{item2.image.url}} class="img-fluid"><br><br>
-<h2>{{item2.soup_item|capfirst}}</h2>
+<p>{{item2.soup_item|capfirst}}</p>
 <p>{{item2.medium_box_name}}</p>
-<h3>₦{{item2.medium_box_price}}</h3>
+<p>₦{{item2.medium_box_price}}</p>
 <div class="productContainer">
 <button type="submit" class="btn btn-success" name={{item2.medium_box_name}} value={{item2.pk}} id="add-item">Add to cart</button><br><br>
 </div>
 <button type="button" class="btn btn-success" onClick="makePayment({{item2.medium_box_price}},{{item2.pk}})"><strong>Flutterwave</strong></button><br><br><br><br><br><br><br>
 
 <img src={{item2.image.url}} class="img-fluid"><br><br>
-<h2>{{item2.soup_item|capfirst}}</h2>
+<p>{{item2.soup_item|capfirst}}</p>
 <p>{{item2.mega_box_name}}</p>
-<h3>₦{{item2.mega_box_price}}</h3>
+<p>₦{{item2.mega_box_price}}</p>
 <div class="productContainer">
 <button type="submit" class="btn btn-success" name={{item2.mega_box_name}} value={{item2.pk}} id="add-item">Add to cart</button><br><br>
 </div>
@@ -113,9 +58,9 @@
 {#Mini box#}
 {% elif item2 and price == item2.mini_box_price and slug == item2.slug %}
 <img src={{item2.image.url}} class="img-fluid"><br><br>
-<h2>{{item2.soup_item|capfirst}}</h2>
+<p>{{item2.soup_item|capfirst}}</p>
 <p>{{item2.mini_box_name}}</p>
-<h3>₦{{item2.mini_box_price}}</h3>
+<p>₦{{item2.mini_box_price}}</p>
 <div class="productContainer">
 <button type="submit" class="btn btn-success" name={{item2.mini_box_name}} value={{item2.pk}} id="add-item">Add to cart</button><br><br>
 </div>
@@ -124,9 +69,9 @@
 {#Medium box#}
 {% elif item2 and price == item2.medium_box_price and slug == item2.slug %}
 <img src={{item2.image.url}} class="img-fluid"><br><br>
-<h2>{{item2.soup_item|capfirst}}</h2>
+<p>{{item2.soup_item|capfirst}}</p>
 <p>{{item2.medium_box_name}}</p>
-<h3>₦{{item2.medium_box_price}}</h3><br>
+<p>₦{{item2.medium_box_price}}</p><br>
 <div class="productContainer">
 <button type="submit" class="btn btn-success" name={{item2.medium_box_name}} value={{item2.pk}} id="add-item">Add to cart</button><br><br>
 </div>
@@ -135,15 +80,96 @@
 {#Mega box#}
 {% elif item2 and price == item2.mega_box_price and slug == item2.slug %}
 <img src={{item2.image.url}} class="img-fluid"><br><br>
-<h2>{{item2.soup_item|capfirst}}</h2>
+<p>{{item2.soup_item|capfirst}}</p>
 <p>{{item2.mega_box_name}}</p>
-<h3>₦{{item2.mega_box_price}}</h3>
+<p>₦{{item2.mega_box_price}}</p>
 <div class="productContainer">
 <button type="submit" class="btn btn-success" name={{item2.mega_box_name}} value={{item2.pk}} id="add-item">Add to cart</button><br><br>
 </div>
 <button type="button" class="btn btn-success" onClick="makePayment({{item2.mega_box_price}},{{item2.pk}})"><strong>Flutterwave</strong></button><br><br><br><br><br><br><br>
 
+{% endif %}</div>{% endblock content_is_authenticated %}
+
+{% else %}
+
+{% block content_not_authenticated %}
+
+<div class="container">
+
+  <h1><center>Pay here!</center></h1><br><br>
+
+{# for food #}
+{% if item %}
+<a href= "{% url 'authentication:signin' %}"><img src={{item.image.url}} class="img-fluid"></a><br><br>
+<p>{{item.food_item|capfirst}}</p>
+<p>₦{{item.food_price}}</p>
+<button type="button" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Flutterwave</strong></button><br><br><br><br><br><br><br>
 {% endif %}
+
+{#for soup#}
+{#image#}
+{% if item2 and price == item2.pk and slug == item2.slug %}
+<a href= "{% url 'authentication:signin' %}"><img src={{item2.image.url}} class="img-fluid"></a><br><br>
+<p>{{item2.soup_item|capfirst}}</p>
+<p>{{item2.mini_box_name}}</p>
+<p>₦{{item2.mini_box_price}}</p>
+<div class="productContainer">
+<button type="submit" class="btn btn-success" name={{item2.mini_box_name}} value={{item2.pk}} id="add-item">Add to cart</button><br><br>
+</div>
+<button type="button" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Flutterwave</strong></button><br><br><br><br><br><br><br>
+
+<a href= "{% url 'authentication:signin' %}"><img src={{item2.image.url}} class="img-fluid"></a><br><br>
+<p>{{item2.soup_item|capfirst}}</p>
+<p>{{item2.medium_box_name}}</p>
+<p>₦{{item2.medium_box_price}}</p>
+<div class="productContainer">
+<button type="submit" class="btn btn-success" name={{item2.medium_box_name}} value={{item2.pk}} id="add-item">Add to cart</button><br><br>
+</div>
+<button type="button" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Flutterwave</strong></button><br><br><br><br><br><br><br>
+
+<a href= "{% url 'authentication:signin' %}"><img src={{item2.image.url}} class="img-fluid"></a><br><br>
+<p>{{item2.soup_item|capfirst}}</p>
+<p>{{item2.mega_box_name}}</p>
+<p>₦{{item2.mega_box_price}}</p>
+<div class="productContainer">
+<button type="submit" class="btn btn-success" name={{item2.mega_box_name}} value={{item2.pk}} id="add-item">Add to cart</button><br><br>
+</div>
+<button type="button" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Flutterwave</strong></button><br><br><br><br><br><br><br>
+
+{#Mini box#}
+{% elif item2 and price == item2.mini_box_price and slug == item2.slug %}
+<a href= "{% url 'authentication:signin' %}"><img src={{item2.image.url}} class="img-fluid"></a><br><br>
+<p>{{item2.soup_item|capfirst}}</p>
+<p>{{item2.mini_box_name}}</p>
+<p>₦{{item2.mini_box_price}}</p>
+<div class="productContainer">
+<button type="submit" class="btn btn-success" name={{item2.mini_box_name}} value={{item2.pk}} id="add-item">Add to cart</button><br><br>
+</div>
+<button type="button" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Flutterwave</strong></button><br><br><br><br><br><br><br>
+
+{#Medium box#}
+{% elif item2 and price == item2.medium_box_price and slug == item2.slug %}
+<a href= "{% url 'authentication:signin' %}"><img src={{item2.image.url}} class="img-fluid"></a><br><br>
+<p>{{item2.soup_item|capfirst}}</p>
+<p>{{item2.medium_box_name}}</p>
+<p>₦{{item2.medium_box_price}}</p><br>
+<div class="productContainer">
+<button type="submit" class="btn btn-success" name={{item2.medium_box_name}} value={{item2.pk}} id="add-item">Add to cart</button><br><br>
+</div>
+<button type="button" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Flutterwave</strong></button><br><br><br><br><br><br><br>
+
+{#Mega box#}
+{% elif item2 and price == item2.mega_box_price and slug == item2.slug %}
+<a href= "{% url 'authentication:signin' %}"><img src={{item2.image.url}} class="img-fluid"></a><br><br>
+<p>{{item2.soup_item|capfirst}}</p>
+<p>{{item2.mega_box_name}}</p>
+<p>₦{{item2.mega_box_price}}</p>
+<div class="productContainer">
+<button type="submit" class="btn btn-success" name={{item2.mega_box_name}} value={{item2.pk}} id="add-item">Add to cart</button><br><br>
+</div>
+<button type="button" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Flutterwave</strong></button><br><br><br><br><br><br><br>
+
+{% endif %}</div> {% endblock %}
 
 {% endif %}
 </div>
