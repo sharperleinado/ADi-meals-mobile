@@ -22,6 +22,7 @@
   </div>{% endblock %}
 
   {% else %}
+  {% block signin_not_auth %}{% endblock signin_not_auth %}
 
   {% block content_not_authenticated %}
 

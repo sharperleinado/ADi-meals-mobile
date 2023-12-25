@@ -12,13 +12,20 @@ from cart.models import CartItemsFood,Cart
 def home(request):
     fname = ""
     cart = ""
+    cart_total = ""
     try:
         fname = request.user.first_name
-        cart = Cart.objects.get(user=request.user)
     except:
         pass
+    
+    try:
+        cart = Cart.objects.get(user=request.user)
+        cart_total = cart.total_quantity()
+    except:
+        cart_total = 0
+        pass
 
-    return render(request,'home.html',{'fname':fname,'cart':cart})
+    return render(request,'home.html',{'fname':fname,'cart':cart_total})
 
 
 def profile(request):
@@ -27,9 +34,19 @@ def profile(request):
         fname = request.user.first_name
     except:
         pass
+    
+    try:
+        cart = Cart.objects.get(user=request.user)
+        cart_total = cart.total_quantity()
+    except:
+        cart_total = 0
+        pass
 
-    return render(request,'profile.html',{'fname':fname})
+    return render(request,'profile.html',{'cart':cart_total,'fname':fname})
 
+def about(request):
+    
+    return render(request,'about.html',{})
      
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -42,5 +59,6 @@ urlpatterns = [
     path('address/',include('address.urls')),
     path('review/',include('review.urls')),
     path('cart/',include('cart.urls')),
+    path('about/',about,name='about'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

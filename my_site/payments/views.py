@@ -37,8 +37,9 @@ def payment(request, price, slug):
         phone_no = mobile.phone_no
         
         cart = Cart.objects.get(user=request.user)
-    
+        cart_total = cart.total_quantity()
     except:
+        cart_total = 0
         pass
     
     def get_food_item():
@@ -50,7 +51,7 @@ def payment(request, price, slug):
     return render(request, 'payments/pay.html', {
         'item': get_food_item(),
         'item2': get_soup_item(),
-        'cart': cart,
+        'cart': cart_total,
         'tx_ref': tx_ref,
         'price': price,
         'slug': slug,

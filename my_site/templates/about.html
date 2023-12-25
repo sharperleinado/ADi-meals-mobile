@@ -1,0 +1,57 @@
+{% extends "home.html" %}
+{% load static %}
+{% block jscript_attribute %}
+<title>Food box</title>
+<link rel="stylesheet" href="{% static 'food_app/master.css' %}">
+<script src="{% static 'food_app/js/food.js' %}" defer="true"></script>
+{% endblock jscript_attribute %}
+
+    {% if user.is_authenticated %}
+
+    {% block cart_button %}
+    <button type="submit" id="food_addtocart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>Cart({{cart}})</strong></button>
+    {% endblock cart_button %}
+
+    {% block content_is_authenticated %}
+
+<div class="container">
+    <br><br><h1><center>Our story</center></h1><br><br>
+
+    <p>ADi meals Limited was first registered as a business name “ADi meals, BN
+8073” in the year 2020 to venture into Food and Beverages. We wanted to
+start out as a Snack Drink company. A company whose sole purpose was
+to produce snack and drink together in a container which would serve as an
+easy meal to our consumers. Our goal has always been to provide easy
+meals to our consumers, but as a snack drink project we were embarking
+upon, we did not have enough funding to begin with so, we decided to
+dissect our goals and digress our business into opening a physical
+restaurant in Akure.</p>
+
+<p>In 2021, we opened a restaurant in irese area of Akure, Ondo state. We
+began by selling food like Egusi and Pounded yam, White rice and beans,
+Jollof rice, and many more meals. Business was booming but along the
+line, things became sour, and our operations folded up in July which was
+as a result of our dependency on a little community in the whole of Akure to
+scale our business.</p>
+
+<p>Today, we have rebranded ourselves as a Limited company to give us a
+better reputation. We have re-strategize our operations not to focus on
+operating a physical restaurant but to operate online by having a digital
+market place on the web through which our customers can order food
+online, thereby reaching a larger audience.</p>
+
+</div>{% endblock content_is_authenticated %}
+    {% else %}
+
+    {% block content_not_authenticated %}
+
+<div class="container">
+
+  <h1><center>Our story</center></h1><br><br>
+
+    
+
+</div>{% endblock %}
+
+    {% endif %}
+

@@ -3,13 +3,13 @@
 {% block jscript_attribute %}
 <title>Payment</title>
 <link rel="stylesheet" href="{% static 'food_app/master.css' %}">{#if you want to use it own css file, change this to payment/master.css#}
-<script src="{% static 'payment/js/cart.js' %}" defer="true"></script>
+<script src="{% static 'payments/js/soup.js' %}" defer="true"></script>
 {% endblock jscript_attribute %}
 
 {% if user.is_authenticated %}
 
 {% block cart_button %}
-    <button type="submit" id="food_addtocart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>Cart({{cart.total_quantity}})</strong></button>
+    <button type="submit" id="soup_addtocart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>Cart({{cart}})</strong></button>
     {% endblock cart_button %}
     
     {% block content_is_authenticated %}

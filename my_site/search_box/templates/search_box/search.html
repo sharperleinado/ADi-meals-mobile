@@ -10,7 +10,7 @@
 {% if user.is_authenticated %}
   
     {% block cart_button %}
-    <button type="submit" id="food_addtocart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>Cart({{cart.total_quantity}})</strong></button>
+    <button type="submit" id="food_addtocart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>Cart({{cart}})</strong></button>
     {% endblock cart_button %}
     
     {% block content_is_authenticated %}

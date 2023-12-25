@@ -20,13 +20,14 @@ def cart_items(request):
     food_model = ContentType.objects.get(model="food")
     soup_model = ContentType.objects.get(model="soup")
     new_cartitems = ""
+    cart = ""
 
     try:
-        cart = None
         cartitems = []
     
         if request.user.is_authenticated:
             cart = Cart.objects.get(user=request.user)
+            cart_quantity = cart.total_quantity()
             cartitems = cart.cartitems.all()
             
             def returns_item(items,food_category):
@@ -43,13 +44,14 @@ def cart_items(request):
                 return new_items
             new_cartitems = returns_item(cartitems,"mini_box")
         else:
+            cart_quantity = 0
             pass
     
     except Cart.DoesNotExist:
         messages.info(request,"Add items to cart to view items!")
         return redirect('home')
     
-    return render(request,'cart/cartitems.html',{'cart':cart,'items':cartitems,'food':food_model,'soup':soup_model,'new':new_cartitems})
+    return render(request,'cart/cartitems.html',{'cart':cart,'cart_quantity':cart_quantity,'items':cartitems,'food':food_model,'soup':soup_model,'new':new_cartitems})
 
 
 

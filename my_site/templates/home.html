@@ -12,6 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     {% block jscript_attribute %}
     <link rel="stylesheet" href="{% static 'master.css' %}">
+    <script src="{% static 'food_app/js/food.js' %}" defer="true"></script>
     <title>Home page!</title>
     {% endblock jscript_attribute %}
 </head>
@@ -20,12 +21,14 @@
   
   <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
+      <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'Adimeals_logo.png' %}"></a>
       {% comment "" %}The reason why I have block here is to be able to dynamically have a cart button that is linked to each jscript file.{% endcomment %}
       {% block cart_button %}
-      <button type="submit" id="cart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>cart({{cart.total_quantity}})</strong></button>
+      <button type="submit" id="cart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>cart({{cart}})</strong></button>
       {% endblock  %}
+      {% block profile %}
       <button type="submit" class="btn btn-secondary" id="profile" onClick="window.location='{% url 'profile' %}';"><strong>Profile</strong></button>
+      {% endblock profile %}
       <button type="submit" class="btn btn-success" onClick="window.location='{% url 'authentication:signout' %}';"><strong>Sign out</strong></button>
       <ul class="navbar-nav ml-auto">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,27 +37,12 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Main</a>
+            <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
+            <a class="nav-link" href="{% url 'about' %}">Our story</a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled">Disabled</a>
-          </li>
-        </ul>
-        <form class="d-flex" role="search" action= "{% url 'search_box:search' %}" method="POST">
+              <form class="d-flex" role="search" action= "{% url 'search_box:search' %}" method="POST">
           {% csrf_token %}
           <input type="search" class="form-control me-2" id= "search" name="search" placeholder="Search boxes!" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>
@@ -106,10 +94,14 @@
 
   <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
-      <button type="submit" id="cart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>cart({{cart.total_quantity}})</strong></button>
+      <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'Adimeals_logo.png' %}"></a>
+      <button type="submit" id="cart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>cart({{cart}})</strong></button>
+      {% block signin_not_auth %}
       <button type="submit" class="btn btn-success" id="signin" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Sign in</strong></button>
+      {% endblock signin_not_auth %}
+      {% block profile_not_auth %}
       <button type="submit" class="btn btn-secondary" id="profile" onClick="window.location='{% url 'profile' %}';"><strong>Profile</strong></button>
+      {% endblock profile_not_auth %}
       <ul class="navbar-nav ml-auto">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -117,26 +109,11 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Main</a>
+            <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
+            <a class="nav-link" href="{% url 'about' %}">Our story</a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled">Disabled</a>
-          </li>
-        </ul>
         <form class="d-flex" role="search" action= "{% url 'search_box:search' %}" method="POST">
           {% csrf_token %}
           <input type="search" class="form-control me-2" id= "search" name="search" placeholder="Search boxes!" aria-label="Search">

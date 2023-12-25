@@ -17,6 +17,7 @@ from django.urls import reverse
 from .forms import UpdateMobileForm
 from django.db.models import Q
 from django.http import HttpResponse
+from cart.models import Cart
 
 #from .custom_authentication2 import EmailorUsernameModelBackend
 
@@ -35,7 +36,7 @@ def email_reset_password(request):
                 #Email Password reset
                 try: 
                     current_site = get_current_site(request) 
-                    email_subject = 'Password reset @ADimealsmobile!'
+                    email_subject = 'Password reset @ADimeals'
                     message2 = render_to_string('email_password_reset.html',{
                         'name':model.first_name,
                         'domain':current_site.domain,
@@ -53,7 +54,7 @@ def email_reset_password(request):
                     email2.content_subtype = "html"
                     fail_silently = False
                     email2.send()
-                    messages.success(request, "We have sent RESET PASSWORD link to your registered email address to rest your password!")
+                    messages.success(request, "We have sent RESET PASSWORD link to your registered email address to reset your password!")
                     return redirect('authentication:email_reset_password')
                 except:
                     messages.success(request, "We have sent RESET PASSWORD link to your registered email address to reset your password!")
@@ -236,6 +237,16 @@ def signin(request):
                 request.session.set_expiry(0)
             else:
                 request.session.set_expiry(None)
+            try:
+                cart = Cart.objects.get(session_id=request.sesion['cart_users'],is_paid=False)
+                if Cart.objects.filter(user=request.user,is_paid=False).exists():
+                    cart.user = None
+                    cart.save()
+                else:
+                    cart.user = request.user
+                    cart.save()
+            except:
+                pass
                 
             messages.success(request, "You have successfully logged in")
             return redirect('authentication:account_info')

@@ -25,20 +25,24 @@ def food_box(request):
     cart = ""
     try:
         cart = Cart.objects.get(user=request.user)
+        cart_total = cart.total_quantity()
     except:
+        cart_total = 0
         pass
     
-    return render(request,'food_app/food_box.html',{'food':food,'cart':cart})
+    return render(request,'food_app/food_box.html',{'food':food,'cart':cart_total})
 
 
 def soup_box(request):
     cart = ""
     try:
         cart = Cart.objects.get(user=request.user)
+        cart_total = cart.total_quantity()
     except:
+        cart_total = 0
         pass
     
-    return render(request,'food_app/soup_box.html',{'soup':soup,'cart':cart})
+    return render(request,'food_app/soup_box.html',{'soup':soup,'cart':cart_total})
 
 
 
@@ -63,29 +67,25 @@ def add_to_cart(request):
         num_of_items = cart_user.total_quantity()
     
     else:
-        '''
         try:
-            cart = Cart.objects.get(session_id=request.session['cart'],completed=False)
+            cart = Cart.objects.get(session_id=request.session['cart_users'],is_paid=False)
             content = ContentType.objects.get(model="food")
-            cartitems = CartItemsFood.objects.get_or_create(cart=cart,content_type=content,object_id=id)
             
-            cart_object = CartItemsFood.objects.get(cart=cart,content_type=content,object_id=id)
-            cart_object.quantity += 1
-            cart_object.save()
+            cartiems = CartItemsFood.objects.get_or_create(cart=cart,content_type=content,object_id=id)
+            cartitems.quantity += 1
+            cartiems.save()
             num_of_items = cart.total_quantity()
         except:
-            request.session['cart'] = str(uuid.uuid4())
-            cart = Cart.objects.get_or_create(cart=request.session['cart'],completed=False)
-            cart_user = Cart.objects.get(cart=request.session['cart'],completed=False)
+            request.session['cart_users'] = str(uuid.uuid4())
+            cart = Cart.objects.create(session_id=request.session['cart_users'],is_paid=False)
+            cart_user = Cart.objects.get(session_id=request.session['cart_users'],is_paid=False)
             content = ContentType.objects.get(model="food")
-            cartitems = CartItemsFood.objects.get_or_create(cart=cart,content_type=content,object_id=id)
+            cartitems = CartItemsFood.objects.get_or_create(cart=cart_user,content_type=content,object_id=id)
             
-            cart_object = CartItemsFood.objects.get(cart=cart,content_type=content,object_id=id)
-            cart_object.quantity += 1
-            cart_object.save()
+            cartitems.quantity += 1
+            cartitems.save()
             num_of_items = cart_user.total_quantity()
-        '''
-        pass    
+            #pass
     return JsonResponse(num_of_items,safe=False)
 
 

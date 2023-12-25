@@ -1,9 +1,6 @@
-from asyncio.windows_events import NULL
-from tkinter.tix import FileEntry
-from django.shortcuts import render,redirect
+from django.shortcuts import render
 from food_app.models import Food,Soup
-from django.contrib import messages
-from django.contrib.contenttypes.models import ContentType
+from cart.models import Cart
 
 # Create your views here.
 
@@ -13,6 +10,14 @@ def search_box(request):
     food_box = ""
     soup_box = ""
     search_list = ""
+    
+    try:
+        cart = Cart.objects.get(user=request.user)
+        cart_total = cart.total_quantity()
+    except:
+        cart_total = 0
+        pass
+    
     try:
         if request.method == "POST":
             search_box = request.POST.get("search").strip()
@@ -22,7 +27,7 @@ def search_box(request):
     except:
         pass
 
-    return render(request,'search_box/search.html',{'searched':search_box,'food':food_box,'soup':soup_box,
+    return render(request,'search_box/search.html',{'cart':cart_total,'searched':search_box,'food':food_box,'soup':soup_box,
     'search_list':search_list})
     
 
@@ -31,6 +36,13 @@ def search_box(request):
 def food_result(request,slug):
     my_food_box = ""
     my_soup_box = ""
+    cart = ""
+    try:
+        cart = Cart.objects.get(user=request.user)
+        cart_total = cart.total_quantity()
+    except:
+        cart_total = 0
+        pass
 
     def my_foodbox():
         my_food_box = ""
@@ -48,4 +60,4 @@ def food_result(request,slug):
             pass
         return my_soup_box
 
-    return render(request,'search_box/food_search.html',{'item':my_foodbox(),'item2':my_soupbox()}) 
+    return render(request,'search_box/food_search.html',{'cart':cart_total,'item':my_foodbox(),'item2':my_soupbox()}) 
