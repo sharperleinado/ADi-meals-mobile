@@ -18,7 +18,6 @@ const csrftoken = getCookie('csrftoken');
 
 let btns = document.querySelectorAll('.productContainer button')
 
-
 btns.forEach(btn=>{
     btn.addEventListener("click", addToCart)
     
@@ -111,7 +110,51 @@ function showNotification(message, color) {
 
 function hideNotification() {
     let notificationContainer = document.getElementById('notification-container');
-    notificationContainer.style.display = 'none';
+    notificationContainer.style.display = 'flex';
 }
+
+
+let clearAllButton = document.getElementById('clear_all');
+let overlay = document.getElementById('overlay');
+let okayButton = document.getElementById('okayButton');
+let cancelButton = document.getElementById('cancelButton');
+let container = document.getElementById('container');
+
+clearAllButton.addEventListener("click", function() {
+    overlay.style.display = 'flex';
+});
+
+okayButton.addEventListener('click', function() {
+    // Add your delete logic here
+
+    let okayValue = okayButton.value;
+    console.log(okayValue)
+    let url = '/cart/clear_all/';
+    let data = {'okay_value': okayValue};
+    
+    fetch(url, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+        },
+        body: JSON.stringify(data),
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log(data);
+        window.location.href = '/';
+    })
+    .catch(error => {
+        console.log(error);
+    });
+
+    alert('Delete confirmed!');
+    overlay.style.display = 'none';
+});
+
+cancelButton.addEventListener('click', function() {
+    overlay.style.display = 'none';
+});
 
 

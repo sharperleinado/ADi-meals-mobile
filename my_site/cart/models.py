@@ -10,7 +10,7 @@ from django.contrib.contenttypes import fields
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     is_paid = models.BooleanField(default=False)
-    uid = models.UUIDField(default=uuid.uuid4)
+    #uid = models.UUIDField(default=uuid.uuid4)
     session_id = models.CharField(max_length=100,blank=True,null=True)
     
     #for the total number of food and soup quantites in the cart

@@ -71,9 +71,9 @@ def add_to_cart(request):
             cart = Cart.objects.get(session_id=request.session['cart_users'],is_paid=False)
             content = ContentType.objects.get(model="food")
             
-            cartiems = CartItemsFood.objects.get_or_create(cart=cart,content_type=content,object_id=id)
+            cartitems = CartItemsFood.objects.get_or_create(cart=cart,content_type=content,object_id=id)
             cartitems.quantity += 1
-            cartiems.save()
+            cartitems.save()
             num_of_items = cart.total_quantity()
         except:
             request.session['cart_users'] = str(uuid.uuid4())

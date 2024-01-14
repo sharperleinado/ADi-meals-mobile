@@ -2,7 +2,7 @@
 {% load static %}
 {% block jscript_attribute %}
 <title>Cart</title>
-<link rel="stylesheet" href="{% static 'food_app/master.css' %}">{#if you want to use it own css file, change to cart/master.css#}
+<link rel="stylesheet" href="{% static 'cart/master.css' %}">{#if you want to use it own css file, change to cart/master.css#}
 <script src="{% static 'cart/js/cart.js' %}" defer="true"></script>
 {% endblock jscript_attribute %}
 
@@ -14,7 +14,7 @@
     
     {% block content_is_authenticated %}
 
-<div class="container">
+<div class="container" id="container">
     <br><br><h1><center>Cart page!</center></h1><br><br>
 
 <div id="notification-container"></div><br><br>
@@ -47,12 +47,21 @@
 </div>
 {% endfor %}
 
-<button type="submit" class="btn btn-danger" name="clear-all" id="clear-all">Clear all</button>
+<button type="submit" class="btn btn-danger" value={{cart.user.username}} name="clear_all" id="clear_all">Clear all</button><br><br>
+
+<div id="overlay" class="overlay" style="display: none;">
+  <div class="overlay-content">
+    <p>Are you sure you want to delete?</p>
+    <button class="btn btn-primary" id="okayButton" value={{cart.user.pk}}>Okay</button>
+    <button class="btn btn-secondary" id="cancelButton">Cancel</button>
+  </div>
+</div><br><br>
 <p><strong>Total items in cart: </strong>{{cart_quantity}}</p>
 <p><strong>Total price of items in cart: ₦</strong>{{cart.total_price}}</p>
 <button type="button" class="btn btn-success" onClick="makePayment({{cart.total_price}},{{cart.pk}})">Proceed to pay</button>
 
 </div>{% endblock content_is_authenticated %}
+
 {% else %}
 
 {% block content_not_authenticated %}

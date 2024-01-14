@@ -92,3 +92,15 @@ def cart_buttons(request):
         pass
     return JsonResponse(list_item, safe=False)
 
+
+def clear_all(request):
+    data = json.loads(request.body)
+    cart = data['okay_value']
+    
+    cart_object = Cart.objects.get(user=cart)
+    print(cart_object)
+    cart_object.delete()
+    
+    return JsonResponse("it's working",safe=False)
+
+

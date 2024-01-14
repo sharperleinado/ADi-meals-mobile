@@ -21,7 +21,7 @@
   
   <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'Adimeals_logo.png' %}"></a>
+      {#<a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'Adimeals_logo.png' %}"></a>#}
       {% comment "" %}The reason why I have block here is to be able to dynamically have a cart button that is linked to each jscript file.{% endcomment %}
       {% block cart_button %}
       <button type="submit" id="cart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>cart({{cart}})</strong></button>
@@ -94,7 +94,7 @@
 
   <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'Adimeals_logo.png' %}"></a>
+      {#<a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'Adimeals_logo.png' %}"></a>#}
       <button type="submit" id="cart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>cart({{cart}})</strong></button>
       {% block signin_not_auth %}
       <button type="submit" class="btn btn-success" id="signin" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Sign in</strong></button>
