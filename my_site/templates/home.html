@@ -1,100 +1,16 @@
+{% extends "./base/base.html" %}
+{% block pageTitle %}
+ADI food | Home
+{% endblock %}
+{% block pageBody %}
 {% load static %}
-
-<!DOCTYPE html>
-<html>
-
-<head>
-
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="kunkky v5.9.4">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-  <link rel="shortcut icon" href="{% static 'assets/images/adi-logo-96x69.png' %}" type="image/x-icon">
-  <meta name="description" content="">
-
-
-  <title>Home</title>
-  <link rel="stylesheet" href="{% static 'assets/web/assets/mobirise-icons2/mobirise2.css' %}">
-  <link rel="stylesheet" href="{% static 'assets/web/assets/mobirise-icons/mobirise-icons.css' %}">
-  <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
-  <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap-grid.min.css' %}">
-  <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap-reboot.min.css' %}">
-  <link rel="stylesheet" href="{% static 'assets/dropdown/css/style.css' %}">
-  <link rel="stylesheet" href="{% static 'assets/socicon/css/styles.css' %}">
-  <link rel="stylesheet" href="{% static 'assets/theme/css/style.css' %}">
-  <link rel="preload"
-    href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i&display=swap" as="style"
-    onload="this.onload=null;this.rel='stylesheet'">
-  <noscript>
-    <link rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i&display=swap">
-  </noscript>
-  <link rel="preload"
-    href="https://fonts.googleapis.com/css?family=Epilogue:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap"
-    as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript>
-    <link rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Epilogue:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap">
-  </noscript>
-  <link rel="preload" as="style" href="{% static 'assets/mobirise/css/mbr-additional.css' %}">
-  <link rel="stylesheet" href="{% static 'assets/mobirise/css/mbr-additional.css' %}" type="text/css">
-
-
-
-
-</head>
-
-<body>
-
-  <section data-bs-version="5.1" class="menu menu1 cid-sFGzlAXw3z" once="menu" id="menu1-2">
-
-
-    <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
-      <div class="container-fluid">
-        <div class="navbar-brand">
-          <span class="navbar-logo">
-            <a href="{% url 'home' %}">
-              <img src="{% static 'assets/images/adi-logo-96x69.png' %}" alt="ADI" style="height: 3rem;">
-            </a>
-          </span>
-
-        </div>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse"
-          data-target="#navbarSupportedContent" data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-          <div class="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true">
-            <li class="nav-item"><a class="nav-link link text-info display-4" href="#top">Home</a></li>
-            <li class="nav-item"><a class="nav-link link text-info text-primary display-4" href="about.html">
-                About</a></li>
-            <li class="nav-item"><a class="nav-link link text-info display-4"
-                href="index.html#features20-4">Research</a></li>
-            <li class="nav-item"><a class="nav-link link text-info display-4" href="index.html#features10-5">Pricing</a>
-            </li>
-          </ul>
-
-          <div class="navbar-buttons mbr-section-btn"><a class="btn btn-primary display-4" href="{% url 'home' %}"><span
-                class="mbri-users mbr-iconfont mbr-iconfont-btn"></span>Get
-              Started</a></div>
-        </div>
-      </div>
-    </nav>
-  </section>
-
   <section data-bs-version="5.1" class="header19 cid-sFGzrhlvIh" id="header19-3">
-
-
-
+  
+  
+  
     <div class="mbr-overlay" style="opacity: 0.9; background-color: rgb(0, 28, 8);">
     </div>
-
+  
     <div class="container">
       <div class="media-container">
         <div class="col-md-12 col-lg-10 m-auto align-center">
@@ -105,12 +21,12 @@
             sodales sollicitudin erat pulvinar. Quisque in mauris blandit, cursus ipsum non, hendrerit enim.
             Nullam fringilla ex sed maximus efficitur. Sed auctor justo elit, ac vestibulum metus semper
             non.</p>
-          <div class="mbr-section-btn align-center"><a class="btn btn-primary display-4" href="#/"><span
+          <div class="mbr-section-btn align-center"><a class="btn btn-primary display-4" href="{% url 'category' slug='all-food' %}"><span
                 class="mobi-mbri mobi-mbri-shopping-basket mbr-iconfont mbr-iconfont-btn"></span>Get
-              Started</a> <a class="btn btn-warning display-4" href="index.html#features19-a"><span
+              Started</a> <a class="btn btn-warning display-4" href="{% url 'about' %}"><span
                 class="mobi-mbri mobi-mbri-idea mbr-iconfont mbr-iconfont-btn"></span>Learn More</a>
           </div>
-
+  
           <div class="row pt-5 justify-content-center">
             <div class="col-12 col-md-6 col-lg-3">
               <div class="card-wrapper">
@@ -161,13 +77,13 @@
       </div>
     </div>
   </section>
-
+  
   <section data-bs-version="5.1" class="features5 cid-u0A4CyKsqy" id="features5-h">
-
-
-
-
-
+  
+  
+  
+  
+  
     <div class="container">
       <div class="row">
         <div class="item features-without-image mb-4 col-12 col-md-6">
@@ -175,7 +91,7 @@
             <div class="row">
               <div class="col-12 col-md-7">
                 <div class="text-wrapper">
-
+  
                   <h5 class="card-title mbr-fonts-style display-5">
                     <strong>Food Box</strong>
                   </h5>
@@ -183,12 +99,15 @@
                     quisquam dolor, consequuntur, ad dicta aliquam autem quo inventore fugiat
                     asperiores officia tenetur architecto eius aliquid, odit blanditiis soluta unde
                     porro eum laboriosam sed corporis. Esse.<br></p>
-                  <div class="mbr-section-btn"><a href="{% url 'home' %}" class="btn btn-warning display-4">Order Food</a></div>
+                  <div class="mbr-section-btn"><a href="{% url 'category' slug='food' %}" class="btn btn-warning display-4">Order Food</a>
+                  </div>
                 </div>
               </div>
               <div class="col-12 col-md-5">
                 <div class="img-wrapper">
-                  <img src="{% static 'assets/images/still-life-cardboard-organic-dinnerware-23-2149542080-357x238.jpg' %}" alt="adi">
+                  <img
+                    src="{% static 'assets/images/still-life-cardboard-organic-dinnerware-23-2149542080-357x238.jpg' %}"
+                    alt="adi">
                 </div>
               </div>
             </div>
@@ -199,19 +118,21 @@
             <div class="row">
               <div class="col-12 col-md-7">
                 <div class="text-wrapper">
-
+  
                   <h5 class="card-title mbr-fonts-style display-5">
                     <strong>Soup Box</strong>
                   </h5>
                   <p class="mbr-text mbr-fonts-style mb-5 display-4"> quo inventore fugiat asperiores
                     officia tenetur architecto eius aliquid, odit blanditiis soluta unde porro eum
                     laboriosam sed corporis. Esse.</p>
-                  <div class="mbr-section-btn"><a href="{% url 'home' %}" class="btn btn-warning display-4">Order Soup</a></div>
+                  <div class="mbr-section-btn"><a href="{% url 'category' slug='soup' %}" class="btn btn-warning display-4">Order Soup</a>
+                  </div>
                 </div>
               </div>
               <div class="col-12 col-md-5">
                 <div class="img-wrapper">
-                  <img src="{% static 'assets/images/top-view-vegetable-soup-with-meat-inside-plate-grey-140725-36040-357x238.jpg' %}"
+                  <img
+                    src="{% static 'assets/images/top-view-vegetable-soup-with-meat-inside-plate-grey-140725-36040-357x238.jpg' %}"
                     alt="adi">
                 </div>
               </div>
@@ -221,11 +142,11 @@
       </div>
     </div>
   </section>
-
+  
   <section data-bs-version="5.1" class="features19 cid-sFGBbGYuTc" id="features20-4">
-
-
-
+  
+  
+  
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-md-12 col-lg-10">
@@ -239,7 +160,7 @@
                 cursus, sodales sollicitudin erat pulvinar. Quisque in mauris blandit, cursus ipsum non,
                 hendrerit enim. Nullam fringilla ex sed maximus efficitur. Sed auctor justo elit, ac
                 vestibulum metus semper non.</p>
-
+  
             </div>
           </div>
         </div>
@@ -300,28 +221,28 @@
                 non.</h5>
             </div>
           </div>
-
-
-
-
-
-
+  
+  
+  
+  
+  
+  
         </div>
       </div>
     </div>
   </section>
-
+  
   <section data-bs-version="5.1" class="team1 cid-sFGGp6mJeM" id="team1-9">
-
-
-
+  
+  
+  
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-12">
           <h3 class="mbr-section-title mbr-fonts-style align-center mb-4 display-2">
             <strong>Our Team</strong>
           </h3>
-
+  
         </div>
         <div class="col-sm-6 col-lg-4">
           <div class="card-wrap">
@@ -354,14 +275,14 @@
                     <span class="mbr-iconfont socicon socicon-instagram"></span>
                   </a>
                 </div>
-
-
+  
+  
               </div>
-
+  
             </div>
           </div>
         </div>
-
+  
         <div class="col-sm-6 col-lg-4">
           <div class="card-wrap">
             <div class="image-wrap">
@@ -394,14 +315,14 @@
                     <span class="mbr-iconfont socicon socicon-instagram"></span>
                   </a>
                 </div>
-
-
+  
+  
               </div>
-
+  
             </div>
           </div>
         </div>
-
+  
         <div class="col-sm-6 col-lg-4">
           <div class="card-wrap">
             <div class="image-wrap">
@@ -434,28 +355,28 @@
                     <span class="mbr-iconfont socicon socicon-instagram"></span>
                   </a>
                 </div>
-
-
+  
+  
               </div>
-
+  
             </div>
           </div>
         </div>
-
-
+  
+  
       </div>
     </div>
   </section>
-
+  
   <section data-bs-version="5.1" class="clients1 cid-sFGFZiVtyo" id="clients1-8">
-
+  
     <div class="images-container container">
       <div class="mbr-section-head">
         <h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
           <strong>Our Clients</strong>
         </h3>
-
-
+  
+  
       </div>
       <div class="row justify-content-center mt-4">
         <div class="col-md-3 card">
@@ -476,17 +397,17 @@
         <div class="col-md-3 card">
           <img src="{% static 'assets/images/3.png' %}" alt="kunkky Website Builder">
         </div>
-
-
+  
+  
       </div>
     </div>
   </section>
-
+  
   <section data-bs-version="5.1" class="contacts1 cid-sFGJrLtt3K" id="contacts1-c">
-
-
-
-
+  
+  
+  
+  
     <div class="container">
       <div class="mbr-section-head">
         <h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
@@ -533,19 +454,19 @@
       </div>
     </div>
   </section>
-
+  
   <section data-bs-version="5.1" class="people5 mbr-embla cid-u0wjXpMIKz" id="people5-0">
-
-
-
-
-
-
+  
+  
+  
+  
+  
+  
     <div class="position-relative text-center">
       <h3 class="mb-4 mbr-fonts-style display-2">
         <strong>What Our Fantastic buyer&nbsp;</strong><strong>Say</strong>
       </h3>
-
+  
       <div class="embla" data-skip-snaps="true" data-align="center" data-loop="true" data-auto-play="true"
         data-auto-play-interval="5" data-draggable="true">
         <div class="embla__viewport container-fluid">
@@ -627,95 +548,6 @@
     </div>
   </section>
 
-  <section data-bs-version="5.1" class="footer1 cid-sFGDg6hy8z" once="footers" id="footer1-7">
 
+{% endblock %}
 
-
-    <div class="container">
-      <div class="row mbr-white">
-        <div class="col-12 col-md-6 col-lg-3">
-          <h5 class="mbr-section-subtitle mbr-fonts-style mb-2 display-7">
-            <strong>Links</strong>
-          </h5>
-          <ul class="list mbr-fonts-style display-4">
-            <li class="mbr-text item-wrap">Home</li>
-            <li class="mbr-text item-wrap">Features</li>
-            <li class="mbr-text item-wrap">Research</li>
-            <li class="mbr-text item-wrap">Team</li>
-          </ul>
-        </div>
-        <div class="col-12 col-md-6 col-lg-3">
-          <h5 class="mbr-section-subtitle mbr-fonts-style mb-2 display-7">
-            <strong>Info</strong>
-          </h5>
-          <ul class="list mbr-fonts-style display-4">
-
-            <li class="mbr-text item-wrap">About</li>
-            <li class="mbr-text item-wrap">Pricing</li>
-            <li class="mbr-text item-wrap">Contacts</li>
-            <li class="mbr-text item-wrap">Office</li>
-          </ul>
-        </div>
-        <div class="col-12 col-md-6 col-lg-3">
-          <h5 class="mbr-section-subtitle mbr-fonts-style mb-2 display-7">
-            <strong>Features</strong>
-          </h5>
-          <ul class="list mbr-fonts-style display-4">
-            <li class="mbr-text item-wrap">Market Analysis
-            </li>
-            <li class="mbr-text item-wrap">Demand Research
-            </li>
-            <li class="mbr-text item-wrap">Competitor Analysis
-            </li>
-            <li class="mbr-text item-wrap">Research Results
-            </li>
-            <li class="mbr-text item-wrap"><br></li>
-          </ul>
-        </div>
-        <div class="col-12 col-md-6 col-lg-3">
-          <h5 class="mbr-section-subtitle mbr-fonts-style mb-2 display-7">
-            <strong>About</strong>
-          </h5>
-          <p class="mbr-text mbr-fonts-style mb-4 display-4">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis bibendum diam eu tellus cursus,
-          </p>
-          <h5 class="mbr-section-subtitle mbr-fonts-style mb-3 display-7">
-            <strong>Social</strong>
-          </h5>
-          <div class="social-row display-7">
-            <div class="soc-item">
-              <a href="{% url 'home' %}" target="_blank">
-                <span class="mbr-iconfont socicon socicon-facebook"></span>
-              </a>
-            </div>
-            <div class="soc-item">
-              <a href="{% url 'home' %}" target="_blank">
-                <span class="mbr-iconfont socicon socicon-twitter"></span>
-              </a>
-            </div>
-            <div class="soc-item">
-              <a href="{% url 'home' %}" target="_blank">
-                <span class="mbr-iconfont socicon socicon-instagram"></span>
-              </a>
-            </div>
-
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <script src="{% static 'assets/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-  <script src="{% static 'assets/smoothscroll/smooth-scroll.js' %}"></script>
-  <script src="{% static 'assets/ytplayer/index.js' %}"></script>
-  <script src="{% static 'assets/dropdown/js/navbar-dropdown.js' %}"></script>
-  <script src="{% static 'assets/vimeoplayer/player.js' %}"></script>
-  <script src="{% static 'assets/embla/embla.min.js' %}"></script>
-  <script src="{% static 'assets/embla/script.js' %}"></script>
-  <script src="{% static 'assets/theme/js/script.js' %}"></script>
-
-
-</body>
-
-</html>
