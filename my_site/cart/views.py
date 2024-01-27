@@ -11,6 +11,7 @@ import json
 from authentication.models import Mobile
 from payments.views import tx_ref
 from food_app.views import food,soup
+from django.contrib.sites.shortcuts import get_current_site
 
 # Create your views here.
 
@@ -21,86 +22,126 @@ def cart_items(request):
     soup_model = ContentType.objects.get(model="soup")
     new_cartitems = ""
     cart = ""
+    cart_quantity = ""
 
-    try:
-        cartitems = []
     
+    def returns_item(items,food_category):
+        new_items = []
+        for item in items:
+            if item.content_type == food_model:
+                total_price = item.total_price(item.food_category)
+                new_list = [item,total_price]
+                new_items.append(new_list)
+            elif item.content_type == soup_model and item.food_category == item.food_category:
+                total_price = item.total_price(item.food_category)
+                new_list = [item,total_price]
+                new_items.append(new_list)
+        return new_items
+    
+    try:
         if request.user.is_authenticated:
             cart = Cart.objects.get(user=request.user)
             cart_quantity = cart.total_quantity()
             cartitems = cart.cartitems.all()
-            
-            def returns_item(items,food_category):
-                new_items = []
-                for item in items:
-                    if item.content_type == food_model:
-                        total_price = item.total_price(item.food_category)
-                        new_list = [item,total_price]
-                        new_items.append(new_list)
-                    elif item.content_type == soup_model and item.food_category == item.food_category:
-                        total_price = item.total_price(item.food_category)
-                        new_list = [item,total_price]
-                        new_items.append(new_list)
-                return new_items
             new_cartitems = returns_item(cartitems,"mini_box")
         else:
-            cart_quantity = 0
-            pass
+            try:
+                cart = Cart.objects.get(session_id=request.session['cart_users'],is_paid=False)
+                cart_quantity = cart.total_quantity()
+                cartitems = cart.cartitems.all()
+                new_cartitems = returns_item(cartitems,"mini_box")
+            except:
+                messages.info(request,"Add items to cart to view items!")
+                return redirect('home')
     
     except Cart.DoesNotExist:
         messages.info(request,"Add items to cart to view items!")
         return redirect('home')
     
-    return render(request,'cart/cartitems.html',{'cart':cart,'cart_quantity':cart_quantity,'items':cartitems,'food':food_model,'soup':soup_model,'new':new_cartitems})
+    return render(request,'cart/cartitems.html',{'food':food_model,'soup':soup_model,'new':new_cartitems})
 
 
 
 def cart_buttons(request):
-    new_item = ""
     try:
+        new_item = ""
+        list_item = ""
+        check_carts = ""
         data = json.loads(request.body)
         object_id = data['id']
         name = data['btn_name']
         form = data['form']
         
-        cart = Cart.objects.get(user=request.user)
-        cart_items = CartItemsFood.objects.filter(cart=cart)
-        total_quantities = cart.total_quantity()
-        
-        if name == "add-item":
-            item = cart_items.get(object_id=object_id,food_category=form)
-            item.quantity += 1
-            item.save()
-            total_quantities = total_quantities + 1
-        elif name == "subtract-item":
-            item = cart_items.get(object_id=object_id,food_category=form)
-            item.quantity -= 1
-            item.save()
-            if item.quantity < 1:
+        if request.user.is_authenticated:
+            cart = Cart.objects.get(user=request.user)
+            cart_items = CartItemsFood.objects.filter(cart=cart)
+            total_quantities = cart.total_quantity()
+            
+            if name == "add-item":
+                item = cart_items.get(object_id=object_id,food_category=form)
+                item.quantity += 1
+                item.save()
+                total_quantities = total_quantities + 1
+            elif name == "subtract-item":
+                item = cart_items.get(object_id=object_id,food_category=form)
+                item.quantity -= 1
+                item.save()
+                if item.quantity < 1:
+                    item.delete()
+                total_quantities = total_quantities - 1
+            else:
+                item = cart_items.get(object_id=object_id,food_category=form)
                 item.delete()
-            total_quantities = total_quantities - 1
+                total_quantities = total_quantities - item.quantity
+            cartitem_price = item.total_price(item.food_category)
+            new_quantity = item.quantity
+            total_quantities = total_quantities
+            list_item = [cartitem_price,new_quantity,total_quantities]
+
+            
         else:
-            item = cart_items.get(object_id=object_id,food_category=form)
-            item.delete()
-            total_quantities = total_quantities - item.quantity
-        cartitem_price = item.total_price(item.food_category)
-        new_quantity = item.quantity
-        total_quantities = total_quantities
-        list_item = [cartitem_price,new_quantity,total_quantities]
-        
+            cart = Cart.objects.get(session_id=request.session['cart_users'],is_paid=False)
+            cart_items = CartItemsFood.objects.filter(cart=cart)
+            total_quantities = cart.total_quantity() 
+            
+            if name == "add-item":
+                item = cart_items.get(object_id=object_id,food_category=form)
+                item.quantity += 1
+                item.save()
+                total_quantities = total_quantities + 1
+            elif name == "subtract-item":
+                item = cart_items.get(object_id=object_id,food_category=form)
+                item.quantity -= 1
+                item.save()
+                if item.quantity < 1:
+                    item.delete()
+                total_quantities = total_quantities - 1
+            else:
+                item = cart_items.get(object_id=object_id,food_category=form)
+                item.delete()
+                total_quantities = total_quantities - item.quantity
+            cartitem_price = item.total_price(item.food_category)
+            new_quantity = item.quantity
+            total_quantities = total_quantities
+            list_item = [cartitem_price,new_quantity,total_quantities]
     except:
         pass
+
     return JsonResponse(list_item, safe=False)
 
 
 def clear_all(request):
     data = json.loads(request.body)
     cart = data['okay_value']
+    print(cart)
+
+    if request.user.is_authenticated:
+        cart_object = Cart.objects.get(user=cart)
+        cart_object.delete()
+    else:
+        cart_object = Cart.objects.get(session_id=cart)
+        cart_object.delete()
     
-    cart_object = Cart.objects.get(user=cart)
-    print(cart_object)
-    cart_object.delete()
-    
-    return JsonResponse("it's working",safe=False)
+    return JsonResponse(data,safe=False)
 
 

@@ -8,7 +8,7 @@ from django.contrib.contenttypes import fields
 
 
 class Cart(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,blank=True,null=True)
     is_paid = models.BooleanField(default=False)
     #uid = models.UUIDField(default=uuid.uuid4)
     session_id = models.CharField(max_length=100,blank=True,null=True)
@@ -26,7 +26,11 @@ class Cart(models.Model):
         return total_price  
     
     def __str__(self):
-        return self.user.username
+            try:
+                return self.user.username
+            except:
+                return self.session_id
+
     
 
 class CartItemsFood(models.Model):
@@ -53,6 +57,7 @@ class CartItemsFood(models.Model):
     
 
     def __str__(self):
+        
         return f"{self.content_object} {self.food_category}"
     
     

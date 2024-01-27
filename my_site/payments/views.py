@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from food_app.views import food,soup
 from django.http.response import JsonResponse,HttpResponse
 import json
 from cart.models import Cart,CartItemsFood
@@ -10,9 +9,8 @@ import random
 #from my_site.settings import get_env_variable
 import requests
 from food_app.views import food,soup
-from food_app.models import Soup
 from django.db.models import Q
-from django.shortcuts import get_object_or_404
+import uuid
 # Create your views here.
 
 
@@ -25,7 +23,6 @@ def tx_ref():
 
 
 def payment(request, price, slug):
-    cart = ""
     email = ""
     username = ""
     mobile = ""
@@ -35,11 +32,7 @@ def payment(request, price, slug):
         email = request.user.email
         mobile = Mobile.objects.get(user=request.user)
         phone_no = mobile.phone_no
-        
-        cart = Cart.objects.get(user=request.user)
-        cart_total = cart.total_quantity()
     except:
-        cart_total = 0
         pass
     
     def get_food_item():
@@ -51,7 +44,6 @@ def payment(request, price, slug):
     return render(request, 'payments/pay.html', {
         'item': get_food_item(),
         'item2': get_soup_item(),
-        'cart': cart_total,
         'tx_ref': tx_ref,
         'price': price,
         'slug': slug,
@@ -72,11 +64,8 @@ def price_in_pack(request, slug):
                 mobile = Mobile.objects.get(user=request.user)
                 phone_no = mobile.phone_no
                 quantity = int(request.POST.get("quantity"))
-                for item in food:
-                    if slug == item.slug:
-                        break
-                    item = item
-                total_price = quantity*item.food_price
+                food_item = food.get(slug=slug)
+                total_price = quantity*food_item.food_price
             except ValueError:
                 return render(request,'food_app/404.html')
             except:
@@ -133,18 +122,35 @@ def add_to_cart(request):
     
     
         if request.user.is_authenticated:
-            cart = Cart.objects.get_or_create(user=request.user,is_paid=False)
+            cart, created = Cart.objects.get_or_create(user=request.user,is_paid=False)
             
             cart_user = Cart.objects.get(user=request.user)
             content = ContentType.objects.get_for_model(product)
-            cartitems = CartItemsFood.objects.get_or_create(cart=cart_user,content_type=content,object_id=id,food_category=product_price)
+            cartitems, created = CartItemsFood.objects.get_or_create(cart=cart_user,content_type=content,object_id=id,food_category=product_price)
         
-            cart_object = CartItemsFood.objects.get(cart=cart_user,content_type=content,object_id=id,food_category=product_price)
-            cart_object.quantity += 1
-            cart_object.save()   
-        
-            new_cart = Cart.objects.get(user=request.user)
-            num_of_items = new_cart.total_quantity()
+            cartitems.quantity += 1
+            cartitems.save()   
+            num_of_items = cart.total_quantity()
+        else:
+            try:
+                cart = Cart.objects.get(session_id=request.session['cart_users'],is_paid=False)
+                content = ContentType.objects.get_for_model(product)
+                cartitems, created = CartItemsFood.objects.get_or_create(cart=cart,content_type=content,object_id=id,food_category=product_price)
+                
+                cartitems.quantity += 1
+                cartitems.save()
+                num_of_items = cart.total_quantity()
+            except:
+                request.session['cart_users'] = str(uuid.uuid4())
+                cart = Cart.objects.create(session_id=request.session['cart_users'],is_paid=False)
+                cart_user = Cart.objects.get(session_id=request.session['cart_users'],is_paid=False)
+                content = ContentType.objects.get(model="soup")
+                cartitems, created = CartItemsFood.objects.get_or_create(cart=cart_user,content_type=content,object_id=id,food_category=product_price)
+                
+                cartitems.quantity += 1
+                cartitems.save()
+                num_of_items = cart_user.total_quantity()
+
     except:
         pass
     return JsonResponse(num_of_items,safe=False)

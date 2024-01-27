@@ -9,7 +9,7 @@
 {% if user.is_authenticated %}
 
 {% block cart_button %}
-    <button type="submit" id="soup_addtocart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>Cart({{cart}})</strong></button>
+    <button type="submit" id="soup_addtocart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>Cart({{cart_quantity}})</strong></button>
     {% endblock cart_button %}
     
     {% block content_is_authenticated %}
@@ -91,6 +91,10 @@
 {% endif %}</div>{% endblock content_is_authenticated %}
 
 {% else %}
+
+{% block cart_button_not_auth %}
+    <button type="submit" id="soup_addtocart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>Cart({{cart_quantity}})</strong></button>
+    {% endblock %}
 
 {% block content_not_authenticated %}
 

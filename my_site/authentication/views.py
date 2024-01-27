@@ -238,7 +238,7 @@ def signin(request):
             else:
                 request.session.set_expiry(None)
             try:
-                cart = Cart.objects.get(session_id=request.sesion['cart_users'],is_paid=False)
+                cart = Cart.objects.get(session_id=request.session['cart_users'],is_paid=False)
                 if Cart.objects.filter(user=request.user,is_paid=False).exists():
                     cart.user = None
                     cart.save()

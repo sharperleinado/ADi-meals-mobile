@@ -10,39 +10,13 @@ from cart.models import CartItemsFood,Cart
 
 
 def home(request):
-    fname = ""
-    cart = ""
-    cart_total = ""
-    try:
-        fname = request.user.first_name
-    except:
-        pass
-    
-    try:
-        cart = Cart.objects.get(user=request.user)
-        cart_total = cart.total_quantity()
-    except:
-        cart_total = 0
-        pass
 
-    return render(request,'home.html',{'fname':fname,'cart':cart_total})
+    return render(request,'home.html',{})
 
 
 def profile(request):
-    fname=""
-    try:
-        fname = request.user.first_name
-    except:
-        pass
-    
-    try:
-        cart = Cart.objects.get(user=request.user)
-        cart_total = cart.total_quantity()
-    except:
-        cart_total = 0
-        pass
 
-    return render(request,'profile.html',{'cart':cart_total,'fname':fname})
+    return render(request,'profile.html',{})
 
 def about(request):
     
