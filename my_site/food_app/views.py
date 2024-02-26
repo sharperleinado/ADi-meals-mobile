@@ -8,6 +8,7 @@ from django.contrib.contenttypes.models import ContentType
 import math
 import random
 import uuid
+from . forms import ProteinForm
 
 
 
@@ -21,8 +22,13 @@ soup = Soup.objects.all().order_by('soup_item')
 
 
 def food_box(request):
+    form = ProteinForm()
+    if request.method == "POST":
+        form = ProteinForm(request.POST)
+        if form.is_valid():
+            form.save()
     
-    return render(request,'food_app/food_box.html',{'food':food})
+    return render(request,'food_app/food_box.html',{'food':food,'form':form})
 
 
 def soup_box(request):
@@ -73,3 +79,10 @@ def add_to_cart(request):
     return JsonResponse(num_of_items,safe=False)
 
 
+
+def change_protein(request):
+    data = json.loads(request.body)
+    protein_id = data['protein_id']
+    print(protein_id)
+    
+    return JsonResponse("it is working ooo",safe=False)

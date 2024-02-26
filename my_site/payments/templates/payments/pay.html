@@ -4,6 +4,40 @@
 <title>Payment</title>
 <link rel="stylesheet" href="{% static 'food_app/master.css' %}">{#if you want to use it own css file, change this to payment/master.css#}
 <script src="{% static 'payments/js/soup.js' %}" defer="true"></script>
+
+<script src="https://checkout.flutterwave.com/v3.js"></script>
+<script>
+    let tx_ref = "{{tx_ref}}"
+    let username = "{{ username }}"
+    let email = "{{ email }}"
+    let phone_no = "{{ phone_no }}"
+
+function makePayment(price,pk) {
+    FlutterwaveCheckout({
+      public_key: "FLWPUBK-88c1243af19624d4b741295b1782a009-X",
+      tx_ref: tx_ref,
+      amount: price,
+      currency: "NGN",
+      payment_options: "card, mobilemoneyghana, ussd",
+      redirect_url: "https://127.0.0.1:8000/payments/verify_payment/" + pk,
+      meta: {
+        consumer_id: 23,
+        consumer_mac: "92a3-912ba-1192a",
+      },
+      customer: {
+        email: email,
+        phone_number: phone_no,
+        name: username,
+      },
+      customizations: {
+        title: "ADi meals limited",
+        description: "Your go to place for food and soup service",
+        logo: "https://www.logolynx.com/images/logolynx/22/2239ca38f5505fbfce7e55bbc0604386.jpeg",
+      },
+    });
+  }
+</script>
+
 {% endblock jscript_attribute %}
 
 {% if user.is_authenticated %}
@@ -94,7 +128,7 @@
 
 {% block cart_button_not_auth %}
     <button type="submit" id="soup_addtocart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>Cart({{cart_quantity}})</strong></button>
-    {% endblock %}
+{% endblock %}
 
 {% block content_not_authenticated %}
 
@@ -178,37 +212,5 @@
 {% endif %}
 </div>
 
-<script src="https://checkout.flutterwave.com/v3.js"></script>
-<script>
-    let tx_ref = "{{tx_ref}}"
-    let username = "{{ username }}"
-    let email = "{{ email }}"
-    let phone_no = "{{ phone_no }}"
-
-function makePayment(price,pk) {
-    FlutterwaveCheckout({
-      public_key: "FLWPUBK-88c1243af19624d4b741295b1782a009-X",
-      tx_ref: tx_ref,
-      amount: price,
-      currency: "NGN",
-      payment_options: "card, mobilemoneyghana, ussd",
-      redirect_url: "https://127.0.0.1:8000/payments/verify_payment/" + pk,
-      meta: {
-        consumer_id: 23,
-        consumer_mac: "92a3-912ba-1192a",
-      },
-      customer: {
-        email: email,
-        phone_number: phone_no,
-        name: username,
-      },
-      customizations: {
-        title: "ADi meals limited",
-        description: "Your go to place for food and soup service",
-        logo: "https://www.logolynx.com/images/logolynx/22/2239ca38f5505fbfce7e55bbc0604386.jpeg",
-      },
-    });
-  }
-</script>
     </body>
 </html>

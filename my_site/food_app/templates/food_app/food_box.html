@@ -4,6 +4,25 @@
 <title>Food box</title>
 <link rel="stylesheet" href="{% static 'food_app/master.css' %}">
 <script src="{% static 'food_app/js/food.js' %}" defer="true"></script>
+<style>
+  .hidden {
+      display: none;
+  }
+</style>
+
+<script>
+  function toggleForm(formID) {
+      /*var form = button.nextElementSibling;*/
+      var form = document.getElementById(formID);
+
+      // Toggle the visibility of the form
+      if (form.classList.contains("hidden")) {
+          form.classList.remove("hidden");
+      } else {
+          form.classList.add("hidden");
+      }
+  }
+</script>
 {% endblock jscript_attribute %}
 
   {% if user.is_authenticated %}
@@ -24,7 +43,12 @@
                 {% for item in food %}
                 
                 <a href= "{% url 'payments:payment' price=item.food_price slug=item.slug %}"><img src={{item.image.url}} class="img-fluid"></a><br><br>
-                <p>{{item.food_item|capfirst}} | {{item.protein|capfirst}} | ₦{{item.food_price}} | <button type="submit" class="btn btn-danger" {#onClick="window.location='{% url 'payments:payment' price=item.food_price slug=item.slug %}';"#}><strong>Change protein</strong></button><br><br></p>
+                <p>{{item.food_item|capfirst}} | {{item.protein|capfirst}} | ₦{{item.food_price}} | <button type="submit" class="btn btn-danger change-protein-btn" onClick="toggleForm('{{item.food_item}}')"><strong>Change protein</strong></button><br><br></p>
+                <form id="{{item.food_item}}" class="hidden">
+                {% csrf_token %}
+                {{form.as_p}}
+                </form>
+                
                 <button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:payment' price=item.food_price slug=item.slug %}';"><strong>Eat Me!</strong></button><br><br>
 
                 <form action="{% url 'payments:price' slug=item.slug %}" method="POST">
@@ -84,3 +108,5 @@
             </div> {% endblock %}
                   {% endif %}
 
+
+                  

@@ -58,3 +58,27 @@ pre_save.connect(slug_generator, sender=Food)
 pre_save.connect(slug_generator, sender=Soup)  
 
 
+
+class Protein(models.Model):
+    protein = models.CharField(max_length=50)
+    
+    def __str__(self):
+        return self.protein
+    
+class SubProtein(models.Model):
+    protein = models.ForeignKey(Protein,on_delete=models.CASCADE)
+    subprotein = models.CharField(max_length=300)
+    
+    def __str__(self):
+        return f"{self.subprotein} | {self.protein}"
+    
+class UserProtein(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    protein = models.ForeignKey(Protein,on_delete=models.CASCADE)
+    subprotein = models.ForeignKey(SubProtein,on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"{self.protein.protein} | {self.subprotein.subprotein}"   
+
+
+

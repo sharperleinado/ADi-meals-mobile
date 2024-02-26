@@ -1,18 +1,14 @@
 from django.contrib import admin
-from django.urls import path,include 
+from django.urls import path,include
 from django.shortcuts import render
-from django.contrib.auth.models import User 
-from django.shortcuts import redirect
 from django.conf import settings
 from django.conf.urls.static import static
-from cart.models import CartItemsFood,Cart
 
 
 
 def home(request):
-
+    
     return render(request,'home.html',{})
-
 
 def profile(request):
 
@@ -21,6 +17,7 @@ def profile(request):
 def about(request):
     
     return render(request,'about.html',{})
+
      
 urlpatterns = [
     path('admin/', admin.site.urls),
