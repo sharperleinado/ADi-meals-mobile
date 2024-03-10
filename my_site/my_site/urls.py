@@ -51,6 +51,8 @@ def contact(request):
     return render(request,'contact.html',{})
 def foods(request):
     return render(request,'foods.html',{})
+def cart(request):
+    return render(request,'cart.html',{})
     
 def soups(request):
     
@@ -85,6 +87,7 @@ urlpatterns = [
     path('about/',about,name='about'),
     path('soups/',soups,name='soups'),
     path('contact/',contact,name='contact'),
+    path('cart/',cart,name='cart'),
     
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
