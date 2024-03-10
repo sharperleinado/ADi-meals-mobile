@@ -1,0 +1,76 @@
+{% extends "home.html" %}
+{% load static %}
+{% block jscript_attribute %}
+<title>Sign up</title>
+<link rel="stylesheet" href="{% static 'food_app/master.css' %}">
+<script src="{% static 'food_app/js/food.js' %}" defer="true"></script>
+{% endblock jscript_attribute %}
+
+{% if user.is_authenticated %}
+  
+{% block cart_button %}
+<button type="submit" id="food_addtocart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>Cart({{cart.total_quantity}})</strong></button>
+{% endblock cart_button %}
+
+{% block content_is_authenticated %}
+
+<div class="container">
+
+    <br><br><h1><center>Sign up here</center></h1><br><br>
+    <h2><center>Gotcha!</center></h2><br>
+    <br><br><br><h2><center>You are already logged in</center></h2>
+
+  </div>{% endblock %}
+
+  {% else %}
+
+  {% block content_not_authenticated %}
+
+  <div class="container">
+  
+    <h1><center>Sign up here</center></h1><br><br>
+
+<form action="{% url 'authentication:signup' %}" method="POST">
+    {% csrf_token %}
+    
+    <div class="mb-3">
+      <label for="username" class="form-label">Username</label>
+      <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required>
+    </div>
+    <div class="mb-3">
+        <label for="fname" class="form-label">First name</label>
+        <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter your first name" required>
+      </div>
+    <div class="mb-3">
+        <label for="lname" class="form-label">Last name</label>
+        <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter your last name" required>
+      </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">E-mail</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your last name" required>
+      </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" class="form-control" id="password" aria-describedby="password" name="password" placeholder="Enter password" required>
+      <div id="passhelp" class="form-text">We'll never share your password with anyone else.</div><br>
+      <div id="passhelp" class="form-text">Hint</div>
+      <ul>
+      <li><div id="passhelp" class="form-text">Common passwords as simple as A, B, C is not allowed!</div></li>
+      <li><div id="passhelp" class="form-text">Numeric only password is not allowed. Special characters like '#' and '@' must be included!</div></li>
+      <li><div id="passhelp" class="form-text">Password must be a minimum of 8 characters!</div></li>
+      <li><div id="passhelp" class="form-text">Password must not be too similar to the User attribute provided!</div></li>
+      </ul>
+    </div>
+    <div class="mb-3">
+        <label for="password2" class="form-label">Confirm password</label>
+        <input type="password" class="form-control" id="password2" name="password2" placeholder="Confirm password" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button><br><br>
+  
+    <a href= "{% url 'authentication:signin' %}">Sign in here</a><br><br>
+  
+  </form>
+
+</div>{% endblock %}
+{% endif %}
+

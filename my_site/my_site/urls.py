@@ -50,8 +50,12 @@ def contact(request):
     
     return render(request,'contact.html',{})
 def foods(request):
-    
     return render(request,'foods.html',{})
+    
+def soups(request):
+    
+    return render(request,'soupcategory.html',{})
+
 
 def category(request, slug):
     context = {
@@ -66,7 +70,7 @@ def selecteditem(request, slug):
     return render(request, 'selected-food.html', context)
 
 urlpatterns = [
-    re_path(r'^category/(?P<slug>[\w-]+)/$', category, name="category"),
+    re_path(r'^category/(?P<slug>[\w\s-]+)/$', category, name="category"),
     re_path(r'^selecteditem/(?P<slug>[\w-]+)/$', selecteditem, name="selecteditem"),
     path('admin/', admin.site.urls),
     path('authentication/',include('authentication.urls')),
@@ -79,6 +83,8 @@ urlpatterns = [
     path('review/',include('review.urls')),
     path('cart/',include('cart.urls')),
     path('about/',about,name='about'),
+    path('soups/',soups,name='soups'),
     path('contact/',contact,name='contact'),
+    
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

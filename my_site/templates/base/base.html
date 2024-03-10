@@ -40,21 +40,7 @@
     <link rel="stylesheet" href="{% static 'assets/mobirise/css/mbr-additional.css' %}" type="text/css">
 
 
-<style>
-    .btn {
-        display: inline;
-    }
 
-    .cart-number {
-        background-color: white;
-        padding: 2px;
-        border-radius: 100%;
-        font-size: small;
-        left: 0;
-        bottom: 0;
-
-    }
-</style>
 
 </head>
 
@@ -94,10 +80,10 @@
                        
                     </ul>
                 <div class="icons-menu">
-                    <a class="iconfont-wrapper" href="#cart" target="_blank">
+                    <a class="iconfont-wrapper position-relative" href="#cart" target="_blank">
                         <span class="p-2 mbr-iconfont mobi-mbri-cart-full mobi-mbri relative"
                             style="color: rgb(244, 240, 187); fill: rgb(244, 240, 187);">
-                            <!-- <span class="badge badge-danger position-absolute top-0 start-100 translate-middle">3</span> -->
+                            <span class="badge badge-danger position-absolute bottom-0 bg-warning  rounded-pill" style="font-size: x-small; left:20px;">3</span>
                         </span>
                     </a>
                 </div>
@@ -116,35 +102,12 @@
                 </div>
 
                     
-<div class="dropdown navbar-buttons mbr-section-btn"><a
-                            class="btn btn-primary dropdown-toggle show display-4" href="index.html#features10-5"
-                            data-toggle="dropdown-submenu" data-bs-toggle="dropdown" data-bs-auto-close="outside"
-                            aria-expanded="false"><span class="mbri-users mbr-iconfont mbr-iconfont-btn"></span>Get
-                            Started</a>
-                        <div class="dropdown-menu show" aria-labelledby="dropdown-425" data-bs-popper="none"><a
-                                class="text-info dropdown-item display-4" href="index.html#features10-5"><span
-                                    class="mbri-login mbr-iconfont mbr-iconfont-btn"></span>Login</a><a
-                                class="text-info dropdown-item display-4" href="index.html#features10-5"><span
-                                    class="mbri-smile-face mbr-iconfont mbr-iconfont-btn"></span>Register</a></div>
-                    </div>
 
-                    <div class="dropdown navbar-buttons mbr-section-btn"><a
-                            class="btn btn-info dropdown-toggle show display-4" href="index.html#features10-5"
-                            data-toggle="dropdown-submenu" data-bs-toggle="dropdown" data-bs-auto-close="outside"
-                            aria-expanded="false"><span class="mbri-setting mbr-iconfont mbr-iconfont-btn"></span>Setting</a>
-                        <div class="dropdown-menu show" aria-labelledby="dropdown-425" data-bs-popper="none"><a
-                                class="text-info dropdown-item display-4" href="index.html#features10-5"><a
-                                class="text-info dropdown-item display-4" href="index.html#features10-5"><span
-                                    class="mobi-mbri mobi-mbri-bulleted-list mbr-iconfont mbr-iconfont-btn"></span>Profile</a><a
-                                class="text-info dropdown-item display-4" href="index.html#features10-5"><span
-                                    class="mbri-logout mbr-iconfont mbr-iconfont-btn"></span>Sign Out</a></div>
-                    </div>
 
-                   <div class="position-relative ">
-                    <span class="mbri-shopping-cart mbr-iconfont mbr-iconfont-btn"  style="color: rgb(230, 198, 59); fill: rgb(230, 198, 59); font-size: x-large;"></span>
-                    <span class="text-black  position-absolute text-nowrap cart-number">66</span>
-                   </div>
-                   
+                    <div class="navbar-buttons mbr-section-btn"><a class="btn btn-primary display-4"
+                            href="{% url 'authentication:signup' %}"><span class="mbri-users mbr-iconfont mbr-iconfont-btn"></span>Get
+                            Started</a></div>
+                </div>
             </div>
         </nav>
     </section>

@@ -5,6 +5,8 @@ from . import views
 
 app_name = 'authentication'
 
+def signup(request):
+    return render(request, 'signup.html', {})
 
 
 urlpatterns = [
