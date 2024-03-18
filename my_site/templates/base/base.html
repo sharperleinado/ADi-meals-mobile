@@ -77,15 +77,13 @@
                                 About</a></li>
                         <li class="nav-item"><a class="nav-link link text-info display-4"
                                 href="{% url 'contact' %}">Contact</a></li>
-                        <!-- <li class="nav-item"><a class="nav-link link text-info display-4"
-                                href="index.html#features10-5">Pricing</a>
-                        </li> -->
+                       
                     </ul>
                 <div class="icons-menu">
-                    <a class="iconfont-wrapper" href="#cart" target="_blank">
+                    <a class="iconfont-wrapper position-relative" href="#cart" target="_blank">
                         <span class="p-2 mbr-iconfont mobi-mbri-cart-full mobi-mbri relative"
                             style="color: rgb(244, 240, 187); fill: rgb(244, 240, 187);">
-                            <!-- <span class="badge badge-danger position-absolute top-0 start-100 translate-middle">3</span> -->
+                            <span class="badge badge-danger position-absolute bottom-0 bg-warning  rounded-pill" style="font-size: x-small; left:20px;">3</span>
                         </span>
                     </a>
                 </div>
@@ -107,7 +105,7 @@
 
 
                     <div class="navbar-buttons mbr-section-btn"><a class="btn btn-primary display-4"
-                            href="{% url 'category' slug='all-food' %}"><span class="mbri-users mbr-iconfont mbr-iconfont-btn"></span>Get
+                            href="{% url 'authentication:signup' %}"><span class="mbri-users mbr-iconfont mbr-iconfont-btn"></span>Get
                             Started</a></div>
                 </div>
             </div>

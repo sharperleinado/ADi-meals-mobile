@@ -1,0 +1,40 @@
+{% extends "./base/base.html" %}
+{% block pageTitle %}
+ADI food | Home
+{% endblock %}
+{% block pageBody %}
+{% load static %}
+<section data-bs-version="5.1" class="features16 cid-u0tx4HnUeO" id="features16-e">
+
+
+
+
+
+    <div class="container-fluid">
+        <div class="content-wrapper">
+            <div class="row align-items-center">
+                <div class="col-12 col-lg">
+                    <div class="text-wrapper">
+                        <h6 class="card-title mbr-fonts-style display-2">
+                            <strong>Amazing blocks</strong>
+                        </h6>
+                        <p class="mbr-text mbr-fonts-style mb-4 display-4">
+                            All details of food {{ slug }} goes here.. 
+                            forms, articles, and so on. Start a project and click on the red plus buttons to see the
+                            blocks available for your theme.</p>
+                        <div class="mbr-section-btn mt-3"><a class="btn btn-primary display-4" href="#">Place Order</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <div class="image-wrapper">
+                        <img src="{% static 'assets/images/mbr-1005x671.jpg' %}" alt="Adi Foods">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}
