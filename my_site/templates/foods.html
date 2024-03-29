@@ -1,9 +1,45 @@
 {% extends "./base/base.html" %}
 {% block pageTitle %}
-ADI food | Home
+ADi meals | Food box
 {% endblock %}
 {% block pageBody %}
 {% load static %}
+
+
+
+
+{% for item in food %}
+                
+                <a href= "{% url 'payments:payment' price=item.food_price slug=item.slug %}"><img src={{item.image.url}} class="img-fluid"></a><br><br>
+                <p>{{item.food_item|capfirst}} | {{item.protein|capfirst}} | ₦{{item.food_price}} | <button type="submit" class="btn btn-danger change-protein-btn" onClick="toggleForm('{{item.food_item}}')"><strong>Change protein</strong></button><br><br></p>
+                <form id="{{item.food_item}}" class="hidden">
+                {% csrf_token %}
+                {{form.as_p}}
+                </form>
+                
+                <button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:payment' price=item.food_price slug=item.slug %}';"><strong>Eat Me!</strong></button><br><br>
+
+                <form action="{% url 'payments:price' slug=item.slug %}" method="POST">
+                  {% csrf_token %}
+
+                <div class="input-group mb-3">
+                  <span class="input-group-text">Price in packs</span>
+                  <input type="number" class="form-control" name="quantity"  aria-describedby="quantity" placeholder="Input numbers between 20 and 100" aria-label="Input numbers between 20 and 500" min="20" max="100">
+                  <button type="submit" class="btn btn-success"><strong>Click Me!</strong></button>
+                </div>
+                </form>
+      
+                 <div class="productContainer">
+                  <button type="submit" class="btn btn-success" name="add-item" value={{item.pk}} id="add-item">Add to cart</button>
+                </div><br><br>
+
+                <br><br><br><br><br>
+                
+                {% endfor %}
+
+
+
+
 
 <section data-bs-version="5.1" class="gallery3 cid-u0tvmAp7su" id="gallery3-a">
 

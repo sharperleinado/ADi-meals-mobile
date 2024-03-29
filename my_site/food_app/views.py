@@ -28,12 +28,12 @@ def food_box(request):
         if form.is_valid():
             form.save()
     
-    return render(request,'food_app/food_box.html',{'food':food,'form':form})
+    return render(request,'food_app/food_box_kunkky.html',{'food':food,'form':form})
 
 
 def soup_box(request):
     
-    return render(request,'food_app/soup_box.html',{'soup':soup})
+    return render(request,'food_app/soup_box_kunkky.html',{'soup':soup})
 
 
 

@@ -1,12 +1,11 @@
-{% extends "./base/base.html" %}
+{% extends "base/base.html" %}
+{% load static %}
 {% block pageTitle %}
-ADI food | Home
+ADi meals | Home
 {% endblock %}
 {% block pageBody %}
-{% load static %}
+
   <section data-bs-version="5.1" class="header19 cid-sFGzrhlvIh" id="header19-3">
-  
-  
   
     <div class="mbr-overlay" style="opacity: 0.9; background-color: rgb(0, 28, 8);">
     </div>
@@ -17,11 +16,18 @@ ADI food | Home
           <h1 class="mbr-section-title mbr-white mbr-fonts-style mb-3 display-1"><strong>Welcome
             </strong><br><strong>to ADi meals mobile!</strong></h1>
           <p class="mbr-text mbr-white mbr-fonts-style display-7">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis bibendum diam eu tellus cursus,
+            {% if user.is_authenticated %}
+            Hi {{Fname}}, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis bibendum diam eu tellus cursus,
             sodales sollicitudin erat pulvinar. Quisque in mauris blandit, cursus ipsum non, hendrerit enim.
             Nullam fringilla ex sed maximus efficitur. Sed auctor justo elit, ac vestibulum metus semper
-            non.</p>
-          <div class="mbr-section-btn align-center"><a class="btn btn-primary display-4" href="{% url 'category' slug='all-food' %}"><span
+            non.
+            {% else %}
+            Hi Anonymous, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis bibendum diam eu tellus cursus,
+            sodales sollicitudin erat pulvinar. Quisque in mauris blandit, cursus ipsum non, hendrerit enim.
+            Nullam fringilla ex sed maximus efficitur. Sed auctor justo elit, ac vestibulum metus semper
+            non.
+            {% endif %}</p>
+          <div class="mbr-section-btn align-center"><a class="btn btn-primary display-4" href="#foodbox{#{% url 'food_app:foodbox' %}#}"><span
                 class="mobi-mbri mobi-mbri-shopping-basket mbr-iconfont mbr-iconfont-btn"></span>Get
               Started</a> <a class="btn btn-warning display-4" href="{% url 'about' %}"><span
                 class="mobi-mbri mobi-mbri-idea mbr-iconfont mbr-iconfont-btn"></span>Learn More</a>
@@ -84,7 +90,7 @@ ADI food | Home
   
   
   
-    <div class="container">
+    <div class="container" id="foodbox">
       <div class="row">
         <div class="item features-without-image mb-4 col-12 col-md-6">
           <div class="item-wrapper">
@@ -99,7 +105,7 @@ ADI food | Home
                     quisquam dolor, consequuntur, ad dicta aliquam autem quo inventore fugiat
                     asperiores officia tenetur architecto eius aliquid, odit blanditiis soluta unde
                     porro eum laboriosam sed corporis. Esse.<br></p>
-                  <div class="mbr-section-btn"><a href="{% url 'category' slug='food' %}" class="btn btn-warning display-4">Order Food</a>
+                  <div class="mbr-section-btn"><a href="{% url 'food_app:foodbox' %}" class="btn btn-warning display-4">Order Food</a>
                   </div>
                 </div>
               </div>
@@ -125,7 +131,7 @@ ADI food | Home
                   <p class="mbr-text mbr-fonts-style mb-5 display-4"> quo inventore fugiat asperiores
                     officia tenetur architecto eius aliquid, odit blanditiis soluta unde porro eum
                     laboriosam sed corporis. Esse.</p>
-                  <div class="mbr-section-btn"><a href="{% url 'category' slug='soup' %}" class="btn btn-warning display-4">Order Soup</a>
+                  <div class="mbr-section-btn"><a href="{% url 'food_app:soupbox' %}" class="btn btn-warning display-4">Order Soup</a>
                   </div>
                 </div>
               </div>
@@ -547,7 +553,6 @@ ADI food | Home
       </div>
     </div>
   </section>
-
 
 {% endblock %}
 

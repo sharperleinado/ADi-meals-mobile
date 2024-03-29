@@ -12,13 +12,6 @@ def search_box(request):
     search_list = ""
     
     try:
-        cart = Cart.objects.get(user=request.user)
-        cart_total = cart.total_quantity()
-    except:
-        cart_total = 0
-        pass
-    
-    try:
         if request.method == "POST":
             search_box = request.POST.get("search").strip()
             food_box = Food.objects.filter(food_item__contains = search_box).all()
@@ -27,7 +20,7 @@ def search_box(request):
     except:
         pass
 
-    return render(request,'search_box/search.html',{'cart':cart_total,'searched':search_box,'food':food_box,'soup':soup_box,
+    return render(request,'search_box/search_kunkky.html',{'searched':search_box,'food':food_box,'soup':soup_box,
     'search_list':search_list})
     
 
@@ -36,13 +29,6 @@ def search_box(request):
 def food_result(request,slug):
     my_food_box = ""
     my_soup_box = ""
-    cart = ""
-    try:
-        cart = Cart.objects.get(user=request.user)
-        cart_total = cart.total_quantity()
-    except:
-        cart_total = 0
-        pass
 
     def my_foodbox():
         my_food_box = ""
@@ -60,4 +46,4 @@ def food_result(request,slug):
             pass
         return my_soup_box
 
-    return render(request,'search_box/food_search.html',{'cart':cart_total,'item':my_foodbox(),'item2':my_soupbox()}) 
+    return render(request,'search_box/food_search.html',{'item':my_foodbox(),'item2':my_soupbox()}) 

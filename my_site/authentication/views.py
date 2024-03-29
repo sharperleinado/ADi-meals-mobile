@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import login,logout
 from my_site.settings import EMAIL_HOST_USER
 from django.contrib.sites.shortcuts import get_current_site
-from django.template.loader import render_to_string,get_template
+from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
 from django.utils.encoding import force_bytes,force_str
 from .tokens import generate_token
@@ -25,45 +25,46 @@ from cart.models import Cart
 # Create your views here.
 
 def email_reset_password(request):
-    form = EmailReset()
+    #form = EmailReset()
     if request.method == "POST":
-        form = EmailReset(request.POST)
-        if form.is_valid():
-            username_or_mail = form.cleaned_data["email"].strip()
-            try:
-                model = User.objects.get(Q(username=username_or_mail) | Q(email=username_or_mail))
+        #form = EmailReset(request.POST)
+        #form = request.POST.get("email")
+        #if form.is_valid():
+        username_or_mail = request.POST.get("email").strip()
+        try:
+            model = User.objects.get(Q(username=username_or_mail) | Q(email=username_or_mail))
 
-                #Email Password reset
-                try: 
-                    current_site = get_current_site(request) 
-                    email_subject = 'Password reset @ADimeals'
-                    message2 = render_to_string('email_password_reset.html',{
-                        'name':model.first_name,
-                        'domain':current_site.domain,
-                        'uid':urlsafe_base64_encode(force_bytes(model.pk)),
-                        'token': generate_token.make_token(model)
-                    }) 
-                    from_email2 = EMAIL_HOST_USER
-                    to_list2 = [model.email]
-                    email2 = EmailMessage(
-                        email_subject,
-                        message2,
-                        from_email2,
-                        to_list2,
-                    )
-                    email2.content_subtype = "html"
-                    fail_silently = False
-                    email2.send()
-                    messages.success(request, "We have sent RESET PASSWORD link to your registered email address to reset your password!")
-                    return redirect('authentication:email_reset_password')
-                except:
-                    messages.success(request, "We have sent RESET PASSWORD link to your registered email address to reset your password!")
-                    return redirect('authentication:email_reset_password')
-            except:
-                messages.error(request, "User details does not exist in our database! Be sure to input a correct email or username.")
+            #Email Password reset
+            try: 
+                current_site = get_current_site(request) 
+                email_subject = 'Password reset @ADimeals'
+                message2 = render_to_string('email_password_reset.html',{
+                    'name':model.first_name,
+                    'domain':current_site.domain,
+                    'uid':urlsafe_base64_encode(force_bytes(model.pk)),
+                    'token': generate_token.make_token(model)
+                }) 
+                from_email2 = EMAIL_HOST_USER
+                to_list2 = [model.email]
+                email2 = EmailMessage(
+                    email_subject,
+                    message2,
+                    from_email2,
+                    to_list2,
+                )
+                email2.content_subtype = "html"
+                fail_silently = False
+                email2.send()
+                messages.success(request, "We have sent RESET PASSWORD link to your registered email address to reset your password!")
                 return redirect('authentication:email_reset_password')
+            except:
+                messages.success(request, "We have sent RESET PASSWORD link to your registered email address to reset your password!")
+                return redirect('authentication:email_reset_password')
+        except:
+            messages.error(request, "User details does not exist in our database! Be sure to input a correct email or username.")
+            return redirect('authentication:email_reset_password')
 
-    return render(request,'authentication/email_reset.html',{'form':form})
+    return render(request,'authentication/email_reset_kunkky.html',{})
 
 
 
@@ -219,7 +220,7 @@ def signup(request):
                 messages.success(request,"Your account has been successfully created!\nWe have also sent you a confirmation email, please confirm your email address to login into your account.")
                 return redirect('authentication:signin')
 
-    return render(request,'authentication/signup.html')
+    return render(request,'authentication/signup_kunkky.html')
 
 
 def signin(request):
@@ -256,7 +257,7 @@ def signin(request):
             return redirect('authentication:signin')
 
 
-    return render(request,'authentication/signin.html')
+    return render(request,'authentication/signin_kunkky.html')
 
 
 def signout(request):

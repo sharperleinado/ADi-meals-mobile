@@ -1,8 +1,4 @@
-{% extends "./base/base.html" %}
-{% block pageTitle %}
-ADI food | Home
-{% endblock %}
-{% block pageBody %}
+<!DOCTYPE html>
 {% load static %}
 <html lang="en">
 <head>
@@ -25,10 +21,10 @@ ADI food | Home
   
   <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'Adimeals_logo.png' %}"></a>
+      {#<a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'Adimeals_logo.png' %}"></a>#}
       {% comment "" %}The reason why I have block here is to be able to dynamically have a cart button that is linked to each jscript file.{% endcomment %}
       {% block cart_button %}
-      <button type="submit" id="cart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>cart({{cart}})</strong></button>
+      <button type="submit" id="cart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>cart({{cart_quantity}})</strong></button>
       {% endblock  %}
       {% block profile %}
       <button type="submit" class="btn btn-secondary" id="profile" onClick="window.location='{% url 'profile' %}';"><strong>Profile</strong></button>
@@ -53,94 +49,17 @@ ADI food | Home
         </form>
       </div>
     </div>
-  </section>
-  
-  <section data-bs-version="5.1" class="features19 cid-sFGBbGYuTc" id="features20-4">
-  
-  
-  
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-md-12 col-lg-10">
-          <div class="card-wrapper pb-4">
-            <div class="card-box align-center">
-              <h4 class="card-title mbr-fonts-style mb-4 display-2">
-                <strong>How It works</strong>
-              </h4>
-              <p class="mbr-text mbr-fonts-style mb-4 display-7">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis bibendum diam eu tellus
-                cursus, sodales sollicitudin erat pulvinar. Quisque in mauris blandit, cursus ipsum non,
-                hendrerit enim. Nullam fringilla ex sed maximus efficitur. Sed auctor justo elit, ac
-                vestibulum metus semper non.</p>
-  
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-9">
-          <div class="item mbr-flex">
-            <div class="icon-box">
-              <span class="step-number mbr-fonts-style display-5">1</span>
-            </div>
-            <div class="text-box">
-              <h4 class="icon-title card-title mbr-black mbr-fonts-style display-7"><strong>Register/Sign
-                  in</strong></h4>
-              <h5 class="icon-text mbr-black mbr-fonts-style display-4">Lorem ipsum dolor sit amet,
-                consectetur adipiscing elit. Duis bibendum diam eu tellus cursus, sodales sollicitudin
-                erat pulvinar. Quisque in mauris blandit, cursus ipsum non, hendrerit enim. Nullam
-                fringilla ex sed maximus efficitur. Sed auctor justo elit, ac vestibulum metus semper
-                non.</h5>
-            </div>
-          </div>
-          <div class="item mbr-flex">
-            <div class="icon-box">
-              <span class="step-number mbr-fonts-style display-5">2</span>
-            </div>
-            <div class="text-box">
-              <h4 class="icon-title card-title mbr-black mbr-fonts-style display-7"><strong>Check
-                  Available food</strong></h4>
-              <h5 class="icon-text mbr-black mbr-fonts-style display-4">Lorem ipsum dolor sit amet,
-                consectetur adipiscing elit. Duis bibendum diam eu tellus cursus, sodales sollicitudin
-                erat pulvinar. Quisque in mauris blandit, cursus ipsum non, hendrerit enim. Nullam
-                fringilla ex sed maximus efficitur. Sed auctor justo elit, ac vestibulum metus semper
-                non.</h5>
-            </div>
-          </div>
-          <div class="item mbr-flex">
-            <div class="icon-box">
-              <span class="step-number mbr-fonts-style display-5">3</span>
-            </div>
-            <div class="text-box">
-              <h4 class="icon-title card-title mbr-black mbr-fonts-style display-7"><strong>Add Food To
-                  Cart</strong></h4>
-              <h5 class="icon-text mbr-black mbr-fonts-style display-4">Lorem ipsum dolor sit amet,
-                consectetur adipiscing elit. Duis bibendum diam eu tellus cursus, sodales sollicitudin
-                erat pulvinar. Quisque in mauris blandit, cursus ipsum non, hendrerit enim. Nullam
-                fringilla ex sed maximus efficitur. Sed auctor justo elit, ac vestibulum metus semper
-                non.</h5>
-            </div>
-          </div>
-          <div class="item mbr-flex last">
-            <div class="icon-box">
-              <span class="step-number mbr-fonts-style display-5">4</span>
-            </div>
-            <div class="text-box">
-              <h4 class="icon-title card-title mbr-black mbr-fonts-style display-7"><strong>Place
-                  Order</strong></h4>
-              <h5 class="icon-text mbr-black mbr-fonts-style display-4">Lorem ipsum dolor sit amet,
-                consectetur adipiscing elit. Duis bibendum diam eu tellus cursus, sodales sollicitudin
-                erat pulvinar. Quisque in mauris blandit, cursus ipsum non, hendrerit enim. Nullam
-                fringilla ex sed maximus efficitur. Sed auctor justo elit, ac vestibulum metus semper
-                non.</h5>
-            </div>
-          </div>
-  
-  
-  
-  
-  
-  
-        </div>
-      </div>
+  </nav>
+
+
+
+
+    {% for message in messages %}
+    <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+    <strong>Message:</strong> {{message}}
+    <button type="button" class="close" data-dismissible="alert" aria-label="close">
+    <span aria-hidden="True">&times;</span>
+    </button>
     </div>
     {% endfor %}<br><br><br><br><br>
     
@@ -175,8 +94,10 @@ ADI food | Home
 
   <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'Adimeals_logo.png' %}"></a>
-      <button type="submit" id="cart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>cart({{cart}})</strong></button>
+      {#<a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'Adimeals_logo.png' %}"></a>#}
+      {% block cart_button_not_auth %}
+      <button type="submit" id="cart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>cart({{cart_quantity}})</strong></button>
+      {% endblock %}
       {% block signin_not_auth %}
       <button type="submit" class="btn btn-success" id="signin" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Sign in</strong></button>
       {% endblock signin_not_auth %}
@@ -202,53 +123,24 @@ ADI food | Home
         </form>
       </div>
     </div>
-  </section>
-  
-  <section data-bs-version="5.1" class="clients1 cid-sFGFZiVtyo" id="clients1-8">
-  
-    <div class="images-container container">
-      <div class="mbr-section-head">
-        <h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
-          <strong>Our Clients</strong>
-        </h3>
-  
-  
-      </div>
-      <div class="row justify-content-center mt-4">
-        <div class="col-md-3 card">
-          <img src="{% static 'assets/images/1.png' %}" alt="kunkky Website Builder">
-        </div>
-        <div class="col-md-3 card">
-          <img src="{% static 'assets/images/2.png' %}">
-        </div>
-        <div class="col-md-3 card">
-          <img src="{% static 'assets/images/3.png' %}">
-        </div>
-        <div class="col-md-3 card">
-          <img src="{% static 'assets/images/4.png' %}" alt="kunkky Website Builder">
-        </div>
-        <div class="col-md-3 card">
-          <img src="{% static 'assets/images/2.png' %}" alt="kunkky Website Builder">
-        </div>
-        <div class="col-md-3 card">
-          <img src="{% static 'assets/images/3.png' %}" alt="kunkky Website Builder">
-        </div>
-  
-  
-      </div>
+  </nav>
+
+  {% for message in messages %}
+    <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+    <strong>Message:</strong> {{message}}
+    <button type="button" class="close" data-dismissible="alert" aria-label="close">
+    <span aria-hidden="True">&times;</span>
+    </button>
     </div>
-  </section>
-  
-  <section data-bs-version="5.1" class="contacts1 cid-sFGJrLtt3K" id="contacts1-c">
-  
-  
-  
-  
+    {% endfor %}<br><br><br><br><br>
+
+    {% block content_not_authenticated %}
+
     <div class="container">
 
     <br><br><h1>Welcome to ADi meals mobile!</h1><br><br>
 
-    <p>Hi Anon, Welcome to Adi meals mobile!</p><br>
+    <p>Hi {{fname}}, Welcome to Adi meals mobile!</p><br>
 
     <br><br><br><br><br>
     
