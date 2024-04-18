@@ -18,18 +18,9 @@ def about(request):
     
     return render(request,'about.html',{})
 
-def base(request):
-    
-    return render(request,'base/base.html',{})
-
-
-
 def contact(request):
     
     return render(request,'contact.html',{})
-
-def cart(request):
-    return render(request,'cart.html',{})
     
 
 urlpatterns = [
@@ -45,8 +36,6 @@ urlpatterns = [
     path('cart/',include('cart.urls')),
     path('about/',about,name='about'),
     path('contact/',contact,name='contact'),
-    path('cart/',cart,name='cart'),
-    path('base/', base, name="base")
     
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

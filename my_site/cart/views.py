@@ -23,6 +23,17 @@ def cart_items(request):
     new_cartitems = ""
     cart = ""
     cart_quantity = ""
+    username = ""
+    email = ""
+    mobile = ""
+    phone_no = ""
+    try:
+        username = request.user.username
+        email = request.user.email
+        mobile = Mobile.objects.get(user=request.user)
+        phone_no = mobile.phone_no
+    except:
+        pass
 
     
     def returns_item(items,food_category):
@@ -55,10 +66,17 @@ def cart_items(request):
                 return redirect('home')
     
     except Cart.DoesNotExist:
-        messages.info(request,"Add items to cart to view items!")
+        messages.error(request,"Add items to cart to view items!")
         return redirect('home')
     
-    return render(request,'cart/cartitems.html',{'food':food_model,'soup':soup_model,'new':new_cartitems})
+    return render(request,'cart/cartitems_kunkky.html',{
+        'food':food_model,
+        'soup':soup_model,
+        'new':new_cartitems,
+        'username':username,
+        'email':email,
+        'phone_no': phone_no,
+        'tx_ref':tx_ref(),})
 
 
 

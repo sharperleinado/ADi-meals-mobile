@@ -1,0 +1,88 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block pageTitle %}
+ADi meals | Soup select
+{% endblock %}
+{% block jscript_attribute %}
+<script src="{% static 'payments/js/soup.js' %}" defer="true"></script>
+{% endblock jscript_attribute %}
+{% block pageBody %}
+<section data-bs-version="5.1" class="features16 cid-u0tx4HnUeO" id="features16-e">
+
+    {% if item2 and price == item2.mini_box_price and slug == item2.slug %}
+    <div class="container-fluid">
+        <div class="content-wrapper">
+            <div class="row align-items-center">
+                <div class="col-12 col-lg">
+                    <div class="text-wrapper">
+                        <h6 class="card-title mbr-fonts-style display-2">
+                            <strong>{{item2.mini_box_name | capfirst}}</strong>
+                        </h6>
+                        <p class="mbr-text mbr-fonts-style mb-4 display-4">{{item2.soup_item|capfirst}} | Beef | fried beef | <strong>₦{{item2.mini_box_price}}</strong></p>
+                        <div class="productContainer">
+                            <div class="mbr-section-btn mt-3"><button class="btn btn-primary display-4" name={{item2.mini_box_name}} value={{item2.pk}} id="add-item">Add To Cart</button></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <div class="image-wrapper">
+                        <img src={{item2.image.url}} alt={{item2.mini_box_name}}>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% elif item2 and price == item2.medium_box_price and slug == item2.slug %}
+    <div class="container-fluid">
+        <div class="content-wrapper">
+            <div class="row align-items-center">
+                <div class="col-12 col-lg">
+                    <div class="text-wrapper">
+                        <h6 class="card-title mbr-fonts-style display-2">
+                            <strong>{{item2.medium_box_name | capfirst}}</strong>
+                        </h6>
+                        <p class="mbr-text mbr-fonts-style mb-4 display-4">{{item2.soup_item|capfirst}} | Beef | fried beef | <strong>₦{{item2.medium_box_price}}</strong></p>
+                        <div class="productContainer">
+                            <div class="mbr-section-btn mt-3"><button class="btn btn-primary display-4" name={{item2.medium_box_name}} value={{item2.pk}} id="add-item">Add To Cart</button></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <div class="image-wrapper">
+                        <img src={{item2.image.url}} alt={{item2.medium_box_name}}>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% elif item2 and price == item2.mega_box_price and slug == item2.slug %}
+    <div class="container-fluid">
+        <div class="content-wrapper">
+            <div class="row align-items-center">
+                <div class="col-12 col-lg">
+                    <div class="text-wrapper">
+                        <h6 class="card-title mbr-fonts-style display-2">
+                            <strong>{{item2.mega_box_name | capfirst}}</strong>
+                        </h6>
+                        <p class="mbr-text mbr-fonts-style mb-4 display-4">{{item2.soup_item|capfirst}} | Beef | fried beef | <strong>₦{{item2.mega_box_price}}</strong></p>
+                        <div class="productContainer">
+                            <div class="mbr-section-btn mt-3"><button class="btn btn-primary display-4" name={{item2.mega_box_name}} value={{item2.pk}} id="add-item">Add To Cart</button></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <div class="image-wrapper">
+                        <img src={{item2.image.url}} alt={{item2.mega_box_name}}>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}

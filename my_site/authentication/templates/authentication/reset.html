@@ -1,47 +1,53 @@
+{% extends "base/base.html" %}
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="{% static 'authentication/master.css' %}">
-    <title>Reset password by E-mail</title>
-</head>
-<body>
-    
+{% block pageTitle %}
+ADi meals | Password Reset by E-mail
+{% endblock %}
+{% block pageBody %}
+
+<section data-bs-version="5.1" class="image2 cid-u0tuxl367X" id="image2-7">
+
 <div class="container">
 
-    {% for message in messages %}
-    <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
-    <strong>Message:</strong> {{message}}
-    <button type="button" class="close" data-dismissible="alert" aria-label="close">
-    <span aria-hidden="True">&times;</span>
-    </button>
-    </div>
-    {% endfor %}<br>
+<br><h1><center><strong>Reset password</strong></center></h1><br><br><br><br>
 
-<h1>Reset password by E-mail</h1><br><br><br><br><br>
+<div class="row align-items-center">
+            
+  <div class="col-12 col-lg">
+      <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
+          <form action="" method="POST" class="mbr-form form-with-styler" data-form-title="Form Name">
+              {% csrf_token %}
+              
+              <div class="dragArea row">
+                 
+                  <div class="col-12 form-group mb-3" data-for="email">
+                      <input type="password" id="password" name="password" placeholder="Enter New Password" class="form-control" required>
+                  </div>
 
-
-<form action="" method="POST">
-{% csrf_token %}
-
-<label for="new password">New password:</label>
-<input type="password" id="password" name="password" placeholder="Enter new password" required><br><br>
-
-<label for="new password2">Confirm password:</label>
-<input type="password" id="password2" name="password2" placeholder="Confirm new password" required><br><br>
-
-<input type="submit" value="Update">
-
-</form>
+                  <div class="col-12 form-group mb-3" data-for="email">
+                    <input type="password" id="password2" name="password2" placeholder="Confirm New Password" class="form-control" required>
+                </div>
+                
+                  <p class="display-4 ">We recommend that you create a strong password.</p>
+                  <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
+                      <button type="submit" class="btn btn-primary display-4 w-100 ">Update password</button>
+                  </div>
+              </div>
+    
+          </form>
+      </div>
+  </div>
+  <div class="col-12 col-lg-6">
+      <div class="image-wrapper">
+          <img src="{% static 'assets/images/hot-soup-bowl-against-dark-background-410516-41370-626x417.jpg' %}"
+              alt="ADI Foods">
+      </div>
+  </div>
+</div>
+</div>
 
 </div>
 
-   </body>
-</html>
+</section>
+{% endblock %}
 

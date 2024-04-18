@@ -1,37 +1,39 @@
 from django.shortcuts import render,redirect
 from django.urls import reverse
 from .forms import AddressForm,UpdateForm
-from .models import UserAddress
 from django.contrib import messages
 from cart.models import Cart
+from .models import UserAddress,area,country_choice,city,state
 
 
 # Create your views here.
 
 
 def register_address(request):
-    instance = ""
+    useraddress = ""
+    
     try:
-        form = AddressForm()
-        if request.method == "POST":
-            form = AddressForm(request.POST)
-            if form.is_valid():
-                instance = form.save(commit=False)
-                instance.user = request.user
-                try:
-                    if UserAddress.objects.get(user=instance.user):
-                        messages.error(request, "You have already created address, you can go ahead to Update or Edit your address.")
-                        return redirect('address:billing_address')
-                except:
-                    pass
-                instance.save()
-                messages.success(request, "You have successfully added a shipping address!")
-                messages.success(request, "You can proceed to order a meal now!")
-                return redirect('home')
+        useraddress = UserAddress.objects.get(user=request.user)
+        if useraddress is not None:
+            messages.error(request, "You have already created address, you can go ahead to Update or Edit your address.")
+            return redirect('authentication:account_info')
+        else:
+            pass
     except:
         pass
     
-    return render(request,'address/register_address.html',{'form':form})
+    if request.method == "POST":
+        country_address = request.POST.get("country")
+        state_address = request.POST.get("state")
+        city_address = request.POST.get("city")
+        area_address = request.POST.get("area")
+        street_name_address = request.POST.get("street_name")
+        useraddress = UserAddress.objects.create(user=request.user,country=country_address,state=state_address,city=city_address,area=area_address,street_name=street_name_address)
+        messages.success(request, "You have successfully added a billing address!")
+        messages.success(request, "You can proceed to order a meal now!")
+        return redirect('authentication:mobile')
+    
+    return render(request,'address/register_address.html',{'country':country_choice,'state':state,'city':city,'area':area,})
 
 
 

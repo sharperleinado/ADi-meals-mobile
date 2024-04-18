@@ -8,11 +8,11 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
 from django.utils.encoding import force_bytes,force_str
 from .tokens import generate_token
-from .models import User 
+from .models import User,Mobile 
 from django.contrib.auth.password_validation import password_changed,validate_password,UserAttributeSimilarityValidator,CommonPasswordValidator,MinimumLengthValidator,NumericPasswordValidator
 from .custom_authentication import EmailorUsernameModelBackend
 from .forms import MobileForm,EmailReset
-from .models import Mobile
+from address.models import UserAddress,area,country_choice,city,state
 from django.urls import reverse 
 from .forms import UpdateMobileForm
 from django.db.models import Q
@@ -24,6 +24,7 @@ from cart.models import Cart
 
 # Create your views here.
 
+#forget password view. User input username or email and we search if user exists in our data base.
 def email_reset_password(request):
     #form = EmailReset()
     if request.method == "POST":
@@ -70,6 +71,30 @@ def email_reset_password(request):
 
 def mobile(request):
     #I first created a form to get phone number input from user, then render the number as per the currrent user request in the account info template.
+    form = ""
+    try:
+        mobile = Mobile.objects.get(user=request.user)
+        if mobile is not None:
+            messages.error(request, "You have already have a mobile no, you can go ahead to Update your already existing mobile number.")
+            return redirect('authentication:account_info')
+        else:
+            pass
+          
+    except:
+        pass
+    
+    form = MobileForm()
+    if request.method == "POST":
+        form = MobileForm(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.user = request.user
+            instance.save()
+            messages.success(request, "You have successfully uploaded a phone number!")
+            return redirect('authentication:account_info')
+    
+    
+    '''
     instance = ""
     form = ""
     try:
@@ -81,21 +106,11 @@ def mobile(request):
                 instance.user = request.user
                 instance.save()
                 messages.success(request, "You have successfully uploaded a phone number!")
-                return redirect('address:billing_address')
+                return redirect('authentication:account_info')
     except:
-        pass
+        pass'''
 
     return render(request,'authentication/mobile.html',{'form':form})
-
-
-def main(request):
-    fname = ""
-    try:
-        fname = request.user.first_name
-    except AttributeError:
-        return redirect('authentication:signin')
-    
-    return render(request,'authentication/landing_page.html',{'fname':fname})
 
 
 def all(request):
@@ -250,7 +265,7 @@ def signin(request):
                 pass
                 
             messages.success(request, "You have successfully logged in")
-            return redirect('authentication:account_info')
+            return redirect('address:register_address')
 
         else:
             messages.error(request, "Bad credentials! or Check your mail to verify account if you have not!")
@@ -304,28 +319,18 @@ def account_info(request):
     #This is a view that displays the current information of the user!
     #It displays the username, first name, last name and email. it also gives the user access to edit the account information.
     try:
-        uname = ""
-        fname = ""
-        lname = ""
-        email = ""
-    
         uname = request.user.username
         fname = request.user.first_name
         lname = request.user.last_name
         email = request.user.email
-    except AttributeError:
-        return redirect('authentication:signin')
-    
-    try:
+        address = UserAddress.objects.get(user=request.user)
         phone = Mobile.objects.get(user=request.user)
-    except AttributeError:
-        messages.error(request, "Please, kindly input your ACTIVE PHONE NUMBER to better help our delivery man reach you.")
-        return redirect(reverse('authentication:mobile'))
+        
     except:
-        messages.error(request, "Please, kindly input your ACTIVE PHONE NUMBER to better help our delivery man reach you.")
-        return redirect(reverse('authentication:mobile'))
+        messages.error(request, "Please, kindly fill in your address first!")
+        return redirect(reverse('address:register_address'))
 
-    return render(request,'authentication/account_info.html',{'names':[uname,fname,lname,email,phone]})
+    return render(request,'authentication/account_info.html',{'names':[uname,fname,lname,email,phone,address]})
 
 
 def edit_account(request):
@@ -335,21 +340,27 @@ def edit_account(request):
     #Then I got all the user inputs from the "Edit info template"
     #After which I got the User object, then inserted each new input from edit info template.
 
-    #Here I added a Phone number form to this view to update phone number    
+    #Here I added a Phone number form to this view to update phone number
+    
+    model = Mobile.objects.get(user=request.user) 
+    form = ""
     try:
-        form = UpdateMobileForm()
         if request.method == "POST":
-            form = UpdateMobileForm(request.POST)
-            if form.is_valid():
-                model = Mobile.objects.get(user=request.user)
-                model.user = request.user 
-                model.phone_no = form.cleaned_data["phone_no"]
-                model.save()
-                messages.success(request, "You have successfully updated your PHONE NUMBER!")
+            form = request.POST.get("mobile_no").strip()
+            
+            if len(form) == 0:
+                messages.info(request, "PHONE NUMBER unchanged!")
                 return redirect('authentication:account_info')
+            elif len(form) > 11 or len(form) < 11:
+                messages.error(request, "PHONE NUMBER must be 11!")
+                return redirect('authentication:edit_account')
+            else:    
+                model.phone_no = form
+                model.save()
+            messages.success(request, "You have successfully updated your PHONE NUMBER!")
+            return redirect('authentication:account_info')
     except AttributeError:
-        #pass
-        return redirect('authentication:signin')
+        pass
 
     try:
         user_uname = request.user.username
@@ -396,9 +407,30 @@ def edit_account(request):
             messages.success(request, "You have successfully updated your account details!")
             return redirect('authentication:account_info')
     except AttributeError:
-        return redirect('authentication:signin')
+        pass
+    
+    
+    user = UserAddress.objects.get(user=request.user)
+    try:
+        if request.method == "POST":
+            country_address = request.POST.get("country")
+            state_address = request.POST.get("state")
+            city_address = request.POST.get("city")
+            area_address = request.POST.get("area")
+            street_name_address = request.POST.get("street_name")
+            
+            user.country = country_address
+            user.state = state_address
+            user.city = city_address
+            user.area = area_address
+            user.street_name = street_name_address
+            user.save()
+            messages.success(request, "You have successfully updated address.")
+            return redirect('authentication:account_info')
+    except:
+        pass
         
-    return render(request,'authentication/edit_account.html',{'form':form})
+    return render(request,'authentication/edit_account.html',{'country':country_choice,'state':state,'city':city,'area':area,})
 
 
 #This is a page to reset password while user is logged in 

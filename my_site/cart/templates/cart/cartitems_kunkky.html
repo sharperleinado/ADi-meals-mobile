@@ -1,0 +1,240 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block jscript_attribute %}
+<title>Cart</title>
+<script src="{% static 'cart/js/cart.js' %}" defer="true"></script>
+{% endblock jscript_attribute %}
+{% block pageTitle %}
+ADi meals | Cart
+{% endblock %}
+{% block pageBody %}
+
+<section data-bs-version="5.1" class="image2 cid-u0tuxl367X" id="image2-7">
+    {% if user.is_authenticated %}
+    
+<div class="container">
+<section class="pt-5 pb-5">
+    <div class="container">
+        <div class="row w-100">
+            <div class="col-lg-12 col-md-12 col-12">
+                <h3 class="mb-2 text-center display-2 ">Shopping Cart</h3>
+                <p class="mb-5 text-center display-5 ">
+                    <i class="text-info font-weight-bold">3</i> items in your cart({{cart_quantity}})
+                </p>
+                <table id="shoppingCart" class="table table-condensed table-responsive">
+                    <thead>
+                        <tr>
+                            <th style="width:60%">Product</th>
+                            <th style="width:12%">Price</th>
+                            <th style="width:10%">Quantity</th>
+                            <th style="width:16%"></th>
+                        </tr>
+                    </thead>
+                    {% for item in new %}
+                    <tbody>
+                        <tr>
+                            <td data-th="Product">
+                                <div class="row">
+                                    <div class="col-md-3 text-left">
+                                            <img src={{item.0.content_object.image.url}} class="img-fluid" alt="Adi Foods"
+                                        data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                                    </div>
+                                    {% if item.0.content_type == food %}
+                                    <div class="col-md-9 text-left mt-sm-2">
+                                        <h4>{{item.0.content_object.food_item|capfirst}}</h4>
+                                        <p class="font-weight-light">Beef | Fried beef | ₦{{item.0.content_object.food_price}}</p>
+                                    </div>
+                                </div>
+                            </td>
+                            
+                                {% elif item.0.content_type == soup and item.0.food_category == "mini" %}
+
+                                <div class="col-md-9 text-left mt-sm-2">
+                                    <h4>{{item.0.content_object.soup_item|capfirst}} | {{item.0.food_category|capfirst}} box</h4>
+                                    <p class="font-weight-light">Beef | Fried beef | ₦{{item.0.content_object.mini_box_price}}</p>
+                                </div>
+                            </div>
+                        </td>
+                        
+                            {% elif item.0.content_type == soup and item.0.food_category == "medium" %}
+
+                            <div class="col-md-9 text-left mt-sm-2">
+                                <h4>{{item.0.content_object.soup_item|capfirst}} | {{item.0.food_category|capfirst}} box</h4>
+                                <p class="font-weight-light">Beef | Fried beef | ₦{{item.0.content_object.medium_box_price}}</p>
+                            </div>
+                        </div>
+                    </td>
+                    
+                            {% else %}
+                            <div class="col-md-9 text-left mt-sm-2">
+                                <h4>{{item.0.content_object.soup_item|capfirst}} | {{item.0.food_category|capfirst}}</h4>
+                                <p class="font-weight-light">Beef | Fried beef | ₦{{item.0.content_object.mega_box_price}}</p>
+                            </div>
+                        </div>
+                    </td>
+                        {% endif %}
+                        <td data-th="Price" class="quantity-unit-price" id="{{item.0.content_object}}-{{item.0.food_category}}">₦{{item.1}}</td>
+                        <td data-th="Quantity">
+                            <div class="productContainer">
+                                <button name="joy">Ex</button>
+                            <input type="number" class="form-control form-control-lg text-center quantity" name="input-quantity" id="{{item.0.object_id}}-{{item.0.food_category}}" 
+                            value={{item.0.quantity}} max="50" min="1">
+                            </div>
+                        </td>
+                        <td class="actions" data-th="">
+                            <div class="productContainer">
+                            <div class="text-right">
+                                <button class="btn btn-white border-secondary bg-white">
+                                    <span class="mobi-mbri mobi-mbri-edit-2 mbr-iconfont mbr-iconfont-btn"></span>
+                                </button>
+                                <button class="btn btn-warning  border-secondary bg-white" name="delete-item" value={{item.0.object_id}} data-content="{{item.0.content_object}}" data-item="{{item.0.food_category}}" id="delete-item">
+                                    <span class="mobi-mbri mobi-mbri-trash mbr-iconfont mbr-iconfont-btn"></span>
+                                </button>
+                            </div>
+                            </div>
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+
+                    {% endfor %}
+                    
+                </table>
+                <div class="float-right text-right">
+                    <h4>Subtotal:</h4>
+                    <h1>₦{{cart.total_price}}</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4 d-flex align-items-center">
+            <div class="col-sm-6 order-md-2 text-right">
+                <a href="" class="btn btn-primary mb-4 btn-lg pl-5 pr-5">Checkout</a>
+            </div>
+            <div class="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
+                <a href="">
+                    <i class="fas fa-arrow-left mr-2"></i> Continue Shopping</a>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+    
+  </div>
+
+  {% else %}
+
+  <div class="container">
+    <section class="pt-5 pb-5">
+        <div class="container">
+            <div class="row w-100">
+                <div class="col-lg-12 col-md-12 col-12">
+                    <h3 class="mb-2 text-center display-2 ">Shopping Cart</h3>
+                    <p class="mb-5 text-center display-5 ">
+                        <i class="text-info font-weight-bold">3</i> items in your cart({{cart_quantity}})
+                    </p>
+                    <table id="shoppingCart" class="table table-condensed table-responsive">
+                        <thead>
+                            <tr>
+                                <th style="width:60%">Product</th>
+                                <th style="width:12%">Price</th>
+                                <th style="width:10%">Quantity</th>
+                                <th style="width:16%"></th>
+                            </tr>
+                        </thead>
+                        {% for item in new %}
+                        <tbody>
+                            <tr>
+                                <td data-th="Product">
+                                    <div class="row">
+                                        <div class="col-md-3 text-left">
+                                                <img src={{item.0.content_object.image.url}} class="img-fluid" alt="Adi Foods"
+                                            data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                                        </div>
+                                        {% if item.0.content_type == food %}
+                                        <div class="col-md-9 text-left mt-sm-2">
+                                            <h4>{{item.0.content_object.food_item|capfirst}}</h4>
+                                            <p class="font-weight-light">Beef | Fried beef | ₦{{item.0.content_object.food_price}}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                
+                                    {% elif item.0.content_type == soup and item.0.food_category == "mini" %}
+    
+                                    <div class="col-md-9 text-left mt-sm-2">
+                                        <h4>{{item.0.content_object.soup_item|capfirst}} | {{item.0.food_category|capfirst}}</h4>
+                                        <p class="font-weight-light">Beef | Fried beef | ₦{{item.0.content_object.mini_box_price}}</p>
+                                    </div>
+                                </div>
+                            </td>
+                            
+                                {% elif item.0.content_type == soup and item.0.food_category == "medium" %}
+    
+                                <div class="col-md-9 text-left mt-sm-2">
+                                    <h4>{{item.0.content_object.soup_item|capfirst}} | {{item.0.food_category|capfirst}}</h4>
+                                    <p class="font-weight-light">Beef | Fried beef | ₦{{item.0.content_object.medium_box_price}}</p>
+                                </div>
+                            </div>
+                        </td>
+                        
+                                {% else %}
+                                <div class="col-md-9 text-left mt-sm-2">
+                                    <h4>{{item.0.content_object.soup_item|capfirst}} | {{item.0.food_category|capfirst}}</h4>
+                                    <p class="font-weight-light">Beef | Fried beef | ₦{{item.0.content_object.mega_box_price}}</p>
+                                </div>
+                            </div>
+                        </td>
+                            {% endif %}
+                            <td data-th="Price" class="quantity-unit-price" id="{{item.0.content_object}}-{{item.0.food_category}}">₦{{item.1}}</td>
+                            <td data-th="Quantity">
+                                <div class="productContainer">
+                                    <button name="joy">Ex</button>
+                                <input type="number" class="form-control form-control-lg text-center quantity" name="input-quantity" id="{{item.0.object_id}}-{{item.0.food_category}}" 
+                                value={{item.0.quantity}} max="50" min="1">
+                                </div>
+                            </td>
+                            <td class="actions" data-th="">
+                                <div class="productContainer">
+                                <div class="text-right">
+                                    <button class="btn btn-white border-secondary bg-white">
+                                        <span class="mobi-mbri mobi-mbri-edit-2 mbr-iconfont mbr-iconfont-btn"></span>
+                                    </button>
+                                    <button class="btn btn-warning  border-secondary bg-white" name="delete-item" value={{item.0.object_id}} data-content="{{item.0.content_object}}" data-item="{{item.0.food_category}}" id="delete-item">
+                                        <span class="mobi-mbri mobi-mbri-trash mbr-iconfont mbr-iconfont-btn"></span>
+                                    </button>
+                                </div>
+                                </div>
+                                </td>
+                            </tr>
+                            
+                        </tbody>
+    
+                        {% endfor %}
+                        
+                    </table>
+                    <div class="float-right text-right">
+                        <h4>Subtotal:</h4>
+                        <h1>₦{{cart.total_price}}</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4 d-flex align-items-center">
+                <div class="col-sm-6 order-md-2 text-right">
+                    <a href="{% url 'authentication:signin' %}" class="btn btn-primary mb-4 btn-lg pl-5 pr-5">Checkout</a>
+                </div>
+                <div class="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
+                    <a href="">
+                        <i class="fas fa-arrow-left mr-2"></i> Continue Shopping</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+        
+      </div>
+    
+
+  {% endif %}
+</section>
+
+<!--Other body ends-->
+{% endblock %}

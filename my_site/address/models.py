@@ -5,7 +5,7 @@ from authentication.models import User
 
 
 country_choice = [("nigeria","Nigeria")]
-state = [("ondo","Ondo")]
+state = [("ondo state","Ondo state")]
 city = [("akure","Akure")]
 area = [("alagbaka","Alagbaka"),("arakale","Arakale"),("araromi","Araromi"),
     ("futa north gate","Futa North Gate"),("futa south gate","Futa South Gate"),("igoba","Igoba"),

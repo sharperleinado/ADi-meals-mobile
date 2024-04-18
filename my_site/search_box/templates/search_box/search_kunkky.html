@@ -5,14 +5,11 @@ ADi meals | Search
 {% endblock %}
 {% block pageBody %}
 
-
-{% if user.is_authenticated %}
-    
-    {% block content_is_authenticated %}
+<section data-bs-version="5.1" class="image2 cid-u0tuxl367X" id="image2-7">
 
 <div class="container">
-    <br><br><br>
-    <h1><center>Search box!</center></h1><br><br>
+    <br>
+    <h1><center><strong>Search box</strong></center></h1><br><br>
 
 {% if searched %}
 
@@ -37,46 +34,9 @@ ADi meals | Search
     {% endif %}
 
     {% else %}
-<br><br><h1><center>Ooooooooops! You forgot to search for an item.<center></h1><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> 
+<br><br><h1><center>Ooooooooops! You forgot to search for an item.<center></h1><br><br><br><br><br><br>
 
-    {% endif %}</div>{% endblock content_is_authenticated %}
+    {% endif %}</div>
     
-    {% else %}
-
-    {% block content_not_authenticated %}
-
-<div class="container">
-<br><br><br>
-  <h1><center>Search box!</center></h1><br><br>
-
-                    {% if searched %}
-
-    <p><center>Searched for: {{ searched | capfirst }}</center></p>
-
-    <h2><center>Food Items</center></h2>
-    {% if food %}
-            {% for food_item in food %}
-            <p><center><a href= "{% url 'search_box:food_result' slug=food_item.slug %}">{{ food_item.food_item | capfirst }}</a></center></p>
-            {% endfor %}
-    {% else %}
-        <p><center>No food items found.</center></p>
-    {% endif %}
-
-    <br><h2><center>Soup Items</center></h2>
-    {% if soup %}
-            {% for soup_item in soup %}
-                <p><center><a href= "{% url 'search_box:food_result' slug=soup_item.slug %}">{{ soup_item.soup_item | capfirst }}</a></center></p>
-            {% endfor %}
-    {% else %}
-        <p><center>No soup items found.</center></p>
-    {% endif %}
-
-    {% else %}
-<br><br><h1><center>Ooooooooops! You forgot to search for an item.<center></h1><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
-    {% endif %}
-</div> {% endblock %}
-
-    {% endif %}
-
+</section>
 {% endblock %}

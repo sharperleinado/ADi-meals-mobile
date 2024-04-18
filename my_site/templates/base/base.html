@@ -82,7 +82,7 @@
                        
                     </ul>
                 <div class="icons-menu">
-                    <a class="iconfont-wrapper position-relative" href="#cart" target="_blank">
+                    <a class="iconfont-wrapper position-relative" href="{% url 'cart:cart_items' %}">
                         <span class="p-2 mbr-iconfont mobi-mbri-cart-full mobi-mbri relative"
                             style="color: rgb(244, 240, 187); fill: rgb(244, 240, 187);">
                             <span class="badge badge-danger position-absolute bottom-0 bg-warning  rounded-pill" id="food_addtocart" style="font-size: x-small; left:20px;">{{cart_quantity}}</span>
@@ -121,15 +121,15 @@
                         data-toggle="dropdown-submenu" data-bs-toggle="dropdown" data-bs-auto-close="outside"
                         aria-expanded="false"><span class="mbri-setting mbr-iconfont mbr-iconfont-btn"></span>Setting</a>
                                 {% if user.is_authenticated %}
-                    <div class="dropdown-menu show" aria-labelledby="dropdown-425" data-bs-popper="none"><a
-                            class="text-info dropdown-item display-4" href="index.html#features10-5"><a
+                    <div class="dropdown-menu show" aria-labelledby="dropdown-425" data-bs-popper="none">{% comment "" %}<a
+                            class="text-info dropdown-item display-4" href="index.html#features10-5"></a>{% endcomment %}<a
                             class="text-info dropdown-item display-4" onClick="window.location='{% url 'profile' %}';"><span
                             class="mobi-mbri mobi-mbri-bulleted-list mbr-iconfont mbr-iconfont-btn"></span>Profile</a><a
                             class="text-info dropdown-item display-4" onClick="window.location='{% url 'authentication:signout' %}';"><span
                                 class="mbri-logout mbr-iconfont mbr-iconfont-btn"></span>Sign Out</a></div>
                                 {% else %}
-                    <div class="dropdown-menu show" aria-labelledby="dropdown-425" data-bs-popper="none"><a
-                            class="text-info dropdown-item display-4" href="index.html#features10-5"><a
+                    <div class="dropdown-menu show" aria-labelledby="dropdown-425" data-bs-popper="none">{% comment "" %}<a
+                            class="text-info dropdown-item display-4" href="index.html#features10-5"></a>{% endcomment %}<a
                             class="text-info dropdown-item display-4" onClick="window.location='{% url 'profile' %}';"><span
                             class="mobi-mbri mobi-mbri-bulleted-list mbr-iconfont mbr-iconfont-btn"></span>Profile</a></div>
                                 {% endif %}
@@ -142,7 +142,7 @@
         {% if messages %}
        {% for message in messages %}
            <div class="alert {% if message.tags %} alert-{{ message.tags }} {% endif %} alert-dismissible fade show" role="alert">
-               <strong>Message:</strong> {{ message }}
+               {#<strong>Message:</strong>#} {{ message }}
                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
            </div>
        {% endfor %}
@@ -227,6 +227,10 @@
 
             </div>
         </div>
+        <center><div class="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
+            <a href="">
+                <i class="fas fa-arrow-left mr-2"></i>Adimeals.com is a property of ADi meals limited</a>
+        </div></center>
     </section>
 
     <script src="{% static 'assets/bootstrap/js/bootstrap.bundle.min.js' %}"></script>

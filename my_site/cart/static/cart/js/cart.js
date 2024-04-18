@@ -32,9 +32,9 @@ function addToCart(e){
     let combinedId = btn_value + '-' + food_category;
     let combinedContentObject = content_object + '-' + food_category;
     
-    /*console.log(btn_name)
+    console.log(btn_name)
     console.log(btn_value)
-    console.log(food_category)
+    /*console.log(food_category)
     console.log(content_object)*/
     
 

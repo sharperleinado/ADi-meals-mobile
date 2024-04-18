@@ -41,7 +41,7 @@ def payment(request, price, slug):
     def get_soup_item():
         return soup.filter(Q(mini_box_price = price) & Q(slug = slug) | Q(medium_box_price = price) & Q(slug = slug) | Q(mega_box_price = price) & Q(slug = slug) | Q(pk = price) & Q(slug = slug)).first()
     
-    return render(request, 'payments/pay.html', {
+    return render(request, 'payments/soup_select.html', {
         'item': get_food_item(),
         'item2': get_soup_item(),
         'tx_ref': tx_ref,
