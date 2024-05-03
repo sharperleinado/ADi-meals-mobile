@@ -71,46 +71,23 @@ def email_reset_password(request):
 
 def mobile(request):
     #I first created a form to get phone number input from user, then render the number as per the currrent user request in the account info template.
-    form = ""
     try:
         mobile = Mobile.objects.get(user=request.user)
         if mobile is not None:
-            messages.error(request, "You have already have a mobile no, you can go ahead to Update your already existing mobile number.")
             return redirect('authentication:account_info')
         else:
             pass
           
     except:
         pass
-    
-    form = MobileForm()
-    if request.method == "POST":
-        form = MobileForm(request.POST)
-        if form.is_valid():
-            instance = form.save(commit=False)
-            instance.user = request.user
-            instance.save()
-            messages.success(request, "You have successfully uploaded a phone number!")
-            return redirect('authentication:account_info')
-    
-    
-    '''
-    instance = ""
-    form = ""
-    try:
-        form = MobileForm()
-        if request.method == "POST":
-            form = MobileForm(request.POST)
-            if form.is_valid():
-                instance = form.save(commit=False)
-                instance.user = request.user
-                instance.save()
-                messages.success(request, "You have successfully uploaded a phone number!")
-                return redirect('authentication:account_info')
-    except:
-        pass'''
 
-    return render(request,'authentication/mobile.html',{'form':form})
+    if request.method == "POST":
+        mobile_form = request.POST.get("phone_no")
+        mobile = Mobile.objects.create(user=request.user,phone_no=mobile_form)
+        messages.success(request, "You have successfully added a mobile number!")
+        return redirect('authentication:account_info')
+
+    return render(request,'authentication/mobile.html',{})
 
 
 def all(request):

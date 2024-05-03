@@ -15,7 +15,6 @@ def register_address(request):
     try:
         useraddress = UserAddress.objects.get(user=request.user)
         if useraddress is not None:
-            messages.error(request, "You have already created address, you can go ahead to Update or Edit your address.")
             return redirect('authentication:account_info')
         else:
             pass
