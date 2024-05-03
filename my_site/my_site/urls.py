@@ -11,8 +11,10 @@ def home(request):
     return render(request,'home_kunkky.html',{})
 
 def profile(request):
+    fname = request.user.first_name
+    lname = request.user.last_name
 
-    return render(request,'profile.html',{})
+    return render(request,'profile.html',{'fname':fname,'lname':lname})
 
 def about(request):
     
