@@ -11,8 +11,17 @@ def home(request):
     return render(request,'home_kunkky.html',{})
 
 def profile(request):
-    fname = request.user.first_name
-    lname = request.user.last_name
+    fname = ""
+    lname = ""
+    try:
+        if request.user.is_authenticated:
+            fname = request.user.first_name
+            lname = request.user.last_name
+        else:
+            fname = "Anonymous"
+            lname = "User"
+    except AttributeError:
+        pass
 
     return render(request,'profile.html',{'fname':fname,'lname':lname})
 
