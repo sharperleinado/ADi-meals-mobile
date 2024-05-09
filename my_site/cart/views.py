@@ -12,14 +12,28 @@ from authentication.models import Mobile
 from payments.views import tx_ref
 from food_app.views import food,soup
 from django.contrib.sites.shortcuts import get_current_site
+from address.models import UserAddress
 
 # Create your views here.
 
 
+food_model = ContentType.objects.get(model="food")
+soup_model = ContentType.objects.get(model="soup")
+
+def returns_item(items,food_category):
+        new_items = []
+        for item in items:
+            if item.content_type == food_model:
+                total_price = item.total_price(item.food_category)
+                new_list = [item,total_price]
+                new_items.append(new_list)
+            elif item.content_type == soup_model and item.food_category == item.food_category:
+                total_price = item.total_price(item.food_category)
+                new_list = [item,total_price]
+                new_items.append(new_list)
+        return new_items
 
 def cart_items(request):
-    food_model = ContentType.objects.get(model="food")
-    soup_model = ContentType.objects.get(model="soup")
     new_cartitems = ""
     cart = ""
     cart_quantity = ""
@@ -35,20 +49,6 @@ def cart_items(request):
     except:
         pass
 
-    
-    def returns_item(items,food_category):
-        new_items = []
-        for item in items:
-            if item.content_type == food_model:
-                total_price = item.total_price(item.food_category)
-                new_list = [item,total_price]
-                new_items.append(new_list)
-            elif item.content_type == soup_model and item.food_category == item.food_category:
-                total_price = item.total_price(item.food_category)
-                new_list = [item,total_price]
-                new_items.append(new_list)
-        return new_items
-    
     try:
         if request.user.is_authenticated:
             cart = Cart.objects.get(user=request.user)
@@ -76,7 +76,8 @@ def cart_items(request):
         'username':username,
         'email':email,
         'phone_no': phone_no,
-        'tx_ref':tx_ref(),})
+        'tx_ref':tx_ref(),
+        })
 
 
 
@@ -162,4 +163,34 @@ def clear_all(request):
     
     return JsonResponse(data,safe=False)
 
+
+def checkout(request):
+    address = UserAddress.objects.get(user=request.user)
+    cart = Cart.objects.get(user=request.user)
+    cartitems = CartItemsFood.objects.filter(cart=cart)
+    print(cart.total_price())
+
+    try:
+        if request.user.is_authenticated:
+            cart = Cart.objects.get(user=request.user)
+            cart_quantity = cart.total_quantity()
+            cartitems = cart.cartitems.all()
+            new_cartitems = returns_item(cartitems,"mini_box")
+        else:
+            try:
+                cart = Cart.objects.get(session_id=request.session['cart_users'],is_paid=False)
+                cart_quantity = cart.total_quantity()
+                cartitems = cart.cartitems.all()
+                new_cartitems = returns_item(cartitems,"mini_box")
+            except:
+                pass
+    except:
+        pass
+
+    return render(request,'cart/checkout.html',{
+        'address':address,
+        'food':food_model,
+        'soup':soup_model,
+        'new':new_cartitems,
+        })
 
