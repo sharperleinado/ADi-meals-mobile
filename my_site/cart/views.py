@@ -165,10 +165,8 @@ def clear_all(request):
 
 
 def checkout(request):
-    address = UserAddress.objects.get(user=request.user)
-    cart = Cart.objects.get(user=request.user)
-    cartitems = CartItemsFood.objects.filter(cart=cart)
-    print(cart.total_price())
+    address = ""
+    cart = ""
 
     try:
         if request.user.is_authenticated:
@@ -176,6 +174,8 @@ def checkout(request):
             cart_quantity = cart.total_quantity()
             cartitems = cart.cartitems.all()
             new_cartitems = returns_item(cartitems,"mini_box")
+            address = UserAddress.objects.get(user=request.user)
+            cartitems = CartItemsFood.objects.filter(cart=cart)
         else:
             try:
                 cart = Cart.objects.get(session_id=request.session['cart_users'],is_paid=False)

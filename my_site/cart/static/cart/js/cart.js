@@ -52,7 +52,7 @@ function addToCart(e){
     })
     .then(res=>res.json())
     .then(data=>{
-        document.getElementById("soup_addtocart").innerHTML = '<strong>Cart(</strong>' + data[2] + '<strong>)</strong>'
+        document.getElementById("food_addtocart").innerHTML =  data[2] 
         
         if (btn_name === 'delete-item') {
             // If it's a delete operation, remove the HTML elements for the deleted item
@@ -65,14 +65,15 @@ function addToCart(e){
         } else {
             // If it's not a delete operation, update the quantity and unit price as usual
             let itemContainer = document.getElementById(combinedId);
+            console.log(itemContainer)
             if (itemContainer) {
 
                 let quantityElement = itemContainer.querySelector('.quantity');
                 let quantityUnitPriceElement = itemContainer.querySelector('.quantity-unit-price');
 
                 if (quantityElement && quantityUnitPriceElement) {
-                    quantityElement.innerHTML = '<strong>Quantity: </strong>' + data[1];
-                    quantityUnitPriceElement.innerHTML = '<strong>Quantity + Unit price: ₦</strong>' + data[0];
+                    quantityElement.innerHTML = data[1];
+                    quantityUnitPriceElement.innerHTML = '₦' + data[0];
                 }
 
                     // Check if the quantity is zero, and if so, remove the entire item block

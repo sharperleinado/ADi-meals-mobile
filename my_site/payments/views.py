@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http.response import JsonResponse,HttpResponse
 import json
 from cart.models import Cart,CartItemsFood
@@ -11,6 +11,9 @@ import requests
 from food_app.views import food,soup
 from django.db.models import Q
 import uuid
+from address.models import UserAddress
+from django.contrib import messages
+
 # Create your views here.
 
 
@@ -27,11 +30,23 @@ def payment(request, price, slug):
     username = ""
     mobile = ""
     phone_no = ""
+    
+    try:
+        if request.user.is_authenticated:
+            address = UserAddress.objects.get(user=request.user)
+            #mobile_logged = Mobile.objects.get(user=request.user)
+        else:
+            pass
+    except:
+        messages.error(request, "Please, complete Account Information before proceeding")
+        return redirect('authentication:account_info')
+    
+   
     try:
         username = request.user.username
         email = request.user.email
-        mobile = Mobile.objects.get(user=request.user)
         phone_no = mobile.phone_no
+        mobile = Mobile.objects.get(user=request.user)
     except:
         pass
     
@@ -40,8 +55,8 @@ def payment(request, price, slug):
 
     def get_soup_item():
         return soup.filter(Q(mini_box_price = price) & Q(slug = slug) | Q(medium_box_price = price) & Q(slug = slug) | Q(mega_box_price = price) & Q(slug = slug) | Q(pk = price) & Q(slug = slug)).first()
-    
-    return render(request, 'payments/soup_select.html', {
+
+    return render(request, 'payments/checkout.html', {
         'item': get_food_item(),
         'item2': get_soup_item(),
         'tx_ref': tx_ref,

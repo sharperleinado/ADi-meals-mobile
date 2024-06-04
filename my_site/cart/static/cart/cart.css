@@ -12,13 +12,13 @@
 
 
 
-body {
+/*body {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-  }
+  }*/
   
   .overlay {
     display: none;
@@ -39,7 +39,19 @@ body {
     text-align: center;
   }
   
-  button {
-    margin: 5px;
-  }
   
+#update{
+  padding-right: 5px;
+  margin-right: 10px;
+}
+
+#delete-item {
+    margin-top: -75px;
+    margin-left: 83px;
+    padding-left: 2px;
+    padding-bottom: -5px;
+}
+
+.mbr-iconfont-btn{
+  padding-left: 0px;
+}
