@@ -25,7 +25,7 @@ btns.forEach(btn=>{
 function addToCart(e){
     let product_id = e.target.value
     
-    let url = '/search_box/add_to_cart/'
+    let url = '/search/add_to_cart/'
     
     let data = {'id':product_id}
     console.log(product_id)

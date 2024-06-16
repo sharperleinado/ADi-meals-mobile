@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
+from django.urls import reverse 
 from food_app.models import Food,Soup
 from django.contrib import messages
-from django.shortcuts import redirect
 from .models import CartItemsFood,Cart
 from django.http import JsonResponse
 from django.db.models import Q
@@ -13,6 +13,7 @@ from payments.views import tx_ref
 from food_app.views import food,soup
 from django.contrib.sites.shortcuts import get_current_site
 from address.models import UserAddress
+from django.template import *
 
 # Create your views here.
 
@@ -63,11 +64,12 @@ def cart_items(request):
                 new_cartitems = returns_item(cartitems,"mini_box")
             except:
                 messages.info(request,"Add items to cart to view items!")
-                return redirect('home')
+                return redirect('cart:cart_items')
     
     except Cart.DoesNotExist:
         messages.error(request,"Add items to cart to view items!")
-        return redirect('home')
+        pass
+        return redirect('cart:cart_items')
     
     return render(request,'cart/cartitems_kunkky.html',{
         'food':food_model,

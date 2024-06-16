@@ -13,6 +13,7 @@ def home(request):
 def profile(request):
     fname = ""
     lname = ""
+
     try:
         if request.user.is_authenticated:
             fname = request.user.first_name
@@ -32,6 +33,10 @@ def about(request):
 def contact(request):
     
     return render(request,'contact.html',{})
+
+def base(request):
+
+    return render(request,'base/base.html',{})
     
 
 urlpatterns = [
@@ -47,6 +52,7 @@ urlpatterns = [
     path('cart/',include('cart.urls')),
     path('about/',about,name='about'),
     path('contact/',contact,name='contact'),
+    path('base/',base,name='base'),
     
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

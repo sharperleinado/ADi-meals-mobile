@@ -1,12 +1,9 @@
 from django.shortcuts import render
 from food_app.models import Food,Soup
 from cart.models import Cart,CartItemsFood
-from django.contrib import messages
 from django.http.response import JsonResponse
 import json
 from django.contrib.contenttypes.models import ContentType
-import math
-import random
 import uuid
 from . forms import ProteinForm
 

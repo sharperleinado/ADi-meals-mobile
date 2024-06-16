@@ -110,27 +110,32 @@ ADi meals | Cart
                 </tbody>
             </div>
                     {% endfor %}
-                
-                <div class="float-right text-right">
-                    <h4>Subtotal:</h4>
-                    <h1>₦{{cart.total_price}}</h1>
+                </table>
+                <button type="submit" class="btn btn-warning border-secondary bg-white" value={{cart.user.username}} name="clear_all" id="clear_all">Clear all</button><br><br>
+
+                    <div id="overlay" class="overlay" style="display: none;">
+                        <div class="overlay-content">
+                        <p>Are you sure you want to clear all items in cart?</p>
+                        <button class="btn btn-primary" id="okayButton" value={{cart.user.pk}}>Okay</button>
+                        <button class="btn btn-secondary" id="cancelButton">Cancel</button>
+                        </div>
+                    </div><br><br>
+
+                    <div class="float-right text-right">
+                        <h4>Subtotal:</h4>
+                        <h1>₦{{cart.total_price}}</h1>
+                    </div>
+
+                <div class="row mt-4 d-flex align-items-center">
+                    <div class="col-sm-6 order-md-2 text-right">
+                        <a href="{% url 'cart:checkout' %}" class="btn btn-primary mb-4 btn-lg pl-5 pr-5">Checkout</a>
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
+                        <a href="#">
+                            <i class="fas fa-arrow-left mr-2"></i> Continue Shopping</a>
+                    </div>
+                           
                 </div>
-            </div>
-        </div>
-        <div class="row mt-4 d-flex align-items-center">
-            <div class="col-sm-6 order-md-2 text-right">
-                <a href="{% url 'cart:checkout' %}" class="btn btn-primary mb-4 btn-lg pl-5 pr-5">Checkout</a>
-            </div>
-            <div class="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
-                <a href="#">
-                    <i class="fas fa-arrow-left mr-2"></i> Continue Shopping</a>
-            </div>
-        </div>
-    </div>
-</div>
-</section>
-    
-  </div>
 
                 {% else %}
 
@@ -235,13 +240,12 @@ ADi meals | Cart
                         </div>
                                
                     </div>
-                    
+                    {% endif %}
                 </div>
             </div>
         </div>
     </section>
     
-  {% endif %}
   <div>
 </section>
 

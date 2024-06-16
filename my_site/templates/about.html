@@ -1,15 +1,12 @@
 {% extends "./base/base.html" %}
 {% block pageTitle %}
-ADi meals | About
+ADi meals | Our Story
 {% endblock %}
 {% block pageBody %}
 {% load static %}
 
+
 <section data-bs-version="5.1" class="image2 cid-u0tuxl367X" id="image2-7">
-
-
-
-
 
     <div class="container">
         <div class="row align-items-center">
@@ -23,30 +20,44 @@ ADi meals | About
             <div class="col-12 col-lg">
                 <div class="text-wrapper">
                     <h3 class="mbr-section-title mbr-fonts-style mb-3 display-5">
-                        <strong>Who we are</strong>
+                        <strong>Story Story!</strong>
                     </h3>
-<p class="mbr-text mbr-fonts-style display-7">ADi meals Limited was first registered as a business name “ADi meals, BN
-    8073” in the year 2020 to venture into Food and Beverages. We wanted to
-    start out as a Snack Drink company. A company whose sole purpose was
-    to produce snack and drink together in a container which would serve as an
-    easy meal to our consumers. Our goal has always been to provide easy
-    meals to our consumers, but as a snack drink project we were embarking
-    upon, we did not have enough funding to begin with so, we decided to
-    dissect our goals and digress our business into opening a physical
-    restaurant in Akure.</p>
+                    {% if user.is_authenticated %}
+<p class="mbr-text mbr-fonts-style display-7">Hi {{fname}}, my name is ADi, 
+    and I would love to share you a part of my story on what became the 
+    inception of ADi meals as a Soup and Food service company.
+    </p>
 
-<p class="mbr-text mbr-fonts-style display-7">In 2021, we opened a restaurant in irese area of Akure, Ondo state. We
-    began by selling food like Egusi and Pounded yam, White rice and beans,
-    Jollof rice, and many more meals. Business was booming but along the
-    line, things became sour, and our operations folded up in July which was
-    as a result of our dependency on a little community in the whole of Akure to
-    scale our business.</p>
+<p class="mbr-text mbr-fonts-style display-7">On the morning of February 27th, 2006, 
+    a big decision was taken in my family by my Mum, Mama ADi. 
+    She decided to part ways with her husband, which made her leave Lagos with little bro to settle down 
+    in Akure, leaving behind her three other kids.
 
-<p class="mbr-text mbr-fonts-style display-7">Today, we have rebranded ourselves as a Limited company to give us a
-    better reputation. We have re-strategize our operations not to focus on
-    operating a physical restaurant but to operate online by having a digital
-    market place on the web through which our customers can order food
-    online, thereby reaching a larger audience.</p>
+</p>
+
+<p class="mbr-text mbr-fonts-style display-7"></p>
+{% else %}
+
+<p class="mbr-text mbr-fonts-style display-7">Hi Prospective Customer, my name is ADi, 
+    and I would love to share you a part of my story on what became the 
+    inception of ADi meals as a Soup and Food service company.
+    </p>
+
+<p class="mbr-text mbr-fonts-style display-7">On the morning of February 27th, 2006, 
+    a big decision was taken in my family by my Mum, Mama ADi. 
+    She decided to part ways with her husband, which made her leave Lagos with little bro to settle down 
+    in Akure, leaving behind her three other kids.
+</p>
+
+<p class="mbr-text mbr-fonts-style display-7">Few weeks down the line, 
+    myself and my other siblings that were left behind by Mum got abandoned at my Mum's Elder sister's place 
+    where we lived for a year plus without having to attend school. 
+    Though, we attended summer and spring lessons during the holidays.
+</p>
+
+<p class="mbr-text mbr-fonts-style display-7">
+</p>
+{% endif %}
 
                 </div>
             </div>
@@ -123,13 +134,15 @@ ADi meals | About
                     </div>
                     <div class="content-wrap">
                         <h5 class="mbr-section-title card-title mbr-fonts-style align-center m-0 display-5">
-                            <strong>John Smith</strong>
+                            <strong>Sharper X</strong>
                         </h5>
                         <h6 class="mbr-role mbr-fonts-style align-center mb-3 display-4">
                             <strong>Programmer</strong>
                         </h6>
                         <p class="card-text mbr-fonts-style align-center display-7">
-                            No special actions required, all sites you make with Mobirise are mobile-friendly.
+                            Let = X as Sharper. He is the brain behind the Backend technology that powers our web application. 
+                            He is a graduate of Mathematics from Adekunle Ajasin University.
+                            Sharper would like to remain anonymous for now but will reveal himself as time goes by.
                         </p>
                         <div class="social-row display-7">
                             <div class="soc-item">
@@ -162,13 +175,14 @@ ADi meals | About
                     </div>
                     <div class="content-wrap">
                         <h5 class="mbr-section-title card-title mbr-fonts-style align-center m-0 display-5">
-                            <strong>Sarah Palmer</strong>
+                            <strong>Kunkky X</strong>
                         </h5>
                         <h6 class="mbr-role mbr-fonts-style align-center mb-3 display-4">
-                            <strong>Manager</strong>
+                            <strong>Frontend Developer</strong>
                         </h6>
                         <p class="card-text mbr-fonts-style align-center display-7">
-                            Use Mobirise website building software to create multiple sites for your clients.
+                            Let X = kunkky. He is the brain behind the Frontend technology in which our backend technology dwells. 
+                            He is a graduate of XYZ University. Kunkky would like not to reveal himself for now but will do as time goes by.
                         </p>
                         <div class="social-row display-7">
                             <div class="soc-item">
@@ -201,13 +215,14 @@ ADi meals | About
                     </div>
                     <div class="content-wrap">
                         <h5 class="mbr-section-title card-title mbr-fonts-style align-center m-0 display-5">
-                            <strong>Jessica Swift</strong>
+                            <strong>Seyi X</strong>
                         </h5>
                         <h6 class="mbr-role mbr-fonts-style align-center mb-3 display-4">
-                            <strong>Analyst</strong>
+                            <strong>Chief Chef</strong>
                         </h6>
                         <p class="card-text mbr-fonts-style align-center display-7">
-                            Create multiple pages. Don't forget to set links to your pages after creating them.
+                            Let X = Seyi. She is the bedrock of our company. She is the magical hands that prepares every delicious meal that comes from us. She is the creator of the recipes through which our company thrives.
+                            She and other workers makes up the team that powers our company; they include Nifemi X, Emmanuel X, and Lydia X.
                         </p>
                         <div class="social-row display-7">
                             <div class="soc-item">
@@ -262,7 +277,7 @@ ADi meals | About
                             <strong>Phone</strong>
                         </h6>
                         <p class="mbr-text mbr-fonts-style display-7">
-                            <a href="tel:+12345678910" class="text-primary">0 (800) 123 45 67</a>
+                            <a href="tel:+123456677751" class="text-primary">(+234) 815 66 777 51</a>
                         </p>
                     </div>
                 </div>
@@ -275,7 +290,7 @@ ADi meals | About
                             <strong>Email</strong>
                         </h6>
                         <p class="mbr-text mbr-fonts-style display-7">
-                            <a href="mailto:info@site.com" class="text-primary">info@site.com</a>
+                            <a href="mailto:talktoadi@adimeals.com" class="text-primary">talktoadi@adimeals.com</a>
                         </p>
                     </div>
                 </div>
