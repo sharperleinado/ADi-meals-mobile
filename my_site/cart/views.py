@@ -38,47 +38,33 @@ def cart_items(request):
     new_cartitems = ""
     cart = ""
     cart_quantity = ""
-    username = ""
-    email = ""
-    mobile = ""
-    phone_no = ""
-    try:
-        username = request.user.username
-        email = request.user.email
-        mobile = Mobile.objects.get(user=request.user)
-        phone_no = mobile.phone_no
-    except:
-        pass
 
     try:
         if request.user.is_authenticated:
             cart = Cart.objects.get(user=request.user)
-            cart_quantity = cart.total_quantity()
-            cartitems = cart.cartitems.all()
-            new_cartitems = returns_item(cartitems,"mini_box")
         else:
-            try:
-                cart = Cart.objects.get(session_id=request.session['cart_users'],is_paid=False)
-                cart_quantity = cart.total_quantity()
-                cartitems = cart.cartitems.all()
-                new_cartitems = returns_item(cartitems,"mini_box")
-            except:
-                messages.info(request,"Add items to cart to view items!")
-                return redirect('cart:cart_items')
-    
+            cart = Cart.objects.get(session_id=request.session['cart_users'],is_paid=False)
+        cart_quantity = cart.total_quantity()
+        cartitems = cart.cartitems.all()
+        new_cartitems = returns_item(cartitems,"mini_box")
+
+    except Mobile.DoesNotExist:
+        messages.info(request,"Add Mobile no before viewing cart!")
+        return redirect(request.META.get('HTTP_REFERER'))
     except Cart.DoesNotExist:
-        messages.error(request,"Add items to cart to view items!")
-        pass
-        return redirect('cart:cart_items')
+        messages.info(request,"Add items to cart to view items!")
+        return redirect(request.META.get('HTTP_REFERER'))
+    except KeyError:
+        messages.info(request,"Add items to cart to view items!")
+        return redirect(request.META.get('HTTP_REFERER'))
+    except Exception as e:
+        messages.info(request,"Add items to cart to view items!")
+        return redirect(request.META.get('HTTP_REFERER'))
     
     return render(request,'cart/cartitems_kunkky.html',{
         'food':food_model,
         'soup':soup_model,
         'new':new_cartitems,
-        'username':username,
-        'email':email,
-        'phone_no': phone_no,
-        'tx_ref':tx_ref(),
         })
 
 

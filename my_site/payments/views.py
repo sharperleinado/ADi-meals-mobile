@@ -30,25 +30,25 @@ def payment(request, price, slug):
     username = ""
     mobile = ""
     phone_no = ""
-    
     try:
         if request.user.is_authenticated:
             address = UserAddress.objects.get(user=request.user)
-            #mobile_logged = Mobile.objects.get(user=request.user)
+            username = request.user.username
+            email = request.user.email
+            mobile = Mobile.objects.get(user=request.user)
+            phone_no = mobile.phone_no
+            print(phone_no)
         else:
-            pass
-    except:
+            address = "Anonymousstreet.com"
+            username = "Anonymous User"
+            email = "Anonymoususer@gmail.com"
+            phone_no = "081-Anonymous User"
+            print(phone_no)
+            print(address)
+            
+    except Mobile.DoesNotExist:
         messages.error(request, "Please, complete Account Information before proceeding")
         return redirect('authentication:account_info')
-    
-   
-    try:
-        username = request.user.username
-        email = request.user.email
-        phone_no = mobile.phone_no
-        mobile = Mobile.objects.get(user=request.user)
-    except:
-        pass
     
     def get_food_item():
         return food.filter(food_price=price, slug=slug).first()
@@ -65,6 +65,7 @@ def payment(request, price, slug):
         'email': email,
         'username': username,
         'phone_no': phone_no,
+        #'address':address,
     })
 
 

@@ -7,7 +7,7 @@ ADI food | Home
 
 <section data-bs-version="5.1" class="image2 cid-u0tuxl367X" id="image2-7">
     <div class="container">
-        {% if user.is_authenticated %}
+        {#{% if user.is_authenticated %}#}
 
     <div class="row">
        
@@ -37,9 +37,16 @@ ADI food | Home
                 </div>
         
                 <div class="mb-3">
-                    <label for="email">Email <span class="text-muted">(Optional)</span></label>
+                    <label for="email">Email</label>
                     <div class="input-group">
-                        {{address.user.email | capfirst}}
+                        {{email | capfirst}}
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="mobile_no">Mobile no</label>
+                    <div class="input-group">
+                        {{phone_no}}
                     </div>
                 </div>
         
@@ -87,15 +94,15 @@ ADI food | Home
                 <div class="d-block my-3">
                     <div class="custom-control custom-radio">
                         <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
-                        <label class="custom-control-label" for="credit">Credit card</label>
+                        <label class="custom-control-label" for="credit">Flutterwave</label>
                     </div>
                     <div class="custom-control custom-radio">
                         <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
-                        <label class="custom-control-label" for="debit">Debit card</label>
+                        <label class="custom-control-label" for="debit">Paystack</label>
                     </div>
                     <div class="custom-control custom-radio">
                         <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
-                        <label class="custom-control-label" for="paypal">Paypal</label>
+                        <label class="custom-control-label" for="paypal">Interswitch</label>
                     </div>
                 </div>
                 
@@ -183,6 +190,7 @@ ADI food | Home
             </form>
         </div>
     </div>
+    {% comment "" %}
     {% else %}
     <div class="row">
        
@@ -212,9 +220,16 @@ ADI food | Home
                 </div>
         
                 <div class="mb-3">
-                    <label for="email">Email <span class="text-muted">(Optional)</span></label>
+                    <label for="email">Email</label>
                     <div class="input-group">
                         {{address.user.email | capfirst}}
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email">Mobile no</label>
+                    <div class="input-group">
+                        {{phone_no | capfirst}}
                     </div>
                 </div>
         
@@ -357,11 +372,10 @@ ADI food | Home
                 </div>
             </form>
         </div>
-    </div>
+    </div>{% endcomment %}
 
-    {% endif %}
+    {#{% endif %}#}
 </div>
 </section>
 
-<!--Other body ends-->
 {% endblock %}
