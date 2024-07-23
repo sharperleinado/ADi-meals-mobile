@@ -1,0 +1,67 @@
+{% extends "home.html" %}
+{% load static %}
+{% block jscript_attribute %}
+<title>Food box</title>
+<link rel="stylesheet" href="{% static 'food_app/master.css' %}">
+<script src="{% static 'food_app/js/food.js' %}" defer="true"></script>
+{% endblock jscript_attribute %}
+
+{% comment "" %}
+Here I am displaying all kind of soup I have which has two categories of views to show to the user. 
+1 - if a user is logged in, each buttons directs the user the payment page 
+2 - if a user is not logged in, each buttons directs the user to the sign in page to either sign in or sign up. 
+3 - payments page takes in two argument, which is a slug and price of each object item
+# and I permanent price=11.0 to be able to focus on each item slug instead.
+{% endcomment %}
+
+            {% if user.is_authenticated %}
+
+            {% block cart_button %}
+            <button type="submit" id="food_addtocart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>Cart({{cart_quantity}})</strong></button>
+            {% endblock cart_button %}
+
+            {% block content_is_authenticated %}
+            <div class="container">
+            <br><br><h1>Soup box page!</h1><br><br><br><br><br>
+
+            {% for item in soup %}
+              
+            <a href= "{% url 'payments:payment' price=item.pk slug=item.slug %}"><img src={{item.image.url}} class="img-fluid"></a><br><br>
+            <p>{{item.soup_item|capfirst}}</p>  
+            <p>₦{{item.mini_box_price}}</p>
+            <button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:payment' price=item.mini_box_price slug=item.slug %}';"><strong>{{item.mini_box_name|capfirst}}!</strong></button><br><br>
+            <p>₦{{item.medium_box_price}}</p>
+            <button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:payment' price=item.medium_box_price slug=item.slug %}';"><strong>{{item.medium_box_name|capfirst}}!</strong></button><br><br>
+            <p>₦{{item.mega_box_price}}</p>
+            <button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:payment' price=item.mega_box_price slug=item.slug %}';"><strong>{{item.mega_box_name|capfirst}}!</strong></button><br><br><br><br><br><br><br><br><br>
+
+            {% endfor %}
+            </div>{% endblock content_is_authenticated %}
+
+            {% else %}
+            
+            {% block cart_button_not_auth %}
+            <button type="submit" id="food_addtocart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>Cart({{cart_quantity}})</strong></button>
+            {% endblock cart_button_not_auth %}
+            
+            {% block content_not_authenticated %}
+
+<div class="container">
+
+  <h1><center>Soup box page!</center></h1><br><br>
+
+            {% for item in soup %}
+ 
+            <a href= "{% url 'payments:payment' price=item.pk slug=item.slug %}"><img src={{item.image.url}} class="img-fluid"></a><br><br>
+            <div id="productContainer">
+            <p>{{item.soup_item|capfirst}}</p>
+            <p>₦{{item.mini_box_price}}</p>
+            <button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:payment' price=item.mini_box_price slug=item.slug %}';"><strong>{{item.mini_box_name|capfirst}}!</strong></button><br><br>
+            <p>₦{{item.medium_box_price}}</p>
+            <button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:payment' price=item.medium_box_price slug=item.slug %}';"><strong>{{item.medium_box_name|capfirst}}!</strong></button><br><br>
+            <p>₦{{item.mega_box_price}}</p>
+            <button type="submit" class="btn btn-success" onClick="window.location='{% url 'payments:payment' price=item.mega_box_price slug=item.slug %}';"><strong>{{item.mega_box_name|capfirst}}!</strong></button><br><br><br><br><br>
+
+            {% endfor %}</div> {% endblock %}
+    {% endif %}
+        

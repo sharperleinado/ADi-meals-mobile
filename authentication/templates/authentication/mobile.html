@@ -1,0 +1,75 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block pageTitle %}
+ADi meals | Mobile number
+{% endblock %}
+{% block pageBody %}
+
+<script>
+    function enforcePrefix() {
+        const input = document.getElementById('mobile_no');
+        const prefix = '+234';
+        if (!input.value.startsWith(prefix)) {
+            input.value = prefix + input.value;
+        }
+    }
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const input = document.getElementById('mobile_no');
+        input.value = '+234';
+        input.addEventListener('input', enforcePrefix);
+    });
+</script>
+
+<section data-bs-version="5.1" class="image2 cid-u0tuxl367X" id="image2-7">
+    <br><h1><center><strong>Mobile no page!</strong></center></h1><br><br>
+
+    {% if user.is_authenticated %}
+    <div class="container">
+        <div class="row align-items-center">
+            
+            <div class="col-12 col-lg">
+                <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
+                    <form action="" method="POST" class="mbr-form form-with-styler" data-form-title="Form Name">
+                        {% csrf_token %}
+                        
+                        <div class="dragArea row">
+                           
+                            <div class="col-12 form-group mb-3" data-for="mobile_no">
+                                <input type="text" name="mobile_no" id="mobile_no" class="form-control" value="">
+                            </div>
+
+                            <p class="display-4 ">Please, provide an active number we can verify...</p>
+                            <p class="display-4 ">Example: "+234" + "812345...."</p>
+                            <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
+                                <button type="submit" class="btn btn-primary display-4 w-100 ">Submit</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="image-wrapper">
+                    <img src="{% static 'assets/images/hot-soup-bowl-against-dark-background-410516-41370-626x417.jpg' %}"
+                        alt="ADI Foods">
+            
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+
+    <div class="container">
+        <div class="row align-items-center">
+
+    <br><br>
+    <h2><center><strong>Gotcha!</strong></center></h2><br>
+    <br><br><br><h2><strong><center>You must be logged in to view this page!</strong></center></h2><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        </div>
+    </div>
+
+    {% endif %}
+</section>
+
+{% endblock %}
+

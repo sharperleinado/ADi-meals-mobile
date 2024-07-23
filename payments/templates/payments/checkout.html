@@ -1,0 +1,261 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block pageTitle %}
+ADi meals | Soup select
+{% endblock %}
+{% block jscript_attribute %}
+<link rel="stylesheet" href="{% static 'payments/master.css' %}">
+<script src="{% static 'payments/js/soup.js' %}" defer="true"></script>
+{% endblock jscript_attribute %}
+{% block pageBody %}
+
+<section data-bs-version="5.1" class="image2 cid-u0tuxl367X" id="image2-7">
+<div class="container">
+
+    <div class="row">
+       
+        <div class="col-md-8 order-md-1 display-4 ">
+            <h4 class="mb-3">Billing address</h4>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="firstName">First name</label>
+                        <div class="input-group">
+                            {{address.user.first_name | capfirst}}
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="lastName">Last name</label>
+                        <div class="input-group">
+                            {{address.user.last_name | capfirst}}
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="mb-3">
+                    <label for="username">Username</label>
+                    <div class="input-group">
+                        {{username | capfirst}}
+                    </div>
+                </div>
+        
+                <div class="mb-3">
+                    <label for="email">Email</label>
+                    <div class="input-group">
+                        {{email | capfirst}}
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="mobile_no">Mobile no</label>
+                    <div class="input-group">
+                        {{phone_no}}
+                    </div>
+                </div>
+        
+                <div class="row">
+                    <div class="col-md-5 mb-3">
+                        <label for="country">Country</label>
+                        <div class="input-group">
+                            {{address.country | capfirst}}
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="state">State</label>
+                        <div class="input-group">
+                            {{address.state | capfirst}}
+                        </div>
+                    </div>
+                    {% if user.is_authenticated %}
+                    <div class="col-md-3 mb-3">
+                        <label for="address">Address</label>
+                            <div class="input-group">
+                                {{address.street_name | capfirst}}, {{address.area|capfirst}}, {{address.city|capfirst}}
+                            </div>
+                    </div>
+                    {% else %}
+                    
+                    <div class="col-md-3 mb-3">
+                        <label for="address">Address</label>
+                            <div class="input-group">
+                                {{address | capfirst}}
+                            </div>
+                    </div>
+                    {% endif %}
+                </div>
+                <hr class="mb-4">
+                    <div class="custom-control custom-checkbox">
+                        <p class="custom-control-label" for="save-info">Select from our numerous payments method below...</p>
+                    </div>
+                <hr>
+
+                    <hr class="mb-4">
+                    
+                        <h4 class="mb-3">Payment</h4>
+                        {% if user.is_authenticated %}
+                            <form method="POST" class="needs-validation" novalidate>
+                            {% csrf_token %}
+            
+                            <div class="d-block my-3">
+                                <div class="custom-control custom-radio">
+                                    <input id="flutterwave" name="paymentMethod" value="flutterwave" type="radio" class="custom-control-input" checked required>
+                                    <label class="custom-control-label" for="flutterwave">Flutterwave</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input id="paystack" name="paymentMethod" value="paystack" type="radio" class="custom-control-input" required>
+                                    <label class="custom-control-label" for="paystack">Paystack</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input id="interswitch" name="paymentMethod" value="interswitch" type="radio" class="custom-control-input" required>
+                                    <label class="custom-control-label" for="interswitch">Interswitch</label>
+                                </div>
+                            </div>
+                        
+                        
+                            <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+                        </form>
+
+                        {% else %}
+
+                        <form action="{% url 'authentication:signin' %}" class="needs-validation" novalidate>
+                    
+                            <div class="d-block my-3">
+                                <div class="custom-control custom-radio">
+                                    <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
+                                    <label class="custom-control-label" for="credit">Flutterwave</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
+                                    <label class="custom-control-label" for="debit">Paystack</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
+                                    <label class="custom-control-label" for="paypal">Interswitch</label>
+                                </div>
+                            </div>
+                        
+                            <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+                        </form>
+                        {% endif %}
+                   <hr>
+
+        </div>
+        <div class="col-md-4 order-md-2 mb-4 display-4 ">
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-muted">Your item</span>
+                <span class="badge badge-secondary badge-pill">3</span>
+            </h4>
+            <ul class="list-group mb-3">
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    {% if item %}
+                    <div>
+                        <h6 class="my-0">{{item.food_item|capfirst}} | {{userprotein.0|capfirst}} | {{userprotein.1|capfirst}}</h6>
+                        <small class="text-muted">₦{{item.food_price}}</small>
+                    </div>
+
+                    <div class="col-md-3 text-left">
+                        <img src={{item.image.url}} class="img-fluid" alt="Adi Foods"
+                        data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                    </div>
+                    <li class="list-group-item d-flex justify-content-between bg-light">
+                        <div class="text-success">
+                            <h6 class="my-0">Promo code</h6>
+                            <small>EXAMPLECODE</small>
+                        </div>
+                        <span class="text-success">-₦5</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Total (NGN)</span>
+                        <strong>₦{{item.food_price}}</strong>
+                    </li><br>
+                    
+                    {% elif item2 and price == item2.mini_box_price and slug == item2.slug %}
+                    <div>
+                        <h6 class="my-0">{{item2.soup_item|capfirst}} | {{item2.mini_box_name|capfirst}} | {{userprotein.0|capfirst}} | {{userprotein.1|capfirst}}</h6>
+                        <small class="text-muted">₦{{item2.mini_box_price}}</small>
+                    </div>
+
+                    <div class="col-md-3 text-left">
+                        <img src={{item2.image.url}} class="img-fluid" alt="Adi Foods"
+                        data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                    </div>
+                    <li class="list-group-item d-flex justify-content-between bg-light">
+                        <div class="text-success">
+                            <h6 class="my-0">Promo code</h6>
+                            <small>EXAMPLECODE</small>
+                        </div>
+                        <span class="text-success">-₦5</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Total (NGN)</span>
+                        <strong>₦{{item2.mini_box_price}}</strong>
+                    </li><br>
+        
+                    <div class="productContainer">
+                        <button class="btn btn-primary display-4" name={{item2.mini_box_name}} value={{item2.pk}} id="add-item">Add To Cart</button>
+                    </div>
+
+                    {% elif item2 and price == item2.medium_box_price and slug == item2.slug %}
+                    <div>
+                        <h6 class="my-0">{{item2.soup_item|capfirst}} | {{item2.medium_box_name|capfirst}} | {{userprotein.0|capfirst}} | {{userprotein.1|capfirst}}</h6>
+                        <small class="text-muted">₦{{item2.medium_box_price}}</small>
+                    </div>
+
+                    <div class="col-md-3 text-left">
+                        <img src={{item2.image.url}} class="img-fluid" alt="Adi Foods"
+                        data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                    </div>
+                    <li class="list-group-item d-flex justify-content-between bg-light">
+                        <div class="text-success">
+                            <h6 class="my-0">Promo code</h6>
+                            <small>EXAMPLECODE</small>
+                        </div>
+                        <span class="text-success">-₦5</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Total (NGN)</span>
+                        <strong>₦{{item2.medium_box_price}}</strong>
+                    </li><br>
+                    
+                    <div class="productContainer">
+                        <button class="btn btn-primary display-4" name={{item2.medium_box_name}} value={{item2.pk}} id="add-item">Add To Cart</button>
+                    </div>
+                    
+                    {% else %}
+                    <div>
+                        <h6 class="my-0">{{item2.soup_item|capfirst}} | {{item2.mega_box_name|capfirst}} | {{userprotein.0|capfirst}} | {{userprotein.1|capfirst}}</h6>
+                        <small class="text-muted">₦{{item2.mega_box_price}}</small>
+                    </div>
+
+                    <div class="col-md-3 text-left">
+                        <img src={{item2.image.url}} class="img-fluid" alt="Adi Foods"
+                        data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                    </div>
+                    <li class="list-group-item d-flex justify-content-between bg-light">
+                        <div class="text-success">
+                            <h6 class="my-0">Promo code</h6>
+                            <small>EXAMPLECODE</small>
+                        </div>
+                        <span class="text-success">-₦5</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Total (NGN)</span>
+                        <strong>₦{{item2.mega_box_price}}</strong>
+                    </li><br>
+
+                    <div class="productContainer">
+                        <button class="btn btn-primary display-4" name={{item2.mega_box_name}} value={{item2.pk}} id="add-item">Add To Cart</button>
+                    </div>
+                    
+                    {% endif %}
+                </li>
+                
+            </ul>
+        
+        </div>
+    </div>
+
+</div>
+</section>
+
+{% endblock %}
+

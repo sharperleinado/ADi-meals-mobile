@@ -1,0 +1,36 @@
+{% extends "home.html" %}
+{% load static %}
+{% block jscript_attribute %}
+<title>Food box</title>
+<link rel="stylesheet" href="{% static 'food_app/master.css' %}">
+<script src="{% static 'food_app/js/food.js' %}" defer="true"></script>
+{% endblock jscript_attribute %}
+
+{% if user.is_authenticated%}
+
+{% block cart_button %}
+    <button type="submit" id="food_addtocart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>Cart({{cart}})</strong></button>
+    {% endblock cart_button %}
+    
+    {% block content_is_authenticated %}
+
+    <div class="container">
+        <br><br><h1><center>Error Error Error !!!</center></h1><br><br>
+
+<br><br><h3><center>Oooooooops!!.....I am not sure what you are looking for...</center></h3>
+<h3><center>Please, kindly input a valid number and try again.</center></h3>
+
+</div>{% endblock content_is_authenticated %}
+{% else %}
+
+{% block content_not_authenticated %}
+
+<div class="container">
+
+  <h1><center>Error Error Error !!!</center></h1><br><br>
+
+    <br><br><h3><center>Oooooooops!!.....I am not sure what you are looking for...</center></h3>
+<h3><center>Please, kindly input a valid number and try again.</center></h3>
+
+</div> {% endblock %}
+{% endif %}

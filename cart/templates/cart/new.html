@@ -1,0 +1,161 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block jscript_attribute %}
+    <title>Cart</title>
+    <link rel="stylesheet" href="{% static 'cart/cart.css' %}">
+    <script src="{% static 'cart/js/cart.js' %}" defer="true"></script>
+{% endblock jscript_attribute %}
+
+{% block pageTitle %}
+    ADi meals | Cart
+{% endblock pageTitle %}
+
+{% block pageBody %}
+
+<div id="notification-container"></div>
+
+<section data-bs-version="5.1" class="image2 cid-u0tuxl367X" id="image2-7">
+    <div class="container">
+        <section class="pt-5 pb-5">
+            <div class="container">
+                <div class="row w-100">
+                    <div class="col-lg-12 col-md-12 col-12">
+                        <h3 class="mb-2 text-center display-2">Shopping Cart</h3>
+                        <p class="mb-5 text-center display-5">
+                            <i class="text-info font-weight-bold">3</i> items in your cart
+                        </p>
+                        <table id="shoppingCart" class="table table-condensed table-responsive">
+                            <thead>
+                                <tr>
+                                    <th style="width:60%">Product</th>
+                                    <th style="width:12%">Price</th>
+                                    <th style="width:10%">Quantity</th>
+                                    <th style="width:16%">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in new %}
+                                <tr id="{{ item.0.object_id }}-{{ item.0.food_category }}">
+                                    <td data-th="Product">
+                                        <div class="row">
+                                            <div class="col-md-3 text-left">
+                                                <img src="{{ item.0.content_object.image.url }}" class="img-fluid"
+                                                    alt="Adi Foods" data-bs-slide-to="4" data-slide-to="4"
+                                                    class="img-fluid d-none d-md-block rounded mb-2 shadow">
+                                            </div>
+                                            <div class="col-md-9 text-left mt-sm-2">
+                                                {% if item.0.content_type == food %}
+                                                <h4>{{ item.0.content_object.food_item|capfirst }}</h4>
+                                                <p class="font-weight-light">{{ item.0.protein|capfirst }} | {{ item.0.subprotein|capfirst }} | ₦{{ item.0.content_object.food_price }}</p>
+                                                {% elif item.0.content_type == soup and item.0.food_category == "mini" %}
+                                                <h4>{{ item.0.content_object.soup_item|capfirst }} | {{ item.0.food_category|capfirst }}</h4>
+                                                <p class="font-weight-light">{{ item.0.protein|capfirst }} | {{ item.0.subprotein|capfirst }} | ₦{{ item.0.content_object.mini_box_price }}</p>
+                                                {% elif item.0.content_type == soup and item.0.food_category == "medium" %}
+                                                <h4>{{ item.0.content_object.soup_item|capfirst }} | {{ item.0.food_category|capfirst }}</h4>
+                                                <p class="font-weight-light">{{ item.0.protein|capfirst }} | {{ item.0.subprotein|capfirst }} | ₦{{ item.0.content_object.medium_box_price }}</p>
+                                                {% else %}
+                                                <h4>{{ item.0.content_object.soup_item|capfirst }} | {{ item.0.food_category|capfirst }}</h4>
+                                                <p class="font-weight-light">{{ item.0.protein|capfirst }} | {{ item.0.subprotein|capfirst }} | ₦{{ item.0.content_object.mega_box_price }}</p>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td data-th="Price" class="quantity-unit-price" id="{{ item.0.content_object }}-{{ item.0.food_category }}-quantity-unit-price">₦{{ item.1 }}</td>
+                                    <td data-th="Quantity" style="padding-left:3%" class="quantity" id="{{ item.0.object_id }}-{{ item.0.food_category }}-quantity">
+                                        {{ item.0.quantity }}
+                                    </td>
+                                    <td class="actions" data-th="">
+                                        <div class="text-right">
+                                            <div class="productContainer">
+                                                <button type="button" class="btn btn-primary border-secondary bg-white add-item"
+                                                    name="add-item" value="{{ item.0.object_id }}"
+                                                    data-content="{{ item.0.content_object }}" data-item="{{ item.0.food_category }}"
+                                                    id="add-item">+</button>
+                                                <button type="button" class="btn btn-warning border-secondary bg-white subtract-item"
+                                                    name="subtract-item" value="{{ item.0.object_id }}"
+                                                    data-content="{{ item.0.content_object }}" data-item="{{ item.0.food_category }}"
+                                                    id="subtract-item">-</button>
+                                                <br>
+                                                <button type="button" class="btn btn-warning border-secondary bg-white delete-item"
+                                                    name="delete-item" value="{{ item.0.object_id }}"
+                                                    data-content="{{ item.0.content_object }}" data-item="{{ item.0.food_category }}"
+                                                    id="delete-item">
+                                                    <span class="mobi-mbri mobi-mbri-trash mbr-iconfont mbr-iconfont-btn"></span>
+                                                </button>
+                                            </div>
+                                                {% if user.is_authenticated %}
+                                                <button type="button" id="update" value="{{item.0.content_object.pk}}" data-food-category="{{item.0.food_category}}" class="btn btn-white border-secondary bg-white">
+                                                    <span class="mobi-mbri mobi-mbri-edit-2 mbr-iconfont mbr-iconfont-btn"></span>
+                                                </button>
+                                                {% else %}
+                                                <button type="button" id="update" class="btn btn-white border-secondary bg-white">
+                                                    <span class="mobi-mbri mobi-mbri-edit-2 mbr-iconfont mbr-iconfont-btn"></span>
+                                                </button>
+                                                {% endif %}
+
+                                                <div class="hidden-form">
+                                                    <div class="protein-content">
+                                                        <form class="mbr-form form-with-styler" method="POST" action="">
+                                                            {% csrf_token %}
+                                                            <input type="hidden" name="item_id" value="{{ item.0.pk }}" data-food="{{item.0.food_category}}">
+                                                            <div class="proteinClass">
+                                                                <label for="protein">Protein</label>
+                                                                <select class="form-control d-block w-100" id="protein" name="protein" required>
+                                                                    <option></option>
+                                                                    {% for key, value in protein %}
+                                                                    <option value="{{ key }}">{{ key|capfirst }}</option>
+                                                                    {% endfor %}
+                                                                </select>
+                                                                
+                                                                <div class="subProtein">
+                                                                    <label for="subprotein">Subprotein</label>
+                                                                    <select class="form-control d-block w-100" id="subprotein" name="subprotein" required>
+                                                                        <option></option>
+                                                                    </select>
+                                                                </div>
+                                                                <input type="submit" value="change" class="button-change" style="margin-top: 20px;">
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <button type="submit" class="btn btn-warning border-secondary bg-white" value="{{ cart.user.username }}"
+                            name="clear-all" id="clear_all">Clear all</button><br><br>
+
+                        <div id="overlay" class="overlay" style="display: none;">
+                            <div class="overlay-content">
+                                <p>Are you sure you want to clear all items in the cart?</p>
+                                <button class="btn btn-primary" id="okayButton" value="{{ cart.session_id }}">Okay</button>
+                                <button class="btn btn-warning" id="cancelButton">Cancel</button>
+                            </div>
+                        </div><br><br>
+
+                        <div class="float-right text-right">
+                            <h4>Subtotal:</h4>
+                            <h1>₦{{ cart.total_price }}</h1>
+                        </div>
+
+                        <div class="row mt-4 d-flex align-items-center">
+                            <div class="col-sm-6 order-md-2 text-right">
+                                <a href="{% url 'cart:checkout' %}" class="btn btn-primary mb-4 btn-lg pl-5 pr-5">Proceed to
+                                    Checkout</a>
+                            </div>
+                            <div class="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
+                                <a href="#">
+                                    <i class="fas fa-arrow-left mr-2"></i> Continue Shopping</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</section>
+
+{% endblock %}

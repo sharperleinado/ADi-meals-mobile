@@ -1,0 +1,132 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block pageTitle %}
+ADi meals | Transactions
+{% endblock %}
+{% block jscript_attribute %}
+<link rel="stylesheet" href="{% static 'food_app/master.css' %}">
+<script src="{% static 'food_app/js/food.js' %}" defer="true"></script>
+{% endblock jscript_attribute %}
+{% block pageBody %}
+
+<section data-bs-version="5.1" class="gallery3 cid-u0tvmAp7su" id="gallery3-a">
+
+    <div class="container-fluid">
+        <center>
+             
+        {% if user.is_authenticated %}
+        <h2>Transactions</h2> <br><br>
+            
+            {% for item in transactions %}
+            
+            {% if item.content_type == food_model %}
+                
+                <h3><span class="text-muted">Food</span>
+                <span class="badge badge-secondary badge-pill">3</span></h3>
+
+            <div class="col-md-4 order-md-2 mb-4 display-4 ">
+                <ul class="list-group mb-3">
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                            <h6 class="my-0">{{item.content_object.food_item|capfirst}} | {{item.protein|capfirst}} | {{item.subprotein|capfirst}} | ₦{{item.content_object.food_price}} | <small class="text-muted">{{item.status|capfirst}}</small></h6>
+                        </div>
+    
+                        <div class="col-md-3 text-left">
+                            <img src={{item.content_object.image.url}} class="img-fluid" alt="Adi Foods"
+                            data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            {% elif item.content_type == soup_model %}
+                <h3><span class="text-muted">Soup</span>
+                    <span class="badge badge-secondary badge-pill">3</span></h3>
+
+                <div class="col-md-4 order-md-2 mb-4 display-4 ">
+                <ul class="list-group mb-3">
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                            <h6 class="my-0">{{item.content_object.soup_item|capfirst}} | {{item.boxsize|capfirst}} | {{item.protein|capfirst}} | {{item.subprotein|capfirst}} | ₦{{item.amount|capfirst}} | <small class="text-muted">{{item.status}}</small></h6>
+                        </div>
+    
+                        <div class="col-md-3 text-left">
+                            <img src={{item.content_object.image.url}} class="img-fluid" alt="Adi Foods"
+                            data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            {% elif item.content_type == cart_model %}
+            <h3><span class="text-muted">Your Ex-Cart</span>
+                <span class="badge badge-secondary badge-pill">3</span></h3>
+                  {{item.protein}}
+                  {{item.content_object.object_id}}
+                  {{item.boxsize}}
+                  {{item.content_type}}
+
+                <div class="col-md-4 order-md-2 mb-4 display-4 ">
+                    <ul class="list-group mb-3">
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            {% if item.content_type == food_model %}
+                            <div>
+                                <h6 class="my-0">{{item.content_object.food_item|capfirst}} | {{item.protein|capfirst}} | {{item.subprotein|capfirst}} | <small class="text-muted">₦{{item.content_object.food_price}}</small></h6>
+                            </div>
+        
+                            <div class="col-md-3 text-left">
+                                <img src={{item.content_object.image.url}} class="img-fluid" alt="Adi Foods"
+                                data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                            </div>
+
+                            {% elif item.content_type == soup and item.food_category == "mini" %}
+                            <div>
+                                <h6 class="my-0">{{item.content_object.soup_item|capfirst}} | {{item.food_category}} | {{item.protein|capfirst}} | {{item.subprotein|capfirst}} | <small class="text-muted">₦{{item.content_object.mini_box_price}}</small></h6>
+                            </div>
+        
+                            <div class="col-md-3 text-left">
+                                <img src={{item.content_object.image.url}} class="img-fluid" alt="Adi Foods"
+                                data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                            </div>
+                            {% elif item.content_type == soup and item.food_category == "medium" %}
+                            <div>
+                                <h6 class="my-0">{{item.content_object.soup_item|capfirst}} | {{item.food_category}} | {{item.protein|capfirst}} | {{item.subprotein|capfirst}} | <small class="text-muted">₦{{item.content_object.medium_box_price}}</small></h6>
+                            </div>
+        
+                            <div class="col-md-3 text-left">
+                                <img src={{item.content_object.image.url}} class="img-fluid" alt="Adi Foods"
+                                data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                            </div>
+                            {% elif item.content_type == soup and item.food_category == "mega" %}
+                            <div>
+                                <h6 class="my-0">{{item.content_object.soup_item|capfirst}} | {{item.food_category}} | {{item.protein|capfirst}} | {{item.subprotein|capfirst}} | <small class="text-muted">₦{{item.content_object.mega_box_price}}</small></h6>
+                            </div>
+        
+                            <div class="col-md-3 text-left">
+                                <img src={{item.content_object.image.url}} class="img-fluid" alt="Adi Foods"
+                                data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                            </div>
+                            {% endif %}
+                        </li>
+                    </ul> 
+                </div>
+        
+                
+        {% endif %}
+        {% endfor %}
+            <h2>Thank you for choosing ADi meals...</h2><br><br><br><br><br>
+            <button type="button" class="btn btn-primary btn-lg btn-block" onClick="window.location='{% url 'home' %}';">Go home</button>
+        '
+        {% else %}
+        <h2><center>Oooooops!! Are you sure you are logged in ?</center></h2>
+        <br><br><h3><center>Please, login to view this page and try again!</center></h3><br><br><br><br><br><br>
+        {% endif %}
+        
+        </center>
+    </div>
+</section>
+
+{% endblock %}
+
+
+

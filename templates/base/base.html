@@ -1,0 +1,252 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="generator" content="kunkky v5.9.4">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <link rel="shortcut icon" href="{% static 'assets/images/adi-logo-96x69.png' %}" type="image/x-icon">
+    <meta name="description" content="{% block pageDescription %} Best Online Food service {% endblock %}">
+
+    <title>{% block pageTitle %}ADi meals{% endblock %}</title>
+    
+    <link rel="stylesheet" href="{% static 'authentication/master.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/web/assets/mobirise-icons2/mobirise2.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/web/assets/mobirise-icons/mobirise-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap-grid.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap-reboot.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/dropdown/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/socicon/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/theme/css/style.css' %}">
+    
+    
+    {% block jscript_attribute %}
+    {% comment "" %}
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i&display=swap"
+        as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i&display=swap">
+    </noscript>
+    <link rel="preload"
+        href="https://fonts.googleapis.com/css?family=Epilogue:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap"
+        as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Epilogue:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap">
+    </noscript>{% endcomment %}
+    {% endblock %}
+    <link rel="stylesheet" href="{% static 'master.css' %}">
+    <link rel="preload" as="style" href="{% static 'assets/mobirise/css/mbr-additional.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/mobirise/css/mbr-additional.css' %}" type="text/css">
+</head>
+
+<body>
+
+    <section data-bs-version="5.1" class="menu menu1 cid-sFGzlAXw3z" once="menu" id="menu1-2">
+
+
+        <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
+            <div class="container-fluid">
+                <div class="navbar-brand">
+                    <span class="navbar-logo">
+                        <a href="{% url 'home' %}">
+                            <img src="{% static 'assets/images/adi-logo-96x69.png' %}" alt="ADI" style="height: 3rem;">
+                        </a>
+                    </span>
+
+                </div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse"
+                    data-target="#navbarSupportedContent" data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <div class="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true">
+                        <li class="nav-item"><a class="nav-link link text-info display-4" href="{% url 'home' %}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link link text-info text-primary display-4"
+                                href="{% url 'about' %}">
+                                Our Story</a></li>
+                        <li class="nav-item"><a class="nav-link link text-info display-4"
+                                href="{% url 'contact' %}">Contact</a></li>
+                       
+                    </ul>
+
+                <div class="icons-menu">
+                    <a class="iconfont-wrapper position-relative" href="{% url 'cart:cart_items' %}">
+                        <span class="p-2 mbr-iconfont mobi-mbri-cart-full mobi-mbri relative"
+                            style="color: rgb(244, 240, 187); fill: rgb(244, 240, 187);">
+                            <span class="badge badge-danger position-absolute bottom-0 bg-warning  rounded-pill" id="food_addtocart" style="font-size: x-small; left:20px;">{{cart_quantity}}</span>
+                        </span>
+                    </a>
+                </div>
+
+                <div class="navbar-buttons mbr-section-btn">
+                    <form class="form-inline" action="{% url 'search_box:search' %}" method="POST">
+                        {% csrf_token %}
+                    <div class="input-group">
+                        
+                        <input type="text" class="form-control" id="search" name="search" placeholder="search">
+                            <button class="btn btn-primary" type="submit" id="button-addon1">
+                            <span class="mobi-mbri mobi-mbri-search mbr-iconfont mbr-iconfont-btn"></span>
+                            </button>
+                    </div>
+                    </form>
+                </div>
+
+                    
+
+                    {% if not user.is_authenticated %}
+                    <div class="navbar-buttons mbr-section-btn"><a class="btn btn-primary display-4"
+                            href="{% url 'authentication:signup' %}"><span class="mbri-users mbr-iconfont mbr-iconfont-btn"></span>Get
+                            Started</a></div>
+                            {% else %}{% comment "" %}
+                    <div class="navbar-buttons mbr-section-btn"><a class="btn btn-warning display-4"
+                            onClick="window.location='{% url 'authentication:signout' %}';"><span class="mbri-users mbr-iconfont mbr-iconfont-btn"></span>Log
+                            out</a></div>{% endcomment %}
+                            {% endif %}
+                    
+                    <div class="dropdown navbar-buttons mbr-section-btn"><a
+                        class="btn btn-info dropdown-toggle show display-4" href="index.html#features10-5"
+                        data-toggle="dropdown-submenu" data-bs-toggle="dropdown" data-bs-auto-close="outside"
+                        aria-expanded="false"><span class="mbri-setting mbr-iconfont mbr-iconfont-btn"></span>Setting</a>
+                                {% if user.is_authenticated %}
+                    <div class="dropdown-menu show" aria-labelledby="dropdown-425" data-bs-popper="none">{% comment "" %}<a
+                            class="text-info dropdown-item display-4" href="index.html#features10-5"></a>{% endcomment %}<a
+                            class="text-info dropdown-item display-4" onClick="window.location='{% url 'profile' %}';"><span
+                            class="mobi-mbri mobi-mbri-bulleted-list mbr-iconfont mbr-iconfont-btn"></span>Profile</a><a
+                            class="text-info dropdown-item display-4" onClick="window.location='{% url 'authentication:signout' %}';"><span
+                                class="mbri-logout mbr-iconfont mbr-iconfont-btn"></span>Sign Out</a></div>
+                                {% else %}
+                    <div class="dropdown-menu show" aria-labelledby="dropdown-425" data-bs-popper="none">{% comment "" %}<a
+                            class="text-info dropdown-item display-4" href="index.html#features10-5"></a>{% endcomment %}<a
+                            class="text-info dropdown-item display-4" onClick="window.location='{% url 'profile' %}';"><span
+                            class="mobi-mbri mobi-mbri-bulleted-list mbr-iconfont mbr-iconfont-btn"></span>Profile</a></div>
+                                {% endif %}
+                    </div>
+                </div>
+            </div>
+        </nav>
+    <!--Other body starts-->
+    </section>
+        {% if messages %}
+       {% for message in messages %}
+           <div class="alert {% if message.tags %} alert-{{ message.tags }} {% endif %} alert-dismissible fade show" role="alert">
+               {#<strong>Message:</strong>#} {{ message }}
+               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+           </div>
+       {% endfor %}
+   {% endif %}
+        {% block pageBody %}
+        {% endblock  %}
+
+    <!--Other body ends-->
+
+    <section data-bs-version="5.1" class="footer1 cid-sFGDg6hy8z" once="footers" id="footer1-7">
+
+        <div class="container">
+            <div class="row mbr-white">
+                <div class="col-12 col-md-6 col-lg-3">
+                    <h5 class="mbr-section-subtitle mbr-fonts-style mb-2 display-7">
+                        <strong>Links</strong>
+                    </h5>
+                    <ul class="list mbr-fonts-style display-4">
+                        <li class="mbr-text item-wrap">Home</li>
+                        <li class="mbr-text item-wrap">Features</li>
+                        <li class="mbr-text item-wrap">Research</li>
+                        <li class="mbr-text item-wrap">Team</li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                    <h5 class="mbr-section-subtitle mbr-fonts-style mb-2 display-7">
+                        <strong>Info</strong>
+                    </h5>
+                    <ul class="list mbr-fonts-style display-4">
+
+                        <li class="mbr-text item-wrap">Our Story</li>
+                        <li class="mbr-text item-wrap">Pricing</li>
+                        <li class="mbr-text item-wrap">Contacts</li>
+                        <li class="mbr-text item-wrap">Office</li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                    <h5 class="mbr-section-subtitle mbr-fonts-style mb-2 display-7">
+                        <strong>Features</strong>
+                    </h5>
+                    <ul class="list mbr-fonts-style display-4">
+                        <li class="mbr-text item-wrap">Market Analysis
+                        </li>
+                        <li class="mbr-text item-wrap">Demand Research
+                        </li>
+                        <li class="mbr-text item-wrap">Competitor Analysis
+                        </li>
+                        <li class="mbr-text item-wrap">Research Results
+                        </li>
+                        <li class="mbr-text item-wrap"><br></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                    <h5 class="mbr-section-subtitle mbr-fonts-style mb-2 display-7">
+                        <strong>About</strong>
+                    </h5>
+                    <p class="mbr-text mbr-fonts-style mb-4 display-4">
+                        Simplyfying Soup and Food cooking in Nigeria!
+                    </p>
+                    <p class="mbr-text mbr-fonts-style mb-4 display-4">
+                        <a href="{% url 'about' %}" id="story">Click me to read my story!</a>
+                    </p>
+                    <h5 class="mbr-section-subtitle mbr-fonts-style mb-3 display-7">
+                        <strong>Social</strong>
+                    </h5>
+                    <div class="social-row display-7">
+                        <div class="soc-item">
+                            <a href="{% url 'home' %}" target="_blank">
+                                <span class="mbr-iconfont socicon socicon-facebook"></span>
+                            </a>
+                        </div>
+                        <div class="soc-item">
+                            <a href="{% url 'home' %}" target="_blank">
+                                <span class="mbr-iconfont socicon socicon-twitter"></span>
+                            </a>
+                        </div>
+                        <div class="soc-item">
+                            <a href="{% url 'home' %}" target="_blank">
+                                <span class="mbr-iconfont socicon socicon-instagram"></span>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <center><div class="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
+            <a href="#" id="property">
+                <i class="fas fa-arrow-left mr-2"></i>Adimeals.com is a property of ADi meals limited</a>
+        </div></center>
+    </section>
+
+    <script src="{% static 'assets/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/smoothscroll/smooth-scroll.js' %}"></script>
+    <script src="{% static 'assets/ytplayer/index.js' %}"></script>
+    <script src="{% static 'assets/dropdown/js/navbar-dropdown.js' %}"></script>
+    <script src="{% static 'assets/vimeoplayer/player.js' %}"></script>
+    <script src="{% static 'assets/embla/embla.min.js' %}"></script>
+    <script src="{% static 'assets/embla/script.js' %}"></script>
+    <script src="{% static 'assets/theme/js/script.js' %}"></script>
+
+
+</body>
+
+</html>
