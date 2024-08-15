@@ -302,9 +302,13 @@ def signin(request):
                     cart.save()
             except:
                 pass
-                
-            messages.success(request, "You have successfully logged in")
-            return redirect('address:register_address')
+            user_address = UserAddress.objects.get(user=request.user)
+            if user_address is None:    
+                messages.success(request, "You have successfully logged in")
+                return redirect('address:register_address')
+            else:
+                messages.success(request, "You have successfully logged in")
+                return redirect('home')
 
         else:
             messages.error(request, "Bad credentials! or Check your mail to verify account if you have not!")
@@ -510,38 +514,63 @@ def edit_account(request):
         pass
     
     
-    user = UserAddress.objects.get(user=request.user)
+    
     try:
+        user = UserAddress.objects.get(user=request.user)
         if request.method == "POST":
-            country_address = request.POST.get("country")
-            state_address = request.POST.get("state")
-            city_address = request.POST.get("city")
-            area_address = request.POST.get("area")
-            street_name_address = request.POST.get("street_name")
+            state = request.POST.get("state")
+            division = request.POST.get("division")
+            lga = request.POST.get("lga")
+            lcda = request.POST.get("lcda")
+            street_name = request.POST.get("street_name")
             
-            user.country = country_address
-            user.state = state_address
-            user.city = city_address
-            user.area = area_address
-            user.street_name = street_name_address
+            user.state = state
+            user.division = division
+            user.lga = lga
+            user.lcda = lcda
+            user.street_name = street_name
             user.save()
             messages.success(request, "You have successfully updated address.")
             return redirect('authentication:account_info')
     except:
         pass
         
-    return render(request,'authentication/edit_account.html',{'country':country_choice,'state':state,
-                                                              'city':city,'area':area,'state_lga':state_and_lga.items()})
+    return render(request,'authentication/edit_account.html',{'state_lga':state_and_lga.items()})
 
-def change_address(request):
+
+
+def change_address(request):#division
     if request.method == "POST":
         data = json.loads(request.body)
-        address_value = data.get('id')
-        lagos_state = state_and_lga.get(address_value)
-        lagos_division = lagos_state.keys()
-        print(lagos_division)
+        address_value = data.get('division_id')
+        divisions = state_and_lga.get(address_value, {})
+        response_data = list(divisions.keys())
+        return JsonResponse(response_data, safe=False)
+    return JsonResponse({'error': 'Invalid request'}, status=400)
 
-        return JsonResponse(str(lagos_state), safe=False)
+
+def change_address_division(request):#lga
+    if request.method == "POST":
+        data = json.loads(request.body)
+        division_value = data.get('lga_id')
+        selected_state = data.get('state')
+        divisions_selsect = state_and_lga.get(selected_state, {})
+        lga = divisions_selsect.get(division_value).keys()
+        return JsonResponse(list(lga), safe=False)
+    return JsonResponse({'error': 'Invalid request'}, status=400)
+
+
+def change_address_lga(request):#lcda
+    if request.method == "POST":
+        data = json.loads(request.body)
+        lcda = data.get('lcda_id')
+        selected_state = data.get('state')
+        selected_division = data.get('division')
+        lga = data.get('lga')
+        state = state_and_lga.get(selected_state, {})
+        lcda_list = state.get(selected_division).get(lga)
+
+        return JsonResponse(lcda_list, safe=False)
     return JsonResponse({'error': 'Invalid request'}, status=400)
 
 

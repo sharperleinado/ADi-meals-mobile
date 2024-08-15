@@ -23,6 +23,8 @@ urlpatterns = [
     path('otp/',views.updatenumber_otp,name='otp'),
     path('create_mobilenumber_otp/',views.create_mobilenumber_otp,name='create_mobilenumber_otp'),
     path('change_address/',views.change_address,name='change_address'),
+    path('change_address_division/',views.change_address_division,name='change_address_division'),
+    path('change_address_lga/',views.change_address_lga,name='change_address_lga'),
 ]
 
 

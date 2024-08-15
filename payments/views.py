@@ -1,3 +1,5 @@
+import datetime
+from xmlrpc.client import DateTime
 from django.shortcuts import render,redirect
 from django.http.response import JsonResponse,HttpResponse
 import json
@@ -8,7 +10,7 @@ import math
 import random
 from food_app.models import Food,Soup
 import requests
-from food_app.views import food,soup
+from food_app.views import food, food_box,soup, soup_box
 from django.db.models import Q
 import uuid
 from address.models import UserAddress
@@ -26,7 +28,9 @@ load_dotenv()
 
 food_model = ContentType.objects.get(model="food")
 soup_model = ContentType.objects.get(model="soup")
-cart_model = ContentType.objects.get(model="cartitemsfood")
+cart_model = ContentType.objects.get(model="cart")
+cartitems_food = ContentType.objects.get(model="cartitemsfood")
+
 
 
 def tx_ref():
@@ -55,8 +59,8 @@ def flutterwave(request,username,email,phone_no,price,pk,slug):
             "name": username
         },
         "customizations": {
-            "title": "ADi meals",
-            "logo": "https://drive.google.com/file/d/1gVC9TROQOKDZNB3k4EwxkgHYl51zePjC/view?usp=drive_link"#"http://www.piedpiper.com/app/themes/joystick-v27/images/logo.png"
+            "title": "ADi Meals Limited",
+            "logo": "https://www.logolynx.com/images/logolynx/22/2239ca38f5505fbfce7e55bbc0604386.jpeg"#"https://imgur.com/a/KCgmWR2.jpg"#"https://www.dropbox.com/scl/fi/ocyprndvq10u9laropcjm/official-logo-design.jpg"
         },
         "configurations": {
             "session_duration": 10,  # Session timeout in minutes (maxValue: 1440 minutes)
@@ -94,7 +98,9 @@ def verify_payment(request,price,pk,slug):
     food_content = ""
     soup_content = ""
     cart_content = ""
-    session_cart = ""
+    cartitems = ""
+    new_cartitems = ""
+    
     userprotein = request.session.get(str(request.user), ["beef", "fried beef"])
 
     if request.method == "GET":
@@ -133,27 +139,29 @@ def verify_payment(request,price,pk,slug):
             pass
 
         try:
-            cart = Cart.objects.get(user=request.user)
-
-            cart_content = ContentType.objects.get_for_model(cart)
-            print(cart_content)
+            cart = Cart.objects.get(uid=slug)
+            cartitems = CartItemsFood.objects.filter(cart=cart)
+            cart_content = cartitems_food
             
-            session_cart = request.session.get(str(request.user),cart)
-            #print(session_cart)
             if status == "completed" and cart is not None:     
                 cart.is_paid = True
                 cart.save()
-                #user_transactions = Transactions.objects.create(user=request.user,protein=userprotein[0],subprotein=userprotein[1],status=status,amount=price,currency="NGN",tx_ref=tx_ref,content_type=cart_model,object_id=pk)
+                user_transactions = Transactions.objects.create(user=request.user,cart=list(cartitems.values()),protein=userprotein[0],subprotein=userprotein[1],status=status,amount=price,currency="NGN",tx_ref=tx_ref,content_type=cart_content,object_id=pk)
+                cartitems_list = [list(cartitems),status,price]
+                new_cartitems = request.session.get('caritems',cartitems_list)
                 cart.delete()
+            elif status == "failed" and cart is not None:     
+                user_transactions = Transactions.objects.create(user=request.user,protein=userprotein[0],subprotein=userprotein[1],status=status,amount=price,currency="NGN",tx_ref=tx_ref,content_type=cart_content,object_id=pk)
+                new_cartitems = [cartitems,status,price]
         except Cart.DoesNotExist:
             pass 
-        except TypeError:
+        except:
             pass 
 
     return render(request,'payments/thankyou.html',{
         'food_product':food_product,
         'soup_product':soup_product,
-        'cart':session_cart,
+        'cart':new_cartitems,
         'actual_price':actual_price,
         'actual_size':actual_size,
         'food':food_model,
@@ -164,22 +172,51 @@ def verify_payment(request,price,pk,slug):
         })
 
 def transactions(request):
-    new_items = ""
-    try:
-        transactions = Transactions.objects.filter(user=request.user)
-        for item in transactions:
-            if item.content_type == cart_model:
-                new_items = Cart.objects.get(pk=item.pk)
-            print(new_items)
-    except Transactions.DoesNotExist:
-        messages.error(request, "You have no saved transactions yet! Order Soups and Food to save transactions..")
-        return redirect(request.META.get('HTTP_REFERER'))
-        
+
+    def user_transactions(transaction):
+        list_item = []
+        for item in transaction:
+            list_item.append(item)
+        new = []
+        for item in list_item:
+            if item.content_type == food_model:
+                new.append(item)
+            elif item.content_type == soup_model:
+                new.append(item)
+            else:
+                box = []
+                amount = item.amount
+                status = item.status
+                def takes_item(item):
+                    for item in item.cart:#Gets all the json items in each cart to iterate over it
+                        pk = list(item.values())#Turns each cart item to a list to be able to get the primary key of the object item
+                        boxsize = pk[4]#4 is for box size 
+                        protein = pk[5]#5 is for protein
+                        subprotein = pk[6]#6 is for subprotein
+                        quantity = pk[3]#3 is for item quantity
+                        try:
+                            food_box = Food.objects.get(pk=pk[7])
+                        except Food.DoesNotExist:
+                            pass
+                        try:
+                            food_box = Soup.objects.get(pk=pk[7])
+                        except Soup.DoesNotExist:
+                            pass
+                        items = [boxsize,protein,subprotein,food_box,quantity]
+                        box.append(items)
+                    return box
+                all_new = [amount,status,takes_item(item)]
+                new.append(all_new)
+        return new 
+            
+    new = Transactions.objects.filter(user=request.user)
     return render(request,'payments/transactions.html',{
-        'transactions':transactions,
+        'transactions':user_transactions(new),
         'food_model':food_model,
         'soup_model':soup_model,
-        'cart_model':cart_model,
+        'cart_model':cartitems_food,
+        'food':food.model,
+        'soup':soup.model,
     })
 
 def payment(request, price, slug):

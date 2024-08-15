@@ -41,9 +41,7 @@ ADi meals | Sign in
                     </form>
                             <center><strong>OR</strong><center>
                                 <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
-                                    <a href="http://127.0.0.1:8000/accounts/twitter/login/?process=login"><button type="submit" {#onClick="window.location='{% url 'account_login' %}';"#} class="btn btn-primary display-4 w-100 ">Signin with Twitter
-                                        {#<i class="fa fa-twitter fa-fw"></i>#}
-                                    </button></a>
+                                    <button type="submit" onClick="window.location='{% url 'twitter_callback' %}';" class="btn btn-primary display-4 w-100 ">Signin with Twitter<i class="fa fa-twitter fa-fw"></i></button>
                                 </div>
                 </div>
             </div>

@@ -1,70 +1,13 @@
 {% extends "base/base.html" %}
 {% load static %}
+{% block jscript_attribute %}
+    {#<link rel="stylesheet" href="{% static 'cart/cart.css' %}">#}
+    <script src="{% static 'address/js/address.js' %}" defer="true"></script>
+{% endblock jscript_attribute %}
 {% block pageTitle %}
 ADi meals | Create address
 {% endblock %}
 {% block pageBody %}
-{% comment "" %}
-{% extends "home.html" %}
-{% load static %}
-{% block jscript_attribute %}
-<title>Register Address</title>
-<link rel="stylesheet" href="{% static 'food_app/master.css' %}">{#To use it own css file, change to address/master.css#}
-<script src="{% static 'food_app/js/food.js' %}" defer="true"></script>{#To use it own js file, change to address/address.js#}
-{% endblock jscript_attribute %}
-
-{% if user.is_authenticated %}
-
-{% block cart_button %}
-    <button type="submit" id="food_addtocart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>Cart({{cart.total_quantity}})</strong></button>
-    {% endblock cart_button %}
-    
-    {% block content_is_authenticated %}
-
-<div class="container">
-    <br><br><h1><center>Register Address!</center></h1><br><br>
-
-<p style = "color:red;"><strong>Please, ensure the information in the STREET NAME field is precise enough to help our deliverer locate you.</strong></p>
-<p style = "color:red;"><strong>If "Other" is selected in the STREET NAME field, perhaps our location data does not capture your area, include the precise area in the street name field.</strong></p>
-<p style = "color:red;"><strong>What a street name should look like: "No 10, Iya basira, Eleko junction."</strong></p><br><br>
-
-<form action="{% url 'address:billing_address' %}" method="POST">
-{% csrf_token %}
-
-{{form.as_p}}
-<input type="submit" class="btn btn-success" name="myButton" value="Submit">
-</form><br><br>
-
-<button class="btn btn-primary" {#onClick = "window.location= '{% url 'address:billing_address' %}';"#}>View Billing Address</button>  <button class="btn btn-secondary" onClick = "window.location= '{% url 'address:update_address' %}';">Update Address</button><br><br>
-
-</div>{% endblock %}
-
-{% else %}
-
-{% block content_not_authenticated %}
-
-<div class="container">
-
-  <h1><center>Register Address!</center></h1><br><br>
-
-<h3><center>You must be logged in to view this page!</center></h3>
-
-</div>{% endblock %}
-{% endif %}{% endcomment %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <section data-bs-version="5.1" class="image2 cid-u0tuxl367X" id="image2-7">
@@ -79,58 +22,77 @@ ADi meals | Create address
             <div class="col-12 col-lg">
                 <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
 
+                  <div class="address-content">
+                    <form class="mbr-form form-with-styler" method="POST" action="">
+                        {% csrf_token %}
+                        <div class="addressClass">
+                            <label for="state">State</label>
+                            <select class="form-control d-block w-100" id="state" name="state" required>
+                                <option></option>
+                                {% for key,value in state_lga %}
+                                <option value="{{ key }}">{{ key|capfirst }}</option>
+                                {% endfor %}
+                            </select><br>
+                    
+                            <label for="division">Division</label>
+                            <select class="form-control d-block w-100" id="division" name="division" required>
+                                <option></option>
+                                {% comment "" %}
+                                {% for key,value in state_lga %}
+                                {% for item in value %}
+                                <option value="{{ item }}">{{ item|capfirst }}</option>
+                                {% endfor %}
+                                {% endfor %}{% endcomment %}
+                            </select><br>
+                            
+                            <label for="lga">Local Government Area</label>
+                            <select class="form-control d-block w-100" id="lga" name="lga" required>
+                                <option></option>
+                                {% comment "" %}
+                                {% for key, value in state_lga %}
+                                {% for key,value2 in value.items %}
+                                {% for item,item2 in value2.items %}
+                                <option value="{{ item }}">{{ item|capfirst }}</option>
+                                {% endfor %}
+                                {% endfor %}
+                                {% endfor %}{% endcomment %}
+                            </select>
+                
+                
+                            <div class="lcda">
+                                <label for="lcda">Local Government Development Council/Landmark</label>
+                                <select class="form-control d-block w-100" id="lcda" name="lcda" required>
+                                    <option></option>
+                                    {% comment "" %}
+                                    {% for key, value in state_lga %}
+                                    {% for key,value2 in value.items %}
+                                    {% for item,item2 in value2.items %}
+                                    {% for item in item2 %}
+                                    <option value="{{ item }}">{{ item|capfirst }}</option>
+                                    {% endfor %}
+                                    {% endfor %}
+                                    {% endfor %}
+                                    {% endfor %}{% endcomment %}
+                                </select>
+                            </div>
 
-<form action="" method="POST" class="mbr-form form-with-styler" data-form-title="Form Name">
-  {% csrf_token %}
-  
-  <div class="dragArea row">
-      <label for="country">Country</label>
-      <select class="form-control  d-block w-100" id="country" name="country" required>
-          {% for item in country %}
-          <option value="{{item.1}}">Choose...</option>
-          <option>{{item.1}}</option>
-          {% endfor %}
-      </select>
+                            <label for="street_name">Street name</label>
+                            <div class="col-12 form-group mb-3" data-for="street_name">
+                                <input type="text" name="street_name" placeholder="No 10, Iya basira, Eleko junction." class="form-control">
+                            </div>
 
-      <label for="state">State</label>
-      <select class="form-control  d-block w-100" id="state" name="state" required>
-          {% for item in state %}
-          <option value="{{item.1}}">Choose...</option>
-          <option>{{item.1}}</option>
-          {% endfor %}
-      </select>
+                            <p class="display-4 ">Please, be sure to input your precise address.</p>
+                            <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
+                                <button type="submit" class="btn btn-primary display-4 w-100 ">Update Address</button>
+                            </div>
 
-      <label for="city">City</label>
-      <select class="form-control  d-block w-100" id="city" name="city" required>
-          {% for item in city %}
-          <option value="{{item.1}}">Choose...</option>
-          <option>{{item.1}}</option>
-          {% endfor %}
-      </select>
+                        </div>
 
-      <label for="area">Area</label>
-      <select class="form-control  d-block w-100" id="area" name="area" required>
-        <option value="">Choose...</option>  
-        {% for item in area %}
-          <option>{{item.1}}</option>
-          {% endfor %}
-      </select>
-
-      <label for="street_name">Street name</label>
-      <div class="col-12 form-group mb-3" data-for="street_name">
-          <input type="text" name="street_name" placeholder="No 10, Iya basira, Eleko junction." class="form-control">
+                    </form>
+                </div><br><br><br>
+                
+            </div>
       </div>
-
-      <p class="display-4 ">Please, be sure to input your correct mobile number.</p>
-      <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
-          <button type="submit" class="btn btn-primary display-4 w-100 ">Create</button>
-      </div>
-  </div>
-
-</form>
-
-</div>
-</div>
 <div class="col-12 col-lg-6">
 <div class="image-wrapper">
 <img src="{% static 'assets/images/hot-soup-bowl-against-dark-background-410516-41370-626x417.jpg' %}"
@@ -138,6 +100,7 @@ ADi meals | Create address
 </div>
 </div>
 </div>
+
 
 {% else %}
 

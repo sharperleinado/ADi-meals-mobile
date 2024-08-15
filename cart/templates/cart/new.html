@@ -85,11 +85,11 @@
                                                 </button>
                                             </div>
                                                 {% if user.is_authenticated %}
-                                                <button type="button" id="update" value="{{item.0.content_object.pk}}" data-food-category="{{item.0.food_category}}" class="btn btn-white border-secondary bg-white">
+                                                <button type="button" id="update-login" value="{{item.0.content_object.pk}}" data-food-category="{{item.0.food_category}}" class="btn btn-white border-secondary bg-white">
                                                     <span class="mobi-mbri mobi-mbri-edit-2 mbr-iconfont mbr-iconfont-btn"></span>
                                                 </button>
                                                 {% else %}
-                                                <button type="button" id="update" class="btn btn-white border-secondary bg-white">
+                                                <button type="button" id="update-logout" class="btn btn-white border-secondary bg-white">
                                                     <span class="mobi-mbri mobi-mbri-edit-2 mbr-iconfont mbr-iconfont-btn"></span>
                                                 </button>
                                                 {% endif %}

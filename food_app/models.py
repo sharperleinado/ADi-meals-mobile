@@ -24,7 +24,7 @@ class Soup(models.Model):
     transactions = GenericRelation(Transactions)
 
     def __str__(self):
-        my_soup = f"{self.soup_item}"
+        my_soup = f"{self.soup_item}, {self.pk}"
         return my_soup
     
 
@@ -38,7 +38,7 @@ class Food(models.Model):
     transactions = GenericRelation(Transactions)
     
     def __str__(self):
-        my_food = f"{self.food_item}\n\n₦{self.food_price}"
+        my_food = f"{self.food_item}\n\n₦{self.food_price}\n{self.pk}"
         return my_food.capitalize()
     
 

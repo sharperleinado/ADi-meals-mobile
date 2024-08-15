@@ -1,19 +1,22 @@
 from django.test import TestCase
+from dotenv import load_dotenv
 import pyotp
 from datetime import datetime,timedelta
 from sms import send_sms
-from my_site.settings import *
 from twilio.rest import Client
 from twilio.base.exceptions import TwilioException
+import os
+load_dotenv()
+
 
 # Create your tests here.
 
 
-account_sid = TWILIO_ACCOUNT_SID
-auth_token = TWILIO_AUTH_TOKEN
+account_sid = os.getenv('TWILIO_ACCOUNT_SID')
+auth_token = os.getenv('TWILIO_AUTH_TOKEN')
 client = Client(account_sid, auth_token)
 
-'''
+
 def update_mobile_send_otp(request):
     message = ""
     totp = pyotp.TOTP(pyotp.random_base32(), interval=60)
@@ -36,10 +39,10 @@ def update_mobile_send_otp(request):
         print(f"Error Code: {e.code}")
         print(f"Error Message: {e.msg}")
     except KeyError:
-        pass'''
+        pass
 
 
-'''
+
 def create_mobile_send_otp(request):
     message = ""
     totp = pyotp.TOTP(pyotp.random_base32(), interval=60)
@@ -62,9 +65,9 @@ def create_mobile_send_otp(request):
         print(f"Error Code: {e.code}")
         print(f"Error Message: {e.msg}")
     except KeyError:
-        pass'''
+        pass
 
-
+'''
 def update_mobile_send_otp(request):
     message = ""
     totp = pyotp.TOTP(pyotp.random_base32(), interval=60)
@@ -101,5 +104,5 @@ def create_mobile_send_otp(request):
         [recipient],
         )
     except KeyError:
-        pass
+        pass'''
 

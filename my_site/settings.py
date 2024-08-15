@@ -1,7 +1,8 @@
 from pathlib import Path
 import os
 from info import *
-#import environ
+from django.contrib import messages
+from django.shortcuts import redirect
 
 EMAIL_USE_TLS = EMAIL_USE_TLS
 EMAIL_HOST = EMAIL_HOST
@@ -20,9 +21,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-38w+yczvta+h61ca9jq6^&z%18)dd!g)ktznjmw)n5cw+qmhd7'
-
-FLUTTERWAVE_PUBLIC_KEY = 'FLWPUBK_TEST-6b49e2a58d4f2cc37781d4d20c8a67c6-X'
-FLUTTERWAVE_SECRET_KEY = 'FLWSECK_TEST-752480689d5aa127ba8cc6bfe6cd2b79-X'
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -56,6 +54,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     #social providers
+    'allauth.socialaccount.providers.github',
     'allauth.socialaccount.providers.twitter',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
@@ -104,13 +103,21 @@ SITE_ID = 1
 ACCOUNT_EMAIL_VERIFICATION = "none"
 LOGIN_REDIRECT_URL = 'home'
 ACCOUNT_LOGOUT_ON_GET = True
+'''
+def login(request):
+    user_address = UserAddress.objects.get(user=request.user)
+    if user_address is None:    
+        messages.success(request, "You have successfully logged in")
+        LOGIN_REDIRECT_URL = 'address:register_address'
+        return redirect(LOGIN_REDIRECT_URL)
+    else:
+        messages.success(request, "You have successfully logged in")
+        LOGIN_REDIRECT_URL = 'home'
+    return redirect(LOGIN_REDIRECT_URL)'''
 
-#SMS_BACKEND = 'sms.backends.twilio.SmsBackend'
-SMS_BACKEND = 'sms.backends.console.SmsBackend'
 
-TWILIO_ACCOUNT_SID = 'AC979ee3b09821db405a907fb0b7b25648'
-
-TWILIO_AUTH_TOKEN = '9e437ac82b2ba42782512d529de4191e'
+SMS_BACKEND = 'sms.backends.twilio.SmsBackend'
+#SMS_BACKEND = 'sms.backends.console.SmsBackend'
 
 WSGI_APPLICATION = 'my_site.wsgi.application'
 

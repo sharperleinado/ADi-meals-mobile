@@ -64,6 +64,6 @@ class CartItemsFood(models.Model):
 
     def __str__(self):
         
-        return f"{self.content_object} {self.food_category}"
+        return f"{self.content_object} {self.food_category} {self.object_id}"
     
     

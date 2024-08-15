@@ -10,6 +10,7 @@ from payments.views import tx_ref
 from address.models import UserAddress
 from django.template import *
 from django.urls import reverse
+from payments.models import Transactions
 
 # Create your views here.
 
@@ -187,14 +188,21 @@ def checkout(request):
     cart = ""
     new_cartitems = ""
     cart_pk = ""
+    username = ""
+    phone_no = ""
+    email = ""
 
     try:
         if request.user.is_authenticated:
             cart = Cart.objects.get(user=request.user)
             address = UserAddress.objects.get(user=request.user)
             username = address.user.username
+            email = address.user.email
             mobile = Mobile.objects.get(user=request.user)
             phone_no = mobile.phone_no
+
+            new = request.session.get('cartitems')
+            del new 
         else:
             cart = Cart.objects.get(session_id=request.session['cart_users'],is_paid=False)
             address = "Anonymousstreet.com"
@@ -229,7 +237,7 @@ def checkout(request):
     return render(request,'cart/checkout.html',{
         'address':address,
         'username':username,
-        'email': address.user.email,
+        'email': email,
         'food':food_model,
         'soup':soup_model,
         'new':new_cartitems,

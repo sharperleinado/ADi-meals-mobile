@@ -30,14 +30,20 @@
   }
   
   
-#update{
+#update-login{
   padding-right: 5px;
   margin-right: 10px;
-  margin-bottom: 100px;
 }
 
+#update-logout{
+  padding-right: 5px;
+  margin-right: 10px;
+}
+
+
 #delete-item {
-    margin-top: 20px;
+    margin-bottom: 100px;
+    margin-top: -75px;
     margin-left: 83px;
     padding-left: 2px;
     padding-bottom: -5px;

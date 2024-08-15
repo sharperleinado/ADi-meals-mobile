@@ -5,10 +5,11 @@ from authentication.models import User
 
 
 # Create your models here.
-soup_model = ContentType.objects.get(model="soup")
+
 
 class Transactions(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
+    cart = models.JSONField(null=True)
     boxsize = models.CharField(max_length=30,null=True)
     protein = models.CharField(max_length=30,null=True)
     subprotein = models.CharField(max_length=30,null=True)
@@ -23,6 +24,6 @@ class Transactions(models.Model):
     time = models.TimeField(auto_now_add=True,null=True)
         
     def __str__(self):
-        return f"{self.content_type}, {self.content_object}, {self.user}, {self.datetime}, {self.time}, {self.object_id}"
+        return f"{self.content_type}, {self.user}, {self.datetime}, {self.time}, {self.object_id}"
     
 

@@ -13,50 +13,51 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+
 const csrftoken = getCookie('csrftoken');
 
 
 
-state = document.getElementById('state');
-state.addEventListener("change", changeAddress);
+const stateSelect = document.querySelector('.addressClass select[name="state"]');
+const divisionSelect = document.querySelector('.addressClass select[name="division"]');
+const lgaSelect = document.querySelector('.addressClass select[name="lga"]');
+const lcdaSelect = document.querySelector('.addressClass select[name="lcda"]');
 
-function changeAddress(e) {
-    console.log(e.target)
-}
-
-
-/*document.querySelectorAll('.addressClass select[name="state"]').forEach(state => {
-    state.addEventListener("change", changeAddress);
+stateSelect.addEventListener("change", function(e) {
+    const state = e.target.value;
+    fetchData('/authentication/change_address/', {'division_id': state}, divisionSelect);
 });
 
-function changeAddress(e) {
-    division = e.target.value
-    console.log(division)
+divisionSelect.addEventListener("change", function(e) {
+    const division = e.target.value;
+    fetchData('/authentication/change_address_division/', {'lga_id': division,'state':stateSelect.value}, lgaSelect);
+});
 
-    let form = e.target.closest('form'); // Get the closest form element
-    let lgaSelect = form.querySelector('select[name="divison"]'); // Find subprotein select within this form
-    let url = '/authentication/change_address/';
+lgaSelect.addEventListener("change", function(e) {
+    const lga = e.target.value;
+    fetchData('/authentication/change_address_lga/', {'lcda_id': lga,'state':stateSelect.value,'division':divisionSelect.value,'lga':lgaSelect.value}, lcdaSelect);
+});
 
+function fetchData(url, data, targetSelect) {
     fetch(url, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
             'X-CSRFToken': csrftoken,
         },
-        body: JSON.stringify({'id': division}),
+        body: JSON.stringify(data),
     })
     .then(res => res.json())
     .then(data => {
         console.log(data)
-        /*lgaSelect.innerHTML = '<option selected=""></option>';
+        targetSelect.innerHTML = '<option selected=""></option>';
         data.forEach(item => {
-            lgaSelect.innerHTML += `<option value="${item}">${item}</option>`;
+            targetSelect.innerHTML += `<option value="${item}">${item[0].toUpperCase() + item.slice(1)}</option>`;
         });
     })
     .catch(error => {
         console.log(error);
     });
-}*/
-
+}
 
 

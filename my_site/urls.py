@@ -11,6 +11,9 @@ def home(request):
     try:
         if request.user.is_authenticated:
             fname = request.user.first_name
+
+            new = request.session.get('cartitems')
+            del new 
     except AttributeError:
         pass
     

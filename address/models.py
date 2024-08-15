@@ -17,22 +17,16 @@ area = [("alagbaka","Alagbaka"),("arakale","Arakale"),("araromi","Araromi"),
 
 
 
-#user
-#state
-#lga
-#lcda
-#street_name
-
 
 class UserAddress(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,default=None)
-    country = models.CharField(max_length=200, choices=country_choice)
-    state = models.CharField(max_length=200, choices=state)
-    city = models.CharField(max_length=200, choices=city)
-    area = models.CharField(max_length=200, choices=area)
-    street_name = models.CharField(max_length=300)
+    state = models.CharField(max_length=50)
+    division = models.CharField(max_length=50, null=True)
+    lga = models.CharField(max_length=50, null=True)
+    lcda = models.CharField(max_length=50, null=True)
+    street_name = models.CharField(max_length=300, null=True)
 
     def __str__(self):
-        return f"{self.street_name}, {self.area}, {self.city}."
+        return f"{self.lga}, {self.lcda}, {self.street_name}."
     
     

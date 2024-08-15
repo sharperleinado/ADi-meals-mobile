@@ -1,9 +1,10 @@
 from django.shortcuts import render,redirect
 from django.urls import reverse
-from .forms import AddressForm,UpdateForm
 from django.contrib import messages
 from cart.models import Cart
 from .models import UserAddress,area,country_choice,city,state
+import json
+from django.http.response import JsonResponse
 
 
 # Create your views here.
@@ -95,23 +96,24 @@ def register_address(request):
     try:
         useraddress = UserAddress.objects.get(user=request.user)
         if useraddress is not None:
+            messages.info(request, "You have created an address!")
             return redirect('authentication:account_info')
         else:
             pass
     except:
         pass
-    
+        
     if request.method == "POST":
-        country_address = request.POST.get("country")
-        state_address = request.POST.get("state")
-        city_address = request.POST.get("city")
-        area_address = request.POST.get("area")
-        street_name_address = request.POST.get("street_name")
-        useraddress = UserAddress.objects.create(user=request.user,country=country_address,state=state_address,city=city_address,area=area_address,street_name=street_name_address)
+        state = request.POST.get("state")
+        division = request.POST.get("division")
+        lga = request.POST.get("lga")
+        lcda = request.POST.get("lcda")
+        street_name = request.POST.get("street_name")
+        useraddress = UserAddress.objects.get_or_create(user=request.user,state=state,division=division,lga=lga,lcda=lcda,street_name=street_name)
         messages.success(request, "You have successfully added a billing address!")
         return redirect('authentication:mobile')
     
-    return render(request,'address/register_address.html',{'country':country_choice,'state':state,'city':city,'area':area,})
+    return render(request,'address/register_address.html',{'state_lga':state_and_lga.items()})
 
 
 
@@ -120,16 +122,51 @@ def billing_address(request):
     try:
         user = UserAddress.objects.get(user=request.user)
     except AttributeError:
-        messages.error(request, "Please, create address before viewing Home page!")
+        messages.error(request, "Please, create address before viewing address page!")
         return redirect('address:register_address')
     except:
-        messages.error(request, "Please, create address before viewing Home page!")
+        messages.error(request, "Please, create address before viewing address page!")
         return redirect('address:register_address')
 
     return render(request,'address/billing_address.html',{'form':user})
 
 
+def change_address(request):#division
+    if request.method == "POST":
+        data = json.loads(request.body)
+        address_value = data.get('division_id')
+        divisions = state_and_lga.get(address_value, {})
+        response_data = list(divisions.keys())
+        return JsonResponse(response_data, safe=False)
+    return JsonResponse({'error': 'Invalid request'}, status=400)
 
+
+def change_address_division(request):#lga
+    if request.method == "POST":
+        data = json.loads(request.body)
+        division_value = data.get('lga_id')
+        selected_state = data.get('state')
+        divisions_selsect = state_and_lga.get(selected_state, {})
+        lga = divisions_selsect.get(division_value).keys()
+        return JsonResponse(list(lga), safe=False)
+    return JsonResponse({'error': 'Invalid request'}, status=400)
+
+
+def change_address_lga(request):#lcda
+    if request.method == "POST":
+        data = json.loads(request.body)
+        lcda = data.get('lcda_id')
+        selected_state = data.get('state')
+        selected_division = data.get('division')
+        lga = data.get('lga')
+        state = state_and_lga.get(selected_state, {})
+        lcda_list = state.get(selected_division).get(lga)
+
+        return JsonResponse(lcda_list, safe=False)
+    return JsonResponse({'error': 'Invalid request'}, status=400)
+
+
+'''
 def update_address(request):
     form = UpdateForm()
     try:
@@ -154,5 +191,5 @@ def update_address(request):
     except:
         pass
     
-    return render(request,'address/update_address.html',{'form':form})
+    return render(request,'address/update_address.html',{'form':form})'''
 

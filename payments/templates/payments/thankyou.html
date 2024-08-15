@@ -57,63 +57,100 @@ ADi meals | Thank you
                 </ul>
             </div>
 
-            {% elif cartitems and status == "completed" %}
+            {% elif cart.0 and status == "completed" %}
             <h2>You have Successfully paid for: <br><br> 
 
                 <span class="text-muted">Your Ex-Cart</span>
                 <span class="badge badge-secondary badge-pill">3</span></h2>
 
-                {% for item in cart %}
-                {{item}}
                 <div class="col-md-4 order-md-2 mb-4 display-4 ">
                     <ul class="list-group mb-3">
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
+
+
+                        {% for item in cart.0 %}{#This iterates the list all_new#}
                             {% if item.content_type == food %}
-                            <div>
-                                <h6 class="my-0">{{item.content_object.food_item|capfirst}} | {{item.protein|capfirst}} | {{item.subprotein|capfirst}} | <small class="text-muted">₦{{item.content_object.food_price}}</small></h6>
-                            </div>
-        
-                            <div class="col-md-3 text-left">
-                                <img src={{item.content_object.image.url}} class="img-fluid" alt="Adi Foods"
-                                data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
-                            </div>
+                            
+                                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    
+                                    <div>
+                                        <h6 class="my-0">{{item.content_object.food_item|capfirst}} | {{item.protein|capfirst}} | {{item.subprotein|capfirst}} | {{item.quantity}} | <small class="text-muted">₦{{item.content_object.food_price}}</small></h6>
+                                    </div>
+                
+                                    <div class="col-md-3 text-left">
+                                        <img src={{item.content_object.image.url}} class="img-fluid" alt="Adi Foods"
+                                        data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                                    </div>
+                        
+                                </li>
 
                             {% elif item.content_type == soup and item.food_category == "mini" %}
-                            <div>
-                                <h6 class="my-0">{{item.content_object.soup_item|capfirst}} | {{item.food_category|capfirst}} | {{item.food_category|capfirst}} | {{item.protein|capfirst}} | {{item.subprotein|capfirst}} | <small class="text-muted">₦{{item.content_object.mini_box_price}}</small></h6>
-                            </div>
-        
-                            <div class="col-md-3 text-left">
-                                <img src={{item.content_object.image.url}} class="img-fluid" alt="Adi Foods"
-                                data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
-                            </div>
+                            
+                                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    
+                                    <div>
+                                        <h6 class="my-0">{{item.content_object.soup_item|capfirst}} | {{item.food_category|capfirst}} | {{item.food_category|capfirst}} | {{item.protein|capfirst}} | {{item.subprotein|capfirst}}  | {{item.quantity}} | <small class="text-muted">₦{{item.content_object.mini_box_price}}</small></h6>
+                                    </div>
+                        
+                                    <div class="col-md-3 text-left">
+                                        <img src={{item.content_object.image.url}} class="img-fluid" alt="Adi Foods"
+                                        data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                                    </div>
+                        
+                                </li>
+
                             {% elif item.content_type == soup and item.food_category == "medium" %}
-                            <div>
-                                <h6 class="my-0">{{item.content_object.soup_item|capfirst}} | {{item.food_category|capfirst}} | {{item.protein|capfirst}} | {{item.subprotein|capfirst}} | <small class="text-muted">₦{{item.content_object.medium_box_price}}</small></h6>
-                            </div>
-        
-                            <div class="col-md-3 text-left">
-                                <img src={{item.content_object.image.url}} class="img-fluid" alt="Adi Foods"
-                                data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
-                            </div>
+                            
+                                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    
+                                    <div>
+                                        <h6 class="my-0">{{item.content_object.soup_item|capfirst}} | {{item.food_category|capfirst}} | {{item.protein|capfirst}} | {{item.subprotein|capfirst}} | {{item.quantity}} | <small class="text-muted">₦{{item.content_object.medium_box_price}}</small></h6>
+                                    </div>
+                
+                                    <div class="col-md-3 text-left">
+                                        <img src={{item.content_object.image.url}} class="img-fluid" alt="Adi Foods"
+                                        data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                                    </div>
+                        
+                                </li>
+
                             {% elif item.content_type == soup and item.food_category == "mega" %}
-                            <div>
-                                <h6 class="my-0">{{item.content_object.soup_item|capfirst}} | {{item.food_category|capfirst}} | {{item.protein|capfirst}} | {{item.subprotein|capfirst}} | <small class="text-muted">₦{{item.content_object.mega_box_price}}</small></h6>
-                            </div>
-        
-                            <div class="col-md-3 text-left">
-                                <img src={{item.content_object.image.url}} class="img-fluid" alt="Adi Foods"
-                                data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
-                            </div>
+                            
+                                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    
+                                    <div>
+                                        <h6 class="my-0">{{item.content_object.soup_item|capfirst}} | {{item.food_category|capfirst}} | {{item.protein|capfirst}} | {{item.subprotein|capfirst}} | {{item.quantity}} | <small class="text-muted">₦{{item.content_object.mega_box_price}}</small></h6>
+                                    </div>
+                
+                                    <div class="col-md-3 text-left">
+                                        <img src={{item.content_object.image.url}} class="img-fluid" alt="Adi Foods"
+                                        data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                                    </div>
+                        
+                                </li>
+
                             {% endif %}
+
+                        {% endfor %}  
+
+                        <li class="list-group-item d-flex justify-content-between bg-light">
+                            <div class="text-success">
+                                <h6 class="my-0">Status</h6>
+                            </div>
+                            <span class="text-success">{{cart.1|capfirst}}</span>
                         </li>
-                    </ul> 
+
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Total (NGN)</span>
+                            <strong>₦{{cart.2}}</strong>
+                        </li><br>
+
+                        </li>
+                    </ul>
                 </div>
-
-                {% endfor %}</h2>
-
+                
             {% elif status == "cancelled" %}
-            <h2><center>Oooooops!! Something went wrong while trying to process transaction.</center></h2>
+            <h2><center><strong>Oooooops!! Something went wrong while trying to process transaction.</strong></center></h2>
             <br><br><h2><center><strong>Transaction was cancelled by you...</strong></center></h2><br><br><br>
             
             {% elif food_product and status == "failed" %}
@@ -136,8 +173,8 @@ ADi meals | Thank you
                     </li>
                 </ul>
             </div>
-            <h2><center>Oooooops!! Something went wrong while trying to process transaction.</center></h2>
-            <br><br><h3><center>Transaction failed...</center></h3><br><br><br><br>
+            <h2><center><strong>Oooooops!! Something went wrong while trying to process transaction.</strong></center></h2>
+            <br><br><h3><center><strong>Transaction failed...</strong></center></h3><br><br><br><br>
 
             {% elif soup_product and status == "failed" %}
             <h2>You tried paying for: <br><br> 
@@ -160,65 +197,121 @@ ADi meals | Thank you
             </ul>
         </div>
         {% elif cart and status == "failed" %}
-        <h2>You tried paying for: <br><br> 
+        <h2>You have Successfully paid for: <br><br> 
 
-            <span class="text-muted">Cart</span>
+            <span class="text-muted">Your Ex-Cart</span>
             <span class="badge badge-secondary badge-pill">3</span></h2>
 
-            {% for item in cart.cartitems.all %}
             <div class="col-md-4 order-md-2 mb-4 display-4 ">
                 <ul class="list-group mb-3">
                     <li class="list-group-item d-flex justify-content-between lh-condensed">
+
+
+                    {% for item in cart.0 %}{#This iterates the list all_new#}
                         {% if item.content_type == food %}
-                        <div>
-                            <h6 class="my-0">{{item.content_object.food_item|capfirst}} | {{item.protein|capfirst}} | {{item.subprotein|capfirst}} | <small class="text-muted">₦{{item.content_object.food_price}}</small></h6>
-                        </div>
-    
-                        <div class="col-md-3 text-left">
-                            <img src={{item.content_object.image.url}} class="img-fluid" alt="Adi Foods"
-                            data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
-                        </div>
+                        
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                
+                                <div>
+                                    <h6 class="my-0">{{item.content_object.food_item|capfirst}} | {{item.protein|capfirst}} | {{item.subprotein|capfirst}} | {{item.quantity}} | <small class="text-muted">₦{{item.content_object.food_price}}</small></h6>
+                                </div>
+            
+                                <div class="col-md-3 text-left">
+                                    <img src={{item.content_object.image.url}} class="img-fluid" alt="Adi Foods"
+                                    data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                                </div>
+                    
+                            </li>
 
                         {% elif item.content_type == soup and item.food_category == "mini" %}
-                        <div>
-                            <h6 class="my-0">{{item.content_object.soup_item|capfirst}} | {{item.food_category|capfirst}} | {{item.protein|capfirst}} | {{item.subprotein|capfirst}} | <small class="text-muted">₦{{item.content_object.mini_box_price}}</small></h6>
-                        </div>
-    
-                        <div class="col-md-3 text-left">
-                            <img src={{item.content_object.image.url}} class="img-fluid" alt="Adi Foods"
-                            data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
-                        </div>
-                        {% elif item.content_type == soup and item.food_category == "medium" %}
-                        <div>
-                            <h6 class="my-0">{{item.content_object.soup_item|capfirst}} | {{item.food_category|capfirst}} | {{item.protein|capfirst}} | {{item.subprotein|capfirst}} | <small class="text-muted">₦{{item.content_object.medium_box_price}}</small></h6>
-                        </div>
-    
-                        <div class="col-md-3 text-left">
-                            <img src={{item.content_object.image.url}} class="img-fluid" alt="Adi Foods"
-                            data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
-                        </div>
-                        {% elif item.content_type == soup and item.food_category == "mega" %}
-                        <div>
-                            <h6 class="my-0">{{item.content_object.soup_item|capfirst}} | {{item.food_category|capfirst}} | {{item.protein|capfirst}} | {{item.subprotein|capfirst}} | <small class="text-muted">₦{{item.content_object.mega_box_price}}</small></h6>
-                        </div>
-    
-                        <div class="col-md-3 text-left">
-                            <img src={{item.content_object.image.url}} class="img-fluid" alt="Adi Foods"
-                            data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
-                        </div>
-                        {% endif %}
-                    </li>
-                </ul> 
-            </div>
+                        
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                
+                                <div>
+                                    <h6 class="my-0">{{item.content_object.soup_item|capfirst}} | {{item.food_category|capfirst}} | {{item.food_category|capfirst}} | {{item.protein|capfirst}} | {{item.subprotein|capfirst}}  | {{item.quantity}} | <small class="text-muted">₦{{item.content_object.mini_box_price}}</small></h6>
+                                </div>
+                    
+                                <div class="col-md-3 text-left">
+                                    <img src={{item.content_object.image.url}} class="img-fluid" alt="Adi Foods"
+                                    data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                                </div>
+                    
+                            </li>
 
-            {% endfor %}</h2>
+                        {% elif item.content_type == soup and item.food_category == "medium" %}
+                        
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                
+                                <div>
+                                    <h6 class="my-0">{{item.content_object.soup_item|capfirst}} | {{item.food_category|capfirst}} | {{item.protein|capfirst}} | {{item.subprotein|capfirst}} | {{item.quantity}} | <small class="text-muted">₦{{item.content_object.medium_box_price}}</small></h6>
+                                </div>
+            
+                                <div class="col-md-3 text-left">
+                                    <img src={{item.content_object.image.url}} class="img-fluid" alt="Adi Foods"
+                                    data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                                </div>
+                    
+                            </li>
+
+                        {% elif item.content_type == soup and item.food_category == "mega" %}
+                        
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                
+                                <div>
+                                    <h6 class="my-0">{{item.content_object.soup_item|capfirst}} | {{item.food_category|capfirst}} | {{item.protein|capfirst}} | {{item.subprotein|capfirst}} | {{item.quantity}} | <small class="text-muted">₦{{item.content_object.mega_box_price}}</small></h6>
+                                </div>
+            
+                                <div class="col-md-3 text-left">
+                                    <img src={{item.content_object.image.url}} class="img-fluid" alt="Adi Foods"
+                                    data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                                </div>
+                    
+                            </li>
+
+                        {% endif %}
+
+                    {% endfor %}  
+
+                    <li class="list-group-item d-flex justify-content-between bg-light">
+                        <div class="text-success">
+                            <h6 class="my-0">Status</h6>
+                        </div>
+                        <span class="text-success">{{cart.1|capfirst}}</span>
+                    </li>
+
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Total (NGN)</span>
+                        <strong>₦{{cart.2}}</strong>
+                    </li><br>
+
+                    </li>
+                </ul>
+            </div>
 ]            
         {% endif %}
-            <h3>Thank you for choosing ADi meals...</h3><br><br><br><br><br>
-            <button type="button" class="btn btn-primary btn-lg btn-block" onClick="window.location='{% url 'home' %}';">Go home</button>
+            <h4>Thank you for choosing ADi meals...</h3><br><br><br><br><br>
+            <button type="button" class="btn btn-primary btn-lg btn-block" onClick="window.location='{% url 'home' %}';">Go home</button><br><br><br>
+        
+            <h4><strong>Hey Chief! could you gift us a following on our socials, if you think we deserve it ?</strong>
+            
+                <a href="{% url 'home' %}" target="_blank">
+                    <span class="mbr-iconfont socicon socicon-facebook"></span>
+                </a>
+        
+                <a href="{% url 'home' %}" target="_blank">
+                    <span class="mbr-iconfont socicon socicon-twitter"></span>
+                </a>
+        
+                <a href="{% url 'home' %}" target="_blank">
+                    <span class="mbr-iconfont socicon socicon-instagram"></span>
+                </a></h4>
+            
+        </div>
+
         {% else %}
-        <h2><center>Oooooops!! Something went wrong while trying to process transaction.</center></h2>
-        <br><br><h3><center>Please, try again!</center></h3><br><br><br><br><br><br>
+        <strong><h2><center><strong>Oooooops!! Something went wrong while trying to process transaction.</strong></center></h2></strong>
+        <br><br><h3><center><strong>Please, try again!</strong></center></h3><br><br><br><br>
+        <button type="button" class="btn btn-primary btn-lg btn-block" onClick="window.location='{% url 'home' %}';">Go home</button>
         {% endif %}
         
         </center>

@@ -64,7 +64,6 @@ def soup_box(request):
 
 #for food box page add to cart
 def add_to_cart(request):
-
     data = json.loads(request.body)
     product_id = data['id']
     product = food.get(pk=product_id)
