@@ -1,0 +1,27 @@
+{% extends "home.html" %}
+{% load static %}
+{% block jscript_attribute %}
+<title>Food box</title>
+<link rel="stylesheet" href="{% static 'food_app/master.css' %}">{#To use it own css file, change to address/master.css#}
+<script src="{% static 'food_app/js/food.js' %}" defer="true"></script>{#To use it own js file, change to address/address.js#}
+{% endblock jscript_attribute %}
+
+{% if user.is_authenticated %}
+
+{% block cart_button %}
+    <button type="submit" id="food_addtocart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>Cart({{cart.total_quantity}})</strong></button>
+    {% endblock cart_button %}
+    
+    {% block content_is_authenticated %}
+
+<div class="container">
+    <br><br><h1><center>Billing Address page!</center></h1><br><br>
+
+<h2>Username:</h2> {{form.user|capfirst}}<br>
+<h2>Address:</h2> {{form.street_name|capfirst}}, {{form.area|capfirst}}, {{form.city|capfirst}}, {{form.state|capfirst}} state, {{form.country|capfirst}}<br><br>
+<button class="btn btn-success" onClick = "window.location= '{% url 'address:update_address' %}';">Edit me</button><br><br><br>
+
+</div>{% endblock %}
+
+{% endif %}
+

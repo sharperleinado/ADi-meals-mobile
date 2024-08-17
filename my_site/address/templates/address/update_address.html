@@ -1,0 +1,37 @@
+{% extends "home.html" %}
+{% load static %}
+{% block jscript_attribute %}
+<title>Update Billing Address</title>
+<link rel="stylesheet" href="{% static 'food_app/master.css' %}">{#To use it own css file, change to address/master.css#}
+<script src="{% static 'food_app/js/food.js' %}" defer="true"></script>{#To use it own js file, change to address/address.js#}
+{% endblock jscript_attribute %}
+
+{% if user.is_authenticated %}
+
+{% block cart_button %}
+    <button type="submit" id="food_addtocart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>Cart({{cart.total_quantity}})</strong></button>
+    {% endblock cart_button %}
+    
+    {% block content_is_authenticated %}
+
+<div class="container">
+    <br><br><h1><center>Update Address page!</center></h1><br><br>
+
+<p style = "color:red;"><strong>Please, ensure the information in the STREET NAME field is precise enough to help our deliverer locate you.</strong></p>
+<p style = "color:red;"><strong>If "Other" is selected in the STREET NAME field, perhaps our location data does not capture your area, include the precise area in the street name field.</strong></p>
+<p style = "color:red;"><strong>What a street name should look like: "No 10, Iya basira, Eleko junction."</strong></p><br><br>
+
+
+<h2>Update Adress</h2><br>
+<form action="{% url 'address:billing_address' %}" method="POST">
+{% csrf_token %}
+{{form.as_p}}
+<input type="submit" class="btn btn-success" value="Submit">
+</form><br><br>
+
+<button class="btn btn-primary" {#onClick = "window.location= '{% url 'address:billing_address' %}';"#}>View Billing Address</button>
+
+</div>{% endblock %}
+
+{% endif %}
+

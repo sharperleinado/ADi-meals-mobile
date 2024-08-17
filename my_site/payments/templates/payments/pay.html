@@ -1,0 +1,216 @@
+{% extends "home.html" %}
+{% load static %}
+{% block jscript_attribute %}
+<title>Payment</title>
+<link rel="stylesheet" href="{% static 'food_app/master.css' %}">{#if you want to use it own css file, change this to payment/master.css#}
+<script src="{% static 'payments/js/soup.js' %}" defer="true"></script>
+
+<script src="https://checkout.flutterwave.com/v3.js"></script>
+<script>
+    let tx_ref = "{{tx_ref}}"
+    let username = "{{ username }}"
+    let email = "{{ email }}"
+    let phone_no = "{{ phone_no }}"
+
+function makePayment(price,pk) {
+    FlutterwaveCheckout({
+      public_key: "FLWPUBK-88c1243af19624d4b741295b1782a009-X",
+      tx_ref: tx_ref,
+      amount: price,
+      currency: "NGN",
+      payment_options: "card, mobilemoneyghana, ussd",
+      redirect_url: "https://127.0.0.1:8000/payments/verify_payment/" + pk,
+      meta: {
+        consumer_id: 23,
+        consumer_mac: "92a3-912ba-1192a",
+      },
+      customer: {
+        email: email,
+        phone_number: phone_no,
+        name: username,
+      },
+      customizations: {
+        title: "ADi meals limited",
+        description: "Your go to place for food and soup service",
+        logo: "https://www.logolynx.com/images/logolynx/22/2239ca38f5505fbfce7e55bbc0604386.jpeg",
+      },
+    });
+  }
+</script>
+
+{% endblock jscript_attribute %}
+
+{% if user.is_authenticated %}
+
+{% block cart_button %}
+    <button type="submit" id="soup_addtocart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>Cart({{cart_quantity}})</strong></button>
+    {% endblock cart_button %}
+    
+    {% block content_is_authenticated %}
+
+<div class="container">
+    <br><br><h1><center>Payment here!</center></h1><br><br>
+
+{# for food #}
+{% if item %}
+<img src={{item.image.url}} class="img-fluid"><br><br>
+<p>{{item.food_item|capfirst}}</p>
+<p>₦{{item.food_price}}</p>
+<button type="button" class="btn btn-success" onClick="makePayment({{item.food_price}},{{item.pk}})"><strong>Flutterwave</strong></button><br><br><br><br><br><br><br>
+{% endif %}
+
+{#for soup#}
+{#image#}
+{% if item2 and price == item2.pk and slug == item2.slug %}
+<img src={{item2.image.url}} class="img-fluid"><br><br>
+<p>{{item2.soup_item|capfirst}}</p>
+<p>{{item2.mini_box_name}}</p>
+<p>₦{{item2.mini_box_price}}</p>
+<div class="productContainer">
+<button type="submit" class="btn btn-success" name={{item2.mini_box_name}} value={{item2.pk}} id="add-item">Add to cart</button><br><br>
+</div>
+<button type="button" class="btn btn-success" onClick="makePayment({{item2.mini_box_price}},{{item2.pk}})"><strong>Flutterwave</strong></button><br><br><br><br><br><br><br>
+
+<img src={{item2.image.url}} class="img-fluid"><br><br>
+<p>{{item2.soup_item|capfirst}}</p>
+<p>{{item2.medium_box_name}}</p>
+<p>₦{{item2.medium_box_price}}</p>
+<div class="productContainer">
+<button type="submit" class="btn btn-success" name={{item2.medium_box_name}} value={{item2.pk}} id="add-item">Add to cart</button><br><br>
+</div>
+<button type="button" class="btn btn-success" onClick="makePayment({{item2.medium_box_price}},{{item2.pk}})"><strong>Flutterwave</strong></button><br><br><br><br><br><br><br>
+
+<img src={{item2.image.url}} class="img-fluid"><br><br>
+<p>{{item2.soup_item|capfirst}}</p>
+<p>{{item2.mega_box_name}}</p>
+<p>₦{{item2.mega_box_price}}</p>
+<div class="productContainer">
+<button type="submit" class="btn btn-success" name={{item2.mega_box_name}} value={{item2.pk}} id="add-item">Add to cart</button><br><br>
+</div>
+<button type="button" class="btn btn-success" onClick="makePayment({{item2.mega_box_price}},{{item2.pk}})"><strong>Flutterwave</strong></button><br><br><br><br><br><br><br>
+
+{#Mini box#}
+{% elif item2 and price == item2.mini_box_price and slug == item2.slug %}
+<img src={{item2.image.url}} class="img-fluid"><br><br>
+<p>{{item2.soup_item|capfirst}}</p>
+<p>{{item2.mini_box_name}}</p>
+<p>₦{{item2.mini_box_price}}</p>
+<div class="productContainer">
+<button type="submit" class="btn btn-success" name={{item2.mini_box_name}} value={{item2.pk}} id="add-item">Add to cart</button><br><br>
+</div>
+<button type="button" class="btn btn-success" onClick="makePayment({{item2.mini_box_price}},{{item2.pk}})"><strong>Flutterwave</strong></button><br><br><br><br><br><br><br>
+
+{#Medium box#}
+{% elif item2 and price == item2.medium_box_price and slug == item2.slug %}
+<img src={{item2.image.url}} class="img-fluid"><br><br>
+<p>{{item2.soup_item|capfirst}}</p>
+<p>{{item2.medium_box_name}}</p>
+<p>₦{{item2.medium_box_price}}</p><br>
+<div class="productContainer">
+<button type="submit" class="btn btn-success" name={{item2.medium_box_name}} value={{item2.pk}} id="add-item">Add to cart</button><br><br>
+</div>
+<button type="button" class="btn btn-success" onClick="makePayment({{item2.medium_box_price}},{{item2.pk}})"><strong>Flutterwave</strong></button><br><br><br><br><br><br><br>
+
+{#Mega box#}
+{% elif item2 and price == item2.mega_box_price and slug == item2.slug %}
+<img src={{item2.image.url}} class="img-fluid"><br><br>
+<p>{{item2.soup_item|capfirst}}</p>
+<p>{{item2.mega_box_name}}</p>
+<p>₦{{item2.mega_box_price}}</p>
+<div class="productContainer">
+<button type="submit" class="btn btn-success" name={{item2.mega_box_name}} value={{item2.pk}} id="add-item">Add to cart</button><br><br>
+</div>
+<button type="button" class="btn btn-success" onClick="makePayment({{item2.mega_box_price}},{{item2.pk}})"><strong>Flutterwave</strong></button><br><br><br><br><br><br><br>
+
+{% endif %}</div>{% endblock content_is_authenticated %}
+
+{% else %}
+
+{% block cart_button_not_auth %}
+    <button type="submit" id="soup_addtocart" class="btn btn-primary" onClick="window.location='{% url 'cart:cart_items' %}';"><strong>Cart({{cart_quantity}})</strong></button>
+{% endblock %}
+
+{% block content_not_authenticated %}
+
+<div class="container">
+
+  <h1><center>Pay here!</center></h1><br><br>
+
+{# for food #}
+{% if item %}
+<a href= "{% url 'authentication:signin' %}"><img src={{item.image.url}} class="img-fluid"></a><br><br>
+<p>{{item.food_item|capfirst}}</p>
+<p>₦{{item.food_price}}</p>
+<button type="button" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Flutterwave</strong></button><br><br><br><br><br><br><br>
+{% endif %}
+
+{#for soup#}
+{#image#}
+{% if item2 and price == item2.pk and slug == item2.slug %}
+<a href= "{% url 'authentication:signin' %}"><img src={{item2.image.url}} class="img-fluid"></a><br><br>
+<p>{{item2.soup_item|capfirst}}</p>
+<p>{{item2.mini_box_name}}</p>
+<p>₦{{item2.mini_box_price}}</p>
+<div class="productContainer">
+<button type="submit" class="btn btn-success" name={{item2.mini_box_name}} value={{item2.pk}} id="add-item">Add to cart</button><br><br>
+</div>
+<button type="button" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Flutterwave</strong></button><br><br><br><br><br><br><br>
+
+<a href= "{% url 'authentication:signin' %}"><img src={{item2.image.url}} class="img-fluid"></a><br><br>
+<p>{{item2.soup_item|capfirst}}</p>
+<p>{{item2.medium_box_name}}</p>
+<p>₦{{item2.medium_box_price}}</p>
+<div class="productContainer">
+<button type="submit" class="btn btn-success" name={{item2.medium_box_name}} value={{item2.pk}} id="add-item">Add to cart</button><br><br>
+</div>
+<button type="button" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Flutterwave</strong></button><br><br><br><br><br><br><br>
+
+<a href= "{% url 'authentication:signin' %}"><img src={{item2.image.url}} class="img-fluid"></a><br><br>
+<p>{{item2.soup_item|capfirst}}</p>
+<p>{{item2.mega_box_name}}</p>
+<p>₦{{item2.mega_box_price}}</p>
+<div class="productContainer">
+<button type="submit" class="btn btn-success" name={{item2.mega_box_name}} value={{item2.pk}} id="add-item">Add to cart</button><br><br>
+</div>
+<button type="button" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Flutterwave</strong></button><br><br><br><br><br><br><br>
+
+{#Mini box#}
+{% elif item2 and price == item2.mini_box_price and slug == item2.slug %}
+<a href= "{% url 'authentication:signin' %}"><img src={{item2.image.url}} class="img-fluid"></a><br><br>
+<p>{{item2.soup_item|capfirst}}</p>
+<p>{{item2.mini_box_name}}</p>
+<p>₦{{item2.mini_box_price}}</p>
+<div class="productContainer">
+<button type="submit" class="btn btn-success" name={{item2.mini_box_name}} value={{item2.pk}} id="add-item">Add to cart</button><br><br>
+</div>
+<button type="button" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Flutterwave</strong></button><br><br><br><br><br><br><br>
+
+{#Medium box#}
+{% elif item2 and price == item2.medium_box_price and slug == item2.slug %}
+<a href= "{% url 'authentication:signin' %}"><img src={{item2.image.url}} class="img-fluid"></a><br><br>
+<p>{{item2.soup_item|capfirst}}</p>
+<p>{{item2.medium_box_name}}</p>
+<p>₦{{item2.medium_box_price}}</p><br>
+<div class="productContainer">
+<button type="submit" class="btn btn-success" name={{item2.medium_box_name}} value={{item2.pk}} id="add-item">Add to cart</button><br><br>
+</div>
+<button type="button" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Flutterwave</strong></button><br><br><br><br><br><br><br>
+
+{#Mega box#}
+{% elif item2 and price == item2.mega_box_price and slug == item2.slug %}
+<a href= "{% url 'authentication:signin' %}"><img src={{item2.image.url}} class="img-fluid"></a><br><br>
+<p>{{item2.soup_item|capfirst}}</p>
+<p>{{item2.mega_box_name}}</p>
+<p>₦{{item2.mega_box_price}}</p>
+<div class="productContainer">
+<button type="submit" class="btn btn-success" name={{item2.mega_box_name}} value={{item2.pk}} id="add-item">Add to cart</button><br><br>
+</div>
+<button type="button" class="btn btn-success" onClick="window.location='{% url 'authentication:signin' %}';"><strong>Flutterwave</strong></button><br><br><br><br><br><br><br>
+
+{% endif %}</div> {% endblock %}
+
+{% endif %}
+</div>
+
+    </body>
+</html>
