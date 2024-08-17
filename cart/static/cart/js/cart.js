@@ -52,7 +52,8 @@ function addToCart(e){
     })
     .then(res=>res.json())
     .then(data=>{
-        document.getElementById("food_addtocart").innerHTML =  data[2] 
+        document.getElementById("food_addtocart").innerHTML =  data[2]
+        document.getElementById("subtotal").innerHTML =  '₦' + data[0]
         
         if (btn_name === 'delete-item') {
             // If it's a delete operation, remove the HTML elements for the deleted item

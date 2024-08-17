@@ -41,7 +41,7 @@ def tx_ref():
 def flutterwave(request,username,email,phone_no,price,pk,slug):
     url = "https://api.flutterwave.com/v3/payments"
     headers = {
-        "Authorization": f"Bearer {os.getenv('FLUTTERWAVE_SECRET_KEY')}",
+        "Authorization": f"Bearer {os.getenv('FLUTTERWAVE_LIVE_SECRET_KEY')}",
         "Content-Type": "application/json"
     }
     payload = {
@@ -60,7 +60,7 @@ def flutterwave(request,username,email,phone_no,price,pk,slug):
         },
         "customizations": {
             "title": "ADi Meals Limited",
-            "logo": "https://www.logolynx.com/images/logolynx/22/2239ca38f5505fbfce7e55bbc0604386.jpeg"#"https://imgur.com/a/KCgmWR2.jpg"#"https://www.dropbox.com/scl/fi/ocyprndvq10u9laropcjm/official-logo-design.jpg"
+            "logo": "https://i.imgur.com/MnUGFHi.jpeg"#"https://i.imgur.com/k3TOSas.jpeg"
         },
         "configurations": {
             "session_duration": 10,  # Session timeout in minutes (maxValue: 1440 minutes)
@@ -111,7 +111,7 @@ def verify_payment(request,price,pk,slug):
             food_product = food.get(food_price=price,slug=slug,pk=pk)
             food_content = ContentType.objects.get_for_model(food_product)
             print(food_content)
-            if status == "completed" and food_product is not None:
+            if status == "successful" and food_product is not None:
                 user_transactions = Transactions.objects.create(user=request.user,boxsize="mini",protein=userprotein[0],subprotein=userprotein[1],status=status,amount=price,currency="NGN",tx_ref=tx_ref,content_type=food_content,object_id=pk)
             elif status == "failed" and food_product is not None:
                 user_transactions = Transactions.objects.create(user=request.user,boxsize="mini",protein=userprotein[0],subprotein=userprotein[1],status=status,amount=price,currency="NGN",tx_ref=tx_ref,content_type=food_content,object_id=pk)
@@ -131,7 +131,7 @@ def verify_payment(request,price,pk,slug):
                 actual_price = soup_product.mega_box_price
                 actual_size = soup_product.mega_box_name
 
-            if status == "completed" and soup_product is not None:
+            if status == "successful" and soup_product is not None:
                 user_transactions = Transactions.objects.create(user=request.user,boxsize=actual_size,protein=userprotein[0],subprotein=userprotein[1],status=status,amount=price,currency="NGN",tx_ref=tx_ref,content_type=soup_content,object_id=pk)
             elif status == "failed" and soup_product is not None:
                 user_transactions = Transactions.objects.create(user=request.user,boxsize=actual_size,protein=userprotein[0],subprotein=userprotein[1],status=status,amount=price,currency="NGN",tx_ref=tx_ref,content_type=soup_content,object_id=pk)
@@ -143,7 +143,7 @@ def verify_payment(request,price,pk,slug):
             cartitems = CartItemsFood.objects.filter(cart=cart)
             cart_content = cartitems_food
             
-            if status == "completed" and cart is not None:     
+            if status == "successful" and cart is not None:     
                 cart.is_paid = True
                 cart.save()
                 user_transactions = Transactions.objects.create(user=request.user,cart=list(cartitems.values()),protein=userprotein[0],subprotein=userprotein[1],status=status,amount=price,currency="NGN",tx_ref=tx_ref,content_type=cart_content,object_id=pk)

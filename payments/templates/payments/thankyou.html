@@ -15,7 +15,7 @@ ADi meals | Thank you
         <center>
         {% if user.is_authenticated %}
 
-            {% if food_product and status == "completed" %}
+            {% if food_product and status == "successful" %}
             <h2>You have Successfully paid for: <br><br> 
 
                 <span class="text-muted">Your Product</span>
@@ -36,7 +36,7 @@ ADi meals | Thank you
                 </ul>
             </div>
             
-            {% elif soup_product and status == "completed" %}
+            {% elif soup_product and status == "successful" %}
                 <h2>You have Successfully paid for: <br><br> 
 
                     <span class="text-muted">Your Product</span>
@@ -57,7 +57,7 @@ ADi meals | Thank you
                 </ul>
             </div>
 
-            {% elif cart.0 and status == "completed" %}
+            {% elif cart.0 and status == "successful" %}
             <h2>You have Successfully paid for: <br><br> 
 
                 <span class="text-muted">Your Ex-Cart</span>

@@ -76,7 +76,7 @@
                                                     name="subtract-item" value="{{ item.0.object_id }}"
                                                     data-content="{{ item.0.content_object }}" data-item="{{ item.0.food_category }}"
                                                     id="subtract-item">-</button>
-                                                <br>
+                                                
                                                 <button type="button" class="btn btn-warning border-secondary bg-white delete-item"
                                                     name="delete-item" value="{{ item.0.object_id }}"
                                                     data-content="{{ item.0.content_object }}" data-item="{{ item.0.food_category }}"
@@ -138,7 +138,7 @@
 
                         <div class="float-right text-right">
                             <h4>Subtotal:</h4>
-                            <h1>₦{{ cart.total_price }}</h1>
+                            <h1 id="subtotal">₦{{ cart.total_price }}</h1>
                         </div>
 
                         <div class="row mt-4 d-flex align-items-center">

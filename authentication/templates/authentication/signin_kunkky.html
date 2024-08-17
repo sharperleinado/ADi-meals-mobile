@@ -39,10 +39,24 @@ ADi meals | Sign in
                         </div>
                             <p class="mt-3  display-4">New User? <a href="{% url 'authentication:signup' %}">Sign up</a> |  <a href="{% url 'authentication:email_reset_password' %}">Reset Password</a></p>
                     </form>
-                            <center><strong>OR</strong><center>
+                            <center><strong>OR</strong></center>
+
                                 <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
-                                    <button type="submit" onClick="window.location='{% url 'twitter_callback' %}';" class="btn btn-primary display-4 w-100 ">Signin with Twitter<i class="fa fa-twitter fa-fw"></i></button>
+                                    <button type="submit" onClick="window.location='{% url 'twitter_callback' %}';" class="btn btn-primary display-4 w-100 ">Signin with Google<span class="mbr-iconfont socicon socicon-google"></span></button>
                                 </div>
+
+                                <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
+                                    <button type="submit" onClick="window.location='{% url 'twitter_callback' %}';" class="btn btn-primary display-4 w-100 ">Signin with Twitter<span class="mbr-iconfont socicon socicon-twitter"></span></button>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
+                                    <button type="submit" onClick="window.location='{% url 'twitter_callback' %}';" class="btn btn-primary display-4 w-100 ">Signin with Facebook<span class="mbr-iconfont socicon socicon-facebook"></span></button>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
+                                    <button type="submit" onClick="window.location='{% url 'twitter_callback' %}';" class="btn btn-primary display-4 w-100 ">Signin with Instagram<span class="mbr-iconfont socicon socicon-instagram"></span></button>
+                                </div>
+
                 </div>
             </div>
             <div class="col-12 col-lg-6">

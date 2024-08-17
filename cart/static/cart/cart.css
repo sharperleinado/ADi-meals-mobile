@@ -28,17 +28,6 @@
     border-radius: 8px;
     text-align: center;
   }
-  
-  
-#update-login{
-  padding-right: 5px;
-  margin-right: 10px;
-}
-
-#update-logout{
-  padding-right: 5px;
-  margin-right: 10px;
-}
 
 
 #delete-item {
@@ -49,9 +38,16 @@
     padding-bottom: -5px;
 }
 
-.mbr-iconfont-btn{
-  padding-left: 0px;
+#update-login{
+  padding-right: 5px;
+  margin-right: 10px;
 }
+
+#update-logout{
+  padding-right: 5px;
+  margin-right: 10px;
+}
+
 
 /*This is to hide the form and beautify it on cart page*/
 .hidden-form {
