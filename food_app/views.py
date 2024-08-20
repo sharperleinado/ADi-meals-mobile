@@ -24,7 +24,7 @@ def food_box(request):
     request.session['protein'] = {'beef':['fried beef','boiled beef'],
                                     'chicken':['fried chicken','boiled chicken'],
                                     'fish':['fried fish','boiled fish'],
-                                    'turkey':['fried turkey','boiled turkey'],
+                                    'goat':['fried goat','boiled goat'],
                                     }
 
     protein = request.session['protein'].items()
