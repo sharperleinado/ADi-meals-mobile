@@ -106,3 +106,4 @@ def add_to_cart(request):
     return JsonResponse(num_of_items,safe=False)
 
 
+

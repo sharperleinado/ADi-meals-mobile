@@ -12,3 +12,4 @@ urlpatterns = [
     path('food_result/<slug:slug>/',views.food_result,name='food_result'),
     path('add_to_cart/',views.add_to_cart,name='addtocart'),
 ]
+
