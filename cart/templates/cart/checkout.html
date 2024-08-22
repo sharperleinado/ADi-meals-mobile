@@ -66,7 +66,7 @@ ADi meals | Checkout
                     <div class="col-md-3 mb-3">
                         <label for="address">Address</label>
                             <div class="input-group">
-                                {{address.street_name | capfirst}}, {{address.area|capfirst}}, {{address.city|capfirst}}
+                                {{address.street_name | capfirst}} {{address.area|capfirst}} {{address.city|capfirst}}
                             </div>
                     </div>
                     
@@ -81,16 +81,10 @@ ADi meals | Checkout
                     {% endif %}
     
                 </div>
+            
                 <hr class="mb-4">
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="same-address">
-                    <label class="custom-control-label" for="same-address">Shipping address is the same as my billing
-                        address</label>
-                </div>
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="save-info">
-                    <label class="custom-control-label" for="save-info">Save this information for next time</label>
-                </div><hr>
+                    <p>Select from our numerous payment options below..</p>
+                </hr>
                 
                 <hr class="mb-4">
                     

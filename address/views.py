@@ -10,7 +10,7 @@ from django.http.response import JsonResponse
 # Create your views here.
 
 state_and_lga = {'lagos': {
-            'badary':{
+            'badagry':{
                 'ajeromi-Ifelodun': ['Ago Hausa', 'Alaba Oro', 'Awodi-Ora', 'Layeni', 'Mosafejo', 'Ojo Road',
                                     'Olodi', 'Temidire I', 'Temidire II', 'Tolu', 'Wilmer'],
                 'amuwo-Odofin': ['Amuwo', 'Amuwo-Odofin Housing Estate', 'Mile 2', 'Festac 1', 'Festac II',

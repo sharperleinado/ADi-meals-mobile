@@ -20,7 +20,9 @@ ADi meals | Profile
         <button class="btn btn-primary item-btn display-7" onClick="window.location='{% url 'authentication:account_info' %}';">Account Information</button>
 
         <button class="btn btn-primary item-btn display-7" onClick="window.location='{% url 'payments:transactions' %}';">My Orders</button>
-
+        {% if user.is_superuser %}
+        <button class="btn btn-primary item-btn display-7" onClick="window.location='{% url 'payments:all_transactions' %}';">User transactions</button>
+        {% endif %}
         <a href="https://www.twitter.com/ADimealsmobile?t=ongILNDHhLA5NR20GrnXHQ&s=09"><button class="btn btn-primary item-btn display-7" >Twitter</button></a>
 
         <a href="https://wa.link/n403fi"><button class="btn btn-primary item-btn display-7" >Whatsapp Us</button></a>
@@ -29,7 +31,7 @@ ADi meals | Profile
 
     {% else %}
 
-<br>
+<br><br>
   <h1><center><strong>Profile page</strong></center></h1><br><br>
 
     <h3>{{fname}} {{lname}}, you're welcome!</h3>

@@ -27,7 +27,6 @@ from address.views import state_and_lga
 from dotenv import load_dotenv
 load_dotenv()
 #from .custom_authentication2 import EmailorUsernameModelBackend
-#"Authorization": f"Bearer {os.getenv('FLUTTERWAVE_LIVE_SECRET_KEY')}",
 
 # Create your views here.
 
@@ -208,44 +207,33 @@ def signup(request):
             user = User.objects.create_user(username=username,first_name=fname,last_name=lname,email=email,password=password)
             user2 = User.objects.get(username=username)
             #Daniel, do not forget to set user.is_active = False during deployment.
-            user.is_active = True
+            user.is_active = False
         
             #Welcome mail
             try:
-                email_subject = 'Welcome mail @ADimealsmobile!'
+                email_subject = 'Welcome mail from Adimeals.com'
                 message = render_to_string('welcome_mail.html',{
                     'name':fname
                 }) 
                 from_email = EMAIL_HOST_USER
-                to_list = [user2.email]
+                to = [user2.email]
                 email = EmailMultiAlternatives(
                     email_subject,
                     message,
                     from_email,
-                    to_list,
+                    to,
                 )
                 email.content_subtype = "html"
                 fail_silently = True
                 email.send()
             except:
                 pass
-                #return render(request, 'authentication/connection_error.html',{'fname':fname})
-
-            # Welcome E-mail
-            #try:
-            #    subject = 'Welcome to ADi meals mobile!'
-            #    message = f'Hello {fname.capitalize()}, welcome to ADi meals mobile!\n\nThank you for visiting our website.\n\nWe have also sent you a confirmation email, please confirm your email address to login into your account.\n\n\n\nThanking you.\n\n\nVictoria Oluwaseyi\nC.E.O'
-            #    from_email = EMAIL_HOST_USER
-            #    to_list = [user2.email]
-            #    send_mail(subject,message,from_email,to_list,fail_silently=False)
-            #except:
-            #    return render(request, 'authentication/connection_error.html',{'fname':fname})
-                
+    
 
             #Email Confirmation
             try: 
                 current_site = get_current_site(request) 
-                email_subject = 'Email confirmation @ADimealsmobile!'
+                email_subject = 'Email confirmation on Adimeals.com'
                 message2 = render_to_string('email_confirmation.html',{
                     'name':fname,
                     'domain':current_site.domain,
@@ -253,12 +241,12 @@ def signup(request):
                     'token': generate_token.make_token(user2)
                 }) 
                 from_email2 = EMAIL_HOST_USER
-                to_list2 = [user2.email]
+                to = [user2.email]
                 email2 = EmailMultiAlternatives(
                     email_subject,
                     message2,
                     from_email2,
-                    to_list2,
+                    to,
                 )
                 email2.content_subtype = "html"
                 fail_silently = True
@@ -275,7 +263,7 @@ def signup(request):
 
 
 def signin(request):
-    
+    user_address = ""
     if request.method == "POST":
         username = request.POST.get("username").strip()
         password = request.POST.get("password").strip()
@@ -302,7 +290,10 @@ def signin(request):
                     cart.save()
             except:
                 pass
-            user_address = UserAddress.objects.get(user=request.user)
+            try:
+                user_address = UserAddress.objects.get(user=request.user)
+            except UserAddress.DoesNotExist:
+                pass
             if user_address is None:    
                 messages.success(request, "You have successfully logged in")
                 return redirect('address:register_address')

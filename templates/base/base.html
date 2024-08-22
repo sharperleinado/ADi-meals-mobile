@@ -62,6 +62,7 @@
                     </span>
 
                 </div>
+                {% comment "" %}
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse"
                     data-target="#navbarSupportedContent" data-bs-target="#navbarSupportedContent"
                     aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,7 +72,8 @@
                         <span></span>
                         <span></span>
                     </div>
-                </button>
+                </button>{% endcomment %}
+
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true">
                         <li class="nav-item"><a class="nav-link link text-info display-4" href="{% url 'home' %}">Home</a></li>
@@ -108,15 +110,16 @@
                     
 
                     {% if not user.is_authenticated %}
-                    <div class="navbar-buttons mbr-section-btn"><a class="btn btn-primary display-4"
+                        <div class="navbar-buttons mbr-section-btn"><a class="btn btn-primary display-4"
                             href="{% url 'authentication:signup' %}"><span class="mbri-users mbr-iconfont mbr-iconfont-btn"></span>Get
-                            Started</a></div>
-                            {% else %}{% comment "" %}
-                    <div class="navbar-buttons mbr-section-btn"><a class="btn btn-warning display-4"
-                            onClick="window.location='{% url 'authentication:signout' %}';"><span class="mbri-users mbr-iconfont mbr-iconfont-btn"></span>Log
-                            out</a></div>{% endcomment %}
-                            {% endif %}
+                            Started</a>
+                        </div>
+                    {% endif %}
                     
+                    {% block food_or_soup_box %}
+                    
+                    {% endblock %}
+
                     <div class="dropdown navbar-buttons mbr-section-btn"><a
                         class="btn btn-info dropdown-toggle show display-4" href="index.html#features10-5"
                         data-toggle="dropdown-submenu" data-bs-toggle="dropdown" data-bs-auto-close="outside"
@@ -138,17 +141,19 @@
                 </div>
             </div>
         </nav>
-    <!--Other body starts-->
+        
     </section>
-        {% if messages %}
-       {% for message in messages %}
-           <div class="alert {% if message.tags %} alert-{{ message.tags }} {% endif %} alert-dismissible fade show" role="alert">
-               {#<strong>Message:</strong>#} {{ message }}
-               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-           </div>
-       {% endfor %}
-   {% endif %}
+        
+    {% if messages %}
+        {% for message in messages %}
+            <div id="alert-notification" class="alert {% if message.tags %} alert-{{ message.tags }} {% endif %} alert-dismissible fade show" role="alert">
+                {{ message }}<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
         {% block pageBody %}
+        
         {% endblock  %}
 
     <!--Other body ends-->

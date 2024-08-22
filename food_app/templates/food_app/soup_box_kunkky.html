@@ -1,9 +1,16 @@
 {% extends "base/base.html" %}
+{% load static %}
 {% block pageTitle %}
 ADi meals | Soup box
 {% endblock %}
+
+{% block food_or_soup_box %}
+    <div class="mbr-section-btn"><a href="{% url 'food_app:foodbox' %}" 
+        class="btn btn-warning display-4">Food box</a>
+    </div>
+{% endblock food_or_soup_box %}
+
 {% block pageBody %}
-{% load static %}
 
 <section data-bs-version="5.1" class="gallery2 cid-u3WJMtbVnF" id="gallery2-q">
 

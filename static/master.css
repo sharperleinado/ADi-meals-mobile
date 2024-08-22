@@ -7,3 +7,8 @@
 #property{
     color: rgb(245, 71, 41);
 }
+
+#alert-INFO{
+    background-color: tomato;
+    border-color: blueviolet;
+}

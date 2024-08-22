@@ -69,7 +69,7 @@ ADi meals | Soup select
                     <div class="col-md-3 mb-3">
                         <label for="address">Address</label>
                             <div class="input-group">
-                                {{address.street_name | capfirst}}, {{address.area|capfirst}}, {{address.city|capfirst}}
+                                {{address.street_name | capfirst}} {{address.area|capfirst}} {{address.city|capfirst}}
                             </div>
                     </div>
                     {% else %}
@@ -82,11 +82,10 @@ ADi meals | Soup select
                     </div>
                     {% endif %}
                 </div>
-                <hr class="mb-4">
-                    <div class="custom-control custom-checkbox">
-                        <p class="custom-control-label" for="save-info">Select from our numerous payments method below...</p>
-                    </div>
-                <hr>
+
+                    <hr class="mb-4">
+                        <p>Select from our numerous payment options below..</p>
+                    </hr>
 
                     <hr class="mb-4">
                     
@@ -136,7 +135,7 @@ ADi meals | Soup select
                             <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
                         </form>
                         {% endif %}
-                   <hr>
+                    </hr>
 
         </div>
         <div class="col-md-4 order-md-2 mb-4 display-4 ">

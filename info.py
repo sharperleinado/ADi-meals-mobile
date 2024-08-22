@@ -1,5 +1,6 @@
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
-EMAIL_HOST_USER = 'a6a84c9a10337f'
-EMAIL_HOST_PASSWORD = '753d54fb67f081'
-EMAIL_PORT = '2525'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'adimeals@gmail.com'
+EMAIL_HOST_PASSWORD = 'xgsuragdlyrwetrd'
+EMAIL_PORT = 587

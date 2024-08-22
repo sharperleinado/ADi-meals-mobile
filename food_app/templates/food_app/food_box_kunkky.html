@@ -3,12 +3,19 @@
 {% block pageTitle %}
 ADi meals | Food box
 {% endblock %}
-{% block jscript_attribute %}
-<link rel="stylesheet" href="{% static 'food_app/master.css' %}">
-<script src="{% static 'food_app/js/food.js' %}" defer="true"></script>
-{% endblock jscript_attribute %}
-{% block pageBody %}
 
+{% block jscript_attribute %}
+    <link rel="stylesheet" href="{% static 'food_app/master.css' %}">
+    <script src="{% static 'food_app/js/food.js' %}" defer="true"></script>
+{% endblock jscript_attribute %}
+
+{% block food_or_soup_box %}
+    <div class="mbr-section-btn"><a href="{% url 'food_app:soupbox' %}" 
+        class="btn btn-primary display-4">Soup box</a>
+    </div>
+{% endblock food_or_soup_box %}
+
+{% block pageBody %}
 <section data-bs-version="5.1" class="gallery3 cid-u0tvmAp7su" id="gallery3-a">
 
     <div class="container-fluid">

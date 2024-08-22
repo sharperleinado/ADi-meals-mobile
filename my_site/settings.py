@@ -72,8 +72,6 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
 ]
-CORS_ALLOW_ALL_ORIGINS = False 
-CORS_ALLOWED_ORIGINS = ['https://checkout-v3-ui-prod-f4b-flutterwave.com']
 
 ROOT_URLCONF = 'my_site.urls'
 
@@ -94,7 +92,6 @@ TEMPLATES = [
         },
     },
 ]
-#BEARER_TOKEN = 'AAAAAAAAAAAAAAAAAAAAAP8KuwEAAAAAp9KCHpswuRvjSomgep5OF3EY5dI%3DZ9PoqTcW66WWSjeIWYmtGOVBBmKTzOVlxWUR7x062SOWfPslRV'
 
 AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',

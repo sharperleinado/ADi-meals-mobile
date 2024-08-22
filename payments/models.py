@@ -24,6 +24,6 @@ class Transactions(models.Model):
     time = models.TimeField(auto_now_add=True,null=True)
         
     def __str__(self):
-        return f"{self.content_type}, {self.user}, {self.datetime}, {self.time}, {self.object_id}"
     
+        return f"{self.content_type}, {self.user}, {self.datetime}, {self.time}, {self.object_id}"
 

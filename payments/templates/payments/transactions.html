@@ -13,41 +13,90 @@ ADi meals | Transactions
 
     <div class="container-fluid">
         <center>
-             
+
         {% if user.is_authenticated %}
          
-        <h2>All My Transactions</h2> <br><br>
+        <h2>My Transactions</h2> <br><br>
         {% for item in transactions %}
-        {% if item.content_type == food_model %}
-            <div class="col-md-4 order-md-2 mb-4 display-4 ">
-                <ul class="list-group mb-3">
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">{{item.content_object.food_item|capfirst}} | {{item.protein|capfirst}} | {{item.subprotein|capfirst}} | ₦{{item.content_object.food_price}} | <small class="text-muted">{{item.status|capfirst}}</small></h6>
-                        </div>
+        {% if item.content_type == food_model %}{#Contentype is the object content_type in Transaction model#}
+            <h3><span class="text-muted">Unitary food</span>
+                <span class="badge badge-secondary badge-pill">3</span></h3>
 
-                        <div class="col-md-3 text-left">
-                            <img src={{item.content_object.image.url}} class="img-fluid" alt="Adi Foods"
-                            data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
-                        </div>
-                    </li>
-                </ul>
-            </div>
+                <div class="col-md-4 order-md-2 mb-4 display-4 ">
+                    <ul class="list-group mb-3">
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                                <h6 class="my-0">{{item.content_object.food_item|capfirst}} | {{item.protein|capfirst}} | {{item.subprotein|capfirst}}</h6>
+                            </div>
+                            
+                            <div class="col-md-3 text-left">
+                                <img src={{item.content_object.image.url}} class="img-fluid" alt="Adi Foods"
+                                data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                            </div>
+                            <li class="list-group-item d-flex justify-content-between bg-light">
+                                <div class="text-success">
+                                    <h6 class="my-0">Status</h6>
+                                </div>
+                                <span class="text-success">{{item.status|capfirst}}</span>
+                            </li>
+
+                            <li class="list-group-item d-flex justify-content-between bg-light">
+                                <span>Date</span>
+                                <strong>{{item.datetime}}</strong>
+                            </li>
+
+                            <li class="list-group-item d-flex justify-content-between bg-light">
+                                <span>Time</span>
+                                <strong>{{item.time}}</strong>
+                            </li>
+
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Total (NGN)</span>
+                                <strong>₦{{item.content_object.food_price}}</strong>
+                            </li><br>
+                        </li>
+                    </ul>
+                </div>
         {% elif item.content_type == soup_model %}
-            <div class="col-md-4 order-md-2 mb-4 display-4 ">
-                <ul class="list-group mb-3">
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">{{item.content_object.soup_item|capfirst}} | {{item.boxsize|capfirst}} | {{item.protein|capfirst}} | {{item.subprotein|capfirst}} | ₦{{item.amount|capfirst}} | <small class="text-muted">{{item.status}}</small></h6>
-                        </div>
 
-                        <div class="col-md-3 text-left">
-                            <img src={{item.content_object.image.url}} class="img-fluid" alt="Adi Foods"
-                            data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
-                        </div>
-                    </li>
-                </ul>
-            </div>
+            <h3><span class="text-muted">Unitary soup</span>
+                <span class="badge badge-secondary badge-pill">3</span></h3>
+                <div class="col-md-4 order-md-2 mb-4 display-4 ">
+                    <ul class="list-group mb-3">
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                                <h6 class="my-0">{{item.content_object.soup_item|capfirst}} | {{item.boxsize|capfirst}} | {{item.protein|capfirst}} | {{item.subprotein|capfirst}}</h6>
+                            </div>
+
+                            <div class="col-md-3 text-left">
+                                <img src={{item.content_object.image.url}} class="img-fluid" alt="Adi Foods"
+                                data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                            </div>
+
+                            <li class="list-group-item d-flex justify-content-between bg-light">
+                                <div class="text-success">
+                                    <h6 class="my-0">Status</h6>
+                                </div>
+                                <span class="text-success">{{item.status|capfirst}}</span>
+                            </li>
+
+                            <li class="list-group-item d-flex justify-content-between bg-light">
+                                <span>Date</span>
+                                <strong>{{item.datetime}}</strong>
+                            </li>
+
+                            <li class="list-group-item d-flex justify-content-between bg-light">
+                                <span>Time</span>
+                                <strong>{{item.time}}</strong>
+                            </li>
+
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Total (NGN)</span>
+                                <strong>₦{{item.amount}}</strong>
+                            </li><br>
+                        </li>
+                    </ul>
+                </div>
         {% else %}
             <h3><span class="text-muted">Your Ex-Cart</span>
                 <span class="badge badge-secondary badge-pill">3</span></h3>
@@ -62,7 +111,7 @@ ADi meals | Transactions
                                     <li class="list-group-item d-flex justify-content-between lh-condensed">
                         
                                         <div>
-                                            <h6 class="my-0">{{item.3.food_item|capfirst}} | {{item.1|capfirst}} | {{item.2|capfirst}} | <strong>Quantity: {{item.4|capfirst}}</strong> | ₦{{item.3.food_price}}</h6>
+                                            <h6 class="my-0">{{item.3.food_item|capfirst}} | {{item.1|capfirst}} | {{item.2|capfirst}} | <strong>{{item.4|capfirst}}</strong> | ₦{{item.3.food_price}}</h6>
                                         </div>
                 
                                         <div class="col-md-3 text-left">
@@ -77,7 +126,7 @@ ADi meals | Transactions
                                     <li class="list-group-item d-flex justify-content-between lh-condensed">
                         
                                         <div>
-                                            <h6 class="my-0">{{item.3.soup_item|capfirst}} | {{item.0|capfirst}} | {{item.1|capfirst}} | {{item.2|capfirst}} | <strong>Quantity: {{item.4|capfirst}}</strong> | ₦{{item.3.mini_box_price}}</h6>
+                                            <h6 class="my-0">{{item.3.soup_item|capfirst}} | {{item.0|capfirst}} | {{item.1|capfirst}} | {{item.2|capfirst}} | <strong>{{item.4|capfirst}}</strong> | ₦{{item.3.mini_box_price}}</h6>
                                         </div>
                 
                                         <div class="col-md-3 text-left">
@@ -92,7 +141,7 @@ ADi meals | Transactions
                                     <li class="list-group-item d-flex justify-content-between lh-condensed">
                         
                                         <div>
-                                            <h6 class="my-0">{{item.3.soup_item|capfirst}} | {{item.0|capfirst}} | {{item.1|capfirst}} | {{item.2|capfirst}} | <strong>Quantity: {{item.4|capfirst}}</strong> | ₦{{item.3.medium_box_price}}</h6>
+                                            <h6 class="my-0">{{item.3.soup_item|capfirst}} | {{item.0|capfirst}} | {{item.1|capfirst}} | {{item.2|capfirst}} | <strong>{{item.4|capfirst}}</strong> | ₦{{item.3.medium_box_price}}</h6>
                                         </div>
                 
                                         <div class="col-md-3 text-left">
@@ -107,7 +156,7 @@ ADi meals | Transactions
                                     <li class="list-group-item d-flex justify-content-between lh-condensed">
                         
                                         <div>
-                                            <h6 class="my-0">{{item.3.soup_item|capfirst}} | {{item.0|capfirst}} | {{item.1|capfirst}} | {{item.2|capfirst}} | <strong>Quantity: {{item.4|capfirst}}</strong> | ₦{{item.3.mega_box_price}}</h6>
+                                            <h6 class="my-0">{{item.3.soup_item|capfirst}} | {{item.0|capfirst}} | {{item.1|capfirst}} | {{item.2|capfirst}} | <strong>{{item.4|capfirst}}</strong> | ₦{{item.3.mega_box_price}}</h6>
                                         </div>
                 
                                         <div class="col-md-3 text-left">
@@ -120,12 +169,22 @@ ADi meals | Transactions
                                 {% endif %}
         
                             {% endfor %}  
-
+                            
                             <li class="list-group-item d-flex justify-content-between bg-light">
                                 <div class="text-success">
                                     <h6 class="my-0">Status</h6>
                                 </div>
                                 <span class="text-success">{{item.1|capfirst}}</span>
+                            </li>
+
+                            <li class="list-group-item d-flex justify-content-between bg-light">
+                                <span>Date</span>
+                                <strong>{{item.3}}</strong>
+                            </li>
+
+                            <li class="list-group-item d-flex justify-content-between bg-light">
+                                <span>Time</span>
+                                <strong>{{item.4}}</strong>
                             </li>
 
                             <li class="list-group-item d-flex justify-content-between">

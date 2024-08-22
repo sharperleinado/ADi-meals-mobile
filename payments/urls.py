@@ -16,4 +16,5 @@ urlpatterns = [
     path('flutterwave/<str:username>/<str:email>/<str:phone_no>/<float:price>/<int:pk>/<slug:slug>', views.flutterwave, name='flutterwave'),
     path('verify_payment/<float:price>/<int:pk>/<slug:slug>',views.verify_payment,name='verify_payment'),
     path('transactions/',views.transactions,name='transactions'),
+    path('all_transactions/',views.all_transactions,name='all_transactions'),
 ]
