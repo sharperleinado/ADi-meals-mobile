@@ -96,7 +96,7 @@ def register_address(request):
     try:
         useraddress = UserAddress.objects.get(user=request.user)
         if useraddress is not None:
-            messages.info(request, "You have created an address!")
+            messages.info(request, "You already have an address registered!")
             return redirect('authentication:account_info')
         else:
             pass
@@ -110,7 +110,7 @@ def register_address(request):
         lcda = request.POST.get("lcda")
         street_name = request.POST.get("street_name")
         useraddress = UserAddress.objects.get_or_create(user=request.user,state=state,division=division,lga=lga,lcda=lcda,street_name=street_name)
-        messages.success(request, "You have successfully added a billing address!")
+        messages.success(request, "You have successfully created address!")
         return redirect('authentication:mobile')
     
     return render(request,'address/register_address.html',{'state_lga':state_and_lga.items()})

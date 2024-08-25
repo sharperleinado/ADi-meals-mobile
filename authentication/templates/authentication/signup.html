@@ -4,6 +4,7 @@
 <title>Sign up</title>
 <link rel="stylesheet" href="{% static 'food_app/master.css' %}">
 <script src="{% static 'food_app/js/food.js' %}" defer="true"></script>
+
 {% endblock jscript_attribute %}
 
 {% if user.is_authenticated %}
@@ -25,30 +26,34 @@
   {% else %}
 
   {% block content_not_authenticated %}
-
+  
   <div class="container">
   
     <h1><center>Sign up here</center></h1><br><br>
 
-<form action="{% url 'authentication:signup' %}" method="POST">
+<form action="{% url 'authentication:signup' %}" method="POST" id="signupForm">
     {% csrf_token %}
     
     <div class="mb-3">
       <label for="username" class="form-label">Username</label>
       <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required>
     </div>
+
     <div class="mb-3">
         <label for="fname" class="form-label">First name</label>
         <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter your first name" required>
-      </div>
+    </div>
+
     <div class="mb-3">
         <label for="lname" class="form-label">Last name</label>
         <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter your last name" required>
       </div>
+
     <div class="mb-3">
         <label for="email" class="form-label">E-mail</label>
         <input type="email" class="form-control" id="email" name="email" placeholder="Enter your last name" required>
-      </div>
+    </div>
+
     <div class="mb-3">
       <label for="password" class="form-label">Password</label>
       <input type="password" class="form-control" id="password" aria-describedby="password" name="password" placeholder="Enter password" required>
@@ -61,16 +66,19 @@
       <li><div id="passhelp" class="form-text">Password must not be too similar to the User attribute provided!</div></li>
       </ul>
     </div>
+
     <div class="mb-3">
         <label for="password2" class="form-label">Confirm password</label>
         <input type="password" class="form-control" id="password2" name="password2" placeholder="Confirm password" required>
-    </div>
+      </div>
     <button type="submit" class="btn btn-primary">Submit</button><br><br>
   
     <a href= "{% url 'authentication:signin' %}">Sign in here</a><br><br>
   
   </form>
 
-</div>{% endblock %}
+</div>
+
+{% endblock %}
 {% endif %}
 

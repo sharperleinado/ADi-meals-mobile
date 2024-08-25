@@ -150,6 +150,10 @@ def all(request):
 
 
 def signup(request):
+    session_username = ""
+    session_fname = ""
+    session_lname = ""
+    session_email = ""
 
     if request.method == "POST":
         username = request.POST.get("username").strip()
@@ -158,6 +162,14 @@ def signup(request):
         email = request.POST.get("email").strip()
         password = request.POST.get("password").strip()
         password2 = request.POST.get("password2").strip()
+        
+        try:
+            request.session['username'] = username
+            request.session['fname'] = fname
+            request.session['lname'] = lname
+            request.session['email'] = email
+        except KeyError:
+            pass
 
         username = username.lower()
         email = email.lower()
@@ -205,21 +217,26 @@ def signup(request):
 
         
             user = User.objects.create_user(username=username,first_name=fname,last_name=lname,email=email,password=password)
-            user2 = User.objects.get(username=username)
+            #user = User.objects.get(username=username)
+            if user is not None:
+                del request.session['username']
+                del request.session['fname']
+                del request.session['lname']
+                del request.session['email']
             #Daniel, do not forget to set user.is_active = False during deployment.
-            user.is_active = False
+            user.is_active = True
         
             #Welcome mail
             try:
-                email_subject = 'Welcome mail from Adimeals.com'
-                message = render_to_string('welcome_mail.html',{
+                subject = 'Welcome mail from Adimeals.com'
+                body = render_to_string('welcome_mail.html',{
                     'name':fname
                 }) 
                 from_email = EMAIL_HOST_USER
-                to = [user2.email]
+                to = [user.email]
                 email = EmailMultiAlternatives(
-                    email_subject,
-                    message,
+                    subject,
+                    body,
                     from_email,
                     to,
                 )
@@ -233,24 +250,24 @@ def signup(request):
             #Email Confirmation
             try: 
                 current_site = get_current_site(request) 
-                email_subject = 'Email confirmation on Adimeals.com'
-                message2 = render_to_string('email_confirmation.html',{
+                subject = 'Email confirmation from Adimeals.com'
+                body = render_to_string('email_confirmation.html',{
                     'name':fname,
                     'domain':current_site.domain,
-                    'uid':urlsafe_base64_encode(force_bytes(user2.pk)),
-                    'token': generate_token.make_token(user2)
+                    'uid':urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token': generate_token.make_token(user)
                 }) 
-                from_email2 = EMAIL_HOST_USER
-                to = [user2.email]
-                email2 = EmailMultiAlternatives(
-                    email_subject,
-                    message2,
-                    from_email2,
+                from_email = EMAIL_HOST_USER
+                to = [user.email]
+                email = EmailMultiAlternatives(
+                    subject,
+                    body,
+                    from_email,
                     to,
                 )
-                email2.content_subtype = "html"
+                email.content_subtype = "html"
                 fail_silently = True
-                email2.send()
+                email.send()
 
                 messages.success(request,"Your account has been successfully created!\nWe have also sent you a confirmation email, please confirm your email address to login into your account.")
                 return redirect('authentication:signin')
@@ -258,8 +275,21 @@ def signup(request):
             except:
                 messages.success(request,"Your account has been successfully created!\nWe have also sent you a confirmation email, please confirm your email address to login into your account.")
                 return redirect('authentication:signin')
-
-    return render(request,'authentication/signup_kunkky.html')
+    else:
+        pass
+    try:
+        session_username = request.session['username']  
+        session_fname = request.session.get('fname')
+        session_lname = request.session.get('lname') 
+        session_email = request.session.get('email')
+    except:
+        pass
+    return render(request,'authentication/signup_kunkky.html',{
+        'username':session_username,
+        'fname':session_fname,
+        'lname':session_lname,
+        'email':session_email,
+    })
 
 
 def signin(request):
@@ -274,7 +304,7 @@ def signin(request):
 
         user = EmailorUsernameModelBackend.authenticate(EmailorUsernameModelBackend,request,username,password)
         #Daniel, do not forget to add "and user.is_active == False during deployment"
-        if user is not None: #and user.is_active == False:
+        if user is not None and user.is_active == True:
             login(request, user)
             if not remember_me:
                 request.session.set_expiry(0)

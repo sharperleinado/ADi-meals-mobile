@@ -141,26 +141,22 @@
                 </div>
             </div>
         </nav>
-        
-    </section>
-        
     {% if messages %}
         {% for message in messages %}
             <div id="alert-notification" class="alert {% if message.tags %} alert-{{ message.tags }} {% endif %} alert-dismissible fade show" role="alert">
-                {{ message }}<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <div id="alert-message">{{ message }}</div><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         {% endfor %}
     {% endif %}
+</section>
+    
 
         {% block pageBody %}
         
         {% endblock  %}
 
-    <!--Other body ends-->
-
     <section data-bs-version="5.1" class="footer1 cid-sFGDg6hy8z" once="footers" id="footer1-7">
 
-        <div class="container">
             <div class="row mbr-white">
                 <div class="col-12 col-md-6 col-lg-3">
                     <h5 class="mbr-section-subtitle mbr-fonts-style mb-2 display-7">

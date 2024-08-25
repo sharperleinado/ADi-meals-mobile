@@ -22,6 +22,8 @@ ADi meals | Profile
         <button class="btn btn-primary item-btn display-7" onClick="window.location='{% url 'payments:transactions' %}';">My Orders</button>
         {% if user.is_superuser %}
         <button class="btn btn-primary item-btn display-7" onClick="window.location='{% url 'payments:all_transactions' %}';">User transactions</button>
+        
+        <a href="http://127.0.0.1:8000/admin"><button class="btn btn-primary item-btn display-7">Admin</button></a>
         {% endif %}
         <a href="https://www.twitter.com/ADimealsmobile?t=ongILNDHhLA5NR20GrnXHQ&s=09"><button class="btn btn-primary item-btn display-7" >Twitter</button></a>
 
