@@ -287,6 +287,7 @@ def signup(request):
         session_email = request.session.get('email')
     except:
         pass
+    
     return render(request,'authentication/signup_kunkky.html',{
         'username':session_username,
         'fname':session_fname,

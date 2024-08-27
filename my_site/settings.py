@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-38w+yczvta+h61ca9jq6^&z%18)dd!g)ktznjmw)n5cw+qmhd7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['16.170.228.194']
+ALLOWED_HOSTS = ['adimeals.com']
 
 
 # Application definition
@@ -165,6 +165,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 #This is for static files in root directory
 STATIC_URL = 'static/'
+STATIC_ROOT = '/adi-meals-mobile/staticfiles/'  # Directory to collect static files
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
     ]
