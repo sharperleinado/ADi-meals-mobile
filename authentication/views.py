@@ -217,14 +217,17 @@ def signup(request):
 
         
             user = User.objects.create_user(username=username,first_name=fname,last_name=lname,email=email,password=password)
-            #user = User.objects.get(username=username)
-            if user is not None:
+            try:
+                session_user = User.objects.get(username=request.session['username'])
+            except:
+                pass 
+            if session_user is not None:
                 del request.session['username']
                 del request.session['fname']
                 del request.session['lname']
                 del request.session['email']
             #Daniel, do not forget to set user.is_active = False during deployment.
-            user.is_active = True
+            user.is_active = False
         
             #Welcome mail
             try:
@@ -304,7 +307,7 @@ def signin(request):
 
         user = EmailorUsernameModelBackend.authenticate(EmailorUsernameModelBackend,request,username,password)
         #Daniel, do not forget to add "and user.is_active == False during deployment"
-        if user is not None and user.is_active == True:
+        if user is not None and user.is_active == False:
             login(request, user)
             if not remember_me:
                 request.session.set_expiry(0)
