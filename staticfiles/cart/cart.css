@@ -1,0 +1,130 @@
+#notification-container {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    max-width: 300px;
+    padding: 15px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    display: none;
+}
+  
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+  }
+  
+.overlay-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+  }
+
+#add-item{
+  margin-left: 26px;
+}
+
+#subtract-item{
+  margin-left: -7px;
+}
+
+#update-login{
+  margin-top: -75px;
+  padding-right: 5px;
+  margin-left: 25px;
+}
+
+#update-logout{
+  margin-top: -75px;
+  padding-right: 5px;
+  margin-left: 25px;
+}
+
+#delete-item{
+  margin-top: -2px;
+  margin-left: 82px;
+  padding-left: 2px;
+  padding-bottom: -5px;
+}
+/*
+#delete-item {
+    margin-top: 10px;
+    margin-left: 83px;
+    padding-left: 6px;
+    padding-bottom: 20px;
+}
+
+#update-login{
+  margin-top: -75px;
+  margin-right: 83px;
+  padding-left: 2px;
+  padding-bottom: -5px;
+}
+
+#update-logout{
+  margin-top: -75px;
+  margin-right: 83px;
+  padding-left: 6px;
+  padding-bottom: 20px;
+}*/
+
+
+/*This is to hide the form and beautify it on cart page*/
+.hidden-form {
+  display: none;
+}
+
+.protein-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 40px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  width: 80%; /* Increase the width */
+  max-width: 600px; /* Set a maximum width */
+  border-radius: 8px; /* Add some border radius for aesthetics */
+}
+
+.protein-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+/* Style for the form submit button */
+.button-change {
+  background-color: #ff9800;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.button-change:hover {
+  background-color: #e68a00;
+  transform: scale(1.05);
+}
+
+.button-change:active {
+  background-color: #cc7a00;
+}
+

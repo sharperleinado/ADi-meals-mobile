@@ -102,9 +102,7 @@ def change_cart_protein(request):
 
 def cart_buttons(request):
     try:
-        new_item = ""
         list_item = ""
-        check_carts = ""
         data = json.loads(request.body)
         object_id = data['id']
         name = data['btn_name']
@@ -114,28 +112,34 @@ def cart_buttons(request):
             cart = Cart.objects.get(user=request.user)
             cart_items = CartItemsFood.objects.filter(cart=cart)
             total_quantities = cart.total_quantity()
-            
+
             if name == "add-item":
                 item = cart_items.get(object_id=object_id,food_category=form)
                 item.quantity += 1
                 item.save()
+                cartitem_price = item.total_price(item.food_category)
+                new_quantity = item.quantity
                 total_quantities = total_quantities + 1
+                list_item = [cartitem_price,new_quantity,total_quantities,cart.total_price(),len(cart_items)]
             elif name == "subtract-item":
                 item = cart_items.get(object_id=object_id,food_category=form)
                 item.quantity -= 1
                 item.save()
+                cartitem_price = item.total_price(item.food_category)
+                new_quantity = item.quantity
                 if item.quantity < 1:
                     item.delete()
+                    cartitem_price = 0
+                    new_quantity = 0
                 total_quantities = total_quantities - 1
+                list_item = [cartitem_price,new_quantity,total_quantities,cart.total_price(),len(cart_items)]  
             else:
                 item = cart_items.get(object_id=object_id,food_category=form)
                 item.delete()
-                total_quantities = total_quantities - item.quantity
-            cartitem_price = item.total_price(item.food_category)
-            new_quantity = item.quantity
-            total_quantities = total_quantities
-            list_item = [cartitem_price,new_quantity,total_quantities,cart.total_price()]
-
+                cartitem_price = 0
+                new_quantity = 0
+                total_quantities -= item.quantity
+                list_item = [cartitem_price,new_quantity,total_quantities,0,len(cart_items)]
             
         else:
             cart = Cart.objects.get(session_id=request.session['cart_users'],is_paid=False)
@@ -146,22 +150,30 @@ def cart_buttons(request):
                 item = cart_items.get(object_id=object_id,food_category=form)
                 item.quantity += 1
                 item.save()
+                cartitem_price = item.total_price(item.food_category)
+                new_quantity = item.quantity
                 total_quantities = total_quantities + 1
+                list_item = [cartitem_price,new_quantity,total_quantities,cart.total_price(),len(cart_items)]
             elif name == "subtract-item":
                 item = cart_items.get(object_id=object_id,food_category=form)
                 item.quantity -= 1
                 item.save()
+                cartitem_price = item.total_price(item.food_category)
+                new_quantity = item.quantity
                 if item.quantity < 1:
                     item.delete()
+                    cartitem_price = 0
+                    new_quantity = 0
                 total_quantities = total_quantities - 1
+                list_item = [cartitem_price,new_quantity,total_quantities,cart.total_price(),len(cart_items)]  
             else:
                 item = cart_items.get(object_id=object_id,food_category=form)
                 item.delete()
-                total_quantities = total_quantities - item.quantity
-            cartitem_price = item.total_price(item.food_category)
-            new_quantity = item.quantity
-            total_quantities = total_quantities
-            list_item = [cartitem_price,new_quantity,total_quantities,cart.total_price()]
+                cartitem_price = 0
+                new_quantity = 0
+                total_quantities -= item.quantity
+                list_item = [cartitem_price,new_quantity,total_quantities,0,len(cart_items)]
+            
     except:
         pass
 

@@ -125,8 +125,14 @@
                                 {% endfor %}
                             </tbody>
                         </table>
+                        {% if user.is_authenticated %}
                         <button type="submit" class="btn btn-warning border-secondary bg-white" value="{{ cart.user.username }}"
-                            name="clear-all" id="clear_all">Clear all</button><br><br>
+                            name="clear-all" id="clear_all">Clear all</button>
+                        {% else %}
+                        <button type="submit" class="btn btn-warning border-secondary bg-white" value="{{ cart.session_id }}"
+                            name="clear-all" id="clear_all">Clear all</button>
+                        {% endif %}   
+                        <br><br>
 
                         <div id="overlay" class="overlay" style="display: none;">
                             <div class="overlay-content">
