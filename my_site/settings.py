@@ -165,7 +165,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 #This is for static files in root directory
 STATIC_URL = 'static/'
-STATIC_ROOT = 'staticfiles/'  # Directory to collect static files
+STATIC_ROOT = '/home/ubuntu/staticfiles/'  # Directory to collect static files
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
     ]
