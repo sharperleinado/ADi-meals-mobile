@@ -24,9 +24,9 @@ SECRET_KEY = 'django-insecure-38w+yczvta+h61ca9jq6^&z%18)dd!g)ktznjmw)n5cw+qmhd7
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True#False
 
-ALLOWED_HOSTS = ['adimeals.com']
+ALLOWED_HOSTS = []#['adimeals.com']
 
 
 # Application definition
@@ -165,13 +165,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 #This is for static files in root directory
 STATIC_URL = '/static/'
-STATIC_ROOT = '/staticfiles/'  # Directory to collect static files
+STATIC_ROOT = 'staticfiles'  # Directory to collect static files
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-MEDIA_URL = os.path.join(BASE_DIR, '/image/')
-MEDIA_ROOT = '/image/'
+MEDIA_URL = '/image/'
+MEDIAFILES_DIRS = [os.path.join(BASE_DIR, 'image'),]
+MEDIA_ROOT = 'image'
 
 
 # Default primary key field type
