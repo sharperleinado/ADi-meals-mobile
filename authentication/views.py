@@ -221,13 +221,20 @@ def signup(request):
                 session_user = User.objects.get(username=request.session['username'])
             except:
                 pass 
+            
             if session_user is not None:
                 del request.session['username']
                 del request.session['fname']
                 del request.session['lname']
                 del request.session['email']
+
             #Daniel, do not forget to set user.is_active = False during deployment.
-            user.is_active = False
+            if user.is_superuser:
+                user.is_active = True
+                user.save()
+            elif not user.is_superuser:
+                user.is_active = False
+                user.save()
         
             #Welcome mail
             try:
@@ -307,13 +314,16 @@ def signin(request):
         password = password.lower()
 
         user = EmailorUsernameModelBackend.authenticate(EmailorUsernameModelBackend,request,username,password)
+        
         #Daniel, do not forget to add "and user.is_active == False during deployment"
-        if user is not None and user.is_active == False:
-            login(request, user)
+        if user is not None and user.is_active == True:
             if not remember_me:
                 request.session.set_expiry(0)
             else:
                 request.session.set_expiry(None)
+    
+            login(request, user)
+
             try:
                 cart = Cart.objects.get(session_id=request.session['cart_users'],is_paid=False)
                 if Cart.objects.filter(user=request.user,is_paid=False).exists():
@@ -324,17 +334,17 @@ def signin(request):
                     cart.save()
             except:
                 pass
+
             try:
                 user_address = UserAddress.objects.get(user=request.user)
             except UserAddress.DoesNotExist:
-                pass
-            if user_address is None:    
                 messages.success(request, "You have successfully logged in")
                 return redirect('address:register_address')
-            else:
+
+            if user_address is not None:    
                 messages.success(request, "You have successfully logged in")
                 return redirect('home')
-
+                
         else:
             messages.error(request, "Bad credentials! or Check your mail to verify account if you have not!")
             return redirect('authentication:signin')
@@ -347,7 +357,35 @@ def signout(request):
     logout(request)
     messages.success(request, "You have successfully signed out!")
     return redirect('home')
+'''
+        elif user is not None and user.is_active == True:
+            if not remember_me:
+                request.session.set_expiry(0)
+            else:
+                request.session.set_expiry(None)
+    
+            login(request, user)
 
+            try:
+                cart = Cart.objects.get(session_id=request.session['cart_users'],is_paid=False)
+                if Cart.objects.filter(user=request.user,is_paid=False).exists():
+                    cart.user = None
+                    cart.save()
+                else:
+                    cart.user = request.user
+                    cart.save()
+            except:
+                pass
+
+            try:
+                user_address = UserAddress.objects.get(user=request.user)
+            except UserAddress.DoesNotExist:
+                messages.success(request, "You have successfully logged in")
+                return redirect('address:register_address')
+
+            if user_address is not None:    
+                messages.success(request, "You have successfully logged in")
+                return redirect('home')'''
 
 def activate(request, uidb64, token):
     try:

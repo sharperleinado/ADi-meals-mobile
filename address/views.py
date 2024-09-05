@@ -5,6 +5,7 @@ from cart.models import Cart
 from .models import UserAddress,area,country_choice,city,state
 import json
 from django.http.response import JsonResponse
+from authentication.models import User
 
 
 # Create your views here.

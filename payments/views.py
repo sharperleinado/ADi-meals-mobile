@@ -328,6 +328,10 @@ def payment(request, price, slug):
         return redirect('authentication:account_info')
     except TypeError:
         pass
+    except UserAddress.DoesNotExist:
+        messages.error(request, "Please, register address before proceeding to pay!")
+        return redirect('address:register_address')
+
     
     def get_food_item():
         return food.filter(food_price=price, slug=slug).first()
