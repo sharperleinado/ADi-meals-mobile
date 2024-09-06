@@ -165,14 +165,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 #This is for static files in root directory
 STATIC_URL = '/static/'
-STATIC_ROOT = 'staticfiles'  # Directory to collect static files
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')  # Directory to collect static files
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
 MEDIA_URL = '/image/'
-MEDIAFILES_DIRS = [os.path.join(BASE_DIR, 'image'),]
-MEDIA_ROOT = 'image'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'image/')
 
 
 # Default primary key field type
