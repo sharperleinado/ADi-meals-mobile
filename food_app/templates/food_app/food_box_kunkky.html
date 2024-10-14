@@ -10,9 +10,11 @@ ADi meals | Food box
 {% endblock jscript_attribute %}
 
 {% block food_or_soup_box %}
-    <div class="mbr-section-btn"><a href="{% url 'food_app:soupbox' %}" 
-        class="btn btn-primary display-4">Soup box</a>
-    </div>
+    <center>
+        <div class="mbr-section-btn"><a href="{% url 'food_app:soupbox' %}" 
+            class="btn btn-primary display-4" id="soupboxbutton">Soup box</a>
+        </div>
+    </center>
 {% endblock food_or_soup_box %}
 
 {% block pageBody %}
@@ -20,12 +22,12 @@ ADi meals | Food box
 
     <div class="container-fluid">
         <div class="mbr-section-head">
-            <h4 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
-                <strong>Food box</strong>
+            <div class="col-md-12 col-lg-10 m-auto align-center">
+                <h1 class="mbr-section-title mbr-white mbr-fonts-style mb-3 display-1" style="color:green;"><strong>Food box</strong></h1>
+            </div>
 
-            </h4>
             <h5 class="mbr-section-subtitle mbr-fonts-style align-center mb-0 mt-2 display-5">
-                <p>Select from the best of the best meals!</p>
+                <p>Select from the best of the best food in our food box!</p>
             </h5>
         </div>
         
@@ -34,7 +36,7 @@ ADi meals | Food box
             {% for item in food %}
             <div class="item features-image сol-12 col-md-6 col-lg-3">
                 <div class="item-wrapper">
-                    <div class="item-img">
+                    <div class="item-img" style="padding:10px">
                         <a href="{% url 'payments:payment' price=item.food_price slug=item.slug %}"><img src={{item.image.url}} class="img-fluid"></a>
                     </div>
                     <div class="item-content">

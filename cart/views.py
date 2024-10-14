@@ -19,22 +19,30 @@ food_model = ContentType.objects.get(model="food")
 soup_model = ContentType.objects.get(model="soup")
 
 def returns_item(items,food_category):
-        new_items = []
-        for item in items:
-            if item.content_type == food_model:
-                total_price = item.total_price(item.food_category)
-                new_list = [item,total_price]
-                new_items.append(new_list)
-            elif item.content_type == soup_model and item.food_category == item.food_category:
-                total_price = item.total_price(item.food_category)
-                new_list = [item,total_price]
-                new_items.append(new_list)
-        return new_items
+    new_items = []
+    for item in items:
+        if item.content_type == food_model:
+            total_price = item.total_price(item.food_category)
+            new_list = [item,total_price]
+            new_items.append(new_list)
+        elif item.content_type == soup_model and item.food_category == item.food_category:
+            total_price = item.total_price(item.food_category)
+            new_list = [item,total_price]
+            new_items.append(new_list)
+    return new_items
 
 def cart_items(request):
     new_cartitems = ""
     cart = ""
     protein = ""
+
+    request.session['protein'] = {'beef':['fried beef','boiled beef'],
+                                        'chicken':['fried chicken','boiled chicken'],
+                                        'fish':['fried fish','boiled fish'],
+                                        'goat':['fried goat','boiled goat'],
+                                        }
+    
+    protein = request.session['protein'].items()
 
     try:
         if request.user.is_authenticated:
@@ -48,26 +56,22 @@ def cart_items(request):
         else:
             new_cartitems = returns_item(cartitems,"mini_box")
 
-        request.session['protein'] = {'beef':['fried beef','boiled beef'],
-                                    'chicken':['fried chicken','boiled chicken'],
-                                    'fish':['fried fish','boiled fish'],
-                                    'goat':['fried goat','boiled goat'],
-                                    }
-        protein = request.session['protein'].items()
+            if request.method == "POST":
+                protein_select = request.POST.get("protein")
+                subprotein_select = request.POST.get("subprotein")
+                item = request.POST.get("item_id")
+                print(item)
 
-        if request.method == "POST":
-            protein_select = request.POST.get("protein")
-            subprotein_select = request.POST.get("subprotein")
-            item = request.POST.get("item_id")
-            cartitemfood = CartItemsFood.objects.get(pk=item)
-            if cartitemfood.protein is not protein_select and cartitemfood.subprotein is not subprotein_select:
-                cartitemfood.protein = protein_select
-                cartitemfood.subprotein = subprotein_select
-                cartitemfood.save()
-            else:
-                pass
-            messages.info(request,"You have successfully changed protein")
-            return redirect(request.META.get('HTTP_REFERER'))
+                cartitemfood = CartItemsFood.objects.get(cart=cart,object_id=item)
+            
+                if cartitemfood.protein is not protein_select and cartitemfood.subprotein is not subprotein_select:
+                    cartitemfood.protein = protein_select
+                    cartitemfood.subprotein = subprotein_select
+                    cartitemfood.save()
+                else:
+                    pass
+                messages.info(request,"You have successfully changed protein")
+                return redirect(request.META.get('HTTP_REFERER'))
                 
     except Mobile.DoesNotExist:
         messages.info(request,"Add Mobile no before viewing cart!")
@@ -76,9 +80,6 @@ def cart_items(request):
         messages.info(request,"Add items to cart to view items!")
         return redirect(request.META.get('HTTP_REFERER'))
     except KeyError:
-        messages.info(request,"Add items to cart to view items!")
-        return redirect(request.META.get('HTTP_REFERER'))
-    except Exception as e:
         messages.info(request,"Add items to cart to view items!")
         return redirect(request.META.get('HTTP_REFERER'))
     
@@ -138,7 +139,7 @@ def cart_buttons(request):
                 item.delete()
                 cartitem_price = 0
                 new_quantity = 0
-                total_quantities -= item.quantity
+                total_quantities = 0
                 list_item = [cartitem_price,new_quantity,total_quantities,0,len(cart_items)]
             
         else:
@@ -171,7 +172,7 @@ def cart_buttons(request):
                 item.delete()
                 cartitem_price = 0
                 new_quantity = 0
-                total_quantities -= item.quantity
+                total_quantities = 0
                 list_item = [cartitem_price,new_quantity,total_quantities,0,len(cart_items)]
             
     except:
@@ -243,8 +244,10 @@ def checkout(request):
                 messages.info(request, "Please, kindly make use of Flutterwave payment gateway. We are currently integrating Interswitch.")
                 return redirect(request.META.get('HTTP_REFERER'))
             
-    except Exception as e:
-        pass
+    except Mobile.DoesNotExist:
+        messages.info(request,"Add Mobile No before proceeding to pay!")
+        return redirect('authentication:mobile')
+        
 
     return render(request,'cart/checkout.html',{
         'address':address,

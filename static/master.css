@@ -35,3 +35,32 @@
 body{
     margin-top: 5px;
 }
+
+
+/* Hide the mobile cart icon on desktop */
+.mobile-cart-icon {
+    display: none; /* Hide by default */
+}
+
+/* Show the mobile cart icon on mobile */
+@media (max-width: 768px) {
+    .mobile-cart-icon {
+        display: block; /* Show on mobile devices */
+    }
+}
+
+
+/* Hide the desktop cart icon on mobile */
+.desktop-cart-icon {
+    display: none; /* Hide by default */
+}
+
+/* Show the desktop cart icon on larger screens */
+@media (min-width: 769px) {
+    .desktop-cart-icon {
+        display: block; /* Show on desktop devices */
+    }
+}
+
+
+

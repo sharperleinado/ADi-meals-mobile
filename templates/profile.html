@@ -10,9 +10,15 @@ ADi meals | Profile
 <div class="container">
 
     {% if user.is_authenticated %}
-
+    {% comment "" %}
     <br><br><br>
-    <h1><center><strong>Profile page</strong></center></h1><br><br>
+    <h1><center><strong>Profile page</strong></center></h1><br><br>{% endcomment %}
+    <div class="mbr-section-head">
+        <div class="col-md-12 col-lg-10 m-auto align-center">
+            <h1 class="mbr-section-title mbr-white mbr-fonts-style mb-3 display-1" style="color:green;"><strong>Profile</strong></h1>
+        </div><br><br>
+    </div>
+
     <h3>{{fname|capfirst}} {{lname|capfirst}}, you're welcome!</h3>
 
     <div class="mbr-section-btn item-footer mt-2">
@@ -33,8 +39,11 @@ ADi meals | Profile
 
     {% else %}
 
-<br><br>
-  <h1><center><strong>Profile page</strong></center></h1><br><br>
+    <div class="mbr-section-head">
+        <div class="col-md-12 col-lg-10 m-auto align-center">
+            <h1 class="mbr-section-title mbr-white mbr-fonts-style mb-3 display-1" style="color:green;"><strong>Profile</strong></h1>
+        </div><br><br>
+    </div>
 
     <h3>{{fname}} {{lname}}, you're welcome!</h3>
 

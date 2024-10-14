@@ -52,7 +52,8 @@ function addToCart(e){
     })
     .then(res=>res.json())
     .then(data=>{
-        document.getElementById("food_addtocart").innerHTML =  data[2]
+        document.getElementById("food_addtocart").innerHTML = data[2]
+        document.getElementById("mobile_food_addtocart").innerHTML = data[2]
         document.getElementById("subtotal").innerHTML =  '₦' + data[3]
         /*Delete thisif it is not working*/
         if (parseInt(data[4]) < 1) {

@@ -5,9 +5,11 @@ ADi meals | Soup box
 {% endblock %}
 
 {% block food_or_soup_box %}
-    <div class="mbr-section-btn"><a href="{% url 'food_app:foodbox' %}" 
-        class="btn btn-warning display-4">Food box</a>
-    </div>
+    <center>
+        <div class="mbr-section-btn"><a href="{% url 'food_app:foodbox' %}" 
+            class="btn btn-warning display-4">Food box</a>
+        </div>
+    </center>
 {% endblock food_or_soup_box %}
 
 {% block pageBody %}
@@ -17,13 +19,12 @@ ADi meals | Soup box
 
     <div class="container">
         <div class="mbr-section-head">
-            <h4 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
-                <strong>Soup box</strong>
-                
+            <div class="col-md-12 col-lg-10 m-auto align-center">
+                <h1 class="mbr-section-title mbr-white mbr-fonts-style mb-3 display-1"><strong>Soup box</strong></h1>
+            </div>
 
-            </h4>
             <h5 class="mbr-section-subtitle mbr-fonts-style align-center mb-0 mt-2 display-5">
-                <p>Select from the best of the best soup!</p>
+                <p>Select from the best of the best soup in our soup box!</p>
             </h5>
         </div>
 

@@ -17,11 +17,11 @@ ADi meals | Home
             </strong><strong>to ADi meals!</strong></h1>
           <p class="mbr-text mbr-white mbr-fonts-style display-7">
             {% if user.is_authenticated %}
-            Hi {{fname|capfirst}}, we are delighted to have you on board our fast moving Airplane. We hope that you find yourself comfortable as you make use of our amazing features.
+            Hi {{fname|capfirst}}, we are delighted to have you on board our fast moving Airplane. We hope that you make yourself comfortable as you make use of our amazing features.
             Please, we advice that you make use of your seat belt as we take off as a new company. We also encourage you to ensure that your seat belt is well tightened as we cannot predict the journey
             ahead but we believe that there is a bright future ahead for us all.
             {% else %}
-            Hi Anonymous, we are delighted to have you visiting our fast moving Airplane. We hope that you find yourself comfortable as you make use of our amazing features.
+            Hi Prospective Customer, we are delighted to have you visiting our fast moving Airplane. We hope that you make yourself comfortable as you make use of our amazing features.
             Please, we advice that you make use of your seat belt as we take off as a new company. We also encourage you to ensure that your seat belt is well tightened as we cannot predict the journey
             ahead but we believe that there is a bright future ahead for us all.
             {% endif %}</p>
@@ -99,19 +99,20 @@ ADi meals | Home
                   <h5 class="card-title mbr-fonts-style display-5">
                     <strong>Food Box</strong>
                   </h5>
-                  <p class="mbr-text mbr-fonts-style mb-5 display-4">Exercitationem magnam id quasi
-                    quisquam dolor, consequuntur, ad dicta aliquam autem quo inventore fugiat
-                    asperiores officia tenetur architecto eius aliquid, odit blanditiis soluta unde
-                    porro eum laboriosam sed corporis. Esse.<br></p>
+                  <p class="mbr-text mbr-fonts-style mb-5 display-4">Our Food box menu offers varieties of food 
+                    that ranges from Pounded yam and Egusi soup to Ewa Aganyin and bread, and many more, with each 
+                    food having graduated from University of Ibadan to attain their respective Masters and PhD Degree.
+                    </p>
                   <div class="mbr-section-btn"><a href="{% url 'food_app:foodbox' %}" class="btn btn-warning display-4">Order Food</a>
                   </div>
                 </div>
               </div>
               <div class="col-12 col-md-5">
                 <div class="img-wrapper">
+                  <a href="{% url 'food_app:foodbox' %}">
                   <img
                     src="{% static 'assets/images/still-life-cardboard-organic-dinnerware-23-2149542080-357x238.jpg' %}"
-                    alt="adi">
+                    alt="adi"></a>
                 </div>
               </div>
             </div>
@@ -126,18 +127,21 @@ ADi meals | Home
                   <h5 class="card-title mbr-fonts-style display-5">
                     <strong>Soup Box</strong>
                   </h5>
-                  <p class="mbr-text mbr-fonts-style mb-5 display-4"> quo inventore fugiat asperiores
-                    officia tenetur architecto eius aliquid, odit blanditiis soluta unde porro eum
-                    laboriosam sed corporis. Esse.</p>
+                  <p class="mbr-text mbr-fonts-style mb-5 display-4">
+                    Our Soup box menu offers varieties of soup like Egusi soup, Efo-riro, Ogbona, 
+                    and many more, with each food having graduated from University of Lagos 
+                    to attain their respective Masters and PhD Degree.
+                  </p>
                   <div class="mbr-section-btn"><a href="{% url 'food_app:soupbox' %}" class="btn btn-warning display-4">Order Soup</a>
                   </div>
                 </div>
               </div>
               <div class="col-12 col-md-5">
                 <div class="img-wrapper">
+                  <a href="{% url 'food_app:soupbox' %}">
                   <img
                     src="{% static 'assets/images/top-view-vegetable-soup-with-meat-inside-plate-grey-140725-36040-357x238.jpg' %}"
-                    alt="adi">
+                    alt="adi"></a>
                 </div>
               </div>
             </div>
@@ -261,7 +265,7 @@ ADi meals | Home
                 <strong>Who is X?{#Backend Programmer#}</strong>
               </h6>
               <p class="card-text mbr-fonts-style align-center display-7">
-                Let = X as Sharper. He is the brain behind the Backend technology that powers our web application. He is a graduate of Mathematics from Adekunle Ajasin University.
+                Let X = Sharper. He is the brain behind the Backend technology that powers our web application. He is a graduate of Mathematics from Adekunle Ajasin University.
                 Sharper would like to remain anonymous for now but will reveal himself as time goes by.</p>
               <div class="social-row display-7">
                 <div class="soc-item">
@@ -384,6 +388,13 @@ ADi meals | Home
       </div>
       <div class="row justify-content-center mt-4">
         <div class="col-md-3 card">
+          <img src="{% static 'Flutterwave_Logo.png' %}" alt="kunkky Website Builder">
+        </div>
+        <div class="col-md-3 card">
+          <img src="{% static 'twilio_logo.png' %}" style="margin-top:-25px" alt="kunkky Website Builder">
+        </div>
+        {% comment "" %}
+        <div class="col-md-3 card">
           <img src="{% static 'assets/images/1.png' %}" alt="kunkky Website Builder">
         </div>
         <div class="col-md-3 card">
@@ -400,7 +411,7 @@ ADi meals | Home
         </div>
         <div class="col-md-3 card">
           <img src="{% static 'assets/images/3.png' %}" alt="kunkky Website Builder">
-        </div>
+        </div>{% endcomment %}
   
   
       </div>

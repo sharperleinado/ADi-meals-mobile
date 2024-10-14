@@ -28,7 +28,7 @@ def update_mobile_send_otp(request):
     try:
         recipient = request.session['update_mobile']
         message = client.messages.create(
-        from_='+15097305985',
+        from_='ADi meals',
         body=f"Thank you for choosing ADi meals. Your one time password is {otp}",
         to=[recipient]
         )
@@ -54,7 +54,7 @@ def create_mobile_send_otp(request):
     try:
         recipient = request.session['create_phone_number']
         message = client.messages.create(
-        from_='+15097305985',
+        from_='ADi meals',
         body=f"Thank you for choosing ADi meals. Your one time password is {otp}",
         to=[recipient]
         )

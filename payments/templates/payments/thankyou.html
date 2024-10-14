@@ -33,13 +33,24 @@ ADi meals | Thank you
                                 <img src={{food_product.image.url}} class="img-fluid" alt="Adi Foods"
                                 data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
                             </div>
+                            
+                            {% if status == "cancelled" or "failed" %}
+                            <li class="list-group-item d-flex justify-content-between bg-light">
+                                <div class="text-success">
+                                    <h6 class="my-0">Status</h6>
+                                </div>
+                                <span style="color:red;">{{status|capfirst}}</span>
+                            </li>
 
+                            {% else %}
                             <li class="list-group-item d-flex justify-content-between bg-light">
                                 <div class="text-success">
                                     <h6 class="my-0">Status</h6>
                                 </div>
                                 <span class="text-success">{{status|capfirst}}</span>
                             </li>
+
+                            {% endif %}
     
                             <li class="list-group-item d-flex justify-content-between">
                                 <span>Total (NGN)</span>
@@ -58,12 +69,23 @@ ADi meals | Thank you
                                 data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
                             </div>
 
+                            {% if status == "cancelled" or "failed" %}
+                            <li class="list-group-item d-flex justify-content-between bg-light">
+                                <div class="text-success">
+                                    <h6 class="my-0">Status</h6>
+                                </div>
+                                <span style="color:red;">{{status|capfirst}}</span>
+                            </li>
+
+                            {% else %}
                             <li class="list-group-item d-flex justify-content-between bg-light">
                                 <div class="text-success">
                                     <h6 class="my-0">Status</h6>
                                 </div>
                                 <span class="text-success">{{status|capfirst}}</span>
                             </li>
+
+                            {% endif %}
     
                             <li class="list-group-item d-flex justify-content-between">
                                 <span>Total (NGN)</span>
@@ -81,12 +103,23 @@ ADi meals | Thank you
                                 data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
                             </div>
 
+                            {% if status == "cancelled" or "failed" %}
+                            <li class="list-group-item d-flex justify-content-between bg-light">
+                                <div class="text-success">
+                                    <h6 class="my-0">Status</h6>
+                                </div>
+                                <span style="color:red;">{{status|capfirst}}</span>
+                            </li>
+
+                            {% else %}
                             <li class="list-group-item d-flex justify-content-between bg-light">
                                 <div class="text-success">
                                     <h6 class="my-0">Status</h6>
                                 </div>
                                 <span class="text-success">{{status|capfirst}}</span>
                             </li>
+
+                            {% endif %}
     
                             <li class="list-group-item d-flex justify-content-between">
                                 <span>Total (NGN)</span>
@@ -104,12 +137,23 @@ ADi meals | Thank you
                                 data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
                             </div>
 
+                            {% if status == "cancelled" or "failed" %}
+                            <li class="list-group-item d-flex justify-content-between bg-light">
+                                <div class="text-success">
+                                    <h6 class="my-0">Status</h6>
+                                </div>
+                                <span style="color:red;">{{status|capfirst}}</span>
+                            </li>
+
+                            {% else %}
                             <li class="list-group-item d-flex justify-content-between bg-light">
                                 <div class="text-success">
                                     <h6 class="my-0">Status</h6>
                                 </div>
                                 <span class="text-success">{{status|capfirst}}</span>
                             </li>
+
+                            {% endif %}
     
                             <li class="list-group-item d-flex justify-content-between">
                                 <span>Total (NGN)</span>
@@ -183,12 +227,23 @@ ADi meals | Thank you
     
                             {% endfor %}  
     
-                                <li class="list-group-item d-flex justify-content-between bg-light">
-                                    <div class="text-success">
-                                        <h6 class="my-0">Status</h6>
-                                    </div>
-                                    <span class="text-success">{{food_product.1|capfirst}}</span>
-                                </li>
+                            {% if status == "cancelled" or "failed" %}
+                            <li class="list-group-item d-flex justify-content-between bg-light">
+                                <div class="text-success">
+                                    <h6 class="my-0">Status</h6>
+                                </div>
+                                <span style="color:red;">{{status|capfirst}}</span>
+                            </li>
+
+                            {% else %}
+                            <li class="list-group-item d-flex justify-content-between bg-light">
+                                <div class="text-success">
+                                    <h6 class="my-0">Status</h6>
+                                </div>
+                                <span class="text-success">{{status|capfirst}}</span>
+                            </li>
+
+                            {% endif %}
         
                                 <li class="list-group-item d-flex justify-content-between">
                                     <span>Total (NGN)</span>

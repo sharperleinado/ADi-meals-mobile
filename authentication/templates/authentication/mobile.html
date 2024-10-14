@@ -21,7 +21,11 @@ ADi meals | Mobile number
 </script>
 
 <section data-bs-version="5.1" class="image2 cid-u0tuxl367X" id="image2-7">
-    <br><h1><center><strong>Mobile no page!</strong></center></h1><br><br>
+    <div class="mbr-section-head">
+        <div class="col-md-12 col-lg-10 m-auto align-center">
+            <h1 class="mbr-section-title mbr-white mbr-fonts-style mb-3 display-1" style="color:green;"><strong>Mobile</strong></h1>
+        </div><br><br>
+    </div>
 
     {% if user.is_authenticated %}
     <div class="container">
@@ -38,7 +42,7 @@ ADi meals | Mobile number
                                 <input type="text" name="mobile_no" id="mobile_no" class="form-control" value="">
                             </div>
 
-                            <p class="display-4 ">Please, provide an active number we can verify...</p>
+                            <p class="display-4 ">Let's verify that you truly own this number...</p>
                             <p class="display-4 ">Example: "+234" + "812345...."</p>
                             <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
                                 <button type="submit" class="btn btn-primary display-4 w-100 ">Submit</button>

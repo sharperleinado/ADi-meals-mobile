@@ -8,9 +8,15 @@ ADi meals | Sign up
 
 <section data-bs-version="5.1" class="image2 cid-u0tuxl367X" id="image2-7">
 
-    {% if not user.is_authenticated %}
-
     <div class="container">
+        <div class="mbr-section-head">
+            <div class="col-md-12 col-lg-10 m-auto align-center">
+                <h1 class="mbr-section-title mbr-white mbr-fonts-style mb-3 display-1" style="color:green;"><strong>Sign up</strong></h1>
+            </div><br><br>
+        </div>
+
+        {% if not user.is_authenticated %}
+
         <div class="row align-items-center">
             
             <div class="col-12 col-lg">
@@ -61,50 +67,51 @@ ADi meals | Sign up
                             
                     </form>
 
-                    <p class="mt-3  display-4">Already registered? <a href="{% url 'authentication:signin' %}">Sign in</a></p>
+                    <p class="mt-3 display-4">Already registered? <a href="{% url 'authentication:signin' %}">Sign in</a></p>
 
                     <h5><center><strong>OR! You do not want to signup the traditional way?</strong></center></h5>
-
-                        <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
-                            <button type="submit" class="btn btn-primary display-4 w-100 ">Signin with Google<span class="mbr-iconfont socicon socicon-google"></span></button>
+                    
+                    <center>
+                        <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn" style="padding-right:20px">
+                            <button type="submit" class="btn btn-primary display-4 w-100 ">Sign in with Google<span class="mbr-iconfont socicon socicon-google"></span></button>
                         </div>
 
-                        <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
-                            <button type="submit" onClick="window.location='{% url 'twitter_callback' %}';" class="btn btn-primary display-4 w-100 ">Signin with Twitter<span class="mbr-iconfont socicon socicon-twitter"></span></button>
+                        <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn" style="padding-right:20px">
+                            <button type="submit" onClick="window.location='{% url 'twitter_callback' %}';" class="btn btn-primary display-4 w-100 ">Sign in with Twitter<span class="mbr-iconfont socicon socicon-twitter"></span></button>
                         </div>
 
-                        <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
-                            <button type="submit" class="btn btn-primary display-4 w-100 ">Signin with Facebook<span class="mbr-iconfont socicon socicon-facebook"></span></button>
+                        <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn" style="padding-right:20px">
+                            <button type="submit" class="btn btn-primary display-4 w-100 ">Sign in with Facebook<span class="mbr-iconfont socicon socicon-facebook"></span></button>
                         </div>
 
-                        <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
-                            <button type="submit" class="btn btn-primary display-4 w-100 ">Signin with Instagram<span class="mbr-iconfont socicon socicon-instagram"></span></button>
+                        <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn" style="padding-right:20px">
+                            <button type="submit" class="btn btn-primary display-4 w-100 ">Sign in with Instagram<span class="mbr-iconfont socicon socicon-instagram"></span></button>
                         </div>
-
-
+                    </center>
+                   
                 </div>
             </div>
+
             <div class="col-12 col-lg-6">
                 <div class="image-wrapper">
                     <img src="{% static 'assets/images/hot-soup-bowl-against-dark-background-410516-41370-626x417.jpg' %}"
                         alt="ADI Foods">
-            
                 </div>
             </div>
+                
+        
         </div>
-    </div>
-     
-    {% else %}
+        
+        {% else %}
 
-    <div class="container">
         <div class="row align-items-center">
-    <br><br>
-    <h2><center><strong>Gotcha!</strong></center></h2><br>
-    <br><br><br><h2><strong><center>You are already logged in!</strong></center></h2><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            <br><br>
+            <h2><center><strong>Gotcha!</strong></center></h2><br>
+            <br><br><br><h2><strong><center>You are already logged in!</strong></center></h2><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
         </div>
-    </div>
 
-    {% endif %}
+        {% endif %}
+    </div>
 </section>
 
 {% endblock %}

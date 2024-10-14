@@ -11,6 +11,11 @@ ADi meals | Soup select
 
 <section data-bs-version="5.1" class="image2 cid-u0tuxl367X" id="image2-7">
 <div class="container">
+    <div class="mbr-section-head">
+        <div class="col-md-12 col-lg-10 m-auto align-center">
+            <h1 class="mbr-section-title mbr-white mbr-fonts-style mb-3 display-1" style="color:green;"><strong>Pre-checkout</strong></h1>
+        </div><br><br>
+    </div>
 
     <div class="row">
        
@@ -66,7 +71,7 @@ ADi meals | Soup select
                         </div>
                     </div>
                     {% if user.is_authenticated %}
-                    <div class="col-md-3 mb-3">
+                    <div ]class="col-md-3 mb-3">
                         <label for="address">Address</label>
                             <div class="input-group">
                                 {{address.street_name | capfirst}} {{address.area|capfirst}} {{address.city|capfirst}}
@@ -82,92 +87,90 @@ ADi meals | Soup select
                     </div>
                     {% endif %}
                 </div>
-
-                    <hr class="mb-4">
-                        <p>Select from our numerous payment options below..</p>
-                    </hr>
-
-                    <hr class="mb-4">
-                    
-                        <h4 class="mb-3">Payment</h4>
-                        {% if user.is_authenticated %}
-                            <form method="POST" class="needs-validation" novalidate>
-                            {% csrf_token %}
-            
-                            <div class="d-block my-3">
-                                <div class="custom-control custom-radio">
-                                    <input id="flutterwave" name="paymentMethod" value="flutterwave" type="radio" class="custom-control-input" checked required>
-                                    <label class="custom-control-label" for="flutterwave">Flutterwave</label>
-                                </div>
-                                <div class="custom-control custom-radio">
-                                    <input id="paystack" name="paymentMethod" value="paystack" type="radio" class="custom-control-input" required>
-                                    <label class="custom-control-label" for="paystack">Paystack</label>
-                                </div>
-                                <div class="custom-control custom-radio">
-                                    <input id="interswitch" name="paymentMethod" value="interswitch" type="radio" class="custom-control-input" required>
-                                    <label class="custom-control-label" for="interswitch">Interswitch</label>
-                                </div>
-                            </div>
-                        
-                        
-                            <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
-                        </form>
-
-                        {% else %}
-
-                        <form action="{% url 'authentication:signin' %}" class="needs-validation" novalidate>
-                    
-                            <div class="d-block my-3">
-                                <div class="custom-control custom-radio">
-                                    <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
-                                    <label class="custom-control-label" for="credit">Flutterwave</label>
-                                </div>
-                                <div class="custom-control custom-radio">
-                                    <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
-                                    <label class="custom-control-label" for="debit">Paystack</label>
-                                </div>
-                                <div class="custom-control custom-radio">
-                                    <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
-                                    <label class="custom-control-label" for="paypal">Interswitch</label>
-                                </div>
-                            </div>
-                        
-                            <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
-                        </form>
-                        {% endif %}
-                    </hr>
-
         </div>
+        
         <div class="col-md-4 order-md-2 mb-4 display-4 ">
+            <br>
             <h4 class="d-flex justify-content-between align-items-center mb-3">
                 <span class="text-muted">Your item</span>
                 <span class="badge badge-secondary badge-pill">3</span>
             </h4>
+            
+            {% if item %}
             <ul class="list-group mb-3">
                 <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    {% if item %}
+
                     <div>
                         <h6 class="my-0">{{item.food_item|capfirst}} | {{userprotein.0|capfirst}} | {{userprotein.1|capfirst}}</h6>
                         <small class="text-muted">₦{{item.food_price}}</small>
                     </div>
-
+    
                     <div class="col-md-3 text-left">
-                        <img src={{item.image.url}} class="img-fluid" alt="Adi Foods"
+                        <img src={{item.image.url}} style="padding:10px" class="img-fluid" alt="Adi Foods"
                         data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
                     </div>
-                    <li class="list-group-item d-flex justify-content-between bg-light">
-                        <div class="text-success">
-                            <h6 class="my-0">Promo code</h6>
-                            <small>EXAMPLECODE</small>
+                </li>
+            </ul>
+
+            <hr class="mb-4">
+                <p>Select from our numerous payment options below..</p>
+            </hr>
+
+            <hr class="mb-4">
+            
+                <h4 class="mb-3">Payment</h4>
+                {% if user.is_authenticated %}
+                    <form method="POST" class="needs-validation" novalidate>
+                    {% csrf_token %}
+    
+                    <div class="d-block my-3">
+                        <div class="custom-control custom-radio">
+                            <input id="flutterwave" name="paymentMethod" value="flutterwave" type="radio" class="custom-control-input" checked required>
+                            <label class="custom-control-label" for="flutterwave">Flutterwave</label>
                         </div>
-                        <span class="text-success">-₦5</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span>Total (NGN)</span>
-                        <strong>₦{{item.food_price}}</strong>
-                    </li><br>
+                        <div class="custom-control custom-radio">
+                            <input id="paystack" name="paymentMethod" value="paystack" type="radio" class="custom-control-input" required>
+                            <label class="custom-control-label" for="paystack">Paystack</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="interswitch" name="paymentMethod" value="interswitch" type="radio" class="custom-control-input" required>
+                            <label class="custom-control-label" for="interswitch">Interswitch</label>
+                        </div>
+                    </div>
+                
+                
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+                </form>
+
+                {% else %}
+
+                <form action="{% url 'authentication:signin' %}" class="needs-validation" novalidate>
+            
+                    <div class="d-block my-3">
+                        <div class="custom-control custom-radio">
+                            <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
+                            <label class="custom-control-label" for="credit">Flutterwave</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
+                            <label class="custom-control-label" for="debit">Paystack</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
+                            <label class="custom-control-label" for="paypal">Interswitch</label>
+                        </div>
+                    </div>
+                
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+                </form>
+                {% endif %}
+            </hr>
                     
-                    {% elif item2 and price == item2.mini_box_price and slug == item2.slug %}
+            {% elif item2 and price == item2.mini_box_price and slug == item2.slug %}
+
+            <ul class="list-group mb-3">
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+
                     <div>
                         <h6 class="my-0">{{item2.soup_item|capfirst}} | {{item2.mini_box_name|capfirst}} | {{userprotein.0|capfirst}} | {{userprotein.1|capfirst}}</h6>
                         <small class="text-muted">₦{{item2.mini_box_price}}</small>
@@ -177,23 +180,85 @@ ADi meals | Soup select
                         <img src={{item2.image.url}} class="img-fluid" alt="Adi Foods"
                         data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
                     </div>
+                    
                     <li class="list-group-item d-flex justify-content-between bg-light">
-                        <div class="text-success">
-                            <h6 class="my-0">Promo code</h6>
-                            <small>EXAMPLECODE</small>
+                        
+                        <div class="productContainer">
+                            <button class="btn btn-primary display-4" name={{item2.mini_box_name}} value={{item2.pk}} id="add-item">Add To Cart</button>
                         </div>
-                        <span class="text-success">-₦5</span>
                     </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span>Total (NGN)</span>
-                        <strong>₦{{item2.mini_box_price}}</strong>
-                    </li><br>
-        
-                    <div class="productContainer">
-                        <button class="btn btn-primary display-4" name={{item2.mini_box_name}} value={{item2.pk}} id="add-item">Add To Cart</button>
-                    </div>
+                    
+                    {% comment "" %}
+                    <form class="card p-2">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Promo code">
+                            <div class="ïnput-group-append">
+                                <button type="submit" class="btn btn-warning">Redeem</button>
+                            </div>
+                        </div>
+                    </form>{% endcomment %}
+                </li>
+            </ul>
 
-                    {% elif item2 and price == item2.medium_box_price and slug == item2.slug %}
+            <hr class="mb-4">
+                <p>Select from our numerous payment options below..</p>
+            </hr>
+
+            <hr class="mb-4">
+            
+                <h4 class="mb-3">Payment</h4>
+                {% if user.is_authenticated %}
+                    <form method="POST" class="needs-validation" novalidate>
+                    {% csrf_token %}
+    
+                    <div class="d-block my-3">
+                        <div class="custom-control custom-radio">
+                            <input id="flutterwave" name="paymentMethod" value="flutterwave" type="radio" class="custom-control-input" checked required>
+                            <label class="custom-control-label" for="flutterwave">Flutterwave</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="paystack" name="paymentMethod" value="paystack" type="radio" class="custom-control-input" required>
+                            <label class="custom-control-label" for="paystack">Paystack</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="interswitch" name="paymentMethod" value="interswitch" type="radio" class="custom-control-input" required>
+                            <label class="custom-control-label" for="interswitch">Interswitch</label>
+                        </div>
+                    </div>
+                
+                
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+                </form>
+
+                {% else %}
+
+                <form action="{% url 'authentication:signin' %}" class="needs-validation" novalidate>
+            
+                    <div class="d-block my-3">
+                        <div class="custom-control custom-radio">
+                            <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
+                            <label class="custom-control-label" for="credit">Flutterwave</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
+                            <label class="custom-control-label" for="debit">Paystack</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
+                            <label class="custom-control-label" for="paypal">Interswitch</label>
+                        </div>
+                    </div>
+                
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+                </form>
+                {% endif %}
+            </hr>
+
+            {% elif item2 and price == item2.medium_box_price and slug == item2.slug %}
+
+            <ul class="list-group mb-3">
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+
                     <div>
                         <h6 class="my-0">{{item2.soup_item|capfirst}} | {{item2.medium_box_name|capfirst}} | {{userprotein.0|capfirst}} | {{userprotein.1|capfirst}}</h6>
                         <small class="text-muted">₦{{item2.medium_box_price}}</small>
@@ -203,23 +268,75 @@ ADi meals | Soup select
                         <img src={{item2.image.url}} class="img-fluid" alt="Adi Foods"
                         data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
                     </div>
+
                     <li class="list-group-item d-flex justify-content-between bg-light">
-                        <div class="text-success">
-                            <h6 class="my-0">Promo code</h6>
-                            <small>EXAMPLECODE</small>
+                        <div class="productContainer">
+                            <button class="btn btn-primary display-4" name={{item2.medium_box_name}} value={{item2.pk}} id="add-item">Add To Cart</button>
                         </div>
-                        <span class="text-success">-₦5</span>
                     </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span>Total (NGN)</span>
-                        <strong>₦{{item2.medium_box_price}}</strong>
-                    </li><br>
                     
-                    <div class="productContainer">
-                        <button class="btn btn-primary display-4" name={{item2.medium_box_name}} value={{item2.pk}} id="add-item">Add To Cart</button>
+                </li>
+            </ul>
+
+            <hr class="mb-4">
+                <p>Select from our numerous payment options below..</p>
+            </hr>
+
+            <hr class="mb-4">
+            
+                <h4 class="mb-3">Payment</h4>
+                {% if user.is_authenticated %}
+                    <form method="POST" class="needs-validation" novalidate>
+                    {% csrf_token %}
+    
+                    <div class="d-block my-3">
+                        <div class="custom-control custom-radio">
+                            <input id="flutterwave" name="paymentMethod" value="flutterwave" type="radio" class="custom-control-input" checked required>
+                            <label class="custom-control-label" for="flutterwave">Flutterwave</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="paystack" name="paymentMethod" value="paystack" type="radio" class="custom-control-input" required>
+                            <label class="custom-control-label" for="paystack">Paystack</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="interswitch" name="paymentMethod" value="interswitch" type="radio" class="custom-control-input" required>
+                            <label class="custom-control-label" for="interswitch">Interswitch</label>
+                        </div>
                     </div>
-                    
-                    {% else %}
+                
+                
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+                </form>
+
+                {% else %}
+
+                <form action="{% url 'authentication:signin' %}" class="needs-validation" novalidate>
+            
+                    <div class="d-block my-3">
+                        <div class="custom-control custom-radio">
+                            <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
+                            <label class="custom-control-label" for="credit">Flutterwave</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
+                            <label class="custom-control-label" for="debit">Paystack</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
+                            <label class="custom-control-label" for="paypal">Interswitch</label>
+                        </div>
+                    </div>
+                
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+                </form>
+                {% endif %}
+            </hr>
+
+            {% else %}
+
+            <ul class="list-group mb-3">
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+
                     <div>
                         <h6 class="my-0">{{item2.soup_item|capfirst}} | {{item2.mega_box_name|capfirst}} | {{userprotein.0|capfirst}} | {{userprotein.1|capfirst}}</h6>
                         <small class="text-muted">₦{{item2.mega_box_price}}</small>
@@ -229,26 +346,70 @@ ADi meals | Soup select
                         <img src={{item2.image.url}} class="img-fluid" alt="Adi Foods"
                         data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
                     </div>
-                    <li class="list-group-item d-flex justify-content-between bg-light">
-                        <div class="text-success">
-                            <h6 class="my-0">Promo code</h6>
-                            <small>EXAMPLECODE</small>
-                        </div>
-                        <span class="text-success">-₦5</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span>Total (NGN)</span>
-                        <strong>₦{{item2.mega_box_price}}</strong>
-                    </li><br>
 
-                    <div class="productContainer">
-                        <button class="btn btn-primary display-4" name={{item2.mega_box_name}} value={{item2.pk}} id="add-item">Add To Cart</button>
-                    </div>
-                    
-                    {% endif %}
+                    <li class="list-group-item d-flex justify-content-between bg-light">
+                        <div class="productContainer">
+                            <button class="btn btn-primary display-4" name={{item2.mega_box_name}} value={{item2.pk}} id="add-item">Add To Cart</button>
+                        </div>
+                    </li>
                 </li>
-                
             </ul>
+
+            <hr class="mb-4">
+                <p>Select from our numerous payment options below..</p>
+            </hr>
+
+            <hr class="mb-4">
+            
+                <h4 class="mb-3">Payment</h4>
+                {% if user.is_authenticated %}
+                    <form method="POST" class="needs-validation" novalidate>
+                    {% csrf_token %}
+    
+                    <div class="d-block my-3">
+                        <div class="custom-control custom-radio">
+                            <input id="flutterwave" name="paymentMethod" value="flutterwave" type="radio" class="custom-control-input" checked required>
+                            <label class="custom-control-label" for="flutterwave">Flutterwave</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="paystack" name="paymentMethod" value="paystack" type="radio" class="custom-control-input" required>
+                            <label class="custom-control-label" for="paystack">Paystack</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="interswitch" name="paymentMethod" value="interswitch" type="radio" class="custom-control-input" required>
+                            <label class="custom-control-label" for="interswitch">Interswitch</label>
+                        </div>
+                    </div>
+                
+                
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+                </form>
+
+                {% else %}
+
+                <form action="{% url 'authentication:signin' %}" class="needs-validation" novalidate>
+            
+                    <div class="d-block my-3">
+                        <div class="custom-control custom-radio">
+                            <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
+                            <label class="custom-control-label" for="credit">Flutterwave</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
+                            <label class="custom-control-label" for="debit">Paystack</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
+                            <label class="custom-control-label" for="paypal">Interswitch</label>
+                        </div>
+                    </div>
+                
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+                </form>
+                {% endif %}
+            </hr>
+            
+            {% endif %}
         
         </div>
     </div>

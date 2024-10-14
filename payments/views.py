@@ -38,6 +38,7 @@ def tx_ref():
 
 
 def flutterwave(request,username,email,phone_no,price,pk,slug):
+    
     url = "https://api.flutterwave.com/v3/payments"
     headers = {
         "Authorization": f"Bearer {os.getenv('FLUTTERWAVE_SECRET_KEY')}",
@@ -47,7 +48,7 @@ def flutterwave(request,username,email,phone_no,price,pk,slug):
         "tx_ref": tx_ref(),
         "amount": float(price),
         "currency": "NGN",
-        "redirect_url": f"http://localhost:8000/payments/verify_payment/{price}/{pk}/{slug}",#"http://localhost:8000/payments/verify_payment",
+        "redirect_url": f"http://adimeals.com/payments/verify_payment/{price}/{pk}/{slug}",#"http://localhost:8000/payments/verify_payment",
         "meta": {
             "consumer_id": 23,
             "consumer_mac": "92a3-912ba-1192a"
@@ -58,7 +59,7 @@ def flutterwave(request,username,email,phone_no,price,pk,slug):
             "name": username
         },
         "customizations": {
-            "title": "ADi Meals Limited",
+            "title": "ADi Meals",
             "logo": "https://i.imgur.com/MnUGFHi.jpeg"#"https://i.imgur.com/k3TOSas.jpeg"
         },
         "configurations": {
@@ -71,7 +72,7 @@ def flutterwave(request,username,email,phone_no,price,pk,slug):
         response = requests.post(url, headers=headers, json=payload)
 
         response.raise_for_status()  # Raise an error for bad status codes
- 
+
         # Assuming the response is JSON, you can access it like this:
         json_response = response.json()
         print(json_response)
@@ -86,6 +87,7 @@ def flutterwave(request,username,email,phone_no,price,pk,slug):
     except requests.exceptions.RequestException as err:
         error_message = f"Error: {err}"
         return JsonResponse({"error": error_message}, status=500, safe=False)
+        
 
 
 def verify_payment(request,price,pk,slug):
@@ -145,6 +147,8 @@ def verify_payment(request,price,pk,slug):
                     cart.delete()
                 elif status == "failed" and cart is not None:     
                     user_transactions = Transactions.objects.get_or_create(user=request.user,protein=userprotein[0],subprotein=userprotein[1],status=status,amount=price,currency="NGN",tx_ref=tx_ref,content_type=cart_content,object_id=pk)
+                    food_item = [cartitems,status,price]
+                elif status == "cancelled" and cart is not None:
                     food_item = [cartitems,status,price]
             except:
                 pass

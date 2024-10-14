@@ -28,8 +28,8 @@ def profile(request):
             fname = request.user.first_name
             lname = request.user.last_name
         else:
-            fname = "Anonymous"
-            lname = "User"
+            fname = "Prospective"
+            lname = "Customer"
     except AttributeError:
         pass
 

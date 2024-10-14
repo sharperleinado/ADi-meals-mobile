@@ -29,6 +29,7 @@
     text-align: center;
   }
 
+
 #add-item{
   margin-left: 26px;
 }
@@ -38,43 +39,61 @@
 }
 
 #update-login{
-  margin-top: -75px;
-  padding-right: 5px;
-  margin-left: 25px;
+  margin-top: -74px;
+  padding-right: 14px;
+  margin-left: 26px;
 }
 
 #update-logout{
-  margin-top: -75px;
-  padding-right: 5px;
-  margin-left: 25px;
+  margin-top: -74px;
+  padding-right: 14px;
+  margin-left: 26px;
 }
 
-#delete-item{
-  margin-top: -2px;
+#delete{
+  margin-top: -3px;
   margin-left: 82px;
-  padding-left: 2px;
+  padding-left: 1px;
+  padding-right:14px;
   padding-bottom: -5px;
 }
+
 /*
-#delete-item {
-    margin-top: 10px;
-    margin-left: 83px;
-    padding-left: 6px;
-    padding-bottom: 20px;
+#add-item{
+  margin-left: 45px;
+  padding:10px;
+  margin-top: -3px;
+}
+
+#subtract-item{
+  margin-left: 77px;
+  margin-top:-77px;
+  padding:12px;
 }
 
 #update-login{
   margin-top: -75px;
-  margin-right: 83px;
-  padding-left: 2px;
-  padding-bottom: -5px;
+  padding:10px;
+  padding-top:5px;
+  padding-bottom:5px;
 }
 
 #update-logout{
-  margin-top: -75px;
-  margin-right: 83px;
+  margin-left: 44px;
+  margin-top: -83px;
+  padding-top:12px;
+  padding-bottom:12px;
+  padding-left: 4px;
+  padding-right: 2px;
+}
+
+#delete-item{
+  margin-top: -29px;
+  margin-left: 77px;
+  padding-top:13.5px;
+  padding-bottom:13.5px;
   padding-left: 6px;
-  padding-bottom: 20px;
+  padding-right:6px;
 }*/
 
 

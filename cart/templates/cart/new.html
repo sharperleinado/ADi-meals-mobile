@@ -23,7 +23,7 @@
                     <div class="col-lg-12 col-md-12 col-12">
                         <h3 class="mb-2 text-center display-2">Shopping Cart</h3>
                         <p class="mb-5 text-center display-5">
-                            <i class="text-info font-weight-bold">3</i> items in your cart
+                            <i class="text-info font-weight-bold">3</i>items in your cart
                         </p>
                         <table id="shoppingCart" class="table table-condensed table-responsive">
                             <thead>
@@ -31,7 +31,7 @@
                                     <th style="width:60%">Product</th>
                                     <th style="width:12%">Price</th>
                                     <th style="width:10%">Quantity</th>
-                                    <th style="width:16%" id="actions">Actions</th>
+                                    <th style="width:16%;padding-left:55px" id="actions">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -61,6 +61,7 @@
                                             </div>
                                         </div>
                                     </td>
+                                    
                                     <td data-th="Price" class="quantity-unit-price" id="{{ item.0.content_object }}-{{ item.0.food_category }}-quantity-unit-price">₦{{ item.1 }}</td>
                                     <td data-th="Quantity" style="padding-left:3%" class="quantity" id="{{ item.0.object_id }}-{{ item.0.food_category }}-quantity">
                                         {{ item.0.quantity }}
@@ -72,6 +73,7 @@
                                                     name="add-item" value="{{ item.0.object_id }}"
                                                     data-content="{{ item.0.content_object }}" data-item="{{ item.0.food_category }}"
                                                     id="add-item">+</button>
+
                                                 <button type="button" class="btn btn-warning border-secondary bg-white subtract-item"
                                                     name="subtract-item" value="{{ item.0.object_id }}"
                                                     data-content="{{ item.0.content_object }}" data-item="{{ item.0.food_category }}"
@@ -80,17 +82,17 @@
                                                 <button type="button" class="btn btn-warning border-secondary bg-white delete-item"
                                                     name="delete-item" value="{{ item.0.object_id }}"
                                                     data-content="{{ item.0.content_object }}" data-item="{{ item.0.food_category }}"
-                                                    id="delete-item">
-                                                    <span class="mobi-mbri mobi-mbri-trash mbr-iconfont mbr-iconfont-btn"></span>
+                                                    id="delete">
+                                                    <span style="margin-left:13px;" class="mobi-mbri mobi-mbri-trash mbr-iconfont mbr-iconfont-btn"></span>
                                                 </button>
                                             </div>
                                                 {% if user.is_authenticated %}{#To update protein in cart#}
                                                 <button type="button" id="update-login" value="{{item.0.content_object.pk}}" data-food-category="{{item.0.food_category}}" class="btn btn-white border-secondary bg-white">
-                                                    <span class="mobi-mbri mobi-mbri-edit-2 mbr-iconfont mbr-iconfont-btn"></span>
+                                                    <span style="margin-left:-2px" class="mobi-mbri mobi-mbri-edit-2 mbr-iconfont mbr-iconfont-btn"></span>
                                                 </button>
                                                 {% else %}
                                                 <button type="button" id="update-logout" class="btn btn-white border-secondary bg-white">
-                                                    <span class="mobi-mbri mobi-mbri-edit-2 mbr-iconfont mbr-iconfont-btn"></span>
+                                                    <span style="margin-left:-2px" class="mobi-mbri mobi-mbri-edit-2 mbr-iconfont mbr-iconfont-btn"></span>
                                                 </button>
                                                 {% endif %}
 
@@ -98,7 +100,7 @@
                                                     <div class="protein-content">
                                                         <form class="mbr-form form-with-styler" method="POST" action="">
                                                             {% csrf_token %}
-                                                            <input type="hidden" name="item_id" value="{{ item.0.pk }}" data-food="{{item.0.food_category}}">
+                                                            <input type="hidden" name="item_id" value="{{ item.0.content_object.pk }}" data-food="{{item.0.food_category}}">
                                                             <div class="proteinClass">
                                                                 <label for="protein">Protein</label>
                                                                 <select class="form-control d-block w-100" id="protein" name="protein" required>
