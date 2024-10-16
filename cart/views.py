@@ -107,6 +107,7 @@ def cart_buttons(request):
         data = json.loads(request.body)
         object_id = data['id']
         name = data['btn_name']
+        print(name)
         form = data['form']
         
         if request.user.is_authenticated:
@@ -172,7 +173,7 @@ def cart_buttons(request):
                 item.delete()
                 cartitem_price = 0
                 new_quantity = 0
-                total_quantities = 0
+                total_quantities = total_quantities - item.quantity
                 list_item = [cartitem_price,new_quantity,total_quantities,0,len(cart_items)]
             
     except:

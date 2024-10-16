@@ -10,9 +10,7 @@ ADi meals | Profile
 <div class="container">
 
     {% if user.is_authenticated %}
-    {% comment "" %}
-    <br><br><br>
-    <h1><center><strong>Profile page</strong></center></h1><br><br>{% endcomment %}
+    
     <div class="mbr-section-head">
         <div class="col-md-12 col-lg-10 m-auto align-center">
             <h1 class="mbr-section-title mbr-white mbr-fonts-style mb-3 display-1" style="color:green;"><strong>Profile</strong></h1>
@@ -29,7 +27,7 @@ ADi meals | Profile
         {% if user.is_superuser %}
         <button class="btn btn-primary item-btn display-7" onClick="window.location='{% url 'payments:all_transactions' %}';">User transactions</button>
         
-        <a href="http://127.0.0.1:8000/admin"><button class="btn btn-primary item-btn display-7">Admin</button></a>
+        <a href="https://adimeals.com/admin"><button class="btn btn-primary item-btn display-7">Admin</button></a>
         {% endif %}
         <a href="https://www.twitter.com/ADimealsmobile?t=ongILNDHhLA5NR20GrnXHQ&s=09"><button class="btn btn-primary item-btn display-7" >Twitter</button></a>
 
