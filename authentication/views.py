@@ -131,10 +131,14 @@ def mobile(request):
                 messages.error(request, "PHONE NUMBER must be 11 digits!")
                 return redirect('authentication:mobile')
             else: 
-                request.session['create_phone_number'] = form
-                messages.success(request, "Please, input the one time password sent to " + form)
-                create_mobile_send_otp(request)
-                return redirect('authentication:create_mobilenumber_otp')
+                #request.session['create_phone_number'] = form
+                #messages.success(request, "Please, input the one time password sent to " + form)
+                #create_mobile_send_otp(request)
+                #return redirect('authentication:create_mobilenumber_otp')
+            
+                model = Mobile.objects.create(user=request.user,phone_no=form)
+                messages.success(request, "You have successfully created PHONE NUMBER!")
+                return redirect('authentication:account_info')
     except AttributeError:
         pass
     except ConnectionError:
