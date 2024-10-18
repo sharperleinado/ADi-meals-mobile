@@ -141,7 +141,7 @@ def cart_buttons(request):
                 cartitem_price = 0
                 new_quantity = 0
                 total_quantities = 0
-                list_item = [cartitem_price,new_quantity,total_quantities,0,len(cart_items)]
+                list_item = [cartitem_price,new_quantity,total_quantities,cart.total_price(),len(cart_items)]
             
         else:
             cart = Cart.objects.get(session_id=request.session['cart_users'],is_paid=False)
@@ -174,7 +174,7 @@ def cart_buttons(request):
                 cartitem_price = 0
                 new_quantity = 0
                 total_quantities = total_quantities - item.quantity
-                list_item = [cartitem_price,new_quantity,total_quantities,0,len(cart_items)]
+                list_item = [cartitem_price,new_quantity,total_quantities,cart.total_price(),len(cart_items),name]
             
     except:
         pass
@@ -188,7 +188,7 @@ def clear_all(request):
     print(cart)
 
     if request.user.is_authenticated:
-        cart_object = Cart.objects.get(user=cart)
+        cart_object = Cart.objects.get(session_id=cart)
         cart_object.delete()
     else:
         cart_object = Cart.objects.get(session_id=cart)

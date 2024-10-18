@@ -273,15 +273,15 @@ def signup(request):
                 }) 
                 from_email = EMAIL_HOST_USER
                 to = [user.email]
-                email = EmailMultiAlternatives(
+                email2 = EmailMultiAlternatives(
                     subject,
                     body,
                     from_email,
                     to,
                 )
-                email.content_subtype = "html"
+                email2.content_subtype = "html"
                 fail_silently = True
-                email.send()
+                email2.send()
 
                 messages.success(request,"Your account has been successfully created!\nWe have also sent you a confirmation email, please confirm your email address to login into your account.")
                 return redirect('authentication:signin')

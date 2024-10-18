@@ -19,11 +19,11 @@ const csrftoken = getCookie('csrftoken');
 let btns = document.querySelectorAll('.productContainer button')
 
 btns.forEach(btn=>{
-    btn.addEventListener("click", addToCart)
+    btn.addEventListener("click", handleButtons)
     
 })
 
-function addToCart(e){
+function handleButtons(e){
     let btn_name = e.target.name
     let btn_value = e.target.value
     let food_category = e.target.dataset.item
@@ -32,10 +32,13 @@ function addToCart(e){
     let combinedId = btn_value + '-' + food_category;
     let combinedContentObject = content_object + '-' + food_category;
     
-    console.log(btn_name)
-    console.log(btn_value)
-    /*console.log(food_category)
-    console.log(content_object)*/
+    console.log(btn_name);
+    console.log(btn_value);
+
+    if (!btn_value || !food_category || !content_object || !btn_name) {
+        console.error("Missing data attributes.");
+        return; // Exit if necessary data is not available
+    }
     
 
     let url = '/cart/cart-buttons/'
@@ -92,13 +95,7 @@ function addToCart(e){
             }
         }
         }
-        /*if (btn_name === 'add-item') {
-            showNotification('Item added to the cart', '#4CAF50');
-        } else if (btn_name === 'subtract-item') {
-            showNotification('Item quantity updated', '#FF9800');
-        } else if (btn_name === 'delete-item' && parseInt(data[1]) === 0) {
-            showNotification('Item removed from the cart', '#F44336');
-        }*/
+        
         console.log(data)
 
     })
@@ -107,22 +104,6 @@ function addToCart(e){
     })
 }
 
-/*function showNotification(message, color) {
-    let notificationContainer = document.getElementById('notification-container');
-    notificationContainer.innerHTML = message;
-    notificationContainer.style.backgroundColor = color;
-    notificationContainer.style.display = 'block';
-
-    // Hide the notification after a few seconds (adjust as needed)
-    setTimeout(() => {
-        hideNotification();
-    }, 3000);
-}
-
-function hideNotification() {
-    let notificationContainer = document.getElementById('notification-container');
-    notificationContainer.style.display = 'flex';
-}*/
 
 
 let clearAllButton = document.getElementById('clear_all');
