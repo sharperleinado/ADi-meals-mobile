@@ -97,21 +97,10 @@ TEMPLATES = [
 AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
-SITE_ID = 1
+SITE_ID = 2
 ACCOUNT_EMAIL_VERIFICATION = "none"
 LOGIN_REDIRECT_URL = 'home'
 ACCOUNT_LOGOUT_ON_GET = True
-'''
-def login(request):
-    user_address = UserAddress.objects.get(user=request.user)
-    if user_address is None:    
-        messages.success(request, "You have successfully logged in")
-        LOGIN_REDIRECT_URL = 'address:register_address'
-        return redirect(LOGIN_REDIRECT_URL)
-    else:
-        messages.success(request, "You have successfully logged in")
-        LOGIN_REDIRECT_URL = 'home'
-    return redirect(LOGIN_REDIRECT_URL)'''
 
 
 SMS_BACKEND = 'sms.backends.twilio.SmsBackend'

@@ -24,6 +24,7 @@ import os
 import json
 from django.http.response import JsonResponse
 from address.views import state_and_lga
+from django.contrib.sites.models import Site
 from dotenv import load_dotenv
 load_dotenv()
 #from .custom_authentication2 import EmailorUsernameModelBackend
@@ -43,34 +44,30 @@ def email_reset_password(request):
                 #Email Password reset
                 try: 
                     current_site = get_current_site(request) 
-                    email_subject = 'Password reset @ADimeals'
-                    message2 = render_to_string('email_password_reset.html',{
+                    subject = 'Password reset from Adimeals.com'
+                    body = render_to_string('email_password_reset.html',{
                         'name':model.first_name,
                         'domain':current_site.domain,
                         'uid':urlsafe_base64_encode(force_bytes(model.pk)),
                         'token': generate_token.make_token(model)
                     }) 
-                    from_email2 = EMAIL_HOST_USER
-                    to_list2 = [model.email]
-                    email2 = EmailMessage(
-                        email_subject,
-                        message2,
-                        from_email2,
-                        to_list2,
+                    from_email = EMAIL_HOST_USER
+                    to = [model.email]
+                    email = EmailMultiAlternatives(
+                        subject,
+                        body,
+                        from_email,
+                        to,
                     )
-                    email2.content_subtype = "html"
-                    fail_silently = False
-                    email2.send()
-                    messages.success(request, "We have sent RESET PASSWORD link to your registered email address to reset your password!")
+                    email.content_subtype = "html"
+                    email.send(fail_silently = True)
+                    messages.success(request, f"We have sent RESET PASSWORD link to {model.email} to reset your password!")
                     return redirect('authentication:email_reset_password')
-                except:
-                    messages.success(request, "We have sent RESET PASSWORD link to your registered email address to reset your password!")
+                except Site.DoesNotExist:
+                    messages.error(request, "Site does not exist!")
                     return redirect('authentication:email_reset_password')
-            else:
-                messages.error(request, "User details does not exist in our database! Be sure to input a correct email or username.")
-                return redirect('authentication:email_reset_password')
         except:
-            messages.error(request, "User details does not exist in our database! Be sure to input a correct email or username.")
+            messages.error(request, "User database! Be sure to input a correct email or username.")
             return redirect('authentication:email_reset_password')
 
     return render(request,'authentication/email_reset_kunkky.html',{})
@@ -221,6 +218,7 @@ def signup(request):
 
         
             user = User.objects.create_user(username=username,first_name=fname,last_name=lname,email=email,password=password)
+            #user2 = User.objects.get(username=username)
             try:
                 session_user = User.objects.get(username=request.session['username'])
             except:
@@ -241,56 +239,58 @@ def signup(request):
                 user.save()
         
             #Welcome mail
-            try:
-                subject = 'Welcome mail from Adimeals.com'
-                body = render_to_string('welcome_mail.html',{
-                    'name':fname
-                }) 
-                from_email = EMAIL_HOST_USER
-                to = [user.email]
-                email = EmailMultiAlternatives(
-                    subject,
-                    body,
-                    from_email,
-                    to,
-                )
-                email.content_subtype = "html"
-                fail_silently = True
-                email.send()
-            except:
-                pass
+            def welcome_mail():
+                try:
+                    subject = 'Welcome mail from Adimeals.com'
+                    body = render_to_string('welcome_mail.html',{
+                        'name':fname
+                    }) 
+                    from_email = EMAIL_HOST_USER
+                    to = [user.email]
+                    email = EmailMultiAlternatives(
+                        subject,
+                        body,
+                        from_email,
+                        to,
+                    )
+                    email.content_subtype = "html"
+                    email.send(fail_silently = True)
+                except ConnectionError:
+                    pass
+            welcome_mail()
     
 
             #Email Confirmation
-            try: 
-                current_site = get_current_site(request) 
-                subject = 'Email confirmation from Adimeals.com'
-                body = render_to_string('email_confirmation.html',{
-                    'name':fname,
-                    'domain':current_site.domain,
-                    'uid':urlsafe_base64_encode(force_bytes(user.pk)),
-                    'token': generate_token.make_token(user)
-                }) 
-                from_email = EMAIL_HOST_USER
-                to = [user.email]
-                email2 = EmailMultiAlternatives(
-                    subject,
-                    body,
-                    from_email,
-                    to,
-                )
-                email2.content_subtype = "html"
-                fail_silently = True
-                email2.send()
-
-                messages.success(request,"Your account has been successfully created!\nWe have also sent you a confirmation email, please confirm your email address to login into your account.")
-                return redirect('authentication:signin')
-        
-            except:
-                messages.success(request,"Your account has been successfully created!\nWe have also sent you a confirmation email, please confirm your email address to login into your account.")
-                return redirect('authentication:signin')
-    else:
-        pass
+            def email_confirmation():
+                try: 
+                    current_site = get_current_site(request)
+                    subject = 'Email confirmation from Adimeals.com'
+                    body = render_to_string('email_confirmation.html',{
+                        'name':fname,
+                        'domain':current_site.domain,
+                        'uid':urlsafe_base64_encode(force_bytes(user.pk)),
+                        'token': generate_token.make_token(user)
+                    }) 
+                    from_email = EMAIL_HOST_USER
+                    to = [user.email]
+                    email = EmailMultiAlternatives(
+                        subject,
+                        body,
+                        from_email,
+                        to,
+                    )
+                    email.content_subtype = "html"
+                    email.send(fail_silently = True)
+                    messages.success(request,"Your account has been successfully created!\nWe have also sent you a confirmation email, please confirm your email address to login into your account.")
+                    return redirect('authentication:signin')
+            
+                except Site.DoesNotExist:
+                    messages.error(request,"Site does not exist!")
+                    return redirect('authentication:signup')
+                except ConnectionError:
+                    pass
+            email_confirmation()
+    
     try:
         session_username = request.session['username']  
         session_fname = request.session.get('fname')
@@ -361,35 +361,7 @@ def signout(request):
     logout(request)
     messages.success(request, "You have successfully signed out!")
     return redirect('home')
-'''
-        elif user is not None and user.is_active == True:
-            if not remember_me:
-                request.session.set_expiry(0)
-            else:
-                request.session.set_expiry(None)
-    
-            login(request, user)
 
-            try:
-                cart = Cart.objects.get(session_id=request.session['cart_users'],is_paid=False)
-                if Cart.objects.filter(user=request.user,is_paid=False).exists():
-                    cart.user = None
-                    cart.save()
-                else:
-                    cart.user = request.user
-                    cart.save()
-            except:
-                pass
-
-            try:
-                user_address = UserAddress.objects.get(user=request.user)
-            except UserAddress.DoesNotExist:
-                messages.success(request, "You have successfully logged in")
-                return redirect('address:register_address')
-
-            if user_address is not None:    
-                messages.success(request, "You have successfully logged in")
-                return redirect('home')'''
 
 def activate(request, uidb64, token):
     try:
