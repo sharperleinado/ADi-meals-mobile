@@ -22,21 +22,29 @@ ADi meals | Password Reset by E-mail
           <form action="" method="POST" class="mbr-form form-with-styler" data-form-title="Form Name">
               {% csrf_token %}
               
-              <div class="dragArea row">
+            <div class="dragArea row">
                  
-                  <div class="col-12 form-group mb-3" data-for="email">
-                      <input type="password" id="password" name="password" placeholder="Enter New Password" class="form-control" required>
-                  </div>
+                <div class="col-12 form-group mb-3" data-for="email">
+                    <input type="password" id="password" name="password" placeholder="Enter New Password" class="form-control" required>
+                </div>
 
-                  <div class="col-12 form-group mb-3" data-for="email">
+                <div class="col-12 form-group mb-3" data-for="email">
                     <input type="password" id="password2" name="password2" placeholder="Confirm New Password" class="form-control" required>
                 </div>
                 
-                  <p class="display-4 ">We recommend that you create a strong password.</p>
-                  <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
-                      <button type="submit" class="btn btn-primary display-4 w-100 ">Update password</button>
-                  </div>
-              </div>
+                <div id="passhelp" class="form-text">We'll never share your password with anyone else.</div><br>
+                <div id="passhelp" class="form-text">Hint</div>
+                <ul>
+                    <li><div id="passhelp" class="form-text">Common passwords as simple as A, B, C is not allowed</div></li>
+                    <li><div id="passhelp" class="form-text">Numeric only password is not allowed. Special characters like '#', '*', '@' can be included but not compulsory</div></li>
+                    <li><div id="passhelp" class="form-text">Password must be a minimum of 8 characters</div></li>
+                    <li><div id="passhelp" class="form-text">Password must include a letter</div></li>
+                    <li><div id="passhelp" class="form-text">Password must not be too similar to the User attribute provided</div></li>
+                </ul>
+                <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
+                    <button type="submit" class="btn btn-primary display-4 w-100 ">Update password</button>
+                </div>
+            </div>
     
           </form>
       </div>

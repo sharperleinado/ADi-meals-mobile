@@ -26,6 +26,7 @@ from django.http.response import JsonResponse
 from address.views import state_and_lga
 from django.contrib.sites.models import Site
 from dotenv import load_dotenv
+from django.contrib.auth.hashers import make_password,check_password
 load_dotenv()
 #from .custom_authentication2 import EmailorUsernameModelBackend
 
@@ -33,7 +34,7 @@ load_dotenv()
 
 #forget password view. User input username or email and we search if user exists in our data base.
 def email_reset_password(request):
-    #form = EmailReset()
+    current_site = get_current_site(request)
     if request.method == "POST":
         try:
             username_or_mail = request.POST.get("email").strip()
@@ -43,7 +44,6 @@ def email_reset_password(request):
 
                 #Email Password reset
                 try: 
-                    current_site = get_current_site(request) 
                     subject = 'Password reset from Adimeals.com'
                     body = render_to_string('email_password_reset.html',{
                         'name':model.first_name,
@@ -155,6 +155,7 @@ def signup(request):
     session_fname = ""
     session_lname = ""
     session_email = ""
+    current_site = get_current_site(request)
 
     if request.method == "POST":
         username = request.POST.get("username").strip()
@@ -218,7 +219,7 @@ def signup(request):
 
         
             user = User.objects.create_user(username=username,first_name=fname,last_name=lname,email=email,password=password)
-            #user2 = User.objects.get(username=username)
+
             try:
                 session_user = User.objects.get(username=request.session['username'])
             except:
@@ -259,11 +260,10 @@ def signup(request):
                     pass
             welcome_mail()
     
-
+    
             #Email Confirmation
             def email_confirmation():
                 try: 
-                    current_site = get_current_site(request)
                     subject = 'Email confirmation from Adimeals.com'
                     body = render_to_string('email_confirmation.html',{
                         'name':fname,
@@ -285,8 +285,8 @@ def signup(request):
                     return redirect('authentication:signin')
             
                 except Site.DoesNotExist:
-                    messages.error(request,"Site does not exist!")
-                    return redirect('authentication:signup')
+                    messages.success(request,"Your account has been successfully created!\nWe have also sent you a confirmation email, please confirm your email address to login into your account.")
+                    return redirect('authentication:signin')
                 except ConnectionError:
                     pass
             email_confirmation()
@@ -372,11 +372,11 @@ def activate(request, uidb64, token):
 
     if user is not None and generate_token.check_token(user, token):
         user.is_active = True 
-        fname = user.fname 
+        fname = user.first_name
         user.save()
         login(request, user)
-        messages.success(request, "Email has been verified successfully!")
-        return render(request,'home.html',{'fname':fname})
+        messages.success(request, f"Hi {fname}, your Email has been verified successfully. You can proceed to order from our delicious soups and food.")
+        return redirect('home')
     else:
         return render(request, 'activation_failed.html')
     
@@ -390,7 +390,6 @@ def activate2(request, uidb64, token):
 
     if user is not None and generate_token.check_token(user, token):
         return redirect(reverse('authentication:reset',args=[uid,token]))
-
     else:
         return render(request, 'activation_failed.html')
 
@@ -672,7 +671,9 @@ def setpassword(request):
 #This is a view to reset password by e-mail or username when user forgets password 
 def password_reset_by_mail(request, uid, token):
     try:
-        user = User.objects.get(username=uid)
+        user = User.objects.get(pk=uid)
+        current_password = user.password
+        print(current_password)
         if request.method == "POST":
             password = request.POST.get("password").strip()
             password2 = request.POST.get("password2").strip()
@@ -706,16 +707,15 @@ def password_reset_by_mail(request, uid, token):
                 except:
                     messages.error(request,"Numeric only password is not allowed.\nPlease, try another password!")
                     return redirect(reverse('authentication:reset',args=[uid,token]))
-                try:
-                   password_changed(password,user=User,password_validators=NumericPasswordValidator)
-                except:
+                
+                if check_password(password,current_password):
                     messages.error(request, "Old password cannot be used!\nPlease, try a new password.")
                     return redirect(reverse('authentication:reset',args=[uid,token]))
-
-                user.set_password(password)
-                user.save()
-                messages.success(request, "You have successfully changed your password!")
-                return redirect(reverse('authentication:reset',args=[uid,token]))
+                else:
+                    user.set_password(password)
+                    user.save()
+                    messages.success(request, "You have successfully changed password!")
+                    return redirect('authentication:signin')
     except AttributeError:
         return redirect('authentication/connection_error.html')
         
