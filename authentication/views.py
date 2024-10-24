@@ -262,34 +262,34 @@ def signup(request):
     
     
             #Email Confirmation
-            def email_confirmation():
-                try: 
-                    subject = 'Email confirmation from Adimeals.com'
-                    body = render_to_string('email_confirmation.html',{
-                        'name':fname,
-                        'domain':current_site.domain,
-                        'uid':urlsafe_base64_encode(force_bytes(user.pk)),
-                        'token': generate_token.make_token(user)
-                    }) 
-                    from_email = EMAIL_HOST_USER
-                    to = [user.email]
-                    email = EmailMultiAlternatives(
-                        subject,
-                        body,
-                        from_email,
-                        to,
-                    )
-                    email.content_subtype = "html"
-                    email.send(fail_silently = True)
-                    messages.success(request,"Your account has been successfully created!\nWe have also sent you a confirmation email, please confirm your email address to login into your account.")
-                    return redirect('authentication:signin')
-            
-                except Site.DoesNotExist:
-                    messages.success(request,"Your account has been successfully created!\nWe have also sent you a confirmation email, please confirm your email address to login into your account.")
-                    return redirect('authentication:signin')
-                except ConnectionError:
-                    pass
-            email_confirmation()
+            #def email_confirmation():
+            try: 
+                subject = 'Email confirmation from Adimeals.com'
+                body = render_to_string('email_confirmation.html',{
+                    'name':fname,
+                    'domain':current_site.domain,
+                    'uid':urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token': generate_token.make_token(user)
+                }) 
+                from_email = EMAIL_HOST_USER
+                to = [user.email]
+                email = EmailMultiAlternatives(
+                    subject,
+                    body,
+                    from_email,
+                    to,
+                )
+                email.content_subtype = "html"
+                email.send(fail_silently = True)
+                messages.success(request,"Your account has been successfully created!\nWe have also sent you a confirmation email, please confirm your email address to login into your account.")
+                return redirect('authentication:signin')
+        
+            except Site.DoesNotExist:
+                messages.success(request,"Your account has been successfully created!\nWe have also sent you a confirmation email, please confirm your email address to login into your account.")
+                return redirect('authentication:signin')
+            except:
+                messages.success(request,"Your account has been successfully created!\nWe have also sent you a confirmation email, please confirm your email address to login into your account.")
+                return redirect('authentication:signin')
     
     try:
         session_username = request.session['username']  

@@ -32,56 +32,59 @@ def returns_item(items,food_category):
     return new_items
 
 def cart_items(request):
-    new_cartitems = ""
-    cart = ""
-    protein = ""
-
-    request.session['protein'] = {'beef':['fried beef','boiled beef'],
-                                        'chicken':['fried chicken','boiled chicken'],
-                                        'fish':['fried fish','boiled fish'],
-                                        'goat':['fried goat','boiled goat'],
-                                        }
-    
-    protein = request.session['protein'].items()
-
     try:
-        if request.user.is_authenticated:
-            cart = Cart.objects.get(user=request.user)
-        else:
-            cart = Cart.objects.get(session_id=request.session['cart_users'],is_paid=False)
-        cartitems = cart.cartitems.all()
-        if len(cartitems) == 0:
+        new_cartitems = ""
+        cart = ""
+        protein = ""
+
+        request.session['protein'] = {'beef':['fried beef','boiled beef'],
+                                            'chicken':['fried chicken','boiled chicken'],
+                                            'fish':['fried fish','boiled fish'],
+                                            'goat':['fried goat','boiled goat'],
+                                            }
+        
+        protein = request.session['protein'].items()
+
+        try:
+            if request.user.is_authenticated:
+                cart = Cart.objects.get(user=request.user)
+            else:
+                cart = Cart.objects.get(session_id=request.session['cart_users'],is_paid=False)
+            cartitems = cart.cartitems.all()
+            if len(cartitems) == 0:
+                messages.info(request,"Add items to cart to view items!")
+                return redirect(request.META.get('HTTP_REFERER'))
+            else:
+                new_cartitems = returns_item(cartitems,"mini_box")
+
+                if request.method == "POST":
+                    protein_select = request.POST.get("protein")
+                    subprotein_select = request.POST.get("subprotein")
+                    item = request.POST.get("item_id")
+                    print(item)
+
+                    cartitemfood = CartItemsFood.objects.get(cart=cart,object_id=item)
+                
+                    if cartitemfood.protein is not protein_select and cartitemfood.subprotein is not subprotein_select:
+                        cartitemfood.protein = protein_select
+                        cartitemfood.subprotein = subprotein_select
+                        cartitemfood.save()
+                    else:
+                        pass
+                    messages.info(request,"You have successfully changed protein")
+                    return redirect(request.META.get('HTTP_REFERER'))
+                    
+        except Mobile.DoesNotExist:
+            messages.info(request,"Add Mobile no before viewing cart!")
+            return redirect(request.META.get('HTTP_REFERER'))
+        except Cart.DoesNotExist:
             messages.info(request,"Add items to cart to view items!")
             return redirect(request.META.get('HTTP_REFERER'))
-        else:
-            new_cartitems = returns_item(cartitems,"mini_box")
-
-            if request.method == "POST":
-                protein_select = request.POST.get("protein")
-                subprotein_select = request.POST.get("subprotein")
-                item = request.POST.get("item_id")
-                print(item)
-
-                cartitemfood = CartItemsFood.objects.get(cart=cart,object_id=item)
-            
-                if cartitemfood.protein is not protein_select and cartitemfood.subprotein is not subprotein_select:
-                    cartitemfood.protein = protein_select
-                    cartitemfood.subprotein = subprotein_select
-                    cartitemfood.save()
-                else:
-                    pass
-                messages.info(request,"You have successfully changed protein")
-                return redirect(request.META.get('HTTP_REFERER'))
-                
-    except Mobile.DoesNotExist:
-        messages.info(request,"Add Mobile no before viewing cart!")
-        return redirect(request.META.get('HTTP_REFERER'))
-    except Cart.DoesNotExist:
-        messages.info(request,"Add items to cart to view items!")
-        return redirect(request.META.get('HTTP_REFERER'))
-    except KeyError:
-        messages.info(request,"Add items to cart to view items!")
-        return redirect(request.META.get('HTTP_REFERER'))
+        except KeyError:
+            messages.info(request,"Add items to cart to view items!")
+            return redirect(request.META.get('HTTP_REFERER'))
+    except:
+        pass
     
     return render(request,'cart/new.html',{
         'food':food_model,
@@ -140,7 +143,7 @@ def cart_buttons(request):
                 item.delete()
                 cartitem_price = 0
                 new_quantity = 0
-                total_quantities = 0
+                total_quantities = total_quantities - 1
                 list_item = [cartitem_price,new_quantity,total_quantities,cart.total_price(),len(cart_items)]
             
         else:
@@ -217,6 +220,25 @@ def checkout(request):
 
             new = request.session.get('cartitems')
             del new 
+
+            if request.method == "POST":
+                payment_method = request.POST["paymentMethod"]
+                if payment_method == "flutterwave":
+                    print(payment_method)
+                    return redirect(reverse('payments:flutterwave', kwargs={
+                        'username': username,
+                        'email': address.user.email,
+                        'phone_no': phone_no,
+                        'price': cart.total_price(),
+                        'pk': cart.pk,
+                        'slug':cart.uid,
+                    }))
+                elif payment_method == "paystack":
+                    messages.info(request, "Please, kindly make use of Flutterwave payment gateway. We are currently integrating Paystack.")
+                    return redirect(request.META.get('HTTP_REFERER'))
+                else:
+                    messages.info(request, "Please, kindly make use of Flutterwave payment gateway. We are currently integrating Interswitch.")
+                    return redirect(request.META.get('HTTP_REFERER'))
         else:
             cart = Cart.objects.get(session_id=request.session['cart_users'],is_paid=False)
             address = "Anonymousstreet.com"
@@ -225,30 +247,13 @@ def checkout(request):
             phone_no = "081-AnonymousUser"
         cartitems = cart.cartitems.all()
         new_cartitems = returns_item(cartitems,"mini_box")
-
-        if request.method == "POST":
-            payment_method = request.POST["paymentMethod"]
-            if payment_method == "flutterwave":
-                print(payment_method)
-                return redirect(reverse('payments:flutterwave', kwargs={
-                    'username': username,
-                    'email': address.user.email,
-                    'phone_no': phone_no,
-                    'price': cart.total_price(),
-                    'pk': cart.pk,
-                    'slug':cart.uid,
-                }))
-            elif payment_method == "paystack":
-                messages.info(request, "Please, kindly make use of Flutterwave payment gateway. We are currently integrating Paystack.")
-                return redirect(request.META.get('HTTP_REFERER'))
-            else:
-                messages.info(request, "Please, kindly make use of Flutterwave payment gateway. We are currently integrating Interswitch.")
-                return redirect(request.META.get('HTTP_REFERER'))
             
     except Mobile.DoesNotExist:
-        messages.info(request,"Add Mobile No before proceeding to pay!")
+        messages.info(request,"Add MOBILE NUMBER before proceeding to pay!")
         return redirect('authentication:mobile')
-        
+    except UserAddress.DoesNotExist:
+        messages.info(request,"Add ADDRESS before proceeding to pay!")
+        return redirect('authentication:mobile')
 
     return render(request,'cart/checkout.html',{
         'address':address,
