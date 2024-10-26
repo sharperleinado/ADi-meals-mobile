@@ -41,6 +41,7 @@ function addToCart(e){
     .then(res=>res.json())
     .then(data=>{
         document.getElementById("food_addtocart").innerHTML = '<strong>' + data + '</strong>'
+        document.getElementById("mobile_food_addtocart").innerHTML = '<strong>' + data + '</strong>'
         console.log(data)
 
     })

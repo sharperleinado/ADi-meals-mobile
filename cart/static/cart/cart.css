@@ -58,44 +58,6 @@
   padding-bottom: -5px;
 }
 
-/*
-#add-item{
-  margin-left: 45px;
-  padding:10px;
-  margin-top: -3px;
-}
-
-#subtract-item{
-  margin-left: 77px;
-  margin-top:-77px;
-  padding:12px;
-}
-
-#update-login{
-  margin-top: -75px;
-  padding:10px;
-  padding-top:5px;
-  padding-bottom:5px;
-}
-
-#update-logout{
-  margin-left: 44px;
-  margin-top: -83px;
-  padding-top:12px;
-  padding-bottom:12px;
-  padding-left: 4px;
-  padding-right: 2px;
-}
-
-#delete-item{
-  margin-top: -29px;
-  margin-left: 77px;
-  padding-top:13.5px;
-  padding-bottom:13.5px;
-  padding-left: 6px;
-  padding-right:6px;
-}*/
-
 
 /*This is to hide the form and beautify it on cart page*/
 .hidden-form {

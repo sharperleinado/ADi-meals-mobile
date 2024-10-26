@@ -253,7 +253,7 @@ def checkout(request):
         return redirect('authentication:mobile')
     except UserAddress.DoesNotExist:
         messages.info(request,"Add ADDRESS before proceeding to pay!")
-        return redirect('authentication:mobile')
+        return redirect('address:register_address')
 
     return render(request,'cart/checkout.html',{
         'address':address,

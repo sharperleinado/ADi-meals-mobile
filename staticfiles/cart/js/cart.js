@@ -53,6 +53,7 @@ function addToCart(e){
     .then(res=>res.json())
     .then(data=>{
         document.getElementById("food_addtocart").innerHTML =  data[2]
+        document.getElementById("mobile_food_addtocart").innerHTML = data[2]
         document.getElementById("subtotal").innerHTML =  '₦' + data[3]
         /*Delete thisif it is not working*/
         if (parseInt(data[4]) < 1) {
@@ -91,13 +92,6 @@ function addToCart(e){
             }
         }
         }
-        /*if (btn_name === 'add-item') {
-            showNotification('Item added to the cart', '#4CAF50');
-        } else if (btn_name === 'subtract-item') {
-            showNotification('Item quantity updated', '#FF9800');
-        } else if (btn_name === 'delete-item' && parseInt(data[1]) === 0) {
-            showNotification('Item removed from the cart', '#F44336');
-        }*/
         console.log(data)
 
     })
@@ -105,23 +99,6 @@ function addToCart(e){
         console.log(error)
     })
 }
-
-/*function showNotification(message, color) {
-    let notificationContainer = document.getElementById('notification-container');
-    notificationContainer.innerHTML = message;
-    notificationContainer.style.backgroundColor = color;
-    notificationContainer.style.display = 'block';
-
-    // Hide the notification after a few seconds (adjust as needed)
-    setTimeout(() => {
-        hideNotification();
-    }, 3000);
-}
-
-function hideNotification() {
-    let notificationContainer = document.getElementById('notification-container');
-    notificationContainer.style.display = 'flex';
-}*/
 
 
 let clearAllButton = document.getElementById('clear_all');

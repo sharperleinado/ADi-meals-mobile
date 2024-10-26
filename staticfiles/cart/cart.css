@@ -29,54 +29,34 @@
     text-align: center;
   }
 
-#add-item{
-  margin-left: 26px;
-}
-
-#subtract-item{
-  margin-left: -7px;
-}
-
-#update-login{
-  margin-top: -75px;
-  padding-right: 5px;
-  margin-left: 25px;
-}
-
-#update-logout{
-  margin-top: -75px;
-  padding-right: 5px;
-  margin-left: 25px;
-}
-
-#delete-item{
-  margin-top: -2px;
-  margin-left: 82px;
-  padding-left: 2px;
-  padding-bottom: -5px;
-}
-/*
-#delete-item {
-    margin-top: 10px;
-    margin-left: 83px;
-    padding-left: 6px;
-    padding-bottom: 20px;
-}
-
-#update-login{
-  margin-top: -75px;
-  margin-right: 83px;
-  padding-left: 2px;
-  padding-bottom: -5px;
-}
-
-#update-logout{
-  margin-top: -75px;
-  margin-right: 83px;
-  padding-left: 6px;
-  padding-bottom: 20px;
-}*/
-
+  #add-item{
+    margin-left: 26px;
+  }
+  
+  #subtract-item{
+    margin-left: -7px;
+  }
+  
+  #update-login{
+    margin-top: -74px;
+    padding-right: 14px;
+    margin-left: 26px;
+  }
+  
+  #update-logout{
+    margin-top: -74px;
+    padding-right: 14px;
+    margin-left: 26px;
+  }
+  
+  #delete-item{
+    margin-top: -3px;
+    margin-left: 82px;
+    padding-left: 1px;
+    padding-right:14px;
+    padding-bottom: -5px;
+  }
+  
 
 /*This is to hide the form and beautify it on cart page*/
 .hidden-form {

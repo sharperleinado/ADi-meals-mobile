@@ -38,6 +38,7 @@ def email_reset_password(request):
     if request.method == "POST":
         try:
             username_or_mail = request.POST.get("email").strip()
+            username_or_mail = username_or_mail.lower()
             if username_or_mail:
             
                 model = User.objects.get(Q(username=username_or_mail) | Q(email=username_or_mail))
@@ -155,7 +156,6 @@ def signup(request):
     session_fname = ""
     session_lname = ""
     session_email = ""
-    current_site = get_current_site(request)
 
     if request.method == "POST":
         username = request.POST.get("username").strip()
@@ -219,11 +219,9 @@ def signup(request):
 
         
             user = User.objects.create_user(username=username,first_name=fname,last_name=lname,email=email,password=password)
-
-            try:
-                session_user = User.objects.get(username=request.session['username'])
-            except:
-                pass 
+            user2 = User.objects.get(username=username)
+            
+            session_user = User.objects.filter(username=request.session.get('username'))
             
             if session_user is not None:
                 del request.session['username']
@@ -232,42 +230,19 @@ def signup(request):
                 del request.session['email']
 
             #Daniel, do not forget to set user.is_active = False during deployment.
-            if user.is_superuser:
-                user.is_active = True
-                user.save()
-            elif not user.is_superuser:
-                user.is_active = False
-                user.save()
-        
-            #Welcome mail
-            def welcome_mail():
-                try:
-                    subject = 'Welcome mail from Adimeals.com'
-                    body = render_to_string('welcome_mail.html',{
-                        'name':fname
-                    }) 
-                    from_email = EMAIL_HOST_USER
-                    to = [user.email]
-                    email = EmailMultiAlternatives(
-                        subject,
-                        body,
-                        from_email,
-                        to,
-                    )
-                    email.content_subtype = "html"
-                    email.send(fail_silently = True)
-                except ConnectionError:
-                    pass
-            welcome_mail()
-    
+            if user2.is_superuser:
+                user2.is_active = True
+                user2.save()
+            elif not user2.is_superuser:
+                user2.is_active = False
+                user2.save()
+            
     
             #Email Confirmation
-            #def email_confirmation():
             try: 
                 subject = 'Email confirmation from Adimeals.com'
                 body = render_to_string('email_confirmation.html',{
                     'name':fname,
-                    'domain':current_site.domain,
                     'uid':urlsafe_base64_encode(force_bytes(user.pk)),
                     'token': generate_token.make_token(user)
                 }) 
@@ -281,23 +256,20 @@ def signup(request):
                 )
                 email.content_subtype = "html"
                 email.send(fail_silently = True)
-                messages.success(request,"Your account has been successfully created!\nWe have also sent you a confirmation email, please confirm your email address to login into your account.")
+                messages.success(request,"Your account has been successfully created!\nWe have sent you a confirmation email, please confirm your email address to login into your account.")
                 return redirect('authentication:signin')
         
             except Site.DoesNotExist:
-                messages.success(request,"Your account has been successfully created!\nWe have also sent you a confirmation email, please confirm your email address to login into your account.")
-                return redirect('authentication:signin')
-            except:
-                messages.success(request,"Your account has been successfully created!\nWe have also sent you a confirmation email, please confirm your email address to login into your account.")
-                return redirect('authentication:signin')
-    
-    try:
-        session_username = request.session['username']  
-        session_fname = request.session.get('fname')
-        session_lname = request.session.get('lname') 
-        session_email = request.session.get('email')
-    except:
-        pass
+                messages.success(request,"Site does not exist.")
+                return redirect('authentication:signup')
+    else:
+        try:
+            session_username = request.session['username']  
+            session_fname = request.session.get('fname')
+            session_lname = request.session.get('lname') 
+            session_email = request.session.get('email')
+        except:
+            pass
     
     return render(request,'authentication/signup_kunkky.html',{
         'username':session_username,
@@ -375,8 +347,8 @@ def activate(request, uidb64, token):
         fname = user.first_name
         user.save()
         login(request, user)
-        messages.success(request, f"Hi {fname}, your Email has been verified successfully. You can proceed to order from our delicious soups and food.")
-        return redirect('home')
+        messages.success(request, f"Hello {fname}, your Email has been verified successfully. Please, create address before proceeding to order from our choices of soups, and food.")
+        return redirect('address:register_address')
     else:
         return render(request, 'activation_failed.html')
     
