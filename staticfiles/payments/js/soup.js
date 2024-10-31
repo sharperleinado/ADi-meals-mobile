@@ -50,3 +50,61 @@ function addToCart(e){
     })
 }
 
+
+
+document.querySelectorAll('.proteinClass select[name="protein"]').forEach(ptein => {
+    ptein.addEventListener("change", changeProtein);
+});
+
+function changeProtein(e) {
+    let protein_value = e.target.value;
+    let form = e.target.closest('form'); // Get the closest form element
+    let subproteinSelect = form.querySelector('select[name="subprotein"]'); // Find subprotein select within this form
+    let url = '/payments/change_protein/';
+
+    fetch(url, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+        },
+        body: JSON.stringify({'id': protein_value}),
+    })
+    .then(res => res.json())
+    .then(data => {
+        subproteinSelect.innerHTML = '<option selected=""></option>';
+        data.forEach(item => {
+            subproteinSelect.innerHTML += `<option value="${item}">${item[0].toUpperCase() + item.slice(1)}</option>`;
+        });
+    })
+    .catch(error => {
+        console.log(error);
+    });
+}
+
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    const changeProteinButtons = document.querySelectorAll('.btn-warning');
+    const formContainers = document.querySelectorAll('.hidden-form');
+
+    changeProteinButtons.forEach((button, index) => {
+        const formContainer = formContainers[index];
+        const formOverlay = document.createElement('div');
+        
+        formOverlay.classList.add('protein-background');
+        document.body.appendChild(formOverlay);
+        formOverlay.style.display = 'none';
+
+        button.addEventListener('click', () => {
+            formContainer.classList.remove('hidden-form');
+            formOverlay.style.display = 'block';
+        });
+
+        formOverlay.addEventListener('click', () => {
+            formContainer.classList.add('hidden-form');
+            formOverlay.style.display = 'none';
+        });
+    });
+});
+
+

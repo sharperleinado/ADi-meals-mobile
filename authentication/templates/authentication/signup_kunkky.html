@@ -56,9 +56,19 @@ ADi meals | Sign up
                                 </ul>
                             </div>
 
-
                             <div class="col-12 form-group mb-3" data-for="confirmPassword">
                                 <input type="password" name="password2" placeholder="Confirm password" class="form-control" required>
+                            </div>
+
+                            <div class="col-12 form-group mb-3">
+                                <label class="form-check-label" for="exampleCheck1">
+                                    <input type="checkbox" class="form-check-input" name="termsofservice" required>
+                                        By registering, you agree to ADimeals 
+                                        <a style="color:blue;" href="{% url 'terms_of_service' %}#privacy-policy">
+                                            Privacy Policy</a> and
+                                        <a style="color:blue;" href="{% url 'terms_of_service' %}">
+                                            Terms of Use</a>
+                                </label>
                             </div>
 
                             <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">

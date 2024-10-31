@@ -58,7 +58,6 @@ def soup_box(request):
         userprotein = request.session.get('userprotein', ["beef", "fried beef"])
     
     return render(request,'food_app/soup_box_kunkky.html',{'soup':soup,
-                                                           'protein':userprotein,
                                                             'userprotein':userprotein,
                                                             })
 

@@ -46,6 +46,14 @@ def contact(request):
 def base(request):
 
     return render(request,'base/base.html',{})
+
+def terms_of_service(request):
+
+    return render(request,'terms_of_service.html')
+
+def privacy_policy(request):
+
+    return render(request,'privacy_policy.html')
     
 
 urlpatterns = [
@@ -63,6 +71,8 @@ urlpatterns = [
     path('about/',about,name='about'),
     path('contact/',contact,name='contact'),
     path('base/',base,name='base'),
+    path('terms_of_service/',terms_of_service,name='terms_of_service'),
+    path('privacy_policy/',privacy_policy,name='privacy_policy'),
     
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

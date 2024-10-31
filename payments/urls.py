@@ -14,7 +14,9 @@ urlpatterns = [
     path('price/<slug:slug>/',views.price_in_pack,name='price'), #This is for price in pack page
     path('add_to_cart/',views.add_to_cart,name='addtocart'),
     path('flutterwave/<str:username>/<str:email>/<str:phone_no>/<float:price>/<int:pk>/<slug:slug>', views.flutterwave, name='flutterwave'),
+    path('paystack/<str:username>/<str:email>/<str:phone_no>/<int:price>/<int:pk>/<slug:slug>', views.paystack, name='paystack'),
     path('verify_payment/<float:price>/<int:pk>/<slug:slug>',views.verify_payment,name='verify_payment'),
     path('transactions/',views.transactions,name='transactions'),
     path('all_transactions/',views.all_transactions,name='all_transactions'),
+    path('change_protein/',views.change_protein,name='change_protein'),
 ]

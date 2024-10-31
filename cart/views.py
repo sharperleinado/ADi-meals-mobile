@@ -227,17 +227,23 @@ def checkout(request):
                     print(payment_method)
                     return redirect(reverse('payments:flutterwave', kwargs={
                         'username': username,
-                        'email': address.user.email,
+                        'email': email,
                         'phone_no': phone_no,
                         'price': cart.total_price(),
                         'pk': cart.pk,
-                        'slug':cart.uid,
+                        'slug': cart.uid,
                     }))
                 elif payment_method == "paystack":
-                    messages.info(request, "Please, kindly make use of Flutterwave payment gateway. We are currently integrating Paystack.")
-                    return redirect(request.META.get('HTTP_REFERER'))
+                    return redirect(reverse('payments:paystack', kwargs={
+                        'username': username,
+                        'email': email,
+                        'phone_no': phone_no,
+                        'price': int(cart.total_price()),
+                        'pk': cart.pk,
+                        'slug': cart.uid,
+                    }))
                 else:
-                    messages.info(request, "Please, kindly make use of Flutterwave payment gateway. We are currently integrating Interswitch.")
+                    messages.info(request, "Please, kindly make use of Flutterwave or Paystack payment gateway. We are currently integrating Interswitch.")
                     return redirect(request.META.get('HTTP_REFERER'))
         else:
             cart = Cart.objects.get(session_id=request.session['cart_users'],is_paid=False)

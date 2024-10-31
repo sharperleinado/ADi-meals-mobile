@@ -3,10 +3,12 @@
 {% block pageTitle %}
 ADi meals | Soup select
 {% endblock %}
+
 {% block jscript_attribute %}
 <link rel="stylesheet" href="{% static 'payments/master.css' %}">
 <script src="{% static 'payments/js/soup.js' %}" defer="true"></script>
 {% endblock jscript_attribute %}
+
 {% block pageBody %}
 
 <section data-bs-version="5.1" class="image2 cid-u0tuxl367X" id="image2-7">
@@ -148,7 +150,7 @@ ADi meals | Soup select
             
                     <div class="d-block my-3">
                         <div class="custom-control custom-radio">
-                            <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
+                            <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" required>
                             <label class="custom-control-label" for="credit">Flutterwave</label>
                         </div>
                         <div class="custom-control custom-radio">
@@ -188,10 +190,40 @@ ADi meals | Soup select
                         </div>
                     </li>
                     
+                    {% if user.is_authenticated %}
+                    <li class="list-group-item d-flex justify-content-between bg-light">
+                        <button class="btn btn-warning display-4" id="change-protein">Change Protein</button>
+                    </li>
+                    
+                    <div class="hidden-form">
+                        <div class="protein-content">
+                            <form class="mbr-form form-with-styler" method="POST">
+                                {% csrf_token %}
+                                <div class="proteinClass">
+                                    <label for="protein">Protein</label>
+                                    <select class="form-control d-block w-100" id="protein" name="protein" required>
+                                        <option></option>
+                                        {% for key, value in protein %}
+                                        <option value="{{ key }}">{{ key|capfirst }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    
+                                    <div class="subProtein">
+                                        <label for="subprotein">Subprotein</label>
+                                        <select class="form-control d-block w-100" id="subprotein" name="subprotein" required>
+                                            <option></option>
+                                        </select>
+                                    </div><br>
+                                    <input type="submit" value="change" class="button-change" style="margin-top: 20px;">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    {% endif %}
                     {% comment "" %}
                     <form class="card p-2">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Promo code">
+                            <input type="text" class="form-control" placeholder="Promo code">#}
                             <div class="ïnput-group-append">
                                 <button type="submit" class="btn btn-warning">Redeem</button>
                             </div>
@@ -275,6 +307,36 @@ ADi meals | Soup select
                         </div>
                     </li>
                     
+                    {% if user.is_authenticated %}
+                    <li class="list-group-item d-flex justify-content-between bg-light">
+                        <button class="btn btn-warning display-4" id="change-protein">Change Protein</button>
+                    </li>
+                    
+                    <div class="hidden-form">
+                        <div class="protein-content">
+                            <form class="mbr-form form-with-styler" method="POST" action="">
+                                {% csrf_token %}
+                                <div class="proteinClass">
+                                    <label for="protein">Protein</label>
+                                    <select class="form-control d-block w-100" id="protein" name="protein" required>
+                                        <option></option>
+                                        {% for key, value in protein %}
+                                        <option value="{{ key }}">{{ key|capfirst }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    
+                                    <div class="subProtein">
+                                        <label for="subprotein">Subprotein</label>
+                                        <select class="form-control d-block w-100" id="subprotein" name="subprotein" required>
+                                            <option></option>
+                                        </select>
+                                    </div><br>
+                                    <input type="submit" value="change" class="button-change" style="margin-top: 20px;">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    {% endif %}
                 </li>
             </ul>
 
@@ -283,7 +345,7 @@ ADi meals | Soup select
             </hr>
 
             <hr class="mb-4">
-            
+
                 <h4 class="mb-3">Payment</h4>
                 {% if user.is_authenticated %}
                     <form method="POST" class="needs-validation" novalidate>
@@ -352,6 +414,37 @@ ADi meals | Soup select
                             <button class="btn btn-primary display-4" name={{item2.mega_box_name}} value={{item2.pk}} id="add-item">Add To Cart</button>
                         </div>
                     </li>
+
+                    {% if user.is_authenticated %}
+                    <li class="list-group-item d-flex justify-content-between bg-light">
+                        <button class="btn btn-warning display-4" id="change-protein">Change Protein</button>
+                    </li>
+
+                    <div class="hidden-form">
+                        <div class="protein-content">
+                            <form class="mbr-form form-with-styler" method="POST" action="">
+                                {% csrf_token %}
+                                <div class="proteinClass">
+                                    <label for="protein">Protein</label>
+                                    <select class="form-control d-block w-100" id="protein" name="protein" required>
+                                        <option></option>
+                                        {% for key, value in protein %}
+                                        <option value="{{ key }}">{{ key|capfirst }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    
+                                    <div class="subProtein">
+                                        <label for="subprotein">Subprotein</label>
+                                        <select class="form-control d-block w-100" id="subprotein" name="subprotein" required>
+                                            <option></option>
+                                        </select>
+                                    </div><br>
+                                    <input type="submit" value="change" class="button-change" style="margin-top: 20px;">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    {% endif %}
                 </li>
             </ul>
 

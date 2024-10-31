@@ -37,6 +37,66 @@ def tx_ref():
     return  tx_ref
 
 
+import os
+import requests
+from django.http import JsonResponse
+from django.shortcuts import redirect
+
+
+def paystack(request, username, email, phone_no, price, pk, slug):
+    url = "https://api.paystack.co/transaction/initialize"
+    authorization = {
+        "Authorization": f"Bearer {os.getenv('PAYSTACK_SECRET_KEY')}",
+        "Cache-Control": "no-cache",
+        "Content-Type": "application/json"
+    }
+    data = {
+        "amount": int(price * 100),
+        "currency": "NGN",
+        "email":email,
+        "reference": tx_ref(),
+        "callback_url": f"http://localhost:8000/payments/verify_payment/{price}/{pk}/{slug}",
+        "metadata": {
+        "custom_fields": [
+            {
+            "display_name": "ADi meals",
+            "variable_name": "ADi meals",
+            "value": "ADi"
+            },
+            {
+            "display_name": "Paystack",
+            "variable_name": "Paystack",
+            "value": "API call"
+            }
+        ]
+        },
+        "customer": {
+            "id": pk,
+            "first_name": request.user.first_name,
+            "last_name": request.user.last_name,
+            "email": email,
+            "customer_code": "CUS_hns72vhhtos0f0k",
+            "phone": phone_no,
+            "risk_action": "default"
+            },
+    }
+
+    try:
+        response = requests.post(url, headers=authorization, json=data)
+
+        response.raise_for_status()  # Raise an error for bad status codes
+
+        json_response = response.json()
+        generated_link = json_response['data']
+        print(json_response['status'])
+        return redirect(generated_link['authorization_url'])
+        
+    except requests.exceptions.RequestException as err:
+        error_message = f"Error: {err}"
+        print(error_message)
+        return JsonResponse({"error": error_message}, status=500, safe=False)
+
+
 def flutterwave(request,username,email,phone_no,price,pk,slug):
     
     url = "https://api.flutterwave.com/v3/payments"
@@ -59,8 +119,8 @@ def flutterwave(request,username,email,phone_no,price,pk,slug):
             "name": username
         },
         "customizations": {
-            "title": "ADi Meals",
-            "logo": "https://i.imgur.com/MnUGFHi.jpeg"#"https://i.imgur.com/k3TOSas.jpeg"
+            "title": "ADi meals",
+            "logo": "https://i.imgur.com/MnUGFHi.jpeg"
         },
         "configurations": {
             "session_duration": 10,  # Session timeout in minutes (maxValue: 1440 minutes)
@@ -283,6 +343,13 @@ def payment(request, price, slug):
     userprotein = ""
     pk = ""
 
+    request.session['protein'] = {'beef':['fried beef','boiled beef'],
+                                    'chicken':['fried chicken','boiled chicken'],
+                                    'fish':['fried fish','boiled fish'],
+                                    'goat':['fried goat','boiled goat'],
+                                    }
+    protein = request.session['protein'].items()
+
     try:
         if request.user.is_authenticated:
             address = UserAddress.objects.get(user=request.user)
@@ -304,22 +371,40 @@ def payment(request, price, slug):
                     pass
 
             if request.method == "POST":
-                payment_method = request.POST.get("paymentMethod")
-                if payment_method == "flutterwave":
-                    return redirect(reverse('payments:flutterwave', kwargs={
-                        'username': username,
-                        'email': email,
-                        'phone_no': phone_no,
-                        'price': price,
-                        'pk': pk,
-                        'slug':slug,
-                    }))
-                elif payment_method == "paystack":
-                    messages.info(request, "Please, kindly make use of Flutterwave payment gateway. We are currently integrating Paystack.")
-                    return redirect(request.META.get('HTTP_REFERER'))
-                else:
-                    messages.info(request, "Please, kindly make use of Flutterwave payment gateway. We are currently integrating Interswitch.")
-                    return redirect(request.META.get('HTTP_REFERER'))
+                if 'protein' in request.POST:
+                    protein_select = request.POST.get("protein")
+                    subprotein_select = request.POST.get("subprotein")
+                    print(protein_select)
+                    print(subprotein_select)
+                    if request.user.is_authenticated:
+                        request.session[str(request.user)] = [protein_select, subprotein_select]
+                        messages.info(request,"You have successfully changed protein")
+                        print(request.session[str(request.user)])
+                        return redirect(request.META.get('HTTP_REFERER'))
+            
+                elif 'paymentMethod' in request.POST:
+                    payment_method = request.POST.get("paymentMethod")
+                    if payment_method == "flutterwave":
+                        return redirect(reverse('payments:flutterwave', kwargs={
+                            'username': username,
+                            'email': email,
+                            'phone_no': phone_no,
+                            'price': int(price),
+                            'pk': pk,
+                            'slug':slug,
+                        }))
+                    elif payment_method == "paystack":
+                        return redirect(reverse('payments:paystack', kwargs={
+                            'username': username,
+                            'email': email,
+                            'phone_no': phone_no,
+                            'price': int(price),
+                            'pk': pk,
+                            'slug':slug,
+                        }))
+                    else:
+                        messages.info(request, "Please, kindly make use of Flutterwave or Paystack payment gateway. We are currently integrating Interswitch.")
+                        return redirect(request.META.get('HTTP_REFERER'))
         else:
             address = "Anonymousstreet.com"
             username = "Anonymous-User"
@@ -355,7 +440,18 @@ def payment(request, price, slug):
         'address':address,
         'userprotein':userprotein,
         'pk':pk,
+        'protein':protein,
     })
+
+
+def change_protein(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        protein_value = data.get('id')
+        subproteins = request.session['protein'].get(protein_value, [])
+        print(subproteins)
+        return JsonResponse(subproteins, safe=False)
+    return JsonResponse({'error': 'Invalid request'}, status=400)
 
 
 #What I did here is, I first got the price_in_pack input from the user,

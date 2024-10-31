@@ -17,13 +17,13 @@ ADi meals | Home
             </strong><strong>to ADi meals!</strong></h1>
           <p class="mbr-text mbr-white mbr-fonts-style display-7">
             {% if user.is_authenticated %}
-            Hi {{fname|capfirst}}, we are delighted to have you on board our fast moving Airplane. We hope that you make yourself comfortable with our amazing features.
-            Please, we advice that you make use of your seat belt as we take off as a new company. We also encourage you to ensure that your seat belt is well tightened as we cannot predict the journey
-            ahead but we believe that there is a bright future ahead for us all.
+            Hi {{fname|capfirst}}, we are delighted to have you on board our fast moving Airplane.
+            We advice you to make use of your seat belt as we take off as a new company, as the jouney 
+            ahead cannot be predicted by us, but we believe there is a bright future ahead for us all.
             {% else %}
-            Hi Prospective Customer, we are delighted to have you visiting our fast moving Airplane. We hope that you make yourself comfortable with our amazing features.
-            Please, we advice that you make use of your seat belt as we take off as a new company. We also encourage you to ensure that your seat belt is well tightened as we cannot predict the journey
-            ahead but we believe that there is a bright future ahead for us all.
+            Hi Prospective Customer, we are delighted to have you on board our fast moving Airplane.
+            We advice you to make use of your seat belt as we take off as a new company, as the jouney 
+            ahead cannot be predicted by us, but we believe there is a bright future ahead for us all.
             {% endif %}</p>
           <div class="mbr-section-btn align-center"><a class="btn btn-primary display-4" href="#foodbox"><span
                 class="mobi-mbri mobi-mbri-shopping-basket mbr-iconfont mbr-iconfont-btn"></span>Get
@@ -95,35 +95,7 @@ ADi meals | Home
             <div class="row">
               <div class="col-12 col-md-7">
                 <div class="text-wrapper">
-  
-                  <h5 class="card-title mbr-fonts-style display-5">
-                    <strong>Food Box</strong>
-                  </h5>
-                  <p class="mbr-text mbr-fonts-style mb-5 display-4">Our Food box menu offers varieties of food 
-                    that ranges from Pounded yam and Egusi soup to Ewa Aganyin and bread, and many more, with each 
-                    food having graduated from University of Ibadan to attain their respective Masters and PhD Degree.
-                    </p>
-                  <div class="mbr-section-btn"><a href="{% url 'food_app:foodbox' %}" class="btn btn-warning display-4">Order Food</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-12 col-md-5">
-                <div class="img-wrapper">
-                  <a href="{% url 'food_app:foodbox' %}">
-                  <img
-                    src="{% static 'assets/images/still-life-cardboard-organic-dinnerware-23-2149542080-357x238.jpg' %}"
-                    alt="adi"></a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="item features-without-image mb-4 col-12 col-md-6">
-          <div class="item-wrapper">
-            <div class="row">
-              <div class="col-12 col-md-7">
-                <div class="text-wrapper">
-  
+                
                   <h5 class="card-title mbr-fonts-style display-5">
                     <strong>Soup Box</strong>
                   </h5>
@@ -139,9 +111,36 @@ ADi meals | Home
               <div class="col-12 col-md-5">
                 <div class="img-wrapper">
                   <a href="{% url 'food_app:soupbox' %}">
-                  <img
-                    src="{% static 'assets/images/top-view-vegetable-soup-with-meat-inside-plate-grey-140725-36040-357x238.jpg' %}"
-                    alt="adi"></a>
+                    <img
+                      src="{% static 'assets/images/top-view-vegetable-soup-with-meat-inside-plate-grey-140725-36040-357x238.jpg' %}"
+                      alt="adi"></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="item features-without-image mb-4 col-12 col-md-6">
+          <div class="item-wrapper">
+            <div class="row">
+              <div class="col-12 col-md-7">
+                <div class="text-wrapper">
+                  <h5 class="card-title mbr-fonts-style display-5">
+                    <strong>Food Box</strong>
+                  </h5>
+                  <p class="mbr-text mbr-fonts-style mb-5 display-4">Our Food box menu offers varieties of food 
+                    that ranges from Pounded yam and Egusi soup to Ewa Aganyin and bread, and many more, with each 
+                    food having graduated from University of Ibadan to attain their respective Masters and PhD Degree.
+                    </p>
+                  <div class="mbr-section-btn"><a href="{% url 'food_app:foodbox' %}" class="btn btn-warning display-4">Order Food</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-5">
+                <div class="img-wrapper">
+                  <a href="{% url 'food_app:foodbox' %}">
+                    <img
+                      src="{% static 'assets/images/still-life-cardboard-organic-dinnerware-23-2149542080-357x238.jpg' %}"
+                      alt="adi"></a>
                 </div>
               </div>
             </div>
@@ -438,7 +437,7 @@ ADi meals | Home
               </h4>
               <p class="mbr-text mbr-fonts-style mb-2 display-4">
                 We will reply as soon as possible</p>
-              <h5 class="link mbr-fonts-style display-7"><a href="mailto:talktoadi@adimeals.com" class="text-primary">Send us an
+              <h5 class="link mbr-fonts-style display-7"><a href="mailto:adimeals@gmail.com" class="text-primary">Send us an
                   email</a>
               </h5>
             </div>
@@ -474,7 +473,7 @@ ADi meals | Home
   
     <div class="position-relative text-center">
       <h3 class="mb-4 mbr-fonts-style display-2">
-        <strong>What Our Fantastic buyer&nbsp;</strong><strong>Say</strong>
+        <strong>What Our Food Lovers&nbsp;</strong><strong>Say</strong>
       </h3>
   
       <div class="embla" data-skip-snaps="true" data-align="center" data-loop="true" data-auto-play="true"
@@ -485,7 +484,8 @@ ADi meals | Home
               <div class="user">
                 <div class="user_image">
                   <div class="item-wrapper position-relative">
-                    <img src="{% static 'assets/images/team3.jpg' %}" alt="kunkky Website Builder">
+                    {#<img src="{% static 'assets/images/team3.jpg' %}" alt="kunkky Website Builder">#}
+                    <img src="{% static 'lilimoren.jpg' %}" alt="kunkky Website Builder">
                   </div>
                 </div>
                 <div class="user_text mb-4">
