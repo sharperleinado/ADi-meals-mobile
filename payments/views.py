@@ -37,12 +37,6 @@ def tx_ref():
     return  tx_ref
 
 
-import os
-import requests
-from django.http import JsonResponse
-from django.shortcuts import redirect
-
-
 def paystack(request, username, email, phone_no, price, pk, slug):
     url = "https://api.paystack.co/transaction/initialize"
     authorization = {

@@ -62,11 +62,6 @@ body{
     }
 }
 
-p{
-    font-size: 25px;
+.notice {
+    color:red
 }
-
-li{
-    font-size: 25px;
-}
-

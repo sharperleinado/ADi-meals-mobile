@@ -78,10 +78,10 @@ def cart_items(request):
             messages.info(request,"Add Mobile no before viewing cart!")
             return redirect(request.META.get('HTTP_REFERER'))
         except Cart.DoesNotExist:
-            messages.info(request,"Add items to cart to view items!")
+            messages.info(request,"Add to cart to view items!")
             return redirect(request.META.get('HTTP_REFERER'))
         except KeyError:
-            messages.info(request,"Add items to cart to view items!")
+            messages.info(request,"Add to cart to view items!")
             return redirect(request.META.get('HTTP_REFERER'))
     except:
         pass

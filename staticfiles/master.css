@@ -60,11 +60,3 @@ body{
         display: block; /* Show on desktop devices */
     }
 }
-
-p{
-    font-size: 25px;
-}
-
-li{
-    font-size: 25px;
-}
