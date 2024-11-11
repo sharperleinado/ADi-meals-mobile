@@ -6,14 +6,14 @@ ADi meals | OTP
 {% block pageBody %}
 
 <section data-bs-version="5.1" class="image2 cid-u0tuxl367X" id="image2-7">
-    <div class="mbr-section-head">
-        <div class="col-md-12 col-lg-10 m-auto align-center">
-            <h1 class="mbr-section-title mbr-white mbr-fonts-style mb-3 display-1" style="color:green;"><strong>One Time Password</strong></h1>
-        </div><br><br>
-    </div>
-
-    {% if user.is_authenticated %}
     <div class="container">
+        <div class="mbr-section-head">
+            <div class="col-md-12 col-lg-10 m-auto align-center">
+                <h1 class="mbr-section-title mbr-white mbr-fonts-style mb-3 display-1" style="color:green;"><strong>One Time Password</strong></h1>
+            </div><br><br>
+        </div>
+
+        {% if user.is_authenticated %}
         <div class="row align-items-center">
             
             <div class="col-12 col-lg">
@@ -27,7 +27,7 @@ ADi meals | OTP
                                 <input type="text" name="otp" placeholder="Enter Otp" class="form-control" value="">
                             </div>
 
-                            <p class="display-4 ">Please, input the otp sent to the mobile number displayed above.</p>
+                            <p class="display-4 ">Please, input otp sent to your mobile number.</p>
                             <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
                                 <button type="submit" class="btn btn-primary display-4 w-100 ">Submit</button>
                             </div>
@@ -54,9 +54,9 @@ ADi meals | OTP
     <h2><center><strong>Gotcha!</strong></center></h2><br>
     <br><br><br><h2><strong><center>You must be logged in to view this page!</strong></center></h2><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
         </div>
-    </div>
 
     {% endif %}
+</div>
 </section>
 
 {% endblock %}

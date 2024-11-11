@@ -23,8 +23,13 @@ ADi meals | Our Story
                         <strong>Story Story!</strong>
                     </h3>
 
-{% if user.is_authenticated %}
-<p class="mbr-text mbr-fonts-style display-7">Hi {{fname|capfirst}}, my name is ADi, 
+<p class="mbr-text mbr-fonts-style display-7">Hi
+    {% if user.is_authenticated %}
+    {{fname|capfirst}},
+    {% else %}
+    Prospective Customer,
+    {% endif %} 
+    my name is ADi, 
     and I would love to share you a part of my story on what became the 
     inception of ADi meals as a Soup and Food service company.
 </p>
@@ -72,7 +77,7 @@ ADi meals | Our Story
 <p class="mbr-text mbr-fonts-style display-7">
     But over the years, Mama ADi had been undervalued and underpaid despite the so much efforts 
     she puts into cooking. There were times she would return from a catering job that lasted about 5days, 
-    and she would be unable to see properly for the next 2dya to due to the furnace of fire she had endured 
+    and she would be unable to see properly for the next two days due to the furnace of fire she had endured 
     during work. I remember I would go to the backyard of the house to cry my ass out because I wanted to 
     change my mum's story.
 </p>
@@ -90,7 +95,7 @@ ADi meals | Our Story
     Sometimes, we understand that Nigerians can be calculative in spending, for example: I have a family of 6 
     in the house, rather than buying containerized food for all six, a Nigerian woman might decide to cook at 
     home but this is what our soup service hopes to solve by offering you your choice of soup, and then you choose
-    to prepare the chewable food yourself. That way, you have killed a bed with two stones. We have 
+    to prepare the chewable food at his or her own convenience. That way, you have killed a bed with two stones. We have 
     saved your time, money, and even reduced the stress it would take you to cook the soup.
 </p>
 
@@ -103,90 +108,6 @@ ADi meals | Our Story
 
     Please, help Mama ADi, and ADi meals win today by buying our meals.
 </p>
-
-{% else %}
-
-<p class="mbr-text mbr-fonts-style display-7">Hi Prospective Customer, my name is ADi, 
-    and I would love to share you a part of my story on what became the 
-    inception of ADi meals as a Soup and Food service company.
-</p>
-
-<p class="mbr-text mbr-fonts-style display-7">On the morning of February 27th, in 2006, 
-    a big decision was taken in my family by my Mum, whom I will refer to her as Mama ADi in the rest of my story. 
-    She decided to part ways with her then husband, which made her leave Lagos with my little bro to settle down 
-    in Akure, leaving behind myself and two other siblings.
-</p>
-
-<p class="mbr-text mbr-fonts-style display-7">Few weeks down the line, 
-    I and my siblings got abandoned at my Aunt's place 
-    where we lived for a year plus without having to attend school. 
-    Although, we attended summer and spring lessons during the holidays. Mum on the other end was struggling 
-    really hard to raise enough money to migrate us from Lagos to Akure.
-</p>
-
-<p class="mbr-text mbr-fonts-style display-7">
-    Then, one afternoon, a day to always remember, I was at my Aunt's shop when 
-    I saw my mum at the other side of the road. I couldn't believe my eyes until she was right beside me.
-    This was a woman that looked so slim before she had left us to looking chubby, 
-    but that's a story for another day. We didn't know she had planned a surprise visit with our 
-    aunt initially. To cut the long story short, we were in the first bus to Akure the following week. 
-</p>
-
-<h4><strong>Part 2 (Intersection)</strong></h4>
-<p class="mbr-text mbr-fonts-style display-7">
-    On arriving to Akure in year 2007, the life we met there is a story for another day. Mama ADi always had a 
-    thought of how she was going to survive alone with four kids, but God did!
-</p>
-
-<p class="mbr-text mbr-fonts-style display-7">
-    Though, technically she wasn't alone. It would be of no good of me as the story teller if I did not make 
-    mention of my Uncle, Igor. He deserves an accolade as the best uncle in the world.
-    I would dedicate another day to tell you about how good and supporting he has been to us.
-</p> 
-
-<p class="mbr-text mbr-fonts-style display-7">
-    Now, back to my story; She started off as a cook, where she specialized in catering services for events, 
-    soup and food services for people. One unique thing she does before leaving the house for
-    catering jobs was to ensure she prepared enough soup in small and medium containers that would last us 
-    while she was away. These were soups that would last 3-5days refigerated.
-</p> 
-    
-<p class="mbr-text mbr-fonts-style display-7">
-    But over the years, Mama ADi had been undervalued and underpaid despite the so much efforts 
-    she puts into cooking. There were times she would return from a catering job that lasted about 5days, 
-    and she would be unable to see properly for the next 2dya to due to the furnace of fire she had endured 
-    during work. I remember I would go to the backyard of the house to cry my ass out because I wanted to 
-    change my mum's story.
-</p>
-    
-<p class="mbr-text mbr-fonts-style display-7">
-    So, fastforward to after I graduated University, I thought of how I could use the power of coding, 
-    the power of creating applications to change Mama ADi's business for good, since it was part of what I studied 
-    back in the university. I gathered the best brains, and together we built an application where people can 
-    place order for Mama ADi's food or soup in various box sizes which is where we are today. Her dream has 
-    always been to produce containerized food and soups for Nigerians. 
-    Today, we are in a world where everyone is busy. ADi meals hopes to simplify food and soup cooking by exchanging 
-    our busy hours with quality meals. Imagine a lady Banker that closes from work by 6pm but would still 
-    have to be home to cook for the family or a Teacher or Bachelor that closes from work by 4pm but would still 
-    have to go home to cook, when it can be ordered from us.<br><br>
-    Sometimes, we understand that Nigerians can be calculative in spending, for example: I have a family of 6 
-    in the house, rather than buying containerized food for all six, a Nigerian woman might decide to cook at 
-    home but this is what our soup service hopes to solve by offering you your choice of soup, and then you choose
-    to prepare the chewable food yourself. That way, you have killed a bed with two stones. We have 
-    saved your time, money, and even reduced the stress it would take you to cook the soup.
-</p>
-
-<p class="mbr-text mbr-fonts-style display-7">
-    You see, my dear friend, everything you have read so far is not to score some emotional cheap point but 
-    to categorically inform you that you would not be wasting your money when you buy any of our meals. I beat my 
-    chest to tell you that Mama ADi cooks the best soups, and food in Nigeria! If you eventually buy our soup or 
-    food, and you feel any regrets, I will not only refund you but tender an apology by trekking down to your 
-    home to deliver the apology myself!<br><br> 
-
-    Please, help Mama ADi, and ADi meals win today by buying our meals.
-</p>
-
-{% endif %}
 
                 </div>
             </div>
@@ -212,29 +133,31 @@ ADi meals | Our Story
                 <div class="row justify-content-center">
                     <div class="col-12 col-lg-6">
                         <ul class="list mbr-fonts-style display-7">
-                            <li><strong>How to create more items in this list?</strong><br>Press <strong>Enter
-                                </strong>to create a new
-                                bullet. To
-                                create an answer for a question, press <strong>Shift+Enter</strong>.</li>
-                            <li><strong>Can I create sites for commerical projects?</strong><br>Yes, Mobirise is free
-                                for both
-                                non-profit
-                                and commercial sites.</li>
-                            <li><strong>How to install more extensions?</strong><br>Open the main menu in the app and
-                                find the
-                                Extensions
-                                tab. Click on it to open the Extensions list.</li>
+                            <li><strong>Is ADi meals a registered company?</strong><br>Yes, we are a registered <strong>limited
+                            </strong>company under the Corporate Affairs Commission in Nigeria.</li>
+                            <li><strong>Does ADi meals accept cash payments on delivery?</strong><br>No,
+                                 we do not accept cash payments on delivery. All payments must be made via our payments
+                                 channels before delivery.</li>
+                            <li><strong>Does ADi meals process refunds?</strong><br>Refund processing are usually
+                                 our last option. Provided there are genuine evidences that backs up the claim, 
+                                 especially when a product has been defiled from our end, we will definitely 
+                                 process a refund but be rest assured our products would always be intact before 
+                                 and after delivery to you.</li>
                         </ul>
                     </div>
                     <div class="col-12 col-lg-6">
                         <ul class="list mbr-fonts-style display-7">
-                            <li><strong>What is Mobirise Kit?
-                                </strong><br>Mobirise Kit is a service that provides the access to all current and new
-                                themes/extensions developed by Mobirise.&nbsp;</li>
-                            <li><strong>What is Code Editor?<br></strong>This extension allows editing the code of block
-                                in the
-                                app. Also,
-                                it's possible to add code to the head and body parts of pages.</li>
+                            <li><strong>Are my data secured on ADi meals?</strong><br>
+                                 Yes, be rest assured that your data will always be secured on our webste. We are
+                                 built on one of the best development tools that ensures data security. Also, to
+                                 lessen our burden on securing User data, we have resulted not to store payments 
+                                 details like card number,card names and others. Our third parties can secure that 
+                                 on our behalf and be rest assure that they will be in safe hands if you to choose
+                                 to save your payments details.&nbsp;</li>
+                            <li><strong>Does ADi meals source is food from other vendors?<br></strong>No, 
+                                 we do not source food from other vendors. Every Soup or Food you order for is 
+                                 prepared by us.
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -243,195 +166,4 @@ ADi meals | Our Story
     </div>
 </section>
 
-<section data-bs-version="5.1" class="team1 cid-u0tukOx0LW" id="team1-5">
-
-
-
-
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-12">
-                <h3 class="mbr-section-title mbr-fonts-style align-center mb-4 display-2">
-                    <strong>Our team</strong>
-                </h3>
-
-            </div>
-            <div class="item features-image mb-4 col-12 col-md-4">
-                <div class="item-wrapper">
-                    <div class="image-wrap">
-                        <img src="{% static 'assets/images/team1.jpg'%}" alt="ADI Foods">
-                    </div>
-                    <div class="content-wrap">
-                        <h5 class="mbr-section-title card-title mbr-fonts-style align-center m-0 display-5">
-                            <strong>Sharper X</strong>
-                        </h5>
-                        <h6 class="mbr-role mbr-fonts-style align-center mb-3 display-4">
-                            <strong>Programmer</strong>
-                        </h6>
-                        <p class="card-text mbr-fonts-style align-center display-7">
-                            Let = X as Sharper. He is the brain behind the Backend technology that powers our web application. 
-                            He is a graduate of Mathematics from Adekunle Ajasin University.
-                            Sharper would like to remain anonymous for now but will reveal himself as time goes by.
-                        </p>
-                        <div class="social-row display-7">
-                            <div class="soc-item">
-                                <a href="https://www.facebook.com/Mobirise/" target="_blank">
-                                    <span class="mbr-iconfont socicon socicon-facebook"></span>
-                                </a>
-                            </div>
-                            <div class="soc-item">
-                                <a href="https://twitter.com/mobirise" target="_blank">
-                                    <span class="mbr-iconfont socicon socicon-twitter"></span>
-                                </a>
-                            </div>
-                            <div class="soc-item">
-                                <a href="https://instagram.com/mobirise" target="_blank">
-                                    <span class="mbr-iconfont socicon socicon-instagram"></span>
-                                </a>
-                            </div>
-
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="item features-image mb-4 col-12 col-md-4">
-                <div class="item-wrapper">
-                    <div class="image-wrap">
-                        <img src="{% static 'assets/images/team2.jpg'%}" alt="ADI Foods">
-                    </div>
-                    <div class="content-wrap">
-                        <h5 class="mbr-section-title card-title mbr-fonts-style align-center m-0 display-5">
-                            <strong>Kunkky X</strong>
-                        </h5>
-                        <h6 class="mbr-role mbr-fonts-style align-center mb-3 display-4">
-                            <strong>Frontend Developer</strong>
-                        </h6>
-                        <p class="card-text mbr-fonts-style align-center display-7">
-                            Let X = kunkky. He is the brain behind the Frontend technology in which our backend technology dwells. 
-                            He is a graduate of XYZ University. Kunkky would like not to reveal himself for now but will do as time goes by.
-                        </p>
-                        <div class="social-row display-7">
-                            <div class="soc-item">
-                                <a href="https://www.facebook.com/Mobirise/" target="_blank">
-                                    <span class="mbr-iconfont socicon socicon-facebook"></span>
-                                </a>
-                            </div>
-                            <div class="soc-item">
-                                <a href="https://twitter.com/mobirise" target="_blank">
-                                    <span class="mbr-iconfont socicon socicon-twitter"></span>
-                                </a>
-                            </div>
-                            <div class="soc-item">
-                                <a href="https://instagram.com/mobirise" target="_blank">
-                                    <span class="mbr-iconfont socicon socicon-instagram"></span>
-                                </a>
-                            </div>
-
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="item features-image mb-4 col-12 col-md-4">
-                <div class="item-wrapper">
-                    <div class="image-wrap">
-                        <img src="{% static 'assets/images/team3.jpg'%}" alt="ADI Foods">
-                    </div>
-                    <div class="content-wrap">
-                        <h5 class="mbr-section-title card-title mbr-fonts-style align-center m-0 display-5">
-                            <strong>Seyi X</strong>
-                        </h5>
-                        <h6 class="mbr-role mbr-fonts-style align-center mb-3 display-4">
-                            <strong>Chief Chef</strong>
-                        </h6>
-                        <p class="card-text mbr-fonts-style align-center display-7">
-                            Let X = Seyi. She is the bedrock of our company. She is the magical hands that prepares every delicious meal that comes from us. She is the creator of the recipes through which our company thrives.
-                            She and other workers makes up the team that powers our company; they include Nifemi X, Emmanuel X, and Lydia X.
-                        </p>
-                        <div class="social-row display-7">
-                            <div class="soc-item">
-                                <a href="https://www.facebook.com/Mobirise/" target="_blank">
-                                    <span class="mbr-iconfont socicon socicon-facebook"></span>
-                                </a>
-                            </div>
-                            <div class="soc-item">
-                                <a href="https://twitter.com/mobirise" target="_blank">
-                                    <span class="mbr-iconfont socicon socicon-twitter"></span>
-                                </a>
-                            </div>
-                            <div class="soc-item">
-                                <a href="https://instagram.com/mobirise" target="_blank">
-                                    <span class="mbr-iconfont socicon socicon-instagram"></span>
-                                </a>
-                            </div>
-
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section data-bs-version="5.1" class="contacts3 map1 cid-u0tuob5w3u" id="contacts3-6">
-
-
-
-
-
-    <div class="container">
-        <div class="mbr-section-head">
-            <h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
-                <strong>Contacts</strong>
-            </h3>
-            <h4 class="mbr-section-subtitle mbr-fonts-style align-center mb-0 mt-2 display-5">
-                Contacts Subtitle
-            </h4>
-        </div>
-        <div class="row justify-content-center mt-4">
-            <div class="card col-12 col-md-6">
-                <div class="card-wrapper">
-                    <div class="image-wrapper">
-                        <span class="mbr-iconfont mobi-mbri-globe mobi-mbri"></span>
-                    </div>
-                    <div class="text-wrapper">
-                        <h6 class="card-title mbr-fonts-style mb-1 display-5">
-                            <strong>Phone</strong>
-                        </h6>
-                        <p class="mbr-text mbr-fonts-style display-7">
-                            <a href="tel:+123456677751" class="text-primary">(+234) 815 66 777 51</a>
-                        </p>
-                    </div>
-                </div>
-                <div class="card-wrapper">
-                    <div class="image-wrapper">
-                        <span class="mbr-iconfont mobi-mbri-globe mobi-mbri"></span>
-                    </div>
-                    <div class="text-wrapper">
-                        <h6 class="card-title mbr-fonts-style mb-1 display-5">
-                            <strong>Email</strong>
-                        </h6>
-                        <p class="mbr-text mbr-fonts-style display-7">
-                            <a href="mailto:talktoadi@adimeals.com" class="text-primary">talktoadi@adimeals.com</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="map-wrapper col-12 col-md-6">
-                <div class="google-map"><iframe frameborder="0" style="border:0"
-                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d6045.3003145248895!2d-73.9884657!3d40.7477229!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259a9ac1f1b85%3A0x7e33d1c0e7af3be4!2zMzUwIDV0aCBBdmUsIE5ldyBZb3JrLCBOWSAxMDExOCwg0KHQqNCQ!5e0!3m2!1sru!2sru!4v1689597362021!5m2!1sru!2sru"
-                        allowfullscreen=""></iframe></div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!--Other body ends-->
 {% endblock %}

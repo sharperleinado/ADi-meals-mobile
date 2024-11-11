@@ -26,12 +26,18 @@ def update_mobile_send_otp(request):
     request.session['otp_valid_date'] = str(valid_date)
     
     try:
-        recipient = request.session['update_mobile']
+        recepient = request.session['update_mobile']
         message = client.messages.create(
         from_='ADi meals',
         body=f"Thank you for choosing ADi meals. Your one time password is {otp}",
-        to=[recipient]
+        to=[recepient]
         )
+        #message = client.messages.create(
+        #from_='whatsapp:+14155238886',
+        #content_sid='HXb5b62575e6e4ff6129ad7c8efe1f983e',
+        #content_variables={"1":otp},
+        #to='whatsapp:+2348162581463'
+        #)
         print(message.sid)
         return message
     except TwilioException as e:
@@ -66,6 +72,7 @@ def create_mobile_send_otp(request):
         print(f"Error Message: {e.msg}")
     except KeyError:
         pass
+
 
 '''
 def update_mobile_send_otp(request):

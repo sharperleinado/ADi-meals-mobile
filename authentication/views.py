@@ -91,7 +91,7 @@ def create_mobilenumber_otp(request):
                     del session_create_number
                     del request.session['otp_secret_key']
                     del request.session['otp_valid_date']
-                    messages.success(request, "You have successfully created PHONE NUMBER!")
+                    messages.success(request, "Valid OTP!\nYou have successfully created PHONE NUMBER!")
                     return redirect('authentication:account_info')
                 else:
                     messages.error(request, "Invalid one time password")
@@ -129,14 +129,14 @@ def mobile(request):
                 messages.error(request, "PHONE NUMBER must be 11 digits!")
                 return redirect('authentication:mobile')
             else: 
-                #request.session['create_phone_number'] = form
-                #messages.success(request, "Please, input the one time password sent to " + form)
-                #create_mobile_send_otp(request)
-                #return redirect('authentication:create_mobilenumber_otp')
+                request.session['create_phone_number'] = form
+                messages.success(request, "Please, input the one time password sent to " + form)
+                create_mobile_send_otp(request)
+                return redirect('authentication:create_mobilenumber_otp')
             
-                model = Mobile.objects.create(user=request.user,phone_no=form)
-                messages.success(request, "You have successfully created PHONE NUMBER!")
-                return redirect('authentication:account_info')
+                #model = Mobile.objects.create(user=request.user,phone_no=form)
+                #messages.success(request, "You have successfully created PHONE NUMBER!")
+                #return redirect('authentication:account_info')
     except AttributeError:
         pass
     except ConnectionError:
@@ -416,7 +416,7 @@ def updatenumber_otp(request):
                     del request.session['update_mobile']
                     del request.session['otp_secret_key']
                     del request.session['otp_valid_date']
-                    messages.success(request, "You have successfully updated your PHONE NUMBER!")
+                    messages.success(request, "Valid OTP!\nYou have successfully updated your PHONE NUMBER!")
                     return redirect('authentication:account_info')
                 else:
                     messages.error(request, "Invalid one time password")
