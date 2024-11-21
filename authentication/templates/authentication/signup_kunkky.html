@@ -85,7 +85,7 @@ ADi meals | Sign up
                     
                     <center>
                         <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn" style="padding-right:20px">
-                            <button type="submit" class="btn btn-primary display-4 w-100 ">Sign in with Google<span class="mbr-iconfont socicon socicon-google"></span></button>
+                            <button type="submit" onClick="window.location='{% url 'google_login' %}';" class="btn btn-primary display-4 w-100 ">Sign in with Google<span class="mbr-iconfont socicon socicon-google"></span></button>
                         </div>
 
                         <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn" style="padding-right:20px">
@@ -93,11 +93,11 @@ ADi meals | Sign up
                         </div>
 
                         <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn" style="padding-right:20px">
-                            <button type="submit" class="btn btn-primary display-4 w-100 ">Sign in with Facebook<span class="mbr-iconfont socicon socicon-facebook"></span></button>
+                            <button type="submit" onClick="window.location='{% url 'facebook_login' %}';" class="btn btn-primary display-4 w-100 ">Sign in with Facebook<span class="mbr-iconfont socicon socicon-facebook"></span></button>
                         </div>
 
                         <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn" style="padding-right:20px">
-                            <button type="submit" class="btn btn-primary display-4 w-100 ">Sign in with Instagram<span class="mbr-iconfont socicon socicon-instagram"></span></button>
+                            <button type="submit" onClick="window.location='{% url 'instagram_login' %}';" class="btn btn-primary display-4 w-100 ">Sign in with Instagram<span class="mbr-iconfont socicon socicon-instagram"></span></button>
                         </div>
                     </center>
                    

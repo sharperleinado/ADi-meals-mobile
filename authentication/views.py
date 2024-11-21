@@ -286,6 +286,11 @@ def signin(request):
         password = request.POST.get("password").strip()
         remember_me = request.POST.get("checkbox")
         
+        try:
+            request.session['session_username'] = username
+        except KeyError:
+            pass
+        
         username = username.lower()
         password = password.lower()
 
@@ -322,10 +327,12 @@ def signin(request):
                 return redirect('home')
                 
         else:
+            if request.user.is_authenticated:
+                del request.session['session_username']
             messages.error(request, "Bad credentials! or Check your mail to verify account if you have not!")
             return redirect('authentication:signin')
 
-    return render(request,'authentication/signin_kunkky.html')
+    return render(request,'authentication/signin_kunkky.html',{'username':request.session.get('session_username', "")})
 
 
 def signout(request):

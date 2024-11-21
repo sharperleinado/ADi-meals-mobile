@@ -2,7 +2,9 @@ from pathlib import Path
 import os
 from info import *
 from django.contrib import messages
-from django.shortcuts import redirect
+from dotenv import load_dotenv
+load_dotenv()
+
 
 EMAIL_USE_TLS = EMAIL_USE_TLS
 EMAIL_HOST = EMAIL_HOST
@@ -24,9 +26,9 @@ SECRET_KEY = 'django-insecure-38w+yczvta+h61ca9jq6^&z%18)dd!g)ktznjmw)n5cw+qmhd7
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True#False
 
-ALLOWED_HOSTS = ['adimeals.com', '13.60.195.70']
+ALLOWED_HOSTS = []#['adimeals.com', '13.60.195.70']
 
 
 # Application definition
@@ -94,13 +96,51 @@ TEMPLATES = [
     },
 ]
 
-AUTHENTICATION_BACKENDS = (
+AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
-)
+]
+
 SITE_ID = 2
 ACCOUNT_EMAIL_VERIFICATION = "none"
-LOGIN_REDIRECT_URL = 'https://adimeals.com'#'home'
+LOGIN_REDIRECT_URL = 'https://adimeals.com/address/register_address'#'home'
 ACCOUNT_LOGOUT_ON_GET = True
+
+SOCIALACCOUNT_PROVIDERS = {
+    'twitter': {
+        'APP': {
+            'client_id': os.getenv('SOCIAL_AUTH_TWITTER_KEY'),  # Twitter API Key
+            'secret': os.getenv('SOCIAL_AUTH_TWITTER_SECRET'),  # Twitter API Key Secret
+            'key': os.getenv('SOCIAL_AUTH_TWITTER_KEY')  # Same as Twitter API Key
+        }
+    },
+    'google': {
+        'APP': {
+            'client_id': os.getenv('SOCIAL_AUTH_GOOGLE_KEY'),  # Google API Key
+            'secret': os.getenv('SOCIAL_AUTH_GOOGLE_SECRET'),  # Google API Key Secret
+            'key': os.getenv('SOCIAL_AUTH_GOOGLE_KEY')  # Same as Google API Key
+        }
+    },
+    'facebook': {
+        'APP': {
+            'client_id': os.getenv('SOCIAL_AUTH_FACEBOOK_KEY'),  # Facebook API Key
+            'secret': os.getenv('SOCIAL_AUTH_FACEBOOK_SECRET'),  # Facebook API Key Secret
+            'key': os.getenv('SOCIAL_AUTH_FACEBOOK_KEY')  # Same as Facebook API Key
+        }
+    },
+    'instgram': {
+        'APP': {
+            'client_id': os.getenv('SOCIAL_AUTH_INSTAGRAM_KEY'),  # Instagram API Key
+            'secret': os.getenv('SOCIAL_AUTH_INSTAGRAM_SECRET'),  # Instagram API Key Secret
+            'key': os.getenv('SOCIAL_AUTH_INSTRAGRAM_KEY')  # Same as Instagram API Key
+        }
+    },
+}
+
+# In settings.py
+ACCOUNT_EMAIL_REQUIRED = True                # Require an email address on signup
+SOCIALACCOUNT_QUERY_EMAIL = True             # Request email from the social provider
+ACCOUNT_EMAIL_VERIFICATION = "optional"      # Optional or "mandatory" if you want verification
+SOCIALACCOUNT_STORE_TOKENS = True            # Store social provider tokens for API access
 
 
 SMS_BACKEND = 'sms.backends.twilio.SmsBackend'

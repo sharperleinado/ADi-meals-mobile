@@ -30,7 +30,7 @@ ADi meals | Sign in
                             <div class="dragArea row">
                             
                                 <div class="col-12 form-group mb-3" data-for="email">
-                                    <input type="text" id="username" name="username" placeholder="Email Address or Username" class="form-control" required>
+                                    <input type="text" id="username" value="{{username}}" name="username" placeholder="Email Address or Username" class="form-control" required>
                                 </div>
                                 <div class="col-12 form-group mb-3" data-for="password">
                                     <input type="password" id="password" name="password" placeholder="password" class="form-control" required>
@@ -49,19 +49,19 @@ ADi meals | Sign in
                                 
                                 <center>
                                     <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn" style="padding-right:20px">
-                                        <button type="submit" class="btn btn-primary display-4 w-100 ">Sign in with Google<span class="mbr-iconfont socicon socicon-google"></span></button>
+                                        <button type="submit" onClick="window.location='{% url 'google_login' %}';" class="btn btn-primary display-4 w-100 ">Sign in with Google<span class="mbr-iconfont socicon socicon-google"></span></button>
                                     </div>
             
                                     <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn" style="padding-right:20px">
-                                        <button type="submit" onClick="window.location='{% url 'twitter_callback' %}';" class="btn btn-primary display-4 w-100 ">Sign in with Twitter<span class="mbr-iconfont socicon socicon-twitter"></span></button>
+                                        <button type="submit" onClick="window.location='{% url 'twitter_login' %}';" class="btn btn-primary display-4 w-100 ">Sign in with Twitter<span class="mbr-iconfont socicon socicon-twitter"></span></button>
                                     </div>
             
                                     <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn" style="padding-right:20px">
-                                        <button type="submit" class="btn btn-primary display-4 w-100 ">Sign in with Facebook<span class="mbr-iconfont socicon socicon-facebook"></span></button>
+                                        <button type="submit" onClick="window.location='{% url 'facebook_login' %}';" class="btn btn-primary display-4 w-100 ">Sign in with Facebook<span class="mbr-iconfont socicon socicon-facebook"></span></button>
                                     </div>
             
                                     <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn" style="padding-right:20px">
-                                        <button type="submit" class="btn btn-primary display-4 w-100 ">Sign in with Instagram<span class="mbr-iconfont socicon socicon-instagram"></span></button>
+                                        <button type="submit" onClick="window.location='{% url 'instagram_login' %}';" class="btn btn-primary display-4 w-100 ">Sign in with Instagram<span class="mbr-iconfont socicon socicon-instagram"></span></button>
                                     </div>
                                 </center>    
 
