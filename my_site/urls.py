@@ -57,7 +57,7 @@ def privacy_policy(request):
     
 
 urlpatterns = [
-    path('admin7420/', admin.site.urls),
+    path('admin7420/',admin.site.urls),
     path('authentication/',include('authentication.urls')),
     path('food_app/',include('food_app.urls')),
     path('',home,name='home'),

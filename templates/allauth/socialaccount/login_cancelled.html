@@ -1,0 +1,35 @@
+{% extends "base/base.html" %}
+{% load i18n %}
+{% load static %}
+{% block pageTitle %}
+ADi meals | Cancelled
+{% endblock %}
+{% block pageBody %}
+
+{#{% extends "socialaccount/base.html" %}#}
+
+{#{% load i18n %}#}
+<section data-bs-version="5.1" class="gallery3 cid-u0tvmAp7su" id="gallery3-a">
+
+    <div class="container">
+        <center>
+
+{% block head_title %}{% trans "Login Cancelled" %}{% endblock %}
+
+{% block content %}
+
+<h1>{% trans "Login Cancelled" %}</h1>
+
+{% url 'account_login' as login_url %}
+
+<p>{% blocktrans %}You decided to cancel logging in to our site using one of your existing accounts. If this was a mistake, please proceed to <a href="{{login_url}}">sign in</a>.{% endblocktrans %}</p>
+
+<button class="btn btn-primary item-btn display-7" onClick="window.location='{% url 'authentication:signin' %}';">Back To Signin</button>
+
+{% endblock %}
+
+        </center>
+    </div>
+</section>
+
+{% endblock %}

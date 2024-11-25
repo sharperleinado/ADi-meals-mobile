@@ -26,9 +26,9 @@ SECRET_KEY = 'django-insecure-38w+yczvta+h61ca9jq6^&z%18)dd!g)ktznjmw)n5cw+qmhd7
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True#False
 
-ALLOWED_HOSTS = ['adimeals.com', '13.60.195.70']
+ALLOWED_HOSTS = []#['adimeals.com', '13.60.195.70']
 
 
 # Application definition
@@ -82,7 +82,7 @@ ROOT_URLCONF = 'my_site.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'),os.path.join(BASE_DIR, 'templates/allauth/')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
