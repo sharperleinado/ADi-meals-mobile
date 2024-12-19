@@ -1,306 +1,555 @@
 {% extends "./base/base.html" %}
+{% load static %}
 {% block pageTitle %}
 ADi meals | Terms & Condition
 {% endblock %}
+{% block jscript_attribute %}
+<style type="text/css">ul.lst-kix_fou5y5svykq3-0{list-style-type:none}ul.lst-kix_fou5y5svykq3-3{list-style-type:none}ul.lst-kix_fou5y5svykq3-4{list-style-type:none}ul.lst-kix_fou5y5svykq3-1{list-style-type:none}ul.lst-kix_fou5y5svykq3-2{list-style-type:none}ul.lst-kix_8gs4dcgzicuy-0{list-style-type:none}ul.lst-kix_8gs4dcgzicuy-5{list-style-type:none}ul.lst-kix_8gs4dcgzicuy-6{list-style-type:none}ul.lst-kix_8gs4dcgzicuy-7{list-style-type:none}ul.lst-kix_8gs4dcgzicuy-8{list-style-type:none}ul.lst-kix_8gs4dcgzicuy-1{list-style-type:none}ul.lst-kix_8gs4dcgzicuy-2{list-style-type:none}ul.lst-kix_8gs4dcgzicuy-3{list-style-type:none}ul.lst-kix_8gs4dcgzicuy-4{list-style-type:none}.lst-kix_29pmljgzmulf-2>li:before{content:"\0025a0   "}.lst-kix_midsq0i4no75-0>li:before{content:"\0025cf   "}.lst-kix_29pmljgzmulf-0>li:before{content:"\0025cf   "}.lst-kix_29pmljgzmulf-4>li:before{content:"\0025cb   "}.lst-kix_29pmljgzmulf-3>li:before{content:"\0025cf   "}.lst-kix_midsq0i4no75-3>li:before{content:"\0025cf   "}.lst-kix_midsq0i4no75-1>li:before{content:"\0025cb   "}.lst-kix_midsq0i4no75-2>li:before{content:"\0025a0   "}.lst-kix_29pmljgzmulf-1>li:before{content:"\0025cb   "}.lst-kix_midsq0i4no75-7>li:before{content:"\0025cb   "}.lst-kix_midsq0i4no75-8>li:before{content:"\0025a0   "}.lst-kix_8gs4dcgzicuy-3>li:before{content:"\0025cf   "}.lst-kix_8gs4dcgzicuy-5>li:before{content:"\0025a0   "}.lst-kix_29pmljgzmulf-8>li:before{content:"\0025a0   "}.lst-kix_29pmljgzmulf-7>li:before{content:"\0025cb   "}.lst-kix_8gs4dcgzicuy-4>li:before{content:"\0025cb   "}.lst-kix_8gs4dcgzicuy-8>li:before{content:"\0025a0   "}.lst-kix_29pmljgzmulf-6>li:before{content:"\0025cf   "}.lst-kix_midsq0i4no75-4>li:before{content:"\0025cb   "}.lst-kix_8gs4dcgzicuy-7>li:before{content:"\0025cb   "}.lst-kix_midsq0i4no75-5>li:before{content:"\0025a0   "}.lst-kix_midsq0i4no75-6>li:before{content:"\0025cf   "}.lst-kix_29pmljgzmulf-5>li:before{content:"\0025a0   "}.lst-kix_8gs4dcgzicuy-6>li:before{content:"\0025cf   "}ul.lst-kix_29pmljgzmulf-7{list-style-type:none}.lst-kix_fou5y5svykq3-1>li:before{content:"\0025cb   "}ul.lst-kix_midsq0i4no75-5{list-style-type:none}ul.lst-kix_29pmljgzmulf-6{list-style-type:none}ul.lst-kix_midsq0i4no75-6{list-style-type:none}ul.lst-kix_midsq0i4no75-7{list-style-type:none}ul.lst-kix_29pmljgzmulf-8{list-style-type:none}ul.lst-kix_midsq0i4no75-8{list-style-type:none}ul.lst-kix_29pmljgzmulf-3{list-style-type:none}ul.lst-kix_29pmljgzmulf-2{list-style-type:none}ul.lst-kix_29pmljgzmulf-5{list-style-type:none}.lst-kix_8gs4dcgzicuy-0>li:before{content:"\0025cf   "}.lst-kix_fou5y5svykq3-0>li:before{content:"\0025cf   "}.lst-kix_fou5y5svykq3-4>li:before{content:"\0025cb   "}ul.lst-kix_29pmljgzmulf-4{list-style-type:none}.lst-kix_8gs4dcgzicuy-1>li:before{content:"\0025cb   "}.lst-kix_fou5y5svykq3-5>li:before{content:"\0025a0   "}ul.lst-kix_29pmljgzmulf-1{list-style-type:none}ul.lst-kix_29pmljgzmulf-0{list-style-type:none}ul.lst-kix_midsq0i4no75-0{list-style-type:none}.lst-kix_fou5y5svykq3-7>li:before{content:"\0025cb   "}ul.lst-kix_midsq0i4no75-1{list-style-type:none}ul.lst-kix_midsq0i4no75-2{list-style-type:none}.lst-kix_fou5y5svykq3-6>li:before{content:"\0025cf   "}ul.lst-kix_midsq0i4no75-3{list-style-type:none}.lst-kix_8gs4dcgzicuy-2>li:before{content:"\0025a0   "}ul.lst-kix_midsq0i4no75-4{list-style-type:none}ul.lst-kix_mt3vanpiznzj-0{list-style-type:none}ul.lst-kix_mt3vanpiznzj-1{list-style-type:none}ul.lst-kix_mt3vanpiznzj-2{list-style-type:none}ul.lst-kix_mt3vanpiznzj-3{list-style-type:none}ul.lst-kix_mt3vanpiznzj-4{list-style-type:none}ul.lst-kix_mt3vanpiznzj-5{list-style-type:none}ul.lst-kix_mt3vanpiznzj-6{list-style-type:none}ul.lst-kix_mt3vanpiznzj-7{list-style-type:none}ul.lst-kix_mt3vanpiznzj-8{list-style-type:none}.lst-kix_fou5y5svykq3-3>li:before{content:"\0025cf   "}.lst-kix_fou5y5svykq3-2>li:before{content:"\0025a0   "}.lst-kix_mt3vanpiznzj-1>li:before{content:"\0025cb   "}.lst-kix_mt3vanpiznzj-0>li:before{content:"\0025cf   "}.lst-kix_mt3vanpiznzj-3>li:before{content:"\0025cf   "}.lst-kix_mt3vanpiznzj-5>li:before{content:"\0025a0   "}.lst-kix_mt3vanpiznzj-2>li:before{content:"\0025a0   "}.lst-kix_fou5y5svykq3-8>li:before{content:"\0025a0   "}.lst-kix_mt3vanpiznzj-6>li:before{content:"\0025cf   "}.lst-kix_mt3vanpiznzj-4>li:before{content:"\0025cb   "}ul.lst-kix_54jhtl1hsict-8{list-style-type:none}.lst-kix_54jhtl1hsict-8>li:before{content:"\0025a0   "}ul.lst-kix_54jhtl1hsict-6{list-style-type:none}ul.lst-kix_54jhtl1hsict-7{list-style-type:none}ul.lst-kix_54jhtl1hsict-0{list-style-type:none}ul.lst-kix_54jhtl1hsict-1{list-style-type:none}.lst-kix_54jhtl1hsict-5>li:before{content:"\0025a0   "}.lst-kix_mt3vanpiznzj-7>li:before{content:"\0025cb   "}ul.lst-kix_54jhtl1hsict-4{list-style-type:none}ul.lst-kix_54jhtl1hsict-5{list-style-type:none}.lst-kix_54jhtl1hsict-6>li:before{content:"\0025cf   "}.lst-kix_54jhtl1hsict-7>li:before{content:"\0025cb   "}ul.lst-kix_54jhtl1hsict-2{list-style-type:none}.lst-kix_mt3vanpiznzj-8>li:before{content:"\0025a0   "}ul.lst-kix_54jhtl1hsict-3{list-style-type:none}.lst-kix_54jhtl1hsict-0>li:before{content:"\0025cf   "}.lst-kix_54jhtl1hsict-1>li:before{content:"\0025cb   "}.lst-kix_54jhtl1hsict-4>li:before{content:"\0025cb   "}.lst-kix_54jhtl1hsict-2>li:before{content:"\0025a0   "}.lst-kix_54jhtl1hsict-3>li:before{content:"\0025cf   "}li.li-bullet-0:before{margin-left:-18pt;white-space:nowrap;display:inline-block;min-width:18pt}ul.lst-kix_fou5y5svykq3-7{list-style-type:none}ul.lst-kix_fou5y5svykq3-8{list-style-type:none}ul.lst-kix_fou5y5svykq3-5{list-style-type:none}ul.lst-kix_fou5y5svykq3-6{list-style-type:none}ol{margin:0;padding:0}table td,table th{padding:0}.c3{margin-left:36pt;padding-top:12pt;padding-left:0pt;padding-bottom:12pt;line-height:1.15;orphans:2;widows:2;text-align:left}.c0{color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal}.c8{padding-top:14pt;padding-bottom:4pt;line-height:1.15;orphans:2;widows:2;text-align:justify}.c6{padding-top:12pt;padding-bottom:12pt;line-height:1.15;orphans:2;widows:2;text-align:left}.c4{color:#000000;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal}.c11{color:#000000;text-decoration:none;vertical-align:baseline;font-size:13pt;font-family:"Arial";font-style:normal}.c1{padding-top:12pt;padding-bottom:12pt;line-height:1.15;orphans:2;widows:2;text-align:justify}.c7{text-decoration-skip-ink:none;-webkit-text-decoration-skip:none;color:#1155cc;text-decoration:underline}.c5{padding-top:0pt;padding-bottom:0pt;line-height:1.0;text-align:left}.c14{background-color:#ffffff;max-width:468pt;padding:72pt 72pt 72pt 72pt}.c9{border:1px solid black;margin:5px}.c10{padding:0;margin:0}.c13{color:inherit;text-decoration:inherit}.c12{height:11pt}.c2{font-weight:700}.title{padding-top:0pt;color:#000000;font-size:26pt;padding-bottom:3pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}.subtitle{padding-top:0pt;color:#666666;font-size:15pt;padding-bottom:16pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}li{color:#000000;font-size:11pt;font-family:"Arial"}p{margin:0;color:#000000;font-size:11pt;font-family:"Arial"}h1{padding-top:20pt;color:#000000;font-size:20pt;padding-bottom:6pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h2{padding-top:18pt;color:#000000;font-size:16pt;padding-bottom:6pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h3{padding-top:16pt;color:#434343;font-size:14pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h4{padding-top:14pt;color:#666666;font-size:12pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h5{padding-top:12pt;color:#666666;font-size:11pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h6{padding-top:12pt;color:#666666;font-size:11pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;font-style:italic;orphans:2;widows:2;text-align:left}</style>
+{% endblock jscript_attribute %}
 {% block pageBody %}
-{% load static %}
 
 
 <section data-bs-version="5.1" class="image2 cid-u0tuxl367X" id="image2-7">
 
     <div class="container">
-
         <div class="mbr-section-head">
             <div class="col-md-12 col-lg-10 m-auto align-center">
-                <h1 class="mbr-section-title mbr-white mbr-fonts-style mb-3 display-1" style="color:green;"><strong>Terms of Service</strong></h1>
+                <h1 class="mbr-section-title mbr-white mbr-fonts-style mb-3 display-1" style="color:green;"><strong><center>Terms of Service</center></strong></h1>
             </div>
-        </div><br><br><br>
+        </div><br><br>
+        
+        
+        
+        <p class="c1"><span class="c2">TERMS OF SERVICE<br></span>
+            <span class="c0">Welcome to adimeals.com, the website of ADI MEALS LIMITED 
+                (“Adimeals,” “we,” “us,” or “our”). By accessing this platform, you (“User,” “you,” or “your”) 
+                agree to the terms and conditions outlined below. These Terms of Service ("Terms") govern your use of 
+                Adimeals' platform (the "Platform") and the services provided through it.
+            </span>
+        </p>
+        <p class="c1">
+            <span>We believe it is important to review these Terms to fully understand the guidelines 
+                that govern our platform. As a company that values its customers, we encourage you to take the time to 
+                read this document thoroughly. By using the Platform, you confirm your agreement to be legally bound by 
+                these Terms. If you have any questions or if any part of this agreement is unclear, please contact us at 
+            </span>
+            <span class="c2"><a href="mailto:adimeals@gmail.com" style="color:blue;">adimeals@gmail.com</a></span>
+            <span>or click <a href="{% url 'contact' %}" style="color:blue;">here</a>. We are here to assist you and ensure you have a seamless experience.</span>
+        </p>
+        <p class="c1"><span>By accessing or using the Platform, you agree to be bound by these Terms and our 
+            Privacy Policy. If you do not agree with these Terms, please refrain from using the Platform</span>
+        </p>
+        <h3 class="c8" id="h.d7comvipxhhf"><span class="c11 c2">1. General Terms</span></h3>
+        <p class="c1"><span class="c0">1.1. These General Terms govern your use of the Adimeals website 
+            (the "Platform"). By accessing or using the Platform, you agree to comply with these terms and 
+            conditions.</span>
+        </p>
+        <p class="c1"><span class="c0">1.2 Adimeals reserves the right to modify these terms at any time. 
+            You should review this page regularly to ensure you are informed of any changes. 
+            Continued use after changes are made constitutes acceptance of those changes.</span>
+        </p>
+        <p class="c1"><span class="c0">1.3. You understand that a breach of any of these terms may result 
+            in your rights to use the services on the Platform being restricted, suspended, or withdrawn.
+            </span>
+        </p>
+        <h3 class="c8" id="h.lafap7j76qy4"><span class="c11 c2">2. Membership and Registration</span></h3>
+        <p class="c1"><span class="c0">2.1. To use our services, you must be at least 18 years old and legally 
+            capable of entering into binding contracts. By registering, you represent that you meet these 
+            requirements and that all information provided is accurate and truthful.</span>
+        </p>
+        <p class="c1"><span class="c0">2.2. To create an account, you must provide the following 
+            information: full name, email address, telephone number, and delivery address. Upon registration, 
+            you must confirm your agreement to our Terms of Use and Privacy Policy.</span>
+        </p>
+        <p class="c1"><span>2.3. You are solely responsible for maintaining the confidentiality of your login 
+            details and for all activities carried out under your account. If you suspect any unauthorized use 
+            or security breach, you must notify us immediately at 
+            </span><span class="c2"><a href="mailto:adimeals@gmail.com" style="color:blue;">adimeals@gmail.com</a> 
+                or click <a href="{% url 'contact' %}" style="color:blue;">here</a></span><span class="c0">.</span>
+        </p>
+        <p class="c1"><span class="c0">2.4. By creating an account, you gain the ability to select food 
+            options from our Soup Box or Food Box, add items to your cart, and request delivery to your 
+            registered address.</span>
+        </p>
+        <p class="c1"><span class="c0">2.5. We reserve the right to require you to update your password if we 
+            detect potential security issues. Failure to comply may result in account suspension or deletion.
+            </span>
+        </p>
+        <p class="c1"><span class="c0">2.6. You confirm that all account information is truthful, up-to-date, 
+            and not misleading. You agree to update your account details promptly and accept responsibility 
+            for any consequences arising from inaccurate or outdated information.</span>
+        </p>
+        <p class="c1"><span class="c0">2.7. The information provided during registration is considered proof 
+            of your identity. We reserve the right to verify the accuracy of your details and request 
+            additional documentation if necessary.</span>
+        </p>
+        <p class="c1"><span class="c0">2.8. You may terminate your account at any time, at which point your 
+            account details will be removed from the platform.</span>
+        </p>
+        <p class="c1"><span>2.9 Your personal data will be handled in accordance with our Privacy Policy,</span>
+            <span class="c0">&nbsp;which outlines how we collect, store, and process your personal information.</span>
+        </p>
+        <h3 class="c8" id="h.sxirg7owx7k"><span class="c2 c11">3. Conditions for Account Registration</span></h3>
+        <p class="c1"><span class="c0">By registering for an account on our platform, you agree to the following 
+            conditions:</span>
+        </p>
+        <p class="c1"><span class="c0">3.1. Accounts must not be created by bots, automated scripts, or other means 
+            that bypass normal registration procedures.</span>
+        </p>
+        <p class="c1"><span class="c0">3.2. You are allowed to register only one account unless otherwise stated 
+            in the terms. If we determine multiple accounts are being used without authorization, we may take 
+            corrective actions.</span>
+        </p>
+        <p class="c1"><span class="c0">3.3. Your account is for personal use only and must not be shared with 
+            other individuals unless expressly permitted by us.</span>
+        </p>
+        <h3 class="c8" id="h.9ludruhqq6o5"><span class="c11 c2">4. Food Selection and Checkout</span></h3>
+        <p class="c1"><span class="c0">4.1.Once logged in, you can explore our Soup Box or Food Box options to 
+            select the food items of your choice.</span></p><p class="c1"><span class="c0">4.2. After selecting 
+            your desired food, you can add it to your cart or select individual items. Once you are ready, 
+            proceed to the checkout page.</span>
+        </p>
+        <p class="c1"><span class="c0">4.3. On the checkout page, you will be prompted to make payment via one 
+            of our available payment channels, including but not limited to Flutterwave, Paystack, or 
+            Interswitch.</span>
+        </p>
+        <p class="c1 c12"><span class="c0"></span></p>
+        <p class="c1 c12"><span class="c0"></span></p>
+        <p class="c1"><span class="c4 c2">5. Payment</span></p>
+        <p class="c1"><span class="c0">5.1. All payments made on the Platform are processed through third-party 
+            payment processors, including Flutterwave, Paystack, and Interswitch, which provide secure gateways 
+            for online transactions.</span>
+        </p>
+        <p class="c1"><span class="c0">5.2. To complete an order, payment can be made via the following 
+            methods:</span>
+        </p>
+        <ul class="c10 lst-kix_8gs4dcgzicuy-0 start">
+            <li class="c3 li-bullet-0"><span class="c2">Electronic Wallet</span><span class="c0">: You can top 
+                up your electronic wallet on the Platform using available payment channels. The funds in the 
+                wallet are only valid for purchases made on the Platform.</span>
+            </li>
+            <li class="c3 li-bullet-0"><span class="c2">Debit Card</span><span class="c0">: Payments can be 
+                made using a debit card via the integrated payment processors on the Platform.</span>
+            </li>
+            <li class="c3 li-bullet-0"><span class="c2">Bank Transfer</span><span class="c0">: Payments can 
+                also be made via direct bank transfers, as provided at checkout.</span>
+            </li>
+            <li class="c3 li-bullet-0"><span class="c2">QR Code Payments</span><span class="c0">: Payments can 
+                be made by scanning QR codes using supported mobile apps or wallets.</span>
+            </li>
+        </ul>
+        <p class="c1"><span class="c0">5.3. The third-party payment processors are solely responsible for 
+            handling all payment transactions. Adimeals is not liable for any transaction errors or issues 
+            caused by these third-party services.</span>
+        </p>
+        <p class="c1"><span class="c0">5.4. Prices for meals and other items are displayed in Nigerian Naira 
+            (NGN) and include applicable taxes. The total amount, including food and delivery fees, will be 
+            shown at checkout.</span>
+        </p>
+        <p class="c1"><span class="c0">5.5. Payment is due immediately upon placing the order, and the order 
+            will only be processed after payment is successfully received.</span>
+        </p>
+        <p class="c1"><span class="c0">5.6. By using the Platform and making payments, you agree to comply 
+            with the terms outlined above.</span>
+        </p>
+        <p class="c1"><span class="c4 c2">6. Account Termination and Suspension</span></p>
+        <p class="c1"><span>6.1. You can close your account and stop using our service at any time by 
+            contacting us at the contact details provided in this document 
+            (</span><span class="c2"><a href="mailto:adimeals@gmail.com" style="color:blue;">adimeals@gmail.com</a>
+            </span><span class="c0">) Upon account termination, your account details will be removed from the Platform.</span>
+        </p>
+        <p class="c1"><span class="c0">6.2. We reserve the right to suspend or delete your account at any time 
+            and without prior notice if we find your behavior or use of the Platform inappropriate, offensive, 
+            or in violation of these terms. Any decision regarding account suspension or deletion is final.
+            </span>
+        </p>
+        <p class="c1"><span class="c0">6.3. Suspending or deleting your account due to your violation of these 
+            terms does not entitle you to claim any compensation, damages, or reimbursement. Furthermore, you 
+            remain responsible for any outstanding fees or prices owed for services rendered before account 
+            suspension or deletion.</span>
+        </p>
+        <p class="c1"><span class="c4 c2">7. Content on the Platform</span></p>
+        <p class="c1"><span class="c0">7.1. Unless otherwise noted, all content on the Platform, including 
+            but not limited to text, images, graphics, and videos, is owned or licensed by Adimeals or its 
+            licensors. We retain all intellectual property rights associated with the content.</span>
+        </p>
+        <p class="c1"><span class="c0">7.2. You may only use the content on the Platform in a manner that is 
+            necessary or implied for the proper use of the service. Any unauthorized use, such as copying, 
+            sharing, modifying, or distributing content beyond personal or non-commercial purposes, is strictly 
+            prohibited.</span>
+        </p>
+        <p class="c1"><span class="c0">7.3. If you believe that your intellectual property rights have been 
+            infringed upon, please notify us using the contact details provided in this document. We take all 
+            claims of infringement seriously and will investigate the matter accordingly.</span>
+        </p>
+        <p class="c1"><span>7.4 &nbsp;</span><span class="c0">Users may upload content (e.g., reviews, comments, 
+            ratings) to the Platform. By doing so, you grant Adimeals a non-exclusive, royalty-free license to 
+            use, modify, and display this content on the Platform.</span>
+        </p>
+        <p class="c1"><span class="c2 c4">8. Access to External Resources</span></p>
+        <p class="c1"><span class="c0">8.1. The Platform may contain links to external websites or resources 
+            that are not controlled by Adimeals. We are not responsible for the content or availability of 
+            such third-party resources and disclaim all liability in relation to them.</span>
+        </p>
+        <p class="c1"><span class="c0">8.2. Any use of external resources is governed by the terms and 
+            conditions of the respective third parties. By accessing these resources, you agree to comply with 
+            the applicable laws and third-party terms.</span>
+        </p>
+        <p class="c1"><span class="c4 c2">9. Acceptable Use of the Platform</span></p>
+        <p class="c1"><span class="c0">9.1. You agree to use the Platform in compliance with all applicable 
+            laws, regulations, and these terms. You are solely responsible for ensuring that your use of the 
+            Platform does not infringe upon any third-party rights or violate any laws.</span>
+        </p>
+        <p class="c1"><span class="c0">9.2. You may not use the Platform for any illegal or unauthorized 
+            activities, including but not limited to:</span>
+        </p>
+        <ul class="c10 lst-kix_fou5y5svykq3-0 start">
+            <li class="c3 li-bullet-0"><span class="c0">Violating laws or these terms</span></li>
+            <li class="c3 li-bullet-0"><span class="c0">Infringing on third-party rights</span></li>
+            <li class="c3 li-bullet-0"><span class="c0">Damaging the reputation or interests of Adimeals</span></li>
+            <li class="c3 li-bullet-0"><span class="c0">Engaging in offensive behavior towards Adimeals or other users</span>
+            </li>
+        </ul>
+        <p class="c1"><span class="c0">9.3. We reserve the right to protect our interests by denying you access to the 
+            Platform or services, terminating contracts, or reporting misconduct to relevant authorities.</span>
+        </p>
+        <p class="c1"><span class="c4 c2">10. Terms and Conditions of Sale</span></p>
+        <p class="c1"><span class="c0">10.1. All products, including those in our Soup Box and Food Box sections, 
+            are listed with their prices, descriptions, and availability. However, representations on the Platform, 
+            including images, colors, and sounds, are for reference only and may not fully represent the purchased 
+            product.</span>
+        </p>
+        <p class="c1"><span class="c0">10.2. The purchasing process involves adding items to your cart, proceeding to 
+            checkout, selecting a payment method, and completing the payment process through the Platform’s 
+            payment processors (Flutterwave, Paystack, Interswitch). The order will be processed and confirmed 
+            only after successful payment.</span>
+        </p>
+        <p class="c1"><span class="c0">10.3. We offer several payment options, including debit card payments, 
+            bank transfers, and QR code payments through our third-party processors. All payments must be made 
+            using one of the approved methods, and cash payments are not accepted.</span>
+        </p>
+        <p class="c1"><span>10.4. Ownership of any products ordered will only pass to you once full payment is 
+            received by us. Until payment is made, we retain ownership of the goods.</span>
+        </p>
+        <p class="c1"><span class="c0">10.5. If an item is out of stock after you place your order, we 
+            will notify you and offer a suitable alternative or a refund</span>
+        </p>
+        <p class="c1"><span class="c4 c2">11. Delivery</span></p>
+        <p class="c1"><span class="c0">11.1. Products are delivered only within Lagos State, Nigeria. 
+            We do not process or permit deliveries outside this jurisdiction. In cases where an order is 
+            placed from a location outside of Lagos, we require a clear and justified explanation from the 
+            user regarding why the order was placed from such a location, knowing that our address feature and 
+            business operations are confined to Lagos State.</span>
+        </p>
+        <p class="c1"><span class="c0">11.2. Adimeals is not liable for delivery errors caused by incorrect or 
+            incomplete information provided during registration. If an order is not received or collected on 
+            time, it will be returned to us. Subsequent delivery attempts will incur additional costs.</span>
+        </p>
+        <p class="c1"><span class="c0">11.3. If the delivered goods appear damaged, you have the right to 
+            refuse acceptance and contact us for a resolution. Any delivery-related issues must be reported 
+            promptly for assistance.</span>
+        </p>
+        <p class="c1"><span class="c0">11.4. If delivery cannot be completed due to failure to receive or 
+            collect goods, the items will be returned to us. We will contact you to schedule a second delivery 
+            attempt or agree on a future course of action.</span>
+        </p>
+        <p class="c1"><span class="c0">11.5. Unless otherwise agreed, each delivery attempt after the second 
+            one will be at your expense.</span>
+        </p>
+        <p class="c1"><span>11.6. You can update your address if you relocate within Lagos State. Please 
+            contact us to make necessary changes to ensure smooth delivery.</span>
+        </p>
+        <p class="c1"><span class="c4 c2">12. Cancellation and Refunds</span></p>
+        <p class="c1"><span class="c0">12.1. Once an order is confirmed and payment has been processed, 
+            cancellations can only be made if the order has not yet been processed or dispatched. Refunds will 
+            be processed in accordance with our refund policy.</span>
+        </p>
+        <p class="c1"><span class="c0">12.2. Refunds will be processed for canceled orders or failed 
+            transactions, but are subject to the applicable payment processing fees and conditions. Refunds 
+            may take a few business days to be reflected in your account, depending on the payment method 
+            used.</span>
+        </p>
+        <p class="c1"><span class="c4 c2">13. Refund Policy</span></p>
+        <p class="c1"><span class="c2"><br></span><span class="c0">13.1. Refunds will be processed through the 
+            payment processor used for the original transaction (e.g., Flutterwave, Paystack, or Interswitch). 
+            Refunds may take a few business days to reflect in the customer’s account, depending on the 
+            policies of the payment processor.</span>
+        </p>
+        <p class="c1"><span><br>13.2. To be eligible for a refund, you must contact us within 7 days from the 
+            date of delivery. Refund requests can be made via email at </span>
+            <span class="c2"><a href="mailto:adimeals@gmail.com" style="color:blue;">adimeals@gmail.com</a></span>
+            <span class="c0">&nbsp;providing your order number, payment details, and a description of the issue.</span>
+        </p>
+        <p class="c1"><span class="c0"><br>13.3. Refunds may be granted in cases of:</span></p>
+        <ul class="c10 lst-kix_midsq0i4no75-0 start">
+            <li class="c3 li-bullet-0"><span class="c0">
+                Incorrect or damaged products delivered.</span>
+            </li>
+            <li class="c3 li-bullet-0"><span class="c0">Non-delivery of products due to issues within our 
+                control.</span>
+            </li>
+            <li class="c3 li-bullet-0"><span class="c0">Cancellation of an order before it is processed or 
+                dispatched (if applicable).</span>
+            </li>
+        </ul>
+        <p class="c6"><span class="c0">13.4. Refunds will be issued to the original payment method used for 
+            the transaction. If the payment was made via an electronic wallet, debit card, or other payment 
+            method, the refund will be processed accordingly.</span>
+        </p>
+        <p class="c6"><span class="c0"><br>13.5. Refunds will not be granted for customer preference after the 
+            goods have been delivered or consumed, or if the goods are not in breach of these terms.</span>
+        </p>
+        <p class="c6"><span class="c0"><br>13.6. We will initiate the refund process with the payment 
+            processor, but please note that we are not responsible for any delays or errors caused by the 
+            third-party payment processor. Refunds are subject to the payment processor's terms and 
+            conditions.</span>
+        </p>
+        <p class="c6"><span class="c4 c2">14. Liability and Indemnification</span></p>
+        <p class="c6"><span class="c0">14.1 We limit our liability to the maximum extent permitted by law. 
+            This means that, unless explicitly stated otherwise, we will not be held responsible for damages 
+            except in cases of intentional misconduct or gross negligence. Our liability is limited to typical 
+            and foreseeable damages arising at the time the agreement was made, provided that the platform has 
+            been used appropriately by you.</span>
+        </p>
+        <p class="c6"><span class="c0">14.2 This limitation of liability does not apply in cases 
+            involving:</span>
+        </p>
+        <ul class="c10 lst-kix_mt3vanpiznzj-0 start">
+            <li class="c3 li-bullet-0"><span class="c0">
+                Injury to life, health, or physical integrity.</span>
+            </li>
+            <li class="c3 li-bullet-0"><span class="c0">Breaches of significant contractual obligations, i.e., 
+                obligations necessary to fulfill the contract's core purpose.</span>
+            </li>
+            <li class="c3 li-bullet-0"><span class="c0">Damages arising from our intentional or gross 
+                negligence.</span>
+            </li>
+        </ul>
+        <p class="c6"><span class="c0">In these cases, you may be entitled to claim damages, subject to the legal 
+            provisions applicable to such claims.</span>
+        </p>
+        <p class="c1"><span>14.3 </span><span class="c0">Adimeals is not liable for any indirect or consequential 
+            losses arising from the use of the Platform or our services, including damages caused by delays, 
+            system outages, or other unforeseen circumstances.</span>
+        </p>
+        <p class="c1"><span class="c0">14.4 Adimeals will not be held liable for failure to perform due to 
+            circumstances beyond its control, such as natural disasters, strikes, or network outages.</span>
+        </p>
+        <p class="c6"><span class="c0">14.5 You agree to indemnify, defend, and hold harmless Adimeals, its 
+            affiliates, officers, directors, employees, agents, and licensors from and against any claims, 
+            losses, damages, liabilities, and expenses (including legal fees) arising from:</span>
+        </p>
+        <ul class="c10 lst-kix_29pmljgzmulf-0 start">
+            <li class="c3 li-bullet-0"><span class="c0">Your use or misuse of the services.</span></li>
+            <li class="c3 li-bullet-0"><span class="c0">Violation of these Terms of Service or any applicable 
+                law.</span>
+            </li>
+            <li class="c3 li-bullet-0"><span class="c0">Breach of third-party rights (e.g., intellectual property 
+                rights).</span>
+            </li>
+        </ul>
+        <p class="c6"><span class="c0">This indemnification obligation applies to the fullest extent allowed by 
+            law.</span>
+        </p>
+        <p class="c6" id="shipping-policy"><span class="c4 c2">15. Shipping &amp; Return Policy</span></p>
+        <p class="c6"><span class="c2">15.1. Shipping Policy<br></span>
+            <span>&nbsp;15.1.1. </span>
+            <span class="c2">Processing Time</span>
+            <span class="c0">:<br> Orders are processed within 24 hours of placement, excluding weekends and 
+                public holidays. After processing, you will receive a tracking number to monitor your delivery.
+            </span>
+        </p>
+        <p class="c6">
+            <span>15.1.2. </span>
+            <span class="c2">Delivery Times</span>
+            <span class="c0">:<br> Delivery times vary depending on location but typically range from 40minutes - 2 hours from 
+                dispatch. Please allow extra time for remote locations.
+            </span>
+        </p>
+        <p class="c6">
+            <span>15.1.3. </span>
+            <span class="c2">Delivery Methods</span>
+            <span class="c0">:<br> We have an internal delivery services team to ensure your meals arrive in perfect 
+                condition. Once dispatched, you will receive tracking information for real-time updates.
+            </span>
+        </p>
+        <p class="c6">
+            <span>15.1.4. </span>
+            <span class="c2">Delivery Issues</span>
+            <span class="c0">:<br> If your order is delayed beyond the expected delivery time, please contact us 
+                immediately, and we will resolve the issue as quickly as possible.
+            </span>
+        </p>
+        <p class="c6" id="refund-policy">
+            <span class="c4 c2">15.2. Return Policy</span>
+        </p>
+        <p class="c6">
+            <span>15.2.1. </span>
+            <span class="c2">Food Products</span>
+            <span>:<br> Due to the perishable nature of our products, we do not accept returns after the food has been 
+                delivered. If there are issues such as damaged or incorrect items, please contact us within 
+            </span>
+            <span class="c2">12 hours</span>
+            <span class="c0">&nbsp;of receiving your delivery. We will require photographic evidence for verification.</span>
+        </p>
 
-        <p>This document governs</p>
-            <ul>
-                <li>the use of our website, and,</li>
-                <li>any other related agreement or legal relationship with us</li>
-            </ul>
-        <p>in a legally binding way.</p>
-        <p>You must read this document carefully.</p><br>
-        <p class="notice">Our website is provided by: <br>
-        ADI MEALS LIMITED. - No 12, Ladisa crescent, Apple Estate, Amuwo-Odofin, Lagos.</p>
-        <p><strong>Contact phone no:</strong><a href="tel:+2348156677751" style="color:blue;">08156677751</a></p>
-        <p><strong>Contact email:</strong><a href="mailto:adimeals@gmail.com" style="color:blue;">adimeals@gmail.com</a></p>
-        <a href="https://x.com/ADimeals?t=-VMCHcM3panXJnjGskqWhw&s=08" style="color:blue;"><p><strong>Twitter</strong></p></a>
-        <a href="https://www.instagram.com/adimeals" style="color:blue;"><p><strong>Instagram</strong></p></a>
+        <p class="c6">
+            <span>15.2.2. </span>
+            <span class="c2">How to Report a Problem</span>
+            <span>:<br> To report an issue (e.g., incorrect or damaged food), please contact customer service at </span>
+            <span class="c2 c7"><a class="c13" href="mailto:adimeals@gmail.com">adimeals@gmail.com</a></span>
+            <span class="c2">&nbsp;</span>
+            <span class="c0">&nbsp;within 12 hours of receiving your order. Include your order number, photos of the 
+                issue, and a description of the problem.
+            </span>
+        </p>
         
-        <br><h2>What you should know at a glance</h2>
-        <p>Please note that some provisions may only apply to certain categories of users. In particular, certain provisions may only apply to consumers or to those users that do not qualify as consumers. Such limitations are always explicitly mentioned within each affected clause. In the absence of any such mention, clauses apply to all users.</p>
-        <h2>TERMS OF USE</h2>
-        <p>Unless stated otherwise, the terms in this section apply generally when using our website.</p>
-        <p>Specific or additional conditions may apply in certain situations and are noted in this document.</p>
-        <p>By using our website, you confirm the following:</p>
-        <ul>
-        <li>you are older than <span class="notice">18</span>;</li>
-        <li>you are not in a country under a U.S. government embargo or designated as a "terrorist-supporting" country;</li>
-        <li>you are not on any U.S. government list of prohibited or restricted parties.</li>
-        </ul>
-        <h3>Account registration</h3>
-        <p>To use the service, you can register or create an account by providing complete and truthful information. You can also use the service without an account, but this might limit some features.</p>
-        <p>You are responsible for keeping your login details confidential and must choose passwords that meet the highest standards of strength as allowed by our website.</p>
-        <p>By registering, you agree to take full responsibility for all activities under your username and password. <br>
-        You must immediately inform us using the contact details in this document if you believe your personal information, account, or login details have been violated, disclosed, or stolen.</p>
-        <h4>Conditions for account registration</h4>
-        <p>Registration of accounts on our website is subject to the conditions outlined below. By registering, you agree to meet such conditions.</p>
-        <ul>
-        <li>It is not permitted to register accounts by bots or any other automated methods;</li>
-        <li>You must register only one account, unless otherwise specified;</li>
-        <li>Your account must not be shared with other persons unless otherwise specified.</li>
-        </ul>
-        <h4>Account termination</h4>
-        <p>You can close your account and stop using our service anytime by contacting us at the contact details provided in this document.</p>
-        <h4>Account suspension and deletion</h4>
-        <p>We reserve the right to suspend or delete your account at any time and without notice if we find it inappropriate, offensive, or in violation of these terms.</p>
-        <p>Suspending or deleting accounts does not entitle you to claim for any compensation, damages, or reimbursement.</p>
-        <p>The suspension or deletion of accounts due to causes attributable to you does not exempt you from paying any applicable fees or prices.</p>
-        <h3>Content on the website</h3>
-        <p>Unless otherwise noted, all content on our website is owned or provided by us or our licensors.</p>
-        <p>We do our best to ensure the content on our website complies with all laws and respects third-party rights. However, this may not always be achievable. <br>
-        If you believe your rights are being infringed, without prejudice to any legal prerogatives to enforce your rights, please report any issues using the contact details provided in this document.</p>
-        <h4>Rights regarding content on our website - All rights reserved</h4>
-        <p>We hold and reserve all intellectual property rights for all content.</p>
-        <p>You may not use such content in any way that is not necessary or implied for the proper use of the service.</p>
-        <p>Specifically, but without limitation, you may not copy, download, share (beyond the limits mentioned below), modify, translate, transform, publish, transmit, sell, sublicense, edit, transfer, assign to third parties, or create derivative works from the content on our website. You also cannot allow any third party to do so through your account or device, even unknowingly.</p>
-        <p>Where explicitly stated, you may download, copy, and share some content from our website for personal and non-commercial use, provided you correctly implement copyright and other required attributions.</p>
-        <p>Any statutory limitations or exceptions to copyright remain unaffected.</p>
-        <h3>Access to external resources</h3>
-        <p>Through our website, you may access external resources provided by third parties. You acknowledge and accept that we have no control over these resources and are not responsible for their content or availability.</p>
-        <p>Conditions for third-party resources, including any rights granted in their content, are governed by those third parties' terms and conditions or by applicable law.</p>
-        <h3>Acceptable use</h3>
-        <p>Our website and service may only be used within the scope of what is provided for, under these terms and applicable law.</p>
-        <p>You are solely responsible for ensuring your use of our website and service does not violate any laws, regulations, or third-party rights.</p>
-        <p>We reserve the right to protect our interests by denying you access to our website or service, terminating contracts, and reporting any misconduct to the appropriate authorities if you are involved in or suspected of the following:</p>
-        <ul>
-        <li>violating laws, regulations, or these terms;</li>
-        <li>infringing on third-party rights;</li>
-        <li>significantly impairing our legitimate interests;</li>
-        <li>offending us or any third party.</li>
-        </ul>
-        <h2>TERMS AND CONDITIONS OF SALE</h2>
-        <h3>Paid products</h3>
-        <p>All of our products require payment. Details about fees, duration, and conditions are described below and in the dedicated sections of our website.</p>
-        <h3>Product description</h3>
-        <p>Prices, descriptions, and availability of products are detailed in the "Soup box" and "food box" sections of our website and product prices may change without notice.</p>
-        <p>Although we strive for accuracy in presenting products on our website, representations (including graphics, images, colors, and sounds) are for reference only and do not guarantee the characteristics of the purchased product.</p>
-        <p>The specific characteristics of the chosen product are outlined during the purchasing process.</p>
-        <h3>Purchasing process</h3>
-        <p>Every action taken from selecting a product to submitting the order is part of the purchasing process.</p>
-        <p class="notice">listed below are the purchasing process on adimeals:
-            <ul>
-                <li class="notice">adding items to cart or selecting items unitarily</li>
-                <li class="notice">user will be directed to checkout page if registered on our website but if not registered, user would be required to register</li>
-                <li class="notice">on checkout, user has several payments options to select from; flutterwave, paystack or interswitch</li>
-                <li class="notice">after selecting payment option, user will be directed to make payment on the payment modal selected</li>
-                <li class="notice">user is redirected to our website with details of the failed or successful transaction</li>
-                <li class="notice">user can proceed to view the details of the transaction on the "my order" section of his or her profile</li>
-            </ul>
-            Note: cancelled payments can only be viewed once, as it is not saved on our data base.
+        <p class="c6">
+            <span>15.2.3. </span>
+            <span class="c2">Refunds or Replacements</span>
+            <span>:<br> If your order is confirmed to be incorrect or damaged, we will offer a </span>
+            <span class="c2">replacement</span><span>&nbsp;or a </span>
+            <span class="c2">full refund</span>
+            <span>, depending on the situation. Refunds will be processed to the original payment method after the 
+                claim is reviewed. Refunds will be based on the conditions outlined in our 
+            </span>
+            <span class="c2">Refund Policy</span>
+            <span class="c0">.</span>
         </p>
-        <h3>Order submission</h3>
-        <p>When you place an order, the following apply:</p>
-        <ul>
-        <li>submitting an order determines the contract conclusion and obligates you to pay the specified price, taxes, and any additional fees and expenses outlined on the order page;</li>
-        <li>if the purchased product requires action from you, such as providing personal information or specific requests, submitting the order means you agree to cooperate accordingly;</li>
-        <li>after submitting the order, you will receive a receipt confirming that the order has been received.</li>
-        </ul>
-        <p>All communications regarding the purchasing process will be sent to the email address you provided.</p>
-        <h3>Prices</h3>
-        <p>During checkout and before order submission, you will see all charges, including any fees, taxes, and costs (including, where applicable, delivery costs).</p>
-        <p>On our website, prices are displayed including all applicable fees, taxes, and costs.</p>
-        <p class="notice">
-            in our soup box category, there are three box prices users can select from which can either be mini, medium or 
-            mega box while the food box category product prices are solitary.
-        </p>
-        <p class="notice">
-            if user is not satisfied by our website's calculations when adding items to cart, users can decide to recalculate 
-            items to crosscheck with the prices in cart.
-        </p>
-        <h3>Methods of payment</h3>
-        <p>Details about accepted payment methods are provided during the purchasing process.</p>
-        <p>Certain payment methods might have additional conditions or fees. In these cases, more information can be found in the related section of our website.</p>
-        <p class="notice"> We have provided our users with numerous payments options to select from which includes: 
-            Flutterwave, Paystack, and Interswitch, with plans to onboard more payments options in future.
-            Users have every right to select whichever payments option they choose to.
-        </p>
-        <p class="notice">Note: Please, we do not accept cash payments. All payments must be made using either of the payments options provided on our website.</p>
-        <h3>Retention of product ownership</h3>
-        <p>Until payment of the total purchase price is received by us, any products ordered will not become your property.</p>
-        <h3>Delivery</h3>
-        <p>Products are delivered to the address provided by you and in the manner outlined in the
-            order summary.</p>
-        <p>Upon delivery, please check the content and report any issues promptly using the contact details provided in this document or as outlined in the delivery note. If the parcel appears visibly damaged, you may refuse to accept it.</p>
-        <p>Goods are delivered only within <span class="notice">Lagos state, Nigeria</span></p>
-        <p class="notice">Deliveries outside our jurisdiction, "Lagos" will not be processed nor permitted. In 
-            cases where we have such occurence, we would require from the user a well deserving explanation on why 
-        the order was placed from such location knowing fully well that our address feature and business operations 
-    does not cover such location.</p>
-        <p class="notice">Deliveries are processed immediately after successful payment.</p>
-        <h4>Failed delivery</h4>
-        <p>We are not liable for delivery errors due to incorrect or incomplete information provided by you during the registration process nor for any damage or delays after delivery to a carrier organized by you and not offered or recommended by us. User can always update address depending on their current location within Lagos state.</p>
-        <p>If the goods are not received or collected at the time or within the period specified, they will be returned to us. We will contact you to schedule a second delivery attempt or to agree on a future course of action.</p>
-        <p>Unless otherwise agreed, each delivery attempt after the second one will be at your expense.</p>
         
-        {% comment "" %}
-        <h2>USER RIGHTS</h2>
-        <h3>Right of withdrawal</h3>
-        <p>Unless exceptions apply, if you qualify as a European consumer, you have the right to withdraw from a contract within a specified period (usually 14 days), without giving any reason. If you don’t fit this qualification, you cannot benefit from the rights described in this section.</p>
-        <h4>Exercising your right of withdrawal</h4>
-        <p>To withdraw from a contract, you must inform us clearly of your decision. This can be done using a withdrawal form or by any other clear statement. Make sure to do this before the withdrawal period ends.</p>
-        <h4>Withdrawal period</h4>
-        <ul>
-        <li>for goods, the withdrawal period ends 14 days after you or a designated third party takes physical possession of the goods;</li>
-        <li>for multiple goods ordered together or delivered separately, the withdrawal period ends 14 days after you or a designated third party acquires physical possession of the last good.</li>
-        </ul>
-        <h4>Effects of withdrawal</h4>
-        <p>If you correctly withdraw from a contract, we will reimburse you for all payments made to us, including any delivery costs, if applicable.</p>
-        <p>However, any additional costs resulting from choosing a delivery method other than our standard option will not be reimbursed.</p>
-        <p>We will process your reimbursement promptly and no later than 14 days after we receive your withdrawal notification. Reimbursements will be made using the same payment method you used for the initial transaction unless agreed otherwise. You will not incur any costs or fees for this reimbursement.</p>
-        <h4>... on the purchase of physical goods</h4>
-        <p>Unless we have offered to collect the goods, you must return them to us or to a person authorized by us without delay and no later than 14 days after notifying us of your decision to withdraw from the contract.</p>
-        <p>Your deadline is met if you hand the goods to the carrier or return them as instructed before the 14-day period expires. We may withhold reimbursement until we receive the goods or until you provide evidence of returning them, whichever occurs first.</p>
-        <p>You are responsible for any diminished value of the goods resulting from handling beyond what is necessary to establish their nature, characteristics, and functioning.</p>
-        <p>You will bear the costs of returning the goods.</p>
-        <h3>UK USER RIGHTS</h3>
-        <h4>Right to cancel</h4>
-        <p>Unless exceptions apply, if you qualify as a consumer in the United Kingdom, you have the right to withdraw from a contract within a specified period (usually 14 days), without giving any reason. If you do not fit this qualification, you cannot benefit from the rights described in this section.</p>
-        <h4>Exercising your right to cancel</h4>
-        <p>To withdraw from a contract, you must inform us clearly of your decision. This can be done using a cancellation form or by any other clear statement. Make sure to do this before the cancellation period ends.</p>
-        <h4>Cancellation period</h4>
-        <ul>
-        <li>for goods, the cancellation period ends 14 days after you or a designated third party takes physical possession of the goods;</li>
-        <li>for multiple goods ordered together or delivered separately, the cancellation period ends 14 days after you or a designated third party acquires physical possession of the last good.</li>
-        </ul>
-        <h4>Effects of cancellation</h4>
-        <p>If you correctly withdraw from a contract, we will reimburse you for all payments made to us, including any delivery costs, if applicable.</p>
-        <p>However, any additional costs resulting from choosing a delivery method other than our standard option will not be reimbursed.</p>
-        <p>We will process your reimbursement promptly and no later than 14 days after we receive your cancellation notification. Reimbursements will be made using the same payment method you used for the initial transaction unless agreed otherwise. You will not incur any costs or fees for this reimbursement.</p>
-        <h4>... on the purchase of physical goods</h4>
-        <p>Unless we have offered to collect the goods, you must return them to us or to a person authorized by us without delay and no later than 14 days after notifying us of your decision to withdraw from the contract.</p>
-        <p>Your deadline is met if you hand the goods to the carrier or return them as instructed before the 14-day period expires. We may withhold reimbursement until we receive the goods or until you provide evidence of returning them, whichever occurs first.</p>
-        <p>You are responsible for any diminished value of the goods resulting from handling beyond what is necessary to establish their nature, characteristics, and functioning.</p>
-        <p>You will bear the costs of returning the goods.</p>
-        <h2>GUARANTEES</h2>
-        <h3>Legal guarantee of conformity for goods under EU law</h3>
-        <p>We guarantee the conformity of goods sold to European consumers for at least 2 years from delivery. This guarantee applies to goods on our website according to the laws of your country.</p>
-        <p>The laws of your country may grant you broader rights regarding legal guarantees of conformity.</p>
-        <h3>Conformity to contract for consumers in the United Kingdom</h3>
-        <p>UK consumers have the right to receive goods that conform to the contract.</p>{% endcomment %}
-        <h2>LIABILITY AND INDEMNIFICATION</h2>
-        <p>We limit our liability as much as legally allowed when executing agreements with you. This means our responsibility for damages is reduced to the maximum extent permitted by law unless explicitly stated otherwise or agreed upon with you.</p>
-        <h4>Indemnification</h4>
-        <p>You agree to indemnify us and our affiliates, officers, directors, and employees from any claims or demands made by third parties due to or in connection with any culpable violation of these terms or third-party rights related to your use of the service to the extent allowed by law.</p>
-        <h4>Limitation of liability</h4>
-        <p>Unless explicitly stated otherwise and subject to applicable law, you cannot claim damages against us (or any individual or entity acting on our behalf).</p>
-        <p>However, this exclusion does not apply to damages affecting life, health, or physical integrity, damages arising from the breach of significant contractual obligations (such as those necessary to fulfill the contract's purpose), and/or damages resulting from intentional or gross negligence, provided that our website has been used appropriately and correctly by you.</p>
-        <p>Unless damages stem from intentional or gross negligence, or they impact life, health, or physical integrity, our liability is limited to typical and foreseeable damages at the time the contract was entered into.</p>
-        {% comment "" %}
-        <h3>US users</h3>
-        <h4>Disclaimer of warranties</h4>
-        <p>Our website is provided on an “as is” and “as available” basis. When you use our service, you are doing so at your own risk. We explicitly state that we are not making any promises or guarantees, whether they are express, implied, or even required by law. These include assurances about the quality of the service, its suitability for your specific needs, or whether it infringes on anyone else's rights. Please keep in mind that any advice or information you receive from us or through our service does not create any warranties beyond what we have explicitly stated here.</p>
-        <p>Additionally, while we strive to provide accurate and reliable content, we cannot guarantee that it is always going to be the case. We do not guarantee that the service will always meet your requirements or be available when you need it. There might be interruptions, or it might not function correctly due to factors beyond our control. While we do our best to keep everything running smoothly, we cannot ensure that the service will be free of harmful elements like viruses. If you choose to download any content from our service, you are assuming the risk, and we are not responsible for any damage it might cause to your devices or data.</p>
-        <p>We do not endorse or guarantee any products or services advertised through our service or any links we provide. We are not involved in any transactions between you and third-party providers, so any interactions or agreements you make with them are solely your responsibility.</p>
-        <p>Our service might not always be accessible or may not work correctly with your web browser, mobile device, or operating system. While we strive to provide a seamless experience, we cannot guarantee it in every situation. As such, we want to clarify that we cannot be held responsible for any perceived or actual damages that result from issues related to the content, operation, or use of our service.</p>
-        <p>While we may have certain exclusions and limitations in our agreement, these may not apply to you depending on the laws of your jurisdiction. Federal law, as well as laws in some states and other jurisdictions, may offer protections that supersede our disclaimers and exclusions. This means that you may have specific legal rights that are not affected by our agreement. It is essential to understand your rights, as they may vary from state to state or country to country. We want to emphasize that any disclaimers or exclusions in our agreement will only be enforced to the extent permitted by applicable law.</p>
-        <h4>Limitation of liability</h4>
-        <p>To the maximum extent permitted by applicable law, in no event shall we, along with our subsidiaries, affiliates, officers, directors, agents, partners, suppliers, or employees, be liable for:</p>
-        <ul>
-        <li>any indirect, punitive, incidental, special, consequential, or exemplary damages arising from or related to your use of, or inability to use, the service. This includes damages for loss of profits, goodwill, use, data, or other intangible losses;</li>
-        <li>any damage, loss, or injury resulting from hacking, tampering, or unauthorized access to your account or the information within it;</li>
-        <li>errors, mistakes, or inaccuracies in the content provided;</li>
-        <li>personal injury or property damage resulting from your use of the service;</li>
-        <li>unauthorized access to our secure servers or personal information stored therein;</li>
-        <li>interruption or cessation of transmission to or from the service;</li>
-        <li>bugs, viruses, trojan horses, or similar harmful elements transmitted through the service;</li>
-        <li>errors or omissions in any content posted, transmitted, or made available through the service;</li>
-        <li>defamatory, offensive, or illegal conduct of any user or third party. Our liability is limited to the amount you have paid us in the preceding 12 months, or the duration of your agreement with us, whichever is shorter.</li>
-        </ul>
-        <p>This limitation of liability section will apply to the fullest extent permitted by law in the applicable jurisdiction whether the alleged liability is based on contract, tort, negligence, strict liability, or any other basis, even if you have been advised of the possibility of such damage.</p>
-        <p>Please note that in some jurisdictions, the exclusion or limitation of incidental or consequential damages may not be allowed. This means that these limitations or exclusions might not apply to you. You have specific legal rights, which may vary depending on your jurisdiction. The disclaimers, exclusions, and limitations of liability outlined here may not apply to the extent prohibited by applicable law.</p>
-        <h4>Indemnification</h4>
-        <p>By using and accessing the service, you agree to defend, indemnify, and hold us, our subsidiaries, affiliates, officers, directors, agents, co-branders, partners, suppliers, and employees harmless from any claims, damages, losses, liabilities, costs, or expenses, including legal fees, arising from:</p>
-        <ul>
-        <li>your use of the service, including any data or content you transmit or receive;</li>
-        <li>your violation of these terms, including any breach of representations and warranties;</li>
-        <li>your violation of third-party rights, such as privacy or intellectual property rights;</li>
-        <li>your violation of statutory laws, rules, or regulations;</li>
-        <li>any content submitted from your account, including third-party access using username, password, or other security measures, including misleading, false, or inaccurate information;</li>
-        <li>your intentional misconduct; or</li>
-        <li>any statutory provision by you or your affiliates, officers, directors, agents, co-branders, partners, suppliers, and employees to the extent permitted by law.</li>
-        </ul>{% endcomment %}
-        <h2>COMMON PROVISIONS</h2>
-        <h3>No waiver</h3>
-        <p>Our failure to assert any right or provision under these terms does not waive that right or provision. No waiver will constitute a continuing waiver of such term or any other term.</p>
-        <h3>Service interruption</h3>
-        <p>To maintain the best service level, we reserve the right to interrupt the service for maintenance, updates, or other changes, with appropriate notification.</p>
-        <p>We may suspend or discontinue the service within legal limits. If discontinued, we will assist you in withdrawing personal data and respect your rights regarding continued product use and compensation under applicable law.</p>
-        <p>The service may be unavailable due to events beyond our reasonable control, such as infrastructure breakdowns or blackouts.</p>
-        <div id="privacy-policy">
-        <h3>Service reselling</h3>
-        <p>You may not reproduce, duplicate, copy, sell, or exploit any part of our website or its service without our express written permission, granted either directly or through a legitimate reselling program.</p>
-        <h3>Privacy policy</h3>
-            <p>For information on the use of personal data, you can refer to our website's <a href="{% url 'privacy_policy' %}" style="color:blue;">privacy policy</a>.</p>
-        </div>
-        <h3>Intellectual property rights</h3>
-        <p>Without prejudice to any more specific provisions in these terms, all intellectual property rights associated with our website, including copyrights, trademark rights, patent rights, and design rights, are exclusively owned by us or our licensors. These rights are protected by applicable laws and international treaties concerning intellectual property.</p>
-        <p>All trademarks, whether nominal or figurative, and any other marks, trade names, service marks, word marks, illustrations, images, or logos associated with our website, are and remain the exclusive property of us or our licensors. These are also protected by applicable laws and international treaties related to intellectual property.</p>
-        <h3>Changes to the terms</h3>
-        <p>We reserve the right to modify these terms at any time, informing you of any changes.</p>
-        <p>Such changes will only affect the relationship with you from the date communicated onwards.</p>
-        <p>Your continued use of the service will signify your acceptance of the revised terms. If you do not wish to be bound by the changes, you must stop using the service and terminate the agreement.</p>
-        <p>The applicable previous version will govern the relationship prior to your acceptance. You can obtain any previous version from us.</p>
-        <p>If legally required, we will notify you in advance of when the modified terms will take effect.</p>
-        <h3>Assignment of contract</h3>
-        <p>We reserve the right to transfer, assign, dispose of by novation, or subcontract any or all rights or obligations under these terms, considering your legitimate interests. Provisions about changes to these terms will apply accordingly.</p>
-        <p>You cannot assign or transfer your rights or obligations under these terms without our written permission.</p>
-        <h3>Contact</h3>
-        <p>All communications regarding the use of our website must be sent using the contact information provided in this document.</p>
-        <h3>Severability</h3>
-        <p>Invalidity or unenforceability of any provision under applicable law will not affect the validity of other provisions, which will remain in full force and effect.</p>
-        {% comment "" %}
-        <h4>US users</h4>
-        <p>Any invalid or unenforceable provision will be interpreted to the extent reasonably required to render it valid, enforceable, and consistent with its original intent. This document constitutes the entire agreement between you and us and supersedes all other communications, including but not limited to prior agreements concerning such subject matter, to the fullest extent permitted by law.</p>
-        <h4>EU users</h4>
-        <p>If any provision of this document is void, invalid, or unenforceable, we both agree to do our best to find, in an amicable way, an agreement on valid and enforceable provisions. <br>
-        In case of failure to do so, the void, invalid, or unenforceable provisions will be replaced by the applicable statutory provisions.</p>
-        <p>Regardless of the above, the nullity, invalidity, or impossibility of enforcing a particular provision of this document will not nullify the entire agreement, unless the severed provisions are essential for it, or of such importance that we both would not have entered into the contract if we had known that the provision would not be valid, or in cases where the remaining provisions would translate into an unacceptable hardship for you or us.</p>
-        {% endcomment %}
-        <h3>Governing law</h3>
-        <p>These terms are governed by the law of the place where we are based, as outlined in the relevant section of this document, without regard to conflict of laws principles.</p>
-        {% comment "" %}
-        <h4>Prevalence of national law</h4>
-        <p>However, regardless of the above, if the law of the country that you are based on provides for higher applicable consumer protection standards, such higher standards will prevail.</p>
-        <h3>Venue of jurisdiction</h3>{% endcomment %}
-        <p>The jurisdiction over any controversy related to these terms lies with the courts of the place where we are based, as outlined in the relevant section of this document.</p>
-        {% comment "" %}
-        <h4>Exception for consumers in Europe</h4>
-        <p>However, regardless of the above, this does not apply if you qualify as a European consumer or if you are a consumer based in the United Kingdom, Switzerland, Norway, or Iceland.</p>
-        <h4>UK consumers</h4>
-        <p>If you are a consumer based in England and Wales, you may bring legal proceedings related to these terms in the English and Welsh courts. If you are a consumer based in Scotland, you may bring legal proceedings in either the Scottish or the English courts. If you are a consumer based in Northern Ireland, you may bring legal proceedings in either the Northern Irish or the English courts.</p>
-        <h4>US users</h4>
-        <p>We both agree to waive any right to trial by jury in any court in connection with any action or litigation. <br>
-        Any claims under these terms shall proceed individually and we both agree not to join in a class action or other proceeding with or on behalf of others.</p>
+        <p class="c6"><span>15.2.4. </span>
+            <span class="c2">Non-Returnable Items</span>
+            <span class="c0">:<br> All food items are non-returnable for health and safety reasons. Please ensure that 
+                you review your order carefully before confirming your purchase.
+            </span>
+        </p>
         
-        <h3>US users</h3>
-        <h4>Surviving provisions</h4>
-        <p>Our agreement will continue in effect until it is terminated by either our website or you. Upon termination, the provisions contained in this document that by their context are intended to survive termination or expiration will survive, including but not limited to the following:</p>
-        <ul>
-        <li>your grant of licenses under this document will survive indefinitely;</li>
-        <li>your indemnification obligations will survive for a period of five years from the date of termination;</li>
-        <li>the disclaimer of warranties and representations, and the stipulations under the section containing indemnity and limitation of liability provisions, will survive indefinitely.</li>
+        <p class="c6 c12"><span class="c0"></span></p>
+        <p class="c6"><span class="c4 c2">16. GENERAL PROVISIONS</span></p>
+        <p class="c6">
+            <span>16.1 </span>
+            <span class="c2">No Waiver<br></span>
+            <span class="c0">Our failure to assert any right or provision under these terms does not constitute a 
+                waiver of that right or provision. A waiver of any right or provision of these terms will only be 
+                effective if made in writing.
+            </span>
+        </p>
+        <p class="c6">
+            <span>16.2 </span>
+            <span class="c2">Service Interruption<br></span>
+            <span class="c0">To ensure the continued quality of service, we may occasionally need to suspend or 
+                interrupt our platform for maintenance, updates, or other necessary changes. We will provide advance 
+                notice, where feasible.<br>We may also suspend or discontinue the service at any time within legal 
+                limits. In the event of discontinuation, we will assist you in withdrawing any personal data and will 
+                respect your rights to compensation under applicable law for the discontinued service.
+            </span>
+        </p>
+        <p class="c6">
+            <span>16.3 </span>
+            <span class="c2">Service Unavailability<br></span>
+            <span class="c0">The platform may become temporarily unavailable due to issues outside of our reasonable 
+                control, such as system breakdowns, natural disasters, or power outages. We will take appropriate 
+                steps to minimize disruption but cannot be held liable for service unavailability caused by these 
+                events.
+            </span>
+        </p>
+        
+        <p class="c6">
+            <span>16.4 </span>
+            <span class="c2">Reselling of Service<br></span>
+            <span class="c0">You may not reproduce, duplicate, copy, sell, or exploit any part of our website or 
+                services without our express written permission. Any unauthorized reselling or exploitation of our 
+                services will result in the immediate suspension of your account.
+            </span>
+        </p>
+        <p class="c6">
+            <span>16.5 </span>
+            <span class="c2">Privacy Policy<br></span>
+            <span class="c0">For details on how we collect, use, and protect your personal data, please refer to our 
+                Privacy Policy, which forms an integral part of these Terms of Service.
+            </span>
+        </p>
+        <p class="c1">
+            <span>16.6 </span>
+            <span class="c2">Privacy and Data Protection</span>
+            <span>: We take your privacy seriously. All personal data is handled according to our </span>
+            <span class="c2">Privacy Policy</span>
+            <span class="c0">&nbsp;and applicable data protection laws.</span>
+        </p>
+        <p class="c6"><span>16.7 </span>
+            <span class="c2">Intellectual Property Rights<br></span>
+            <span class="c0">All intellectual property rights, including copyrights, trademarks, patents, and design 
+                rights associated with our website, content, and services, are exclusively owned by Adimeals or its 
+                licensors. These rights are protected under applicable local and international intellectual property 
+                laws.
+            </span>
+        </p>
+        <p class="c6"><span class="c0">You may not use, modify, or distribute any of our intellectual property without 
+            prior written consent from us.</span>
+        </p>
+        <p class="c6"><span>16.8 </span><span class="c2">Changes to the Terms<br></span>
+            <span class="c0">We reserve the right to modify these Terms of Service at any time. Any changes will take 
+                effect from the date of notification, and your continued use of the platform will signify acceptance of 
+                these changes. If you do not accept the revised terms, you must cease using the platform and terminate 
+                your agreement with us. You can request a copy of the previous version of these terms from us if required.
+            </span>
+        </p>
+        <p class="c6">
+            <span>16.9 </span>
+            <span class="c2">Assignment of Contract<br></span>
+            <span class="c0">We reserve the right to transfer, assign, or subcontract any rights or obligations under 
+                these terms, provided that your legitimate interests are considered. You may not transfer or assign 
+                your rights or obligations under these terms without our express written consent.
+            </span>
+        </p>
+        <p class="c6">
+            <span>16.10</span>
+            <span class="c2">&nbsp;Contact Information<br></span>
+            <span class="c0">For any inquiries regarding the use of our services or to contact us, please refer to the 
+                contact information provided in this document. You may contact us via the following methods:
+            </span>
+        </p>
+        <ul class="c10 lst-kix_54jhtl1hsict-0 start">
+            <li class="c3 li-bullet-0"><span class="c2">Email</span>
+                <span class="c0">: <a href="mailto:adimeals@gmail.com" style="color:blue;">adimeals@gmail.com</a></span>
+            </li>
+            <li class="c3 li-bullet-0">
+                <span class="c2">Phone</span>
+                <span class="c0">:  <a href="tel:+12348156677751" style="color:blue;">+ (234) 81 566 777 51</a></span>
+            </li>
+            <li class="c3 li-bullet-0">
+                <span class="c2">Address</span>
+                <span class="c0">: ADI MEALS LIMITED, No. 12, Ladisa Crescent, Apple Estate, Amuwo-Odofin, Lagos, 
+                    Nigeria.
+                </span>
+            </li>
+            <li class="c3 li-bullet-0">
+                <span class="c2">Socials</span>
+                <span class="c0">: <a href="{% url 'contact' %}" style="color:blue;">Social handles</a>
+                </span>
+            </li>
         </ul>
-        <h2>INFORMATION ABOUT THIS DOCUMENT</h2>
-        <p>This document was generated with the use of the <a href="https://www.iubenda.com/en/help/132171-sample-terms-of-service-template">Terms of Service template</a>.</p>
-        <h2>DISPUTE RESOLUTION</h2>
-        <h3>Online dispute resolution for consumers</h3>
-        <p>The European Commission has set up an online platform for alternative dispute resolution, providing an out-of-court solution for resolving disputes arising from online sale and service contracts.</p>
-        <p>Therefore, European consumers or consumers based in Norway, Iceland, or Liechtenstein can use this platform to settle disputes arising from online contracts. You can access the platform <a href="https://ec.europa.eu/consumers/odr/main/index.cfm?event=main.home.chooseLanguage">via the following link</a>.</p>
-        {% endcomment %}
+        
+        <p class="c6"><span class="c0">We will respond to your inquiries as soon as possible.</span></p>
+        <p class="c6">
+            <span>16.11 </span>
+            <span class="c2">Severability<br></span>
+            <span class="c0">If any provision of these terms is deemed invalid or unenforceable by a court of law, the 
+                remaining provisions will continue to be in full force and effect.
+            </span>
+        </p>
+        <p class="c6"><span>16.12 </span><span class="c4 c2">Governing Law and Dispute Resolution</span></p>
+        <p class="c1"><span class="c0">16.12.1 These terms shall be governed by and construed in accordance with the 
+            laws of Nigeria. However, any dispute, claim, or controversy arising out of or in connection with these 
+            terms shall first be submitted to mediation at the Lagos Multi-Door Courthouse (LMDC). Should the dispute 
+            not be resolved through mediation within a reasonable period, the parties may pursue further legal action 
+            at the appropriate courts in Nigeria, as specified in the applicable jurisdictional provisions of this 
+            agreement.</span>
+        </p>
+        <p class="c1"><span>16.12.2 All disputes must be submitted within 30 days of the dispute's occurrence, after 
+            which they will be considered waived.</span>
+        </p>
+        
     </div>    
 </section>
 

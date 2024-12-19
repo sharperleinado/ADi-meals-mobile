@@ -25,7 +25,7 @@
     
     
     {% block jscript_attribute %}
-    {% comment "" %}
+    
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i&display=swap"
         as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -40,7 +40,7 @@
     <noscript>
         <link rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Epilogue:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap">
-    </noscript>{% endcomment %}
+    </noscript>
     {% endblock %}
     <link rel="stylesheet" href="{% static 'master.css' %}">
     <link rel="preload" as="style" href="{% static 'assets/mobirise/css/mbr-additional.css' %}">
@@ -171,31 +171,32 @@
         {% endblock  %}
 
     <section data-bs-version="5.1" class="footer1 cid-sFGDg6hy8z" once="footers" id="footer1-7">
-
+        <div class="container">
             <div class="row mbr-white">
                 <div class="col-12 col-md-6 col-lg-3">
                     <h5 class="mbr-section-subtitle mbr-fonts-style mb-2 display-7">
                         <strong>Links</strong>
                     </h5>
                     <ul class="list mbr-fonts-style display-4">
-                        <li class="mbr-text item-wrap">Home</li>
-                        <li class="mbr-text item-wrap">Features</li>
-                        <li class="mbr-text item-wrap">Research</li>
-                        <li class="mbr-text item-wrap">Team</li>
+                        <a href="{% url 'terms_of_service' %}"><li class="mbr-text item-wrap">Terms of Service</li></a>
+                        <a href="{% url 'privacy_policy' %}"><li class="mbr-text item-wrap">Privacy policy</li></a>
+                        <a href="{% url 'terms_of_service' %}#shipping-policy"><li class="mbr-text item-wrap">Shipping and Return policy</li></a>
+                        <a href="{% url 'terms_of_service' %}#refund-policy"><li class="mbr-text item-wrap">Refund policy</li></a>
                     </ul>
                 </div>
+
                 <div class="col-12 col-md-6 col-lg-3">
                     <h5 class="mbr-section-subtitle mbr-fonts-style mb-2 display-7">
                         <strong>Info</strong>
                     </h5>
                     <ul class="list mbr-fonts-style display-4">
 
-                        <li class="mbr-text item-wrap">Our Story</li>
-                        <li class="mbr-text item-wrap">Pricing</li>
-                        <li class="mbr-text item-wrap">Contacts</li>
-                        <li class="mbr-text item-wrap">Office</li>
+                        <a href="{% url 'about' %}"><li class="mbr-text item-wrap">Our Story</li></a>
+                        <a href="{% url 'food_app:foodbox' %}"><li class="mbr-text item-wrap">Pricing</li></a>
+                        <a href="{% url 'contact' %}"><li class="mbr-text item-wrap">Contacts</li></a>
+                        <a href="{% url 'contact' %}"><li class="mbr-text item-wrap">Office</li></a>
                     </ul>
-                </div>
+                </div>{% comment "" %}
                 <div class="col-12 col-md-6 col-lg-3">
                     <h5 class="mbr-section-subtitle mbr-fonts-style mb-2 display-7">
                         <strong>Features</strong>
@@ -211,13 +212,13 @@
                         </li>
                         <li class="mbr-text item-wrap"><br></li>
                     </ul>
-                </div>
+                </div>{% endcomment %}
                 <div class="col-12 col-md-6 col-lg-3">
                     <h5 class="mbr-section-subtitle mbr-fonts-style mb-2 display-7">
                         <strong>Mission</strong>
                     </h5>
                     <p class="mbr-text mbr-fonts-style mb-4 display-4">
-                        Simplyfying Soup and Food cooking in Nigeria
+                        Revolutionizing SOUP, and Food cooking in Nigeria.
                     </p>
                     <p class="mbr-text mbr-fonts-style mb-4 display-4">
                         <a href="{% url 'about' %}" id="story">Click me to read my story!</a>
@@ -227,17 +228,17 @@
                     </h5>
                     <div class="social-row display-7">
                         <div class="soc-item">
-                            <a href="{% url 'home' %}" target="_blank">
+                            <a target="_blank">
                                 <span class="mbr-iconfont socicon socicon-facebook"></span>
                             </a>
                         </div>
                         <div class="soc-item">
-                            <a href="{% url 'home' %}" target="_blank">
+                            <a href="https://x.com/ADimeals?t=-VMCHcM3panXJnjGskqWhw&s=08" target="_blank">
                                 <span class="mbr-iconfont socicon socicon-twitter"></span>
                             </a>
                         </div>
                         <div class="soc-item">
-                            <a href="{% url 'home' %}" target="_blank">
+                            <a href="https://www.instagram.com/adimeals" target="_blank">
                                 <span class="mbr-iconfont socicon socicon-instagram"></span>
                             </a>
                         </div>

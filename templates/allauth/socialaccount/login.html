@@ -8,9 +8,8 @@ ADi meals | {{ provider }}
 {#{% extends "socialaccount/base.html" %}#}
 {#{% block head_title %}{% trans "Sign In" %}{% endblock %}#}
 <section data-bs-version="5.1" class="gallery3 cid-u0tvmAp7su" id="gallery3-a">
-
-  <div class="container">
-    <center>
+    <div class="container">
+        <center>
 
 {% block content %}
 {% if process == "connect" %}
@@ -20,17 +19,24 @@ ADi meals | {{ provider }}
 
 {% else %}
 
-<h1>{% blocktrans with provider.name as provider %}Sign In Via {{ provider }}{% endblocktrans %}</h1><br><br><br>
+<h1>{% blocktrans with provider.name as provider %}
+  <div class="mbr-section-head">
+    <div class="col-md-12 col-lg-10 m-auto align-center">
+        <h1 class="mbr-section-title mbr-white mbr-fonts-style mb-3 display-1" style="color:green;"><strong>Sign In Via {{ provider }}</strong></h1>
+    </div><br><br>
+  </div>
+  {% endblocktrans %}</h1>
 
 <p>{% blocktrans with provider.name as provider %}You are about to sign in using a third party account from {{ provider }}.{% endblocktrans %}</p>
 {% endif %}
 
 <form method="post">
   {% csrf_token %}
-  <button type="submit" class="btn btn-danger display-4">{% trans "Continue" %}</button>
+  <button type="submit" class="btn btn-primary display-4">{% trans "Continue" %}</button>
 </form>
 {% endblock %}
-       </center>
+       
+        </center>
     </div>
 </section>
 

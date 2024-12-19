@@ -52,7 +52,7 @@ def cart_items(request):
                 cart = Cart.objects.get(session_id=request.session['cart_users'],is_paid=False)
             cartitems = cart.cartitems.all()
             if len(cartitems) == 0:
-                messages.info(request,"Add items to cart to view items!")
+                messages.info(request,"Add to cart to view items!")
                 return redirect(request.META.get('HTTP_REFERER'))
             else:
                 new_cartitems = returns_item(cartitems,"mini_box")

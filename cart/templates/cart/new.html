@@ -82,10 +82,11 @@
                                                 <button type="button" class="btn btn-warning border-secondary bg-white delete-item"
                                                     name="delete-item" value="{{ item.0.object_id }}"
                                                     data-content="{{ item.0.content_object }}" data-item="{{ item.0.food_category }}"
-                                                    id="delete-item">
-                                                    <span style="margin-left:13px;" class="mobi-mbri mobi-mbri-trash mbr-iconfont mbr-iconfont-btn"></span>
+                                                    id="delete-item">Del
+                                                    {#<span style="margin-left:13px;" class="mobi-mbri mobi-mbri-trash mbr-iconfont mbr-iconfont-btn">--</span>#}
                                                 </button>
                                             </div>
+
                                                 {% if user.is_authenticated %}{#To update protein in cart#}
                                                 <button type="button" id="update-login" value="{{item.0.content_object.pk}}" data-food-category="{{item.0.food_category}}" class="btn btn-white border-secondary bg-white">
                                                     <span style="margin-left:-2px" class="mobi-mbri mobi-mbri-edit-2 mbr-iconfont mbr-iconfont-btn"></span>
