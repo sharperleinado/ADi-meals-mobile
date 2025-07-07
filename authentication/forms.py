@@ -1,6 +1,7 @@
 from django import forms 
 from .models import Mobile
 from phonenumber_field.modelfields import PhoneNumberField
+from django_recaptcha.fields import ReCaptchaField
 
 #This form is for creating a phone number.
 class MobileForm(forms.ModelForm):
@@ -17,3 +18,6 @@ class UpdateMobileForm(forms.Form):
 class EmailReset(forms.Form):
     email = forms.CharField(required=True, label="E-mail or Username",max_length=100,widget=forms.TextInput(attrs={'placeholder':"Please, enter your email or username"}))
 
+
+class RecaptchaForm(forms.Form):
+    recaptcha = ReCaptchaField()

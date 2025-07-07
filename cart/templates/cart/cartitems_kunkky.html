@@ -50,7 +50,7 @@ ADi meals | Cart
                                             {% if item.0.content_type == food %}
                                                 <div class="col-md-9 text-left mt-sm-2">
                                                     <h4>{{item.0.content_object.food_item|capfirst}}</h4>
-                                                    <p class="font-weight-light">{{item.0.protein|capfirst}} | {{item.0.subprotein|capfirst}} | ₦{{item.0.content_object.food_price}}</p>
+                                                    <p class="font-weight-light">{% if item.0.content_object.protein_exist == "yes" %}{{item.0.protein|capfirst}} | {{item.0.subprotein|capfirst}} | {% endif %}₦{{item.0.content_object.food_price}}</p>
                                                 </div>
                                     </div>
                                 </td>

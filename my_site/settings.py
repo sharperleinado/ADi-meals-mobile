@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'pyotp',
+    'django_recaptcha',
+    'django_celery_beat',
     'django.contrib.sites',#
     #3rd party
     'allauth',
@@ -62,6 +64,10 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.instagram',
 ]
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'  # or whatever broker you use
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
 
 
 MIDDLEWARE = [
@@ -223,3 +229,7 @@ NUMBER_GROUPING=3
 
 PHONENUMBER_DEFAULT_FORMAT = 'INTERNATIONAL'
 PHONENUMBER_DEFAULT_REGION = 'NG'
+
+
+RECAPTCHA_PUBLIC_KEY = os.getenv('RECAPTCHA_PUBLIC_KEY')
+RECAPTCHA_PRIVATE_KEY = os.getenv('RECAPTCHA_PRIVATE_KEY')

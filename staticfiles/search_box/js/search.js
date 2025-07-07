@@ -41,9 +41,19 @@ function addToCart(e){
     })
     .then(res=>res.json())
     .then(data=>{
-        document.getElementById("food_addtocart").innerHTML = '<strong>' + data + '</strong>'
-        document.getElementById("mobile_food_addtocart").innerHTML = '<strong>' + data + '</strong>'
+        document.getElementById("food_addtocart").innerHTML = '<strong>' + data[0] + '</strong>'
+        document.getElementById("mobile_food_addtocart").innerHTML = '<strong>' + data[0] + '</strong>'
         console.log(data)
+        document.querySelectorAll(`button[value="${product_id}"]`).forEach(btn => {
+            if (parseInt(data[1]) >= 10) {
+                btn.disabled = true;
+                if (parseInt(data[1]) === 10) {
+                    alert("Item quantity cannot be more than 10");
+                }
+            } else {
+                btn.disabled = false;
+            }
+        });
     })
     .catch(error=>{
         console.log(error)

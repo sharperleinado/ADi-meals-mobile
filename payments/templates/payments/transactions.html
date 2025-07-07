@@ -26,18 +26,25 @@ ADi meals | Transactions
                     <ul class="list-group mb-3">
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
-                                <h6 class="my-0">{{item.content_object.food_item|capfirst}} | {{item.protein|capfirst}} | {{item.subprotein|capfirst}}</h6>
+                                <h6 class="my-0">{{item.content_object.food_item|capfirst}}{% if item.content_object.protein_exist == "yes" %} | {{item.protein|capfirst}} | {{item.subprotein|capfirst}}{% endif %}</h6>
                             </div>
                             
                             <div class="col-md-3 text-left">
-                                <img src={{item.content_object.image.url}} class="img-fluid" alt="Adi Foods"
+                                <img src={{item.content_object.image.url}} style="width:100px;height:100px" class="img-fluid" alt="Adi Foods"
                                 data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
                             </div>
                             <li class="list-group-item d-flex justify-content-between bg-light">
+                                {% if item.status == "success" %}
                                 <div class="text-success">
                                     <h6 class="my-0">Status</h6>
                                 </div>
                                 <span class="text-success">{{item.status|capfirst}}</span>
+                                {% else %}
+                                <div class="text-success">
+                                    <h6 class="my-0" style="color:red">Status</h6>
+                                </div>
+                                <span style="color:red">{{item.status|capfirst}}</span>
+                                {% endif %}
                             </li>
 
                             <li class="list-group-item d-flex justify-content-between bg-light">
@@ -50,9 +57,19 @@ ADi meals | Transactions
                                 <strong>{{item.time}}</strong>
                             </li>
 
+                            <li class="list-group-item d-flex justify-content-between bg-light">
+                                <span>Food price</span>
+                                <strong>₦{{item.content_object.food_price}}</strong>
+                            </li>
+
+                            <li class="list-group-item d-flex justify-content-between bg-light">
+                                <span>Delivery</span>
+                                <strong>₦{{item.delivery}}</strong>
+                            </li>
+
                             <li class="list-group-item d-flex justify-content-between">
                                 <span>Total (NGN)</span>
-                                <strong>₦{{item.content_object.food_price}}</strong>
+                                <strong>₦{{item.amount}}</strong>
                             </li><br>
                         </li>
                     </ul>
@@ -69,15 +86,22 @@ ADi meals | Transactions
                             </div>
 
                             <div class="col-md-3 text-left">
-                                <img src={{item.content_object.image.url}} class="img-fluid" alt="Adi Foods"
+                                <img src={{item.content_object.image.url}} style="width:100px;height:100px" class="img-fluid" alt="Adi Foods"
                                 data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
                             </div>
 
                             <li class="list-group-item d-flex justify-content-between bg-light">
+                                {% if item.status == "success" %}
                                 <div class="text-success">
                                     <h6 class="my-0">Status</h6>
                                 </div>
                                 <span class="text-success">{{item.status|capfirst}}</span>
+                                {% else %}
+                                <div class="text-success">
+                                    <h6 class="my-0" style="color:red">Status</h6>
+                                </div>
+                                <span style="color:red">{{item.status|capfirst}}</span>
+                                {% endif %}
                             </li>
 
                             <li class="list-group-item d-flex justify-content-between bg-light">
@@ -88,6 +112,16 @@ ADi meals | Transactions
                             <li class="list-group-item d-flex justify-content-between bg-light">
                                 <span>Time</span>
                                 <strong>{{item.time}}</strong>
+                            </li>
+
+                            <li class="list-group-item d-flex justify-content-between bg-light">
+                                <span>Soup price</span>
+                                <strong>₦{{item.content_object.soup_price}}</strong>
+                            </li>
+
+                            <li class="list-group-item d-flex justify-content-between bg-light">
+                                <span>Delivery</span>
+                                <strong>₦{{item.delivery}}</strong>
                             </li>
 
                             <li class="list-group-item d-flex justify-content-between">
@@ -111,11 +145,11 @@ ADi meals | Transactions
                                     <li class="list-group-item d-flex justify-content-between lh-condensed">
                         
                                         <div>
-                                            <h6 class="my-0">{{item.3.food_item|capfirst}} | {{item.1|capfirst}} | {{item.2|capfirst}} | <strong>{{item.4|capfirst}}</strong> | ₦{{item.3.food_price}}</h6>
+                                            <h6 class="my-0">{{item.3.food_item|capfirst}}{% if item.content_object.protein_exist == "yes" %} | {{item.1|capfirst}} | {{item.2|capfirst}} {% endif %}| <strong>{{item.4|capfirst}}</strong> | ₦{{item.3.food_price}}</h6>
                                         </div>
                 
                                         <div class="col-md-3 text-left">
-                                            <img src={{item.3.image.url}} class="img-fluid" alt="Adi Foods"
+                                            <img src={{item.3.image.url}} style="width:100px;height:100px" class="img-fluid" alt="Adi Foods"
                                             data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
                                         </div>
                             
@@ -130,7 +164,7 @@ ADi meals | Transactions
                                         </div>
                 
                                         <div class="col-md-3 text-left">
-                                            <img src={{item.3.image.url}} class="img-fluid" alt="Adi Foods"
+                                            <img src={{item.3.image.url}} style="width:100px;height:100px" class="img-fluid" alt="Adi Foods"
                                             data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
                                         </div>
                             
@@ -145,7 +179,7 @@ ADi meals | Transactions
                                         </div>
                 
                                         <div class="col-md-3 text-left">
-                                            <img src={{item.3.image.url}} class="img-fluid" alt="Adi Foods"
+                                            <img src={{item.3.image.url}} style="width:100px;height:100px" class="img-fluid" alt="Adi Foods"
                                             data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
                                         </div>
                             
@@ -160,7 +194,7 @@ ADi meals | Transactions
                                         </div>
                 
                                         <div class="col-md-3 text-left">
-                                            <img src={{item.3.image.url}} class="img-fluid" alt="Adi Foods"
+                                            <img src={{item.3.image.url}} style="width:100px;height:100px" class="img-fluid" alt="Adi Foods"
                                             data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
                                         </div>
                             
@@ -171,10 +205,17 @@ ADi meals | Transactions
                             {% endfor %}  
                             
                             <li class="list-group-item d-flex justify-content-between bg-light">
+                                {% if item.1 == "success" %}
                                 <div class="text-success">
                                     <h6 class="my-0">Status</h6>
                                 </div>
                                 <span class="text-success">{{item.1|capfirst}}</span>
+                                {% else %}
+                                <div class="text-success">
+                                    <h6 class="my-0" style="color:red">Status</h6>
+                                </div>
+                                <span style="color:red">{{item.1|capfirst}}</span>
+                                {% endif %}
                             </li>
 
                             <li class="list-group-item d-flex justify-content-between bg-light">
@@ -187,9 +228,19 @@ ADi meals | Transactions
                                 <strong>{{item.4}}</strong>
                             </li>
 
+                            <li class="list-group-item d-flex justify-content-between bg-light">
+                                <span>Cart item price</span>
+                                <strong>₦{{item.0}}</strong>
+                            </li>
+
+                            <li class="list-group-item d-flex justify-content-between bg-light">
+                                <span>Delivery</span>
+                                <strong>₦{{item.delivery}}</strong>
+                            </li>
+
                             <li class="list-group-item d-flex justify-content-between">
                                 <span>Total (NGN)</span>
-                                <strong>₦{{item.0}}</strong>
+                                <strong>₦{{item.amount}}</strong>
                             </li><br>
                        </li>
                     </ul>
@@ -210,6 +261,5 @@ ADi meals | Transactions
 </section>
 
 {% endblock %}
-
 
 

@@ -5,6 +5,19 @@ from django.conf import settings
 from django.conf.urls.static import static
 from cart.models import CartItemsFood,Cart
 from django.http import HttpResponse
+from django_celery_beat.models import PeriodicTask, IntervalSchedule
+import json
+
+# every hour
+schedule, _ = IntervalSchedule.objects.get_or_create(every=1, period=IntervalSchedule.HOURS)
+
+PeriodicTask.objects.get_or_create(
+    interval=schedule,
+    name='Delete Old Anonymous Carts',
+    task='ADi-meals-mobile.tasks.delete_old_anonymous_carts',
+)
+
+
 
 def home(request):
     fname = ""

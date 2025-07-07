@@ -1,7 +1,7 @@
 {% extends "base/base.html" %}
 {% load static %}
 {% block pageTitle %}
-ADi meals | Soup select
+ADi meals | Checkout
 {% endblock %}
 
 {% block jscript_attribute %}
@@ -63,7 +63,7 @@ ADi meals | Soup select
                     <div class="col-md-5 mb-3">
                         <label for="country">Country</label>
                         <div class="input-group">
-                            {{address.country | capfirst}}
+                            Nigeria
                         </div>
                     </div>
                     <div class="col-md-4 mb-3">
@@ -72,13 +72,42 @@ ADi meals | Soup select
                             {{address.state | capfirst}}
                         </div>
                     </div>
+
                     {% if user.is_authenticated %}
-                    <div ]class="col-md-3 mb-3">
-                        <label for="address">Address</label>
-                            <div class="input-group">
-                                {{address.street_name | capfirst}} {{address.area|capfirst}} {{address.city|capfirst}}
-                            </div>
-                    </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="address">Address</label>
+                                <div class="input-g]roup">
+                                    {{address.street_name | capfirst}}, {{address.lcda|capfirst}}, {{address.lga|capfirst}}, {{address.division|capfirst}}.
+                                </div>
+                        </div>
+                        
+                        {% if item %}
+                        <div class="mbr-section-btn align-center"><a style="width:100%; margin-left:-0.5rem;" class="btn btn-primary display-4" href="{% url 'payments:edit_account' price=item.food_price slug=item.slug %}"><span
+                            class="mobi-mbri mobi-mbri-edit-2 mbr-iconfont mbr-iconfont-btn"></span>Edit
+                        Me</a>
+                        </div>
+                        {% elif item2 and price == item2.mini_box_price and slug == item2.slug %}
+                        <div class="mbr-section-btn align-center"><a style="width:100%; margin-left:-0.5rem;" class="btn btn-primary display-4" href="{% url 'payments:edit_account' price=item2.mini_box_price slug=item2.slug %}"><span
+                            class="mobi-mbri mobi-mbri-edit-2 mbr-iconfont mbr-iconfont-btn"></span>Edit
+                        Me</a>
+                        </div>
+                        {% elif item2 and price == item2.medium_box_price and slug == item2.slug %}
+                        <div class="mbr-section-btn align-center"><a style="width:100%; margin-left:-0.5rem;" class="btn btn-primary display-4" href="{% url 'payments:edit_account' price=item2.medium_box_price slug=item2.slug %}"><span
+                            class="mobi-mbri mobi-mbri-edit-2 mbr-iconfont mbr-iconfont-btn"></span>Edit
+                        Me</a>
+                        </div>
+                        {% elif item2 and price == item2.mega_box_price and slug == item2.slug %}
+                        <div class="mbr-section-btn align-center"><a style="width:100%; margin-left:-0.5rem;" class="btn btn-primary display-4" href="{% url 'payments:edit_account' price=item2.mega_box_price slug=item2.slug %}"><span
+                            class="mobi-mbri mobi-mbri-edit-2 mbr-iconfont mbr-iconfont-btn"></span>Edit
+                        Me</a>
+                        </div>
+                        {% else %}
+                        <div class="mbr-section-btn align-center"><a style="width:100%; margin-left:-0.5rem;" class="btn btn-primary display-4" href="{% url 'payments:edit_account' price=cart.total_price slug=cart.uid %}"><span
+                            class="mobi-mbri mobi-mbri-edit-2 mbr-iconfont mbr-iconfont-btn"></span>Edit
+                        Me</a>
+                        </div>
+                        {% endif %}
+
                     {% else %}
                     
                     <div class="col-md-3 mb-3">
@@ -93,199 +122,121 @@ ADi meals | Soup select
         
         <div class="col-md-4 order-md-2 mb-4 display-4 ">
             <br>
-            <h4 class="d-flex justify-content-between align-items-center mb-3">
-                <span class="text-muted">Your item</span>
-                <span class="badge badge-secondary badge-pill">3</span>
-            </h4>
+            {% if item or item2 %}
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-muted">Your item</span>
+                    <span class="badge badge-secondary badge-pill">3</span>
+                </h4>
+            {% else %}
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-muted">Your cart</span>
+                    <span class="badge badge-secondary badge-pill">3</span>
+                </h4>
+            {% endif %}
             
             {% if item %}
-            <ul class="list-group mb-3">
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                <ul class="list-group mb-3">
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
 
-                    <div>
-                        <h6 class="my-0">{{item.food_item|capfirst}} | {{userprotein.0|capfirst}} | {{userprotein.1|capfirst}}</h6>
-                        <small class="text-muted">₦{{item.food_price}}</small>
-                    </div>
-    
-                    <div class="col-md-3 text-left">
-                        <img src={{item.image.url}} style="padding:10px" class="img-fluid" alt="Adi Foods"
-                        data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
-                    </div>
-                </li>
-            </ul>
-
-            <hr class="mb-4">
-                <p>Select from our numerous payment options below..</p>
-            </hr>
-
-            <hr class="mb-4">
-            
-                <h4 class="mb-3">Payment</h4>
-                {% if user.is_authenticated %}
-                    <form method="POST" class="needs-validation" novalidate>
-                    {% csrf_token %}
-    
-                    <div class="d-block my-3">
-                        <div class="custom-control custom-radio">
-                            <input id="flutterwave" name="paymentMethod" value="flutterwave" type="radio" class="custom-control-input" checked required>
-                            <label class="custom-control-label" for="flutterwave">Flutterwave</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                            <input id="paystack" name="paymentMethod" value="paystack" type="radio" class="custom-control-input" required>
-                            <label class="custom-control-label" for="paystack">Paystack</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                            <input id="interswitch" name="paymentMethod" value="interswitch" type="radio" class="custom-control-input" required>
-                            <label class="custom-control-label" for="interswitch">Interswitch</label>
-                        </div>
-                    </div>
+                        <div>
+                            <h6 class="my-0">{{item.food_item|capfirst}}{% if item.protein_exist == "yes" %} | {{userprotein.0|capfirst}} | {{userprotein.1|capfirst}}{% endif %}</h6>
+                            <small class="text-muted">₦{{item.food_price}}</small><br><br>
                 
-                
-                    <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
-                </form>
+                                <div class="float-right text-right">
+                                    <h6>Delivery fee:</h6>
+                                    <h5>₦{{ delivery_price }}</h5>
+                                </div><br>
 
-                {% else %}
+                                <div class="float-right text-right">
+                                    <h5>Total:</h5>
+                                    <h4>₦{{ total }}</h4>
+                                </div>
 
-                <form action="{% url 'authentication:signin' %}" class="needs-validation" novalidate>
-            
-                    <div class="d-block my-3">
-                        <div class="custom-control custom-radio">
-                            <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" required>
-                            <label class="custom-control-label" for="credit">Flutterwave</label>
                         </div>
-                        <div class="custom-control custom-radio">
-                            <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
-                            <label class="custom-control-label" for="debit">Paystack</label>
+        
+                        <div class="col-md-3 text-left">
+                            <img src={{item.image.url}} style="width:100px;height:100px" class="img-fluid" alt="Adi Foods"
+                            data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
                         </div>
-                        <div class="custom-control custom-radio">
-                            <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
-                            <label class="custom-control-label" for="paypal">Interswitch</label>
-                        </div>
-                    </div>
-                
-                    <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
-                </form>
-                {% endif %}
-            </hr>
-                    
+                    </li>
+                </ul>
+
+                        
             {% elif item2 and price == item2.mini_box_price and slug == item2.slug %}
 
-            <ul class="list-group mb-3">
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                <ul class="list-group mb-3">
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
 
-                    <div>
-                        <h6 class="my-0">{{item2.soup_item|capfirst}} | {{item2.mini_box_name|capfirst}} | {{userprotein.0|capfirst}} | {{userprotein.1|capfirst}}</h6>
-                        <small class="text-muted">₦{{item2.mini_box_price}}</small>
-                    </div>
+                        <div>
+                            <h6 class="my-0">{{item2.soup_item|capfirst}} | {{item2.mini_box_name|capfirst}} | {{userprotein.0|capfirst}} | {{userprotein.1|capfirst}}</h6>
+                            <small class="text-muted">₦{{item2.mini_box_price}}</small><br><br>
 
-                    <div class="col-md-3 text-left">
-                        <img src={{item2.image.url}} class="img-fluid" alt="Adi Foods"
-                        data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
-                    </div>
-                    
-                    <li class="list-group-item d-flex justify-content-between bg-light">
-                        
-                        <div class="productContainer">
-                            <button class="btn btn-primary display-4" name={{item2.mini_box_name}} value={{item2.pk}} id="add-item">Add To Cart</button>
-                        </div>
-                    </li>
-                    
-                    {% if user.is_authenticated %}
-                    <li class="list-group-item d-flex justify-content-between bg-light">
-                        <button class="btn btn-warning display-4" id="change-protein">Change Protein</button>
-                    </li>
-                    
-                    <div class="hidden-form">
-                        <div class="protein-content">
-                            <form class="mbr-form form-with-styler" method="POST">
-                                {% csrf_token %}
-                                <div class="proteinClass">
-                                    <label for="protein">Protein</label>
-                                    <select class="form-control d-block w-100" id="protein" name="protein" required>
-                                        <option></option>
-                                        {% for key, value in protein %}
-                                        <option value="{{ key }}">{{ key|capfirst }}</option>
-                                        {% endfor %}
-                                    </select>
-                                    
-                                    <div class="subProtein">
-                                        <label for="subprotein">Subprotein</label>
-                                        <select class="form-control d-block w-100" id="subprotein" name="subprotein" required>
-                                            <option></option>
-                                        </select>
-                                    </div><br>
-                                    <input type="submit" value="change" class="button-change" style="margin-top: 20px;">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    {% endif %}
-                    {% comment "" %}
-                    <form class="card p-2">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Promo code">#}
-                            <div class="ïnput-group-append">
-                                <button type="submit" class="btn btn-warning">Redeem</button>
+                            <div class="float-right text-right">
+                                <h6>Delivery fee:</h6>
+                                <h5>₦{{ delivery_price }}</h5>
+                            </div><br>
+
+                            <div class="float-right text-right">
+                                <h5>Total:</h5>
+                                <h4>₦{{ total }}</h4>
                             </div>
                         </div>
-                    </form>{% endcomment %}
-                </li>
-            </ul>
 
-            <hr class="mb-4">
-                <p>Select from our numerous payment options below..</p>
-            </hr>
-
-            <hr class="mb-4">
+                        <div class="col-md-3 text-left">
+                            <img src={{item2.image.url}} style="width:100px;height:100px" class="img-fluid" alt="Adi Foods"
+                            data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                        </div>
+                        
+                        <li class="list-group-item d-flex justify-content-between bg-light">
+                            
+                            <div class="productContainer">
+                                <button class="btn btn-primary display-4" name={{item2.mini_box_name}} value={{item2.pk}} id="add-item">Add To Cart</button>
+                            </div>
+                        </li>
             
-                <h4 class="mb-3">Payment</h4>
-                {% if user.is_authenticated %}
-                    <form method="POST" class="needs-validation" novalidate>
-                    {% csrf_token %}
-    
-                    <div class="d-block my-3">
-                        <div class="custom-control custom-radio">
-                            <input id="flutterwave" name="paymentMethod" value="flutterwave" type="radio" class="custom-control-input" checked required>
-                            <label class="custom-control-label" for="flutterwave">Flutterwave</label>
+                        {% if user.is_authenticated %}
+                        <li class="list-group-item d-flex justify-content-between bg-light">
+                            <button class="btn btn-warning display-4" id="change-protein">Change Protein</button>
+                        </li>
+                        
+                        <div class="hidden-form">
+                            <div class="protein-content">
+                                <form class="mbr-form form-with-styler" method="POST">
+                                    {% csrf_token %}
+                                    <div class="proteinClass">
+                                        <label for="protein">Protein</label>
+                                        <select class="form-control d-block w-100" id="protein" name="protein" required>
+                                            <option></option>
+                                            {% for key, value in protein %}
+                                            <option value="{{ key }}">{{ key|capfirst }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        
+                                        <div class="subProtein">
+                                            <label for="subprotein">Subprotein</label>
+                                            <select class="form-control d-block w-100" id="subprotein" name="subprotein" required>
+                                                <option></option>
+                                            </select>
+                                        </div><br>
+                                        <input type="submit" value="change" class="button-change" style="margin-top: 20px;">
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        <div class="custom-control custom-radio">
-                            <input id="paystack" name="paymentMethod" value="paystack" type="radio" class="custom-control-input" required>
-                            <label class="custom-control-label" for="paystack">Paystack</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                            <input id="interswitch" name="paymentMethod" value="interswitch" type="radio" class="custom-control-input" required>
-                            <label class="custom-control-label" for="interswitch">Interswitch</label>
-                        </div>
-                    </div>
-                
-                
-                    <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
-                </form>
+                        {% endif %}
+                        {% comment "" %}
+                        <form class="card p-2">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Promo code">#}
+                                <div class="ïnput-group-append">
+                                    <button type="submit" class="btn btn-warning">Redeem</button>
+                                </div>
+                            </div>
+                        </form>{% endcomment %}
+                    </li>
+                </ul>
 
-                {% else %}
-
-                <form action="{% url 'authentication:signin' %}" class="needs-validation" novalidate>
-            
-                    <div class="d-block my-3">
-                        <div class="custom-control custom-radio">
-                            <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
-                            <label class="custom-control-label" for="credit">Flutterwave</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                            <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
-                            <label class="custom-control-label" for="debit">Paystack</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                            <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
-                            <label class="custom-control-label" for="paypal">Interswitch</label>
-                        </div>
-                    </div>
                 
-                    <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
-                </form>
-                {% endif %}
-            </hr>
-
             {% elif item2 and price == item2.medium_box_price and slug == item2.slug %}
 
             <ul class="list-group mb-3">
@@ -293,11 +244,21 @@ ADi meals | Soup select
 
                     <div>
                         <h6 class="my-0">{{item2.soup_item|capfirst}} | {{item2.medium_box_name|capfirst}} | {{userprotein.0|capfirst}} | {{userprotein.1|capfirst}}</h6>
-                        <small class="text-muted">₦{{item2.medium_box_price}}</small>
+                        <small class="text-muted">₦{{item2.medium_box_price}}</small><br><br>
+
+                        <div class="float-right text-right">
+                            <h6>Delivery fee:</h6>
+                            <h5>₦{{ delivery_price }}</h5>
+                        </div><br>
+
+                        <div class="float-right text-right">
+                            <h5>Total:</h5>
+                            <h4>₦{{ total }}</h4>
+                        </div>
                     </div>
 
                     <div class="col-md-3 text-left">
-                        <img src={{item2.image.url}} class="img-fluid" alt="Adi Foods"
+                        <img src={{item2.image.url}} style="width:100px;height:100px" class="img-fluid" alt="Adi Foods"
                         data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
                     </div>
 
@@ -306,7 +267,7 @@ ADi meals | Soup select
                             <button class="btn btn-primary display-4" name={{item2.medium_box_name}} value={{item2.pk}} id="add-item">Add To Cart</button>
                         </div>
                     </li>
-                    
+                
                     {% if user.is_authenticated %}
                     <li class="list-group-item d-flex justify-content-between bg-light">
                         <button class="btn btn-warning display-4" id="change-protein">Change Protein</button>
@@ -339,170 +300,218 @@ ADi meals | Soup select
                     {% endif %}
                 </li>
             </ul>
-
-            <hr class="mb-4">
-                <p>Select from our numerous payment options below..</p>
-            </hr>
-
-            <hr class="mb-4">
-
-                <h4 class="mb-3">Payment</h4>
-                {% if user.is_authenticated %}
-                    <form method="POST" class="needs-validation" novalidate>
-                    {% csrf_token %}
-    
-                    <div class="d-block my-3">
-                        <div class="custom-control custom-radio">
-                            <input id="flutterwave" name="paymentMethod" value="flutterwave" type="radio" class="custom-control-input" checked required>
-                            <label class="custom-control-label" for="flutterwave">Flutterwave</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                            <input id="paystack" name="paymentMethod" value="paystack" type="radio" class="custom-control-input" required>
-                            <label class="custom-control-label" for="paystack">Paystack</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                            <input id="interswitch" name="paymentMethod" value="interswitch" type="radio" class="custom-control-input" required>
-                            <label class="custom-control-label" for="interswitch">Interswitch</label>
-                        </div>
-                    </div>
-                
-                
-                    <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
-                </form>
-
-                {% else %}
-
-                <form action="{% url 'authentication:signin' %}" class="needs-validation" novalidate>
             
-                    <div class="d-block my-3">
-                        <div class="custom-control custom-radio">
-                            <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
-                            <label class="custom-control-label" for="credit">Flutterwave</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                            <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
-                            <label class="custom-control-label" for="debit">Paystack</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                            <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
-                            <label class="custom-control-label" for="paypal">Interswitch</label>
-                        </div>
-                    </div>
-                
-                    <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
-                </form>
-                {% endif %}
-            </hr>
+            {% elif item2 and price == item2.mega_box_price and slug == item2.slug %}
 
+                <ul class="list-group mb-3">
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+
+                        <div>
+                            <h6 class="my-0">{{item2.soup_item|capfirst}} | {{item2.mega_box_name|capfirst}} | {{userprotein.0|capfirst}} | {{userprotein.1|capfirst}}</h6>
+                            <small class="text-muted">₦{{item2.mega_box_price}}</small><br><br>
+
+                            <div class="float-right text-right">
+                                <h6>Delivery fee:</h6>
+                                <h5>₦{{ delivery_price }}</h5>
+                            </div><br>
+
+                            <div class="float-right text-right">
+                                <h5>Total:</h5>
+                                <h4>₦{{ total }}</h4>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 text-left">
+                            <img src={{item2.image.url}} style="width:100px;height:100px" class="img-fluid" alt="Adi Foods"
+                            data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                        </div>
+
+                        <li class="list-group-item d-flex justify-content-between bg-light">
+                            <div class="productContainer">
+                                <button class="btn btn-primary display-4" name={{item2.mega_box_name}} value={{item2.pk}} id="add-item">Add To Cart</button>
+                            </div>
+                        </li>
+                        
+                        {% if user.is_authenticated %}
+                        <li class="list-group-item d-flex justify-content-between bg-light">
+                            <button class="btn btn-warning display-4" id="change-protein">Change Protein</button>
+                        </li>
+
+                        <div class="hidden-form">
+                            <div class="protein-content">
+                                <form class="mbr-form form-with-styler" method="POST" action="">
+                                    {% csrf_token %}
+                                    <div class="proteinClass">
+                                        <label for="protein">Protein</label>
+                                        <select class="form-control d-block w-100" id="protein" name="protein" required>
+                                            <option></option>
+                                            {% for key, value in protein %}
+                                            <option value="{{ key }}">{{ key|capfirst }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        
+                                        <div class="subProtein">
+                                            <label for="subprotein">Subprotein</label>
+                                            <select class="form-control d-block w-100" id="subprotein" name="subprotein" required>
+                                                <option></option>
+                                            </select>
+                                        </div><br>
+                                        <input type="submit" value="change" class="button-change" style="margin-top: 20px;">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </li>
+                </ul>
+            
             {% else %}
 
             <ul class="list-group mb-3">
+                {% for item in new %}
                 <li class="list-group-item d-flex justify-content-between lh-condensed">
-
+                    {% if item.0.content_type == food %}
                     <div>
-                        <h6 class="my-0">{{item2.soup_item|capfirst}} | {{item2.mega_box_name|capfirst}} | {{userprotein.0|capfirst}} | {{userprotein.1|capfirst}}</h6>
-                        <small class="text-muted">₦{{item2.mega_box_price}}</small>
+                        <h6 class="my-0">{{item.0.content_object.food_item|capfirst}}{% if item.0.content_object.protein_exist == "yes" %} | {{item.0.protein|capfirst}} | {{item.0.subprotein|capfirst}}{% endif %}</h6>
+                        <small class="text-muted">₦{{item.1}}</small>
                     </div>
 
                     <div class="col-md-3 text-left">
-                        <img src={{item2.image.url}} class="img-fluid" alt="Adi Foods"
-                        data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                        <img src={{item.0.content_object.image.url}} style="width:100px;height:100px" class="img-fluid" alt="Adi Foods"
+                        data-bs-slide-to="4" data-slide-to="4">
                     </div>
 
-                    <li class="list-group-item d-flex justify-content-between bg-light">
-                        <div class="productContainer">
-                            <button class="btn btn-primary display-4" name={{item2.mega_box_name}} value={{item2.pk}} id="add-item">Add To Cart</button>
-                        </div>
-                    </li>
+                    {% elif item.0.content_type == soup and item.0.food_category == "mini" %}
+                    <div>
+                        <h6 class="my-0">{{item.0.content_object.soup_item|capfirst}} | {{item.0.food_category|capfirst}} box | {{item.0.protein|capfirst}} | {{item.0.subprotein|capfirst}}</h6>
+                        <small class="text-muted">₦{{item.0.content_object.mini_box_price}}</small>
+                    </div>
 
-                    {% if user.is_authenticated %}
-                    <li class="list-group-item d-flex justify-content-between bg-light">
-                        <button class="btn btn-warning display-4" id="change-protein">Change Protein</button>
-                    </li>
+                    <div class="col-md-3 text-left">
+                        <img src={{item.0.content_object.image.url}} style="width:100px;height:100px" class="img-fluid" alt="Adi Foods"
+                        data-bs-slide-to="4" data-slide-to="4">
+                    </div>
 
-                    <div class="hidden-form">
-                        <div class="protein-content">
-                            <form class="mbr-form form-with-styler" method="POST" action="">
-                                {% csrf_token %}
-                                <div class="proteinClass">
-                                    <label for="protein">Protein</label>
-                                    <select class="form-control d-block w-100" id="protein" name="protein" required>
-                                        <option></option>
-                                        {% for key, value in protein %}
-                                        <option value="{{ key }}">{{ key|capfirst }}</option>
-                                        {% endfor %}
-                                    </select>
-                                    
-                                    <div class="subProtein">
-                                        <label for="subprotein">Subprotein</label>
-                                        <select class="form-control d-block w-100" id="subprotein" name="subprotein" required>
-                                            <option></option>
-                                        </select>
-                                    </div><br>
-                                    <input type="submit" value="change" class="button-change" style="margin-top: 20px;">
-                                </div>
-                            </form>
-                        </div>
+                    {% elif item.0.content_type == soup and item.0.food_category == "medium" %}
+                    <div>
+                        <h6 class="my-0">{{item.0.content_object.soup_item|capfirst}} | {{item.0.food_category|capfirst}} box | {{item.0.protein|capfirst}} | {{item.0.subprotein|capfirst}}</h6>
+                        <small class="text-muted">₦{{item.0.content_object.medium_box_price}}</small>
+                    </div>
+
+                    <div class="col-md-3 text-left">
+                        <img src={{item.0.content_object.image.url}} style="width:100px;height:100px" class="img-fluid" alt="Adi Foods"
+                        data-bs-slide-to="4" data-slide-to="4">
+                    </div>
+
+                    {% else %}
+                    <div>
+                        <h6 class="my-0">{{item.0.content_object.soup_item|capfirst}} | {{item.0.food_category|capfirst}} box | {{item.0.protein|capfirst}} | {{item.0.subprotein|capfirst}}</h6>
+                        <small class="text-muted">₦{{item.0.content_object.mega_box_price}}</small>
+                    </div>
+    
+                    <div class="col-md-3 text-left">
+                        <img src={{item.0.content_object.image.url}} style="width:100px;height:100px" class="img-fluid" alt="Adi Foods"
+                        data-bs-slide-to="4" data-slide-to="4">
                     </div>
                     {% endif %}
                 </li>
+                {% endfor %}
+
+                {% comment "" %}
+                <li class="list-group-item d-flex justify-content-between bg-light">
+                    <div class="text-success">
+                        <h6 class="my-0">Promo code</h6>
+                        <small>EXAMPLECODE</small>
+                    </div>
+                    <span class="text-success">-₦5</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>Total (NGN)</span>
+                    <strong>₦{{cart.total_price}}</strong>
+                </li>{% endcomment %}
             </ul>
-
-            <hr class="mb-4">
-                <p>Select from our numerous payment options below..</p>
-            </hr>
-
-            <hr class="mb-4">
-            
-                <h4 class="mb-3">Payment</h4>
-                {% if user.is_authenticated %}
-                    <form method="POST" class="needs-validation" novalidate>
-                    {% csrf_token %}
-    
-                    <div class="d-block my-3">
-                        <div class="custom-control custom-radio">
-                            <input id="flutterwave" name="paymentMethod" value="flutterwave" type="radio" class="custom-control-input" checked required>
-                            <label class="custom-control-label" for="flutterwave">Flutterwave</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                            <input id="paystack" name="paymentMethod" value="paystack" type="radio" class="custom-control-input" required>
-                            <label class="custom-control-label" for="paystack">Paystack</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                            <input id="interswitch" name="paymentMethod" value="interswitch" type="radio" class="custom-control-input" required>
-                            <label class="custom-control-label" for="interswitch">Interswitch</label>
-                        </div>
+        
+            {% comment "" %}
+            <form class="card p-2">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Promo code">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-warning ">Continue to Checkout</button>
                     </div>
-                
-                
-                    <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
-                </form>
+                </div>
+            </form>{% endcomment %}
+            <hr class="mb-4">
+                <div class="float-right text-right">
+                    <h6>Delivery fee:</h6>
+                    <h5>₦{{ delivery_price }}</h5>
+                </div><br>
 
-                {% else %}
+                <div class="float-right text-right">
+                    <h6>Subtotal:</h6>
+                    <h5>{#id="subtotal"#}₦{{ cart.total_price }}</h5>
+                </div><br>
 
-                <form action="{% url 'authentication:signin' %}" class="needs-validation" novalidate>
-            
-                    <div class="d-block my-3">
-                        <div class="custom-control custom-radio">
-                            <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
-                            <label class="custom-control-label" for="credit">Flutterwave</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                            <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
-                            <label class="custom-control-label" for="debit">Paystack</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                            <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
-                            <label class="custom-control-label" for="paypal">Interswitch</label>
-                        </div>
-                    </div>
-                
-                    <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
-                </form>
-                {% endif %}
+                <div class="float-right text-right">
+                    <h4>Total:</h4>
+                    <h1 id="total_fee">₦{{ total }}</h1>
+                </div>
             </hr>
             
             {% endif %}
+
+        <hr class="mb-4">
+            <p>Select from our numerous payment options below..</p>
+        </hr>
+
+        <hr class="mb-4">
+
+            <h4 class="mb-3">Payment</h4>
+            {% if user.is_authenticated %}
+                <form method="POST" class="needs-validation" novalidate>
+                {% csrf_token %}
+
+                <div class="d-block my-3">
+                    <div class="custom-control custom-radio">
+                        <input id="flutterwave" name="paymentMethod" value="flutterwave" type="radio" class="custom-control-input" checked required>
+                        <label class="custom-control-label" for="flutterwave">Flutterwave</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input id="paystack" name="paymentMethod" value="paystack" type="radio" class="custom-control-input" required>
+                        <label class="custom-control-label" for="paystack">Paystack</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input id="interswitch" name="paymentMethod" value="interswitch" type="radio" class="custom-control-input" required>
+                        <label class="custom-control-label" for="interswitch">Interswitch</label>
+                    </div>
+                </div>
+            
+            
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+            </form>
+
+            {% else %}
+
+            <form action="{% url 'authentication:signin' %}" class="needs-validation" novalidate>
+        
+                <div class="d-block my-3">
+                    <div class="custom-control custom-radio">
+                        <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
+                        <label class="custom-control-label" for="credit">Flutterwave</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
+                        <label class="custom-control-label" for="debit">Paystack</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
+                        <label class="custom-control-label" for="paypal">Interswitch</label>
+                    </div>
+                </div>
+            
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+            </form>
+            {% endif %}
+        </hr>
         
         </div>
     </div>

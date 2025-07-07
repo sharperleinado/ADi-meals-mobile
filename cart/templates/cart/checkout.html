@@ -58,7 +58,7 @@ ADi meals | Checkout
                     <div class="col-md-5 mb-3">
                         <label for="country">Country</label>
                         <div class="input-group">
-                            {{address.country | capfirst}}
+                            Nigeria
                         </div>
                     </div>
                     <div class="col-md-4 mb-3">
@@ -72,8 +72,13 @@ ADi meals | Checkout
                     <div class="col-md-3 mb-3">
                         <label for="address">Address</label>
                             <div class="input-group">
-                                {{address.street_name | capfirst}} {{address.area|capfirst}} {{address.city|capfirst}}
+                                {{address.street_name | capfirst}}, {{address.lcda|capfirst}}, {{address.lga|capfirst}}, {{address.division|capfirst}}.
                             </div>
+                    </div>
+
+                    <div class="mbr-section-btn align-center"><a style="width:100%; margin-left:-0.5rem;" class="btn btn-primary display-4" href="{% url 'payments:edit_account' price=cart.total_price slug=cart.uid %}"><span
+                        class="mobi-mbri mobi-mbri-edit-2 mbr-iconfont mbr-iconfont-btn"></span>Edit
+                      Me</a>
                     </div>
                     
                     {% else %}
@@ -101,12 +106,12 @@ ADi meals | Checkout
                 <li class="list-group-item d-flex justify-content-between lh-condensed">
                     {% if item.0.content_type == food %}
                     <div>
-                        <h6 class="my-0">{{item.0.content_object.food_item|capfirst}} | {{item.0.protein|capfirst}} | {{item.0.subprotein|capfirst}}</h6>
+                        <h6 class="my-0">{{item.0.content_object.food_item|capfirst}}{% if item.0.content_object.protein_exist == "yes" %} | {{item.0.protein|capfirst}} | {{item.0.subprotein|capfirst}}{% endif %}</h6>
                         <small class="text-muted">₦{{item.1}}</small>
                     </div>
 
                     <div class="col-md-3 text-left">
-                        <img src={{item.0.content_object.image.url}} style="padding:10px" class="img-fluid" alt="Adi Foods"
+                        <img src={{item.0.content_object.image.url}} style="width:100px;height:100px" class="img-fluid" alt="Adi Foods"
                         data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
                     </div>
 
@@ -117,7 +122,7 @@ ADi meals | Checkout
                     </div>
 
                     <div class="col-md-3 text-left">
-                        <img src={{item.0.content_object.image.url}} style="padding:10px" class="img-fluid" alt="Adi Foods"
+                        <img src={{item.0.content_object.image.url}} style="width:100px;height:100px" class="img-fluid" alt="Adi Foods"
                         data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
                     </div>
 
@@ -128,7 +133,7 @@ ADi meals | Checkout
                     </div>
 
                     <div class="col-md-3 text-left">
-                        <img src={{item.0.content_object.image.url}} style="padding:10px" class="img-fluid" alt="Adi Foods"
+                        <img src={{item.0.content_object.image.url}} style="width:100px;height:100px" class="img-fluid" alt="Adi Foods"
                         data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
                     </div>
 
@@ -139,7 +144,7 @@ ADi meals | Checkout
                     </div>
     
                     <div class="col-md-3 text-left">
-                        <img src={{item.0.content_object.image.url}} style="padding:10px" class="img-fluid" alt="Adi Foods"
+                        <img src={{item.0.content_object.image.url}} style="width:100px;height:100px" class="img-fluid" alt="Adi Foods"
                         data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
                     </div>
                     {% endif %}
@@ -169,7 +174,14 @@ ADi meals | Checkout
                     </div>
                 </div>
             </form>{% endcomment %}
- 
+         
+            <hr class="mb-4">
+                <div class="float-right text-right">
+                    <h4>Subtotal:</h4>
+                    <h1 id="subtotal">₦{{ cart.total_price }}</h1>
+                </div>
+            </hr>     
+
             <hr class="mb-4">
                 <p>Select from our numerous payment options below..</p>
             </hr>

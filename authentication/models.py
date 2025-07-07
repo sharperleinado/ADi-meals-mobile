@@ -10,6 +10,7 @@ class User(AbstractUser):
     pass
 
 
+
 class Mobile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
     phone_no = PhoneNumberField()

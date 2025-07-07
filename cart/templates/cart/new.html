@@ -42,12 +42,12 @@
                                             <div class="col-md-3 text-left">
                                                 <img src="{{ item.0.content_object.image.url }}" class="img-fluid"
                                                     alt="Adi Foods" data-bs-slide-to="4" data-slide-to="4"
-                                                    class="img-fluid d-none d-md-block rounded mb-2 shadow">
+                                                    {#class="img-fluid d-none d-md-block rounded mb-2 shadow"#}>
                                             </div>
                                             <div class="col-md-9 text-left mt-sm-2">
                                                 {% if item.0.content_type == food %}
                                                 <h4>{{ item.0.content_object.food_item|capfirst }}</h4>
-                                                <p class="font-weight-light">{{ item.0.protein|capfirst }} | {{ item.0.subprotein|capfirst }} | ₦{{ item.0.content_object.food_price }}</p>
+                                                <p class="font-weight-light">{% if item.0.content_object.protein_exist == "yes" %}{{ item.0.protein|capfirst }} | {{ item.0.subprotein|capfirst }} | {% endif %}₦{{ item.0.content_object.food_price }}</p>
                                                 {% elif item.0.content_type == soup and item.0.food_category == "mini" %}
                                                 <h4>{{ item.0.content_object.soup_item|capfirst }} | {{ item.0.food_category|capfirst }}</h4>
                                                 <p class="font-weight-light">{{ item.0.protein|capfirst }} | {{ item.0.subprotein|capfirst }} | ₦{{ item.0.content_object.mini_box_price }}</p>
@@ -87,14 +87,25 @@
                                                 </button>
                                             </div>
 
-                                                {% if user.is_authenticated %}{#To update protein in cart#}
+                                                
+                                                {% if user.is_authenticated and item.0.content_object.protein_exist == "yes" %}{#To update protein in cart#}
                                                 <button type="button" id="update-login" value="{{item.0.content_object.pk}}" data-food-category="{{item.0.food_category}}" class="btn btn-white border-secondary bg-white">
                                                     <span style="margin-left:-2px" class="mobi-mbri mobi-mbri-edit-2 mbr-iconfont mbr-iconfont-btn"></span>
                                                 </button>
-                                                {% else %}
+                                                {% elif user.is_authenticated and item.0.content_object.protein_exist == "no" %}
+                                                {% comment "" %}
+                                                <button type="button" style="display:none;" id="update-logout" class="btn btn-white border-secondary bg-white">
+                                                    <span style="margin-left:-2px" class="mobi-mbri mobi-mbri-edit-2 mbr-iconfont mbr-iconfont-btn"></span>
+                                                </button>{% endcomment %}
+                                                {% elif not user.is_authenticated and item.0.content_object.protein_exist == "yes" %}
                                                 <button type="button" id="update-logout" class="btn btn-white border-secondary bg-white">
                                                     <span style="margin-left:-2px" class="mobi-mbri mobi-mbri-edit-2 mbr-iconfont mbr-iconfont-btn"></span>
                                                 </button>
+                                                {% elif not user.is_authenticated and item.0.content_object.protein_exist == "no" %}
+                                                {% comment "" %}
+                                                <button type="button" style="display:none;" id="update-logout" class="btn btn-white border-secondary bg-white">
+                                                    <span style="margin-left:-2px" class="mobi-mbri mobi-mbri-edit-2 mbr-iconfont mbr-iconfont-btn"></span>
+                                                </button>{% endcomment %}
                                                 {% endif %}
 
                                                 <div class="hidden-form">
@@ -102,6 +113,7 @@
                                                         <form class="mbr-form form-with-styler" method="POST" action="">
                                                             {% csrf_token %}
                                                             <input type="hidden" name="item_id" value="{{ item.0.content_object.pk }}" data-food="{{item.0.food_category}}">
+                                                            <input type="hidden" name="food_category" value="{{item.0.food_category}}">
                                                             <div class="proteinClass">
                                                                 <label for="protein">Protein</label>
                                                                 <select class="form-control d-block w-100" id="protein" name="protein" required>
@@ -136,11 +148,11 @@
                             name="clear-all" id="clear_all">Clear all</button>
                         {% endif %}   
                         <br><br>
-
+                        
                         <div id="overlay" class="overlay" style="display: none;">
                             <div class="overlay-content">
                                 <p>Are you sure you want to clear all items in cart?</p>
-                                <button class="btn btn-primary" id="okayButton" value="{{ cart.session_id }}">Okay</button>
+                                <button class="btn btn-primary" id="okayButton" value="{{ cart.uid }}">Okay</button>
                                 <button class="btn btn-warning" id="cancelButton">Cancel</button>
                             </div>
                         </div><br><br>
@@ -152,7 +164,7 @@
 
                         <div class="row mt-4 d-flex align-items-center">
                             <div class="col-sm-6 order-md-2 text-right">
-                                <a href="{% url 'cart:checkout' %}" class="btn btn-primary mb-4 btn-lg pl-5 pr-5">Proceed to
+                                <a href="{% url 'payments:payment' price=cart.total_price slug=cart.uid %}"{#href="{% url 'cart:checkout' %}"#} class="btn btn-primary mb-4 btn-lg pl-5 pr-5">Proceed to
                                     Checkout</a>
                             </div>
                             <div class="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
@@ -168,3 +180,4 @@
 </section>
 
 {% endblock %}
+

@@ -79,6 +79,17 @@ function addToCart(e){
                 let quantityUnitPriceElement = itemContainer.querySelector('.quantity-unit-price');
                 console.log(quantityElement)
                 console.log(quantityUnitPriceElement)
+                let plusBtn = itemContainer.querySelector('button[name="add-item"]');
+                if (plusBtn) {
+                    if (parseInt(data[1]) >= 10) {
+                        plusBtn.disabled = true;
+                        if (parseInt(data[1]) === 10); {
+                            alert("Item quantity cannot be more than 10");
+                        }
+                    } else {
+                        plusBtn.disabled = false;
+                    }
+                }
 
                 if (quantityElement && quantityUnitPriceElement) {
                     quantityElement.innerHTML = data[1];

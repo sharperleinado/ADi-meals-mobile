@@ -11,7 +11,8 @@ from .tokens import generate_token
 from .models import User,Mobile 
 from django.contrib.auth.password_validation import password_changed,UserAttributeSimilarityValidator,CommonPasswordValidator,MinimumLengthValidator,NumericPasswordValidator
 from .custom_authentication import EmailorUsernameModelBackend
-from .forms import MobileForm,EmailReset
+#from .custom_authentication2 import EmailorUsernameModelBackend
+from .forms import MobileForm,EmailReset,RecaptchaForm
 from address.models import UserAddress,area,country_choice,city,state
 from django.urls import reverse 
 from .forms import UpdateMobileForm
@@ -28,7 +29,7 @@ from django.contrib.sites.models import Site
 from dotenv import load_dotenv
 from django.contrib.auth.hashers import make_password,check_password
 load_dotenv()
-#from .custom_authentication2 import EmailorUsernameModelBackend
+
 
 # Create your views here.
 
@@ -68,7 +69,7 @@ def email_reset_password(request):
                     messages.error(request, "Site does not exist!")
                     return redirect('authentication:email_reset_password')
         except:
-            messages.error(request, "User database! Be sure to input a correct email or username.")
+            messages.error(request, "User does not exist in our database! Be sure to input a correct email or username.")
             return redirect('authentication:email_reset_password')
 
     return render(request,'authentication/email_reset_kunkky.html',{})
@@ -129,14 +130,23 @@ def mobile(request):
                 messages.error(request, "PHONE NUMBER must be 11 digits!")
                 return redirect('authentication:mobile')
             else: 
-                request.session['create_phone_number'] = form
-                messages.success(request, "Please, input the one time password sent to " + form)
-                create_mobile_send_otp(request)
-                return redirect('authentication:create_mobilenumber_otp')
+                #request.session['create_phone_number'] = form
+                #messages.success(request, "Please, input the one time password sent to " + form)
+                #create_mobile_send_otp(request)
+                #return redirect('authentication:create_mobilenumber_otp')
             
-                #model = Mobile.objects.create(user=request.user,phone_no=form)
-                #messages.success(request, "You have successfully created PHONE NUMBER!")
+                model = Mobile.objects.create(user=request.user,phone_no=form)
+                messages.success(request, "You have successfully registered a PHONE NUMBER!")
                 #return redirect('authentication:account_info')
+                try:
+                    price_slug = request.session.get('price-slug')
+                except KeyError:
+                    pass
+                if price_slug != None:
+                    messages.success(request, "Let's continue from where you stopped...")
+                    return redirect(reverse('payments:payment',args=[price_slug[0],price_slug[1]]))   
+                else:
+                    return redirect('food_app:soupbox')
     except AttributeError:
         pass
     except ConnectionError:
@@ -164,12 +174,15 @@ def signup(request):
         email = request.POST.get("email").strip()
         password = request.POST.get("password").strip()
         password2 = request.POST.get("password2").strip()
+
         
         try:
             request.session['username'] = username
             request.session['fname'] = fname
             request.session['lname'] = lname
             request.session['email'] = email
+            request.session['password'] = password
+            request.session['password2'] = password2
         except KeyError:
             pass
 
@@ -217,7 +230,7 @@ def signup(request):
                 messages.error(request,"Numeric only password is not allowed.\nPlease, try another password!")
                 return redirect('authentication:signup')
 
-        
+            '''
             user = User.objects.create_user(username=username,first_name=fname,last_name=lname,email=email,password=password)
             user2 = User.objects.get(username=username)
             
@@ -261,7 +274,10 @@ def signup(request):
         
             except Site.DoesNotExist:
                 messages.success(request,"Site does not exist.")
-                return redirect('authentication:signup')
+                return redirect('authentication:signup')'''
+
+        messages.success(request,"Let's verify you are not a robot. Tick the recaptcha box below to continue.")
+        return redirect(reverse('authentication:recaptcha'))
     else:
         try:
             session_username = request.session['username']  
@@ -279,8 +295,88 @@ def signup(request):
     })
 
 
+def recaptcha(request):
+    form = RecaptchaForm()
+    username = ""
+    fname = ""
+    lname = ""
+    email = ""
+    password = "" 
+
+    try:
+        username = request.session['username']
+        fname = request.session['fname']
+        lname = request.session['lname']
+        email = request.session['email']
+        password = request.session['password']
+    except KeyError:
+        pass
+
+    try:
+        if request.method == "POST":
+            form = RecaptchaForm(request.POST)
+            if form.is_valid():
+                user = User.objects.create_user(username=username,first_name=fname,last_name=lname,email=email,password=password)
+                user2 = User.objects.get(username=username)
+            
+                session_user = User.objects.filter(username=request.session.get('username'))
+            
+                if session_user is not None:
+                    del request.session['username']
+                    del request.session['fname']
+                    del request.session['lname']
+                    del request.session['email']
+
+
+                #Daniel, do not forget to set user.is_active = False during deployment.
+                if user2.is_superuser:
+                    user2.is_active = True
+                    user2.save()
+                elif not user2.is_superuser:
+                    user2.is_active = False
+                    user2.save()
+            
+    
+                #Email Confirmation
+                try: 
+                    subject = 'Email confirmation from Adimeals.com'
+                    body = render_to_string('email_confirmation.html',{
+                        'name':fname,
+                        'uid':urlsafe_base64_encode(force_bytes(user.pk)),
+                        'token': generate_token.make_token(user)
+                    }) 
+                    from_email = EMAIL_HOST_USER
+                    to = [user.email]
+                    email = EmailMultiAlternatives(
+                        subject,
+                        body,
+                        from_email,
+                        to,
+                    )
+                    email.content_subtype = "html"
+                    email.send(fail_silently = True)
+                    messages.success(request,"Your account has been successfully created!\nWe have sent you a confirmation email, please confirm your email address to login into your account.")
+                    return redirect('authentication:signin')
+        
+                except Site.DoesNotExist:
+                    messages.success(request,"Site does not exist.")
+                    return redirect('authentication:signup')
+            else:
+                messages.error(request, "You must tick Recaptcha checkbox to continue!")
+                return redirect('authentication:recaptcha')
+        else:
+            form = RecaptchaForm()
+    except ValueError:
+        messages.error(request, "User created!\nCheck your mail to activate account.")
+        return redirect('authentication:signin')
+
+    return render(request,'authentication/recaptcha.html',{'form':form})
+
+
+
 def signin(request):
     user_address = ""
+    
     if request.method == "POST":
         username = request.POST.get("username").strip()
         password = request.POST.get("password").strip()
@@ -296,43 +392,57 @@ def signin(request):
 
         user = EmailorUsernameModelBackend.authenticate(EmailorUsernameModelBackend,request,username,password)
         
-        #Daniel, do not forget to add "and user.is_active == False during deployment"
+        #Daniel, do not forget to add "and user.is_active == True during deployment"
         if user is not None and user.is_active == True:
             if not remember_me:
                 request.session.set_expiry(0)
             else:
                 request.session.set_expiry(None)
-    
+            
             login(request, user)
 
+            
             try:
-                cart = Cart.objects.get(session_id=request.session['cart_users'],is_paid=False)
+                cart = Cart.objects.get(session_id=request.session.get('cart_users'),is_paid=False)
                 if Cart.objects.filter(user=request.user,is_paid=False).exists():
                     cart.user = None
                     cart.save()
                 else:
                     cart.user = request.user
                     cart.save()
-            except:
+            except Cart.DoesNotExist:
+                pass
+            except KeyError:
                 pass
 
             try:
                 user_address = UserAddress.objects.get(user=request.user)
             except UserAddress.DoesNotExist:
-                messages.success(request, "You have successfully logged in")
+                messages.success(request, "You have successfully logged in! Please, kindly create address.")
                 return redirect('address:register_address')
+
+            if request.user.is_authenticated:
+                del request.session['session_username']  
 
             if user_address is not None:    
                 messages.success(request, "You have successfully logged in")
-                return redirect('home')
-                
+                #return redirect('home')
+                try:
+                    price_slug = request.session.get('price-slug')
+                except KeyError:
+                    pass
+                if price_slug != None:
+                    messages.success(request, "Let's continue from where you stopped...")
+                    return redirect(reverse('payments:payment',args=[price_slug[0],price_slug[1]]))
+                else:
+                    return redirect('food_app:soupbox')
         else:
-            if request.user.is_authenticated:
-                del request.session['session_username']
             messages.error(request, "Bad credentials! or Check your mail to verify account if you have not!")
             return redirect('authentication:signin')
 
     return render(request,'authentication/signin_kunkky.html',{'username':request.session.get('session_username', "")})
+
+
 
 
 def signout(request):
@@ -354,6 +464,20 @@ def activate(request, uidb64, token):
         fname = user.first_name
         user.save()
         login(request, user)
+
+        try:
+            cart = Cart.objects.get(session_id=request.session.get('cart_users'),is_paid=False)
+            if Cart.objects.filter(user=request.user,is_paid=False).exists():
+                cart.user = None
+                cart.save()
+            else:
+                cart.user = request.user
+                cart.save()
+        except Cart.DoesNotExist:
+            pass
+        except KeyError:
+            pass
+
         messages.success(request, f"Hello {fname}, your Email has been verified successfully. Please, create address before proceeding to order from our choices of soups, and food.")
         return redirect('address:register_address')
     else:
@@ -464,11 +588,17 @@ def edit_account(request):
                 messages.error(request, "Phone number already in use by you. Change number to proceed")
                 return redirect('authentication:edit_account')
             else:
-                request.session['update_mobile'] = form
-                print(form)
-                messages.success(request, "Please, input the one time password sent to " + form)
-                update_mobile_send_otp(request)
-                return redirect('authentication:otp')    
+                #request.session['update_mobile'] = form
+                #print(form)
+                #messages.success(request, "Please, input the one time password sent to " + form)
+                #update_mobile_send_otp(request)
+                #return redirect('authentication:otp')
+
+                model = Mobile.objects.get(user=request.user)
+                model.phone_no = form
+                model.save()
+                messages.success(request, "You have successfully updated your Phone Number!")
+                return redirect('authentication:account_info')    
     
     except AttributeError:
         pass

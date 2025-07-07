@@ -5,6 +5,7 @@ ADi meals | Food result
 {% endblock %}
 {% block jscript_attribute %}
 <script src="{% static 'search_box/js/search.js' %}" defer="true"></script>
+<link rel="stylesheet" href="{% static 'search_box/master.css' %}">
 {% endblock jscript_attribute %}
 {% block pageBody %}
 <section data-bs-version="5.1" class="features16 cid-u0tx4HnUeO" id="features16-e">
@@ -14,7 +15,7 @@ ADi meals | Food result
         <div class="mbr-section-head">
             <div class="col-md-12 col-lg-10 m-auto align-center">
                 <h1 class="mbr-section-title mbr-white mbr-fonts-style mb-3 display-1" style="color:green;"><strong>Search box</strong></h1>
-            </div><br>
+            </div>
         </div>
         
         <div class="content-wrapper">
@@ -26,22 +27,39 @@ ADi meals | Food result
                             <strong>{{item.food_item | capfirst}}</strong>
                         </h6>
                         <p class="mbr-text mbr-fonts-style mb-4 display-4">{{userprotein.0|capfirst}} | {{userprotein.1|capfirst}} | <strong>₦{{item.food_price}}</strong></p>
-                        <div class="productContainer">
-                            <div class="mbr-section-btn mt-3"><button class="btn btn-primary display-4" name="add-item" value={{item.pk}} id="add-item">Add To Cart</button></div>
-                        </div>
+                        {% if item.availability == "True" %}
+                            <div class="productContainer">
+                                <div class="mbr-section-btn mt-3"><button class="btn btn-primary display-4" name="add-item" value={{item.pk}} id="add-item">Add To Cart</button></div>
+                            </div>
+                        {% else %}
+                        {% endif %}
                     </div>
                 </div>
                 <div class="col-12 col-lg-6">
                     <div class="image-wrapper">
-                        <a href= "{% url 'payments:payment' price=item.food_price slug=item.slug %}"><img src={{item.image.url}} alt={{item.food_item}}></a>
-
+                        {% if item.availability == "True" %}
+                            <a href= "{% url 'payments:payment' price=item.food_price slug=item.slug %}"><img src={{item.image.url}} alt={{item.food_item}}></a>
+                        {% else %}
+                        <div class="outoforder">
+                            <p>Out of order !</p>
+                            <img src={{item.image.url}} alt={{item.food_item}}>
+                        </div>
+                        {% endif %}
+                        
                    {% elif item2 %}
 
                    <div class="row mt-4">
                     <div class="item features-image сol-12 col-md-6 col-lg-4">
                         <div class="item-wrapper">
                             <div class="item-img">
+                            {% if item2.availability == "True" %}
                                 <a href= "{% url 'payments:payment' price=item2.mini_box_price slug=item2.slug %}"><img src={{item2.image.url}} class="img-fluid" alt="{{item2.soup_item}}"></a>
+                            {% else %}
+                            <div class="outoforder">
+                                <p>Out of order !</p>
+                                <img src={{item2.image.url}} class="img-fluid" alt="{{item2.soup_item}}">
+                            </div>
+                            {% endif %}
                             </div>
                             <div class="item-content">
                                 <h5 class="item-title mbr-fonts-style display-7"><br>
@@ -51,15 +69,30 @@ ADi meals | Food result
                             <div class="item-content">
                                 <h5 class="item-title mbr-fonts-style display-5">{{item2.mini_box_name|capfirst}}</h5>
                             </div>
-                            <div class="mbr-section-btn item-footer mt-2"><a href="{% url 'payments:payment' price=item2.mini_box_price slug=item2.slug %}" class="btn btn-primary item-btn display-7"
-                                    >Order Now!</a></div>
+
+                            {% if item2.availability == "True" %}
+                                <div class="mbr-section-btn item-footer mt-2">
+                                    <a href="{% url 'payments:payment' price=item2.mini_box_price slug=item2.slug %}" class="btn btn-primary item-btn display-7">Order Now!</a>
+                                </div>
+                            {% else %}
+                                <div class="mbr-section-btn item-footer mt-2">
+                                    <a class="btn btn-primary item-btn display-7">Out of order</a>
+                                </div>
+                            {% endif %}
                         </div>
                     </div><br><br><br>
 
                     <div class="item features-image сol-12 col-md-6 col-lg-4">
                         <div class="item-wrapper">
                             <div class="item-img">
-                                <a href= "{% url 'payments:payment' price=item2.medium_box_price slug=item2.slug %}"><img src={{item2.image.url}} class="img-fluid" alt="{{item2.soup_item}}"></a>
+                                {% if item2.availability == "True" %}
+                                    <a href= "{% url 'payments:payment' price=item2.medium_box_price slug=item2.slug %}"><img src={{item2.image.url}} class="img-fluid" alt="{{item2.soup_item}}"></a>
+                                {% else %}
+                                <div class="outoforder">
+                                    <p>Out of order !</p> 
+                                    <img src={{item2.image.url}} class="img-fluid" alt="{{item2.soup_item}}">  
+                                </div>
+                                {% endif %}
                             </div>
                             <div class="item-content">
                                 <h5 class="item-title mbr-fonts-style display-7"><br>
@@ -69,15 +102,29 @@ ADi meals | Food result
                             <div class="item-content">
                                 <h5 class="item-title mbr-fonts-style display-5">{{item2.medium_box_name|capfirst}}</h5>
                             </div>
+                            {% if item2.availability == "True" %}
                             <div class="mbr-section-btn item-footer mt-2"><a href="{% url 'payments:payment' price=item2.medium_box_price slug=item2.slug %}" class="btn btn-primary item-btn display-7"
-                                >Order Now!</a></div>
+                                >Order Now!</a>
+                            </div>
+                            {% else %}
+                            <div class="mbr-section-btn item-footer mt-2">
+                                <a class="btn btn-primary item-btn display-7">Out of order</a>
+                            </div>
+                            {% endif %}
                         </div>
                     </div><br><br><br>
 
                     <div class="item features-image сol-12 col-md-6 col-lg-4">
                         <div class="item-wrapper">
                             <div class="item-img">
-                                <a href= "{% url 'payments:payment' price=item2.mega_box_price slug=item2.slug %}"><img src={{item2.image.url}} class="img-fluid" alt="{{item2.soup_item}}"></a>
+                                {% if item2.availability == "True" %}
+                                    <a href= "{% url 'payments:payment' price=item2.mega_box_price slug=item2.slug %}"><img src={{item2.image.url}} class="img-fluid" alt="{{item2.soup_item}}"></a>
+                                {% else %}
+                                <div class="outoforder">
+                                    <p>Out of order !</p> 
+                                    <img src={{item2.image.url}} class="img-fluid" alt="{{item2.soup_item}}">  
+                                </div>  
+                                {% endif %}    
                             </div>
                             <div class="item-content">
                                 <h5 class="item-title mbr-fonts-style display-7"><br>
@@ -87,8 +134,14 @@ ADi meals | Food result
                             <div class="item-content">
                                 <h5 class="item-title mbr-fonts-style display-5">{{item2.mega_box_name|capfirst}}</h5>
                             </div>
+                            {% if item2.availability == "True" %}
                             <div class="mbr-section-btn item-footer mt-2"><a href="{% url 'payments:payment' price=item2.mega_box_price slug=item2.slug %}" class="btn btn-primary item-btn display-7"
                                 >Order Now!</a></div>
+                            {% else %}
+                            <div class="mbr-section-btn item-footer mt-2">
+                                <a class="btn btn-primary item-btn display-7">Out of order</a>
+                            </div>
+                            {% endif %}
                         </div>
                     </div><br><br><br>
     {% endif %}

@@ -79,8 +79,9 @@ def add_to_cart(request):
         cartitems, created = CartItemsFood.objects.get_or_create(cart=cart_user,content_type=content,protein=protein[0],subprotein=protein[1],object_id=id)
 
         cartitems.quantity += 1
-        cartitems.save()
-        num_of_items = cart_user.total_quantity()
+        if cartitems.quantity <= 10:
+            cartitems.save()
+        num_of_items = [cart_user.total_quantity(),cartitems.quantity]
     
     else:
         try:
@@ -90,8 +91,9 @@ def add_to_cart(request):
             cartitems, created = CartItemsFood.objects.get_or_create(cart=cart,content_type=content,protein=protein[0],subprotein=protein[1],object_id=id)
             
             cartitems.quantity += 1
-            cartitems.save()
-            num_of_items = cart.total_quantity()
+            if cartitems.quantity <= 10:
+                cartitems.save()
+            num_of_items = [cart.total_quantity(),cartitems.quantity]
         except:
             request.session['cart_users'] = str(uuid.uuid4())
             cart = Cart.objects.create(session_id=request.session['cart_users'],is_paid=False)
@@ -100,8 +102,9 @@ def add_to_cart(request):
             cartitems, created = CartItemsFood.objects.get_or_create(cart=cart_user,content_type=content,protein=protein[0],subprotein=protein[1],object_id=id)
             
             cartitems.quantity += 1
-            cartitems.save()
-            num_of_items = cart_user.total_quantity()
+            if cartitems.quantity <= 10:
+                cartitems.save()
+            num_of_items = [cart_user.total_quantity(),cartitems.quantity]
     
     return JsonResponse(num_of_items,safe=False)
 
