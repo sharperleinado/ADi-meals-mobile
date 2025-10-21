@@ -20,22 +20,21 @@ ADi meals | Account information
 
                 <div class="col-12 col-lg">
                     
-                    <p>Username: {{names.0|capfirst}}</p>
-                    <p>Names: {{names.1|capfirst}} {{names.2|capfirst}}</p>
-                    <p>E-mail: {{names.3|capfirst}}</p>
-                    <p>Phone no: {{names.4.phone_no}}</p>
-                    <p>Street No & Name: {{names.5.street_name|capfirst}}</p>
-                    <p>Landmark: {{names.5.lcda|capfirst}}</p>
-                    <p>L.G.A: {{names.5.lga|capfirst}}</p>
-                    <p>Division: {{names.5.division|capfirst}}</p>
-                    <p>State: {{names.5.state|capfirst}}</p>
+                    <p>Names: {{address.user.first_name|capfirst}} {{address.user.last_name|capfirst}}</p>
+                    <p>E-mail: {{address.user.email|capfirst}}</p>
+                    <p>Phone no: {{mobile}}</p>
+                    <p>Street No & Name: {{address.street_name|capfirst}}</p>
+                    <p>Landmark: {{address.lcda|capfirst}}</p>
+                    <p>L.G.A: {{address.lga|capfirst}}</p>
+                    <p>Division: {{address.division|capfirst}}</p>
+                    <p>State: {{address.state|capfirst}}</p>
                     
 
                     <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn" style="padding-right:20px">
                         <button type="submit" class="btn btn-primary display-4 w-100 " onClick = "window.location= '{% url 'authentication:edit_account' %}';">Edit me</button>
                     </div>
                 
-                    <p class="mt-3  display-4">Update password? <a href="{% url 'authentication:setpassword' %}">Update</a></p>
+                    <p class="mt-3  display-4">Update password? <a href="{% url 'authentication:reset' uid=address.user.id token=address.user.id %}">Update</a></p>
                     
                 </div>
                 <div class="col-12 col-lg-6">

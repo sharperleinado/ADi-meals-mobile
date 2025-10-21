@@ -40,9 +40,19 @@ function addToCart(e){
     })
     .then(res=>res.json())
     .then(data=>{
-        document.getElementById("food_addtocart").innerHTML = '<strong>' + data + '</strong>'
-        document.getElementById("mobile_food_addtocart").innerHTML = '<strong>' + data + '</strong>'
+        document.getElementById("food_addtocart").innerHTML = '<strong>' + data[0] + '</strong>'
+        document.getElementById("mobile_food_addtocart").innerHTML = '<strong>' + data[0] + '</strong>'
         console.log(data)
+        document.querySelectorAll(`button[value="${product_id}"]`).forEach(btn => {
+            if (parseInt(data[1]) >= 10) {
+                btn.disabled = true;
+                if (parseInt(data[1]) === 10) {
+                    alert("Item quantity cannot be more than 10");
+                }
+            } else {
+                btn.disabled = false;
+            }
+        });
 
     })
     .catch(error=>{
@@ -83,7 +93,7 @@ function changeProtein(e) {
     });
 }
 
-
+/*This is form that shows change protein form in payment page soup category*/
 document.addEventListener('DOMContentLoaded', (event) => {
     const changeProteinButtons = document.querySelectorAll('.btn-warning');
     const formContainers = document.querySelectorAll('.hidden-form');
@@ -109,4 +119,67 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 
+
+
+
+
+
+/*This is for the food update container, to update user from pending down to deliver */
+let buttons = document.querySelectorAll('.foodUpdateContainer button')
+
+buttons.forEach(btn=>{
+    btn.addEventListener("click", foodOrderUpdate)
+})
+
+function foodOrderUpdate(e) {
+    let product_id = e.target.value
+    console.log(product_id)
+    
+    let url = '/payments/food_order_update/'
+
+    let data = {'id':product_id}
+
+    fetch(url, {
+        method: "POST",
+        headers: {
+        'Content-Type':'application/json',
+         'X-CSRFToken': csrftoken,
+        },
+        body: JSON.stringify(data),
+    })
+    .then(res=>res.json())
+    .then(data=>{
+            console.log(data)
+            document.querySelector(`.foodClass select[name="change_food_${product_id}"]`).innerHTML = `<option value="${data}">${data[0].toUpperCase() + data.slice(1)}</option>`;
+    })
+    .catch(error=>{
+        console.log(error)
+    })
+}
+
+
+/*This form is the form that shows forms updating the order status on Admin page*/
+document.addEventListener('DOMContentLoaded', (event) => {
+    const changeProteinButtons = document.querySelectorAll('.food-update');
+    const formContainers = document.querySelectorAll('.hidden-form-order');
+
+    changeProteinButtons.forEach((button, index) => {
+        const formContainer = formContainers[index];
+        const formOverlay = document.createElement('div');
+        
+        formOverlay.classList.add('food-background');
+        document.body.appendChild(formOverlay);
+        formOverlay.style.display = 'none';
+
+        button.addEventListener('click', () => {
+            formContainer.classList.remove('hidden-form-order');
+            formOverlay.style.display = 'block';
+        });
+
+        formOverlay.addEventListener('click', () => {
+            formContainer.classList.add('hidden-form-order');
+            formOverlay.style.display = 'none';
+        });
+    });
+});
 

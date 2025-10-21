@@ -1,0 +1,157 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block jscript_attribute %}
+    {#<link rel="stylesheet" href="{% static 'cart/cart.css' %}">#}
+    <script src="{% static 'authentication/js/auth.js' %}" defer="true"></script>
+{% endblock jscript_attribute %}
+{% block pageTitle %}
+ADi meals | Edit me
+{% endblock %}
+{% block pageBody %}
+
+<script>
+    function enforcePrefix() {
+        const input = document.getElementById('update_mobile_no');
+        const prefix = '+234';
+        if (!input.value.startsWith(prefix)) {
+            input.value = prefix + input.value;
+        }
+    }
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const input = document.getElementById('update_mobile_no');
+        input.value = '+234';
+        input.addEventListener('input', enforcePrefix);
+    });
+</script>
+
+<section data-bs-version="5.1" class="image2 cid-u0tuxl367X" id="image2-7">
+    <div class="container">
+
+        <div class="mbr-section-head">
+            <div class="col-md-12 col-lg-10 m-auto align-center">
+                <h1 class="mbr-section-title mbr-white mbr-fonts-style mb-3 display-1" style="color:green;"><strong>Edit Profile</strong></h1>
+            </div><br><br>
+        </div>
+
+    {% if user.is_authenticated %}
+    
+        <div class="row align-items-center">
+            
+            <div class="col-12 col-lg">
+                <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
+                    <form action="" method="POST" class="mbr-form form-with-styler" data-form-title="Form Name">
+                        {% csrf_token %}
+                        
+                        <div class="dragArea row">
+
+                            <div class="col-12 form-group mb-3" data-for="fname">
+                                <input type="text" id="fname" name="fname" placeholder="First name" class="form-control">
+                            </div>
+
+                            <div class="col-12 form-group mb-3" data-for="lname">
+                                <input type="text" id="lname" name="lname" placeholder="Last name" class="form-control">
+                            </div>
+
+                            <div class="col-12 form-group mb-3" data-for="email">
+                                <input type="email" id="email" name="email" placeholder="Email Address" class="form-control">
+                            </div>
+
+                            <div class="col-12 form-group mb-3" data-for="mobile">
+                                <input type="text" id="mobile" name="mobile" placeholder="Mobile no" class="form-control">
+                            </div>
+
+                            <p class="display-4 ">Update your First name, Last name, E-mail, and Mobile no here.</p>
+                            <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
+                                <button type="submit" class="btn btn-primary display-4 w-100 ">Update</button>
+                            </div>
+                        </div>
+            
+                    </form><br><br><br>
+
+
+
+                    <div class="address-content">
+                        <form class="mbr-form form-with-styler" method="POST" action="">
+                            {% csrf_token %}
+                            <div class="addressClass">
+                                <label for="state">State</label>
+                                <select class="form-control d-block w-100" id="state" name="state" required>
+                                    <option></option>
+                                    {% for key,value in state_lga %}
+                                    <option value="{{ key }}">{{ key|capfirst }}</option>
+                                    {% endfor %}
+                                </select><br>
+                        
+                                <label for="division">Division</label>
+                                <select class="form-control d-block w-100" id="division" name="division" required>
+                                    <option></option>
+                                    {% comment "" %}
+                                    {% for key,value in state_lga %}
+                                    {% for item in value %}
+                                    <option value="{{ item }}">{{ item|capfirst }}</option>
+                                    {% endfor %}
+                                    {% endfor %}{% endcomment %}
+                                </select><br>
+                                
+                                <label for="lga">Local Government Area</label>
+                                <select class="form-control d-block w-100" id="lga" name="lga" required>
+                                    <option></option>
+                                    {% comment "" %}
+                                    {% for key, value in state_lga %}
+                                    {% for key,value2 in value.items %}
+                                    {% for item,item2 in value2.items %}
+                                    <option value="{{ item }}">{{ item|capfirst }}</option>
+                                    {% endfor %}
+                                    {% endfor %}
+                                    {% endfor %}{% endcomment %}
+                                </select>
+                    
+                    
+                                <div class="lcda">
+                                    <label for="lcda">Local Government Development Council/Landmark</label>
+                                    <select class="form-control d-block w-100" id="lcda" name="lcda" required>
+                                        <option></option>
+                                        {% comment "" %}
+                                        {% for key, value in state_lga %}
+                                        {% for key,value2 in value.items %}
+                                        {% for item,item2 in value2.items %}
+                                        {% for item in item2 %}
+                                        <option value="{{ item }}">{{ item|capfirst }}</option>
+                                        {% endfor %}
+                                        {% endfor %}
+                                        {% endfor %}
+                                        {% endfor %}{% endcomment %}
+                                    </select>
+                                </div>
+
+                                <label for="street_name">Street name</label>
+                                <div class="col-12 form-group mb-3" data-for="street_name">
+                                    <input type="text" name="street_name" placeholder="No 10, Iya basira, Eleko junction." class="form-control" required>
+                                </div>
+
+                                <p class="display-4 ">Please, be sure to input your precise address.</p>
+                                <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
+                                    <button type="submit" class="btn btn-primary display-4 w-100 ">Update Address</button>
+                                </div>
+
+                            </div>
+
+                        </form>
+                    </div><br><br><br>
+                    
+
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="image-wrapper">
+                    <img src="{% static 'assets/images/hot-soup-bowl-against-dark-background-410516-41370-626x417.jpg' %}"
+                        alt="ADI Foods">
+                </div>
+            </div>
+        </div>
+    
+    {% endif %}
+</div>
+</section>
+{% endblock %}
+

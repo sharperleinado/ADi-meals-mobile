@@ -7,7 +7,7 @@ ADi meals | Home
 
   <section data-bs-version="5.1" class="header19 cid-sFGzrhlvIh" id="header19-3">
   
-    <div class="mbr-overlay" style="opacity: 0.9; background-color: rgb(0, 28, 8);">
+    <div class="mbr-overlay" style="opacity: 0.8; background-color: rgb(0, 28, 8);">
     </div>
   
     <div class="container">
@@ -16,15 +16,13 @@ ADi meals | Home
           <h1 class="mbr-section-title mbr-white mbr-fonts-style mb-3 display-1"><strong>Welcome
             </strong><strong>to ADi meals!</strong></h1>
           <p class="mbr-text mbr-white mbr-fonts-style display-7">
-            {% if user.is_authenticated %}
-            Hi {{fname|capfirst}}, we are delighted to have you on board our fast moving Airplane.
+            Hi {% if user.is_authenticated %}{{fname|capfirst}}{% else %}Prospective Customer{% endif %},<br>
+            Our operation is between 7:00am - 7:00pm Everyday | We only operate within Lagos state, Nigeria.
+            {% comment "" %}
+            we are delighted to have you on board our fast moving Airplane.
             We advice you to make use of your seat belt as we take off as a new company, as the jouney 
-            ahead cannot be predicted by us, but we believe there is a bright future ahead for us all.
-            {% else %}
-            Hi Prospective Customer, we are delighted to have you on board our fast moving Airplane.
-            We advice you to make use of your seat belt as we take off as a new company, as the jouney 
-            ahead cannot be predicted by us, but we believe there is a bright future ahead for us all.
-            {% endif %}</p>
+            ahead cannot be predicted by us, but we believe there is a bright future ahead for us all.{% endcomment %}
+          </p>
           <div class="mbr-section-btn align-center"><a class="btn btn-primary display-4" href="#foodbox"><span
                 class="mobi-mbri mobi-mbri-shopping-basket mbr-iconfont mbr-iconfont-btn"></span>Get
               Started</a> <a class="btn btn-warning display-4" href="{% url 'about' %}"><span
@@ -91,60 +89,65 @@ ADi meals | Home
     <div class="container" id="foodbox">
       <div class="row">
         <div class="item features-without-image mb-4 col-12 col-md-6">
-          <div class="item-wrapper">
-            <div class="row">
-              <div class="col-12 col-md-7">
-                <div class="text-wrapper">
-                
-                  <h5 class="card-title mbr-fonts-style display-5">
-                    <strong>Soup Box</strong>
-                  </h5>
-                  <p class="mbr-text mbr-fonts-style mb-5 display-4">
-                    Our Soup box menu offers varieties of soup like Egusi, Efo-riro, Ogbona, 
-                    and many more, with each soup having graduated from University of Lagos 
-                    to attain their respective Masters and Ph.D. Degree.
-                  </p>
-                  <div class="mbr-section-btn"><a href="{% url 'food_app:soupbox' %}" class="btn btn-warning display-4">Order Soup</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-12 col-md-5">
-                <div class="img-wrapper">
-                  <a href="{% url 'food_app:soupbox' %}">
-                    <img
-                      src="{% static 'assets/images/top-view-vegetable-soup-with-meat-inside-plate-grey-140725-36040-357x238.jpg' %}"
-                      alt="adi"></a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="item features-without-image mb-4 col-12 col-md-6">
-          <div class="item-wrapper">
-            <div class="row">
-              <div class="col-12 col-md-7">
-                <div class="text-wrapper">
-                  <h5 class="card-title mbr-fonts-style display-5">
-                    <strong>Food Box</strong>
-                  </h5>
-                  <p class="mbr-text mbr-fonts-style mb-5 display-4">Our Food box menu offers varieties of food 
-                    that ranges from Pounded yam and Egusi soup to Ewa Aganyin and bread, and many more, with each 
-                    food having graduated from University of Ibadan to attain their respective Masters and PhD Degree.
+          <a href="{% url 'food_app:soupbox' %}" style="color:black;">
+            <div class="item-wrapper">
+              <div class="row">
+                <div class="col-12 col-md-7">
+                  <div class="text-wrapper">
+
+                    <h5 class="card-title mbr-fonts-style display-5">
+                      <strong>Soup Box</strong>
+                    </h5>
+                    <p class="mbr-text mbr-fonts-style mb-5 display-4">
+                      Our Soup box menu offers varieties of soup like Egusi, Efo-riro, Ogbona, 
+                      and many more, with each soup having graduated from University of Lagos 
+                      to attain their respective Masters and Ph.D. Degree.
                     </p>
-                  <div class="mbr-section-btn"><a href="{% url 'food_app:foodbox' %}" class="btn btn-warning display-4">Order Food</a>
+                    <div class="mbr-section-btn"><a href="{% url 'food_app:soupbox' %}" class="btn btn-warning display-4">Order Soup</a></div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-5">
+                  <div class="img-wrapper">
+                    <a href="{% url 'food_app:soupbox' %}">
+                      <img
+                        src="{% static 'assets/images/top-view-vegetable-soup-with-meat-inside-plate-grey-140725-36040-357x238.jpg' %}"
+                        alt="adi"></a>
                   </div>
                 </div>
               </div>
-              <div class="col-12 col-md-5">
-                <div class="img-wrapper">
-                  <a href="{% url 'food_app:foodbox' %}">
-                    <img
-                      src="{% static 'assets/images/still-life-cardboard-organic-dinnerware-23-2149542080-357x238.jpg' %}"
-                      alt="adi"></a>
+            </div>
+          </a>
+        </div>
+        
+        
+        <div class="item features-without-image mb-4 col-12 col-md-6">
+          <a href="{% url 'food_app:foodbox' %}" style="color:black;">
+            <div class="item-wrapper">
+              <div class="row">
+                <div class="col-12 col-md-7">
+                  <div class="text-wrapper">
+                    <h5 class="card-title mbr-fonts-style display-5">
+                      <strong>Food Box</strong>
+                    </h5>
+                    <p class="mbr-text mbr-fonts-style mb-5 display-4">Our Food box menu offers varieties of food 
+                      that ranges from Pounded yam and Egusi soup to Ewa Aganyin and bread, and many more, with each 
+                      food having graduated from University of Ibadan to attain their respective Masters and PhD Degree.
+                      </p>
+                    <div class="mbr-section-btn"><a href="{% url 'food_app:foodbox' %}" class="btn btn-warning display-4">Order Food</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-5">
+                  <div class="img-wrapper">
+                    <a href="{% url 'food_app:foodbox' %}">
+                      <img
+                        src="{% static 'assets/images/still-life-cardboard-organic-dinnerware-23-2149542080-357x238.jpg' %}"
+                        alt="adi"></a>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </a>
         </div>
       </div>
     </div>
@@ -189,7 +192,7 @@ ADi meals | Home
               <h4 class="icon-title card-title mbr-black mbr-fonts-style display-7"><strong>Register/Sign
                     in</strong></h4>
               <h5 class="icon-text mbr-black mbr-fonts-style display-4">After selecting your choice of food, 
-                you will  be prompted to sign in or register an account with us if you do not have one.
+                you will  be prompted to sign in or register an account with us.
                 You can either register with us through the traditional way which requires your names, email, and paassword or 
                 you can choose to sign in via your already existing social media account such as Instagram, Twitter,
                 Facebook or Google account.</h5>

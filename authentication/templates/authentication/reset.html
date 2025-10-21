@@ -1,9 +1,57 @@
 {% extends "base/base.html" %}
 {% load static %}
 {% block pageTitle %}
-ADi meals | Password Reset by E-mail
+ADi meals | Password Reset
 {% endblock %}
 {% block pageBody %}
+
+<style>
+.toggle-password {
+    position: absolute;
+    top: 31%;
+    right: 130px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.toggle-password img {
+    width: 20px;
+    height: 20px;
+}
+</style>
+
+<script>
+  function togglePasswordVisibility() {
+    const passwordInput = document.getElementById("password");
+    const eyeIcon = document.getElementById("eyeIcon");
+
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+      eyeIcon.src = "https://img.icons8.com/ios-glyphs/30/closed-eye.png"; // eye-off icon
+      eyeIcon.alt = "Hide";
+    } else {
+      passwordInput.type = "password";
+      eyeIcon.src = "https://img.icons8.com/ios-glyphs/30/visible--v1.png"; // eye icon
+      eyeIcon.alt = "Show";
+    }
+  }
+
+  function togglePasswordVisibility2() {
+    const passwordInput = document.getElementById("password2");
+    const eyeIcon = document.getElementById("eyeIcon2");
+
+    if (passwordInput2.type === "password2") {
+      passwordInput2.type = "text";
+      eyeIcon2.src = "https://img.icons8.com/ios-glyphs/30/closed-eye.png"; // eye-off icon
+      eyeIcon2.alt = "Hide";
+    } else {
+      passwordInput2.type = "password";
+      eyeIcon2.src = "https://img.icons8.com/ios-glyphs/30/visible--v1.png"; // eye icon
+      eyeIcon2.alt = "Show";
+    }
+  }
+</script>
+
 
 <section data-bs-version="5.1" class="image2 cid-u0tuxl367X" id="image2-7">
 
@@ -23,13 +71,20 @@ ADi meals | Password Reset by E-mail
               {% csrf_token %}
               
             <div class="dragArea row">
+              {{time_diff}}
                  
                 <div class="col-12 form-group mb-3" data-for="email">
-                    <input type="password" id="password" name="password" placeholder="Enter New Password" class="form-control" required>
+                    <input type="password" id="password" name="password" value="{{password}}" placeholder="Enter New Password" class="form-control" required>
+                    <span class="toggle-password" onclick="togglePasswordVisibility()">
+                        <img id="eyeIcon" src="https://img.icons8.com/ios-glyphs/30/visible--v1.png" alt="Show">
+                    </span>
                 </div>
 
                 <div class="col-12 form-group mb-3" data-for="email">
-                    <input type="password" id="password2" name="password2" placeholder="Confirm New Password" class="form-control" required>
+                    <input type="password" id="password2" name="password2" value="{{password2}}" placeholder="Confirm New Password" class="form-control" required>
+                    <span class="toggle-password" onclick="togglePasswordVisibility()">
+                        <img id="eyeIcon" src="https://img.icons8.com/ios-glyphs/30/visible--v1.png" alt="Show">
+                    </span>
                 </div>
                 
                 <div id="passhelp" class="form-text">We'll never share your password with anyone else.</div><br>

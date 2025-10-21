@@ -26,6 +26,7 @@
                 <table border="0" cellpadding="0" cellspacing="0" width="600" class="content-wrapper" style="max-width: 600px; background-color: #ffffff; padding: 20px; border-radius: 8px;">
                     
                     <!-- Header Section -->
+                    {% if resetoractivate == "activate" %}
                     <tr>
                         <td align="center" style="padding: 20px; font-family: Arial, sans-serif; font-size: 28px; font-weight: bold; color: #333;">
                             <span class="header">Email confirmation from ADimeals.com</span>
@@ -35,22 +36,41 @@
                     <!-- Body Text -->
                     <tr>
                         <td style="padding: 20px; font-family: Arial, sans-serif; font-size: 18px; color: #555;">
-                            <p class="body-text" style="margin: 0;">Hello {{name | capfirst}},</p><br>
+                            <p class="body-text" style="margin: 0;">Hi {{name | capfirst}},</p><br>
                             <p class="body-text" style="margin: 0;">Thank you for signing up! We’re thrilled to have you on board. To begin ordering from our choices of soup and food, please confirm your email address by clicking the button below.</p>
+                            <p class="body-text" style="margin: 0;"><strong>Link expires in 24hrs without use.</strong></p>
                         </td>
                     </tr>
+                    {% else %}
+
+                    <tr>
+                        <td align="center" style="padding: 20px; font-family: Arial, sans-serif; font-size: 28px; font-weight: bold; color: #333;">
+                            <span class="header">Password Reset link from ADimeals.com</span>
+                        </td>
+                    </tr>
+
+                    <!-- Body Text -->
+                    <tr>
+                        <td style="padding: 20px; font-family: Arial, sans-serif; font-size: 18px; color: #555;">
+                            <p class="body-text" style="margin: 0;">Hello {{name | capfirst}},</p><br>
+                            <p class="body-text" style="margin: 0;">To change password, please click the button below.</p>
+                            <p class="body-text" style="margin: 0;"><strong>Link expires in 24hrs without use.</strong></p>
+                        </td>
+                    </tr>
+
+                    {% endif %}
 
                     <!-- CTA Button -->
                     <tr>
                         <td align="center" style="padding: 20px;">
-                            <a href="https://adimeals.com/authentication/activate/{{uid}}/{{token}}" class="button" style="background-color: #4CAF50; color: #ffffff; padding: 15px 25px; text-decoration: none; font-size: 18px; font-weight: bold; display: inline-block; border-radius: 4px;">Confirm Email</a>
+                            <a href="https://127.0.0.1:8000/authentication/activate/{{uid}}/{{token}}/{{resetoractivate}}/{{otp}}" class="button" style="background-color: #4CAF50; color: #ffffff; padding: 15px 25px; text-decoration: none; font-size: 18px; font-weight: bold; display: inline-block; border-radius: 4px;">{{resetoractivate | capfirst}}</a>
                         </td>
                     </tr>
 
                     <!-- Footer Section -->
                     <tr>
                         <td align="center" style="padding: 20px; font-family: Arial, sans-serif; font-size: 14px; color: #aaa;">
-                            <p style="margin: 0;">If you did not sign up for this account, you can safely ignore this email.</p>
+                            <p style="margin: 0;">If you didn't initiate this process, please, safely ignore this mail.</p>
                             <p style="margin: 0;">&copy; 2023 Adi meals limited.</p>
                         </td>
                     </tr>

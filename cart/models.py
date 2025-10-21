@@ -14,6 +14,7 @@ class Cart(models.Model):
     is_paid = models.BooleanField(default=False)
     uid = models.UUIDField(default=uuid.uuid4)
     session_id = models.CharField(max_length=100,blank=True,null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     transactions = GenericRelation(Transactions)
     
     #for the total number of food and soup quantites in the cart
@@ -30,7 +31,7 @@ class Cart(models.Model):
     
     def __str__(self):
             try:
-                return self.user.username
+                return self.user.email
             except:
                 return self.session_id
 

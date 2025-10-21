@@ -7,6 +7,9 @@ from django.contrib.contenttypes.models import ContentType
 import uuid
 from django.contrib import messages
 from django.shortcuts import redirect
+from django.utils.timezone import now #
+from datetime import timedelta #
+from cart.models import Cart #
 
 
 
@@ -21,10 +24,14 @@ soup = Soup.objects.all().order_by('soup_item')
 
 def food_box(request):
 
+    #time_threshold = now() - timedelta(minutes=1)
+    #Cart.objects.filter(user__isnull=True, created_at__lt=time_threshold).delete()
+
+
     request.session['protein'] = {'beef':['fried beef','boiled beef'],
                                     'chicken':['fried chicken','boiled chicken'],
                                     'fish':['fried fish','boiled fish'],
-                                    'goat':['fried goat','boiled goat'],
+                                    #'goat meat':['fried goat meat','boiled goat meat'],
                                     }
 
     protein = request.session['protein'].items()
@@ -37,7 +44,7 @@ def food_box(request):
         print(subprotein_select)
         if request.user.is_authenticated:
             request.session[str(request.user)] = [protein_select, subprotein_select]
-            messages.info(request,"You have successfully changed protein")
+            messages.info(request, f"You have successfully changed protein to {protein_select.capitalize()} | {subprotein_select.capitalize()}")
             print(request.session[str(request.user)])
             return redirect(request.META.get('HTTP_REFERER'))
     
@@ -79,8 +86,9 @@ def add_to_cart(request):
         cartitems, created = CartItemsFood.objects.get_or_create(cart=cart_user,content_type=content,protein=protein[0],subprotein=protein[1],object_id=id)
 
         cartitems.quantity += 1
-        cartitems.save()
-        num_of_items = cart_user.total_quantity()
+        if cartitems.quantity <= 10:
+            cartitems.save()
+        num_of_items = [cart_user.total_quantity(),cartitems.quantity]
     
     else:
         try:
@@ -90,8 +98,9 @@ def add_to_cart(request):
             cartitems, created = CartItemsFood.objects.get_or_create(cart=cart,content_type=content,protein=protein[0],subprotein=protein[1],object_id=id)
             
             cartitems.quantity += 1
-            cartitems.save()
-            num_of_items = cart.total_quantity()
+            if cartitems.quantity <= 10:
+                cartitems.save()
+            num_of_items = [cart.total_quantity(),cartitems.quantity]
         except:
             request.session['cart_users'] = str(uuid.uuid4())
             cart = Cart.objects.create(session_id=request.session['cart_users'],is_paid=False)
@@ -100,8 +109,9 @@ def add_to_cart(request):
             cartitems, created = CartItemsFood.objects.get_or_create(cart=cart_user,content_type=content,protein=protein[0],subprotein=protein[1],object_id=id)
             
             cartitems.quantity += 1
-            cartitems.save()
-            num_of_items = cart_user.total_quantity()
+            if cartitems.quantity <= 10:
+                cartitems.save()
+            num_of_items = [cart_user.total_quantity(),cartitems.quantity]
     
     return JsonResponse(num_of_items,safe=False)
 

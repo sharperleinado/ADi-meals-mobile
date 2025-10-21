@@ -40,9 +40,19 @@ function addToCart(e){
     })
     .then(res=>res.json())
     .then(data=>{
-        document.getElementById("food_addtocart").innerHTML = '<strong>' + data + '</strong>'
-        document.getElementById("mobile_food_addtocart").innerHTML = '<strong>' + data + '</strong>'
+        document.getElementById("food_addtocart").innerHTML = '<strong>' + data[0] + '</strong>'
+        document.getElementById("mobile_food_addtocart").innerHTML = '<strong>' + data[0] + '</strong>'
         console.log(data)
+        document.querySelectorAll(`button[value="${product_id}"]`).forEach(btn => {
+            if (parseInt(data[1]) >= 10) {
+                btn.disabled = true;
+                if (parseInt(data[1]) === 10) {
+                    alert("Item quantity cannot be more than 10");
+                }
+            } else {
+                btn.disabled = false;
+            }
+        });
 
     })
     .catch(error=>{
@@ -106,5 +116,71 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
     });
 });
+
+
+
+
+
+
+/*This is to update the order status on order page for admin*/
+document.querySelectorAll('.foodClass select[name="change_food"]').forEach(ptein => {
+    ptein.addEventListener("change", changeFood);
+});
+
+function changeFood(e) {
+    
+    let food_value = e.target.value;
+    console.log(food_value)
+    let form = e.target.closest('form'); // Get the closest form element
+    let foodSelect = form.querySelector('select[name="food_change"]'); // Find transaction item onnuser's page
+    let pk = e.target.id /*form.querySelector('select[pk="food_change"]');*/
+    console.log(pk)
+    let url = '/payments/change_food/';
+    
+    fetch(url, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+        },
+        body: JSON.stringify({'id': pk, 'food_value':food_value}),
+    })
+    .then(res => res.json())
+    .then(data => {
+        /*
+        data.forEach(item => {
+            subproteiSelect.innerHTML += `<option value="${item}">${item[0].toUpperCase() + item.slice(1)}</option>`;
+        });*/
+        document.getElementsByName(pk).innerHTML = data[1];
+    })
+    .catch(error => {
+        console.log(error);
+    });
+}
+
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    const changeProteinButtons = document.querySelectorAll('.food-update');
+    const formContainers = document.querySelectorAll('.hidden-form-order');
+
+    changeProteinButtons.forEach((button, index) => {
+        const formContainer = formContainers[index];
+        const formOverlay = document.createElement('div');
+        
+        formOverlay.classList.add('food-background');
+        document.body.appendChild(formOverlay);
+        formOverlay.style.display = 'none';
+
+        button.addEventListener('click', () => {
+            formContainer.classList.remove('hidden-form-order');
+            formOverlay.style.display = 'block';
+        });
+
+        formOverlay.addEventListener('click', () => {
+            formContainer.classList.add('hidden-form-order');
+            formOverlay.style.display = 'none';
+        });
+    });
+}); 
 
 

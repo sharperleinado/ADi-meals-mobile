@@ -57,7 +57,16 @@
     margin-right: 10px; /* Add some space between the buttons */
 }
 
-.btn {
-    margin: 0; /* Remove default margins from buttons */
-    margin-left: 10px;
+.outoforder p {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-align: center;
+    font-size: 2rem;
+    background-color: black;
+    color: whitesmoke;
+    font-weight: bold;
+    width: 100%;
+    white-space: nowrap;
+    margin-bottom: 0.2rem;
+    padding: 0.5rem;
 }
+

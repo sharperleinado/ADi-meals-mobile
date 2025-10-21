@@ -1,11 +1,11 @@
 {% extends "base/base.html" %}
 {% load static %}
 {% block pageTitle %}
-ADi meals | Transactions
+ADi meals | Orders
 {% endblock %}
 {% block jscript_attribute %}
-<link rel="stylesheet" href="{% static 'food_app/master.css' %}">
-<script src="{% static 'food_app/js/food.js' %}" defer="true"></script>
+<link rel="stylesheet" href="{% static 'payments/master.css' %}">
+<script src="{% static 'payments/js/soup.js' %}" defer="true"></script>
 {% endblock jscript_attribute %}
 {% block pageBody %}
 
@@ -13,23 +13,30 @@ ADi meals | Transactions
 
     <div class="container-fluid">
         <center>
-            {% if user.is_superuser %}
-            <h2><strong>User Transactions</strong></h2> <br><br>
-        
-                {% for item in all_transactions %}
+            <div class="mbr-section-head">
+                <h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
+                    {% if user.admin or user.staff %}
+                    <strong>User Transactions</strong>
+                    {% else %}
+                    <strong>My Orders</strong>
+                    {% endif %}
+                </h3>
+            </div><br><br>
+
+            {% for item in all_transactions %}
                 {% if item.0.content_type == food_model %}
                 <h3><span class="text-muted">Unitary food</span>
                     <span class="badge badge-secondary badge-pill">3</span></h3>
 
-                    <div class="col-md-4 order-md-2 mb-4 display-4 ">
+                    <div class="col-md-4 order-md-2 mb-4 display-4" id="{{item.0.pk}}">
                         <ul class="list-group mb-3">
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
                                 <div>
-                                    <h6 class="my-0">{{item.0.content_object.food_item|capfirst}} | {{item.0.protein|capfirst}} | {{item.0.subprotein|capfirst}}</h6>
+                                    <h6 class="my-0">{{item.0.content_object.food_item|capfirst}}{% if item.0.content_object.protein_exist == "yes" %} | {{item.0.protein|capfirst}} | {{item.0.subprotein|capfirst}}{% endif %}</h6>
                                 </div>
                                 
                                 <div class="col-md-3 text-left">
-                                    <img src={{item.0.content_object.image.url}} class="img-fluid" alt="Adi Foods"
+                                    <img src={{item.0.content_object.image.url}} style="width:100px;height:100px" class="img-fluid" alt="Adi Foods"
                                     data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
                                 </div>
 
@@ -40,39 +47,46 @@ ADi meals | Transactions
 
                                 <li class="list-group-item d-flex justify-content-between bg-light">
                                     <span>Street name</span>
-                                    <strong>{{item.1.street_name|capfirst}}</strong>
+                                    <strong>{{item.0.address.4|capfirst}}</strong>
                                 </li>
 
                                 <li class="list-group-item d-flex justify-content-between bg-light">
                                     <span>L.c.d.a</span>
-                                    <strong>{{item.1.lcda|capfirst}}</strong>
+                                    <strong>{{item.0.address.3|capfirst}}</strong>
                                 </li>
 
                                 <li class="list-group-item d-flex justify-content-between bg-light">
                                     <span>L.g.a</span>
-                                    <strong>{{item.1.lga|capfirst}}</strong>
+                                    <strong>{{item.0.address.2|capfirst}}</strong>
                                 </li>
 
                                 <li class="list-group-item d-flex justify-content-between bg-light">
                                     <span>Division</span>
-                                    <strong>{{item.1.division|capfirst}}</strong>
+                                    <strong>{{item.0.address.1|capfirst}}</strong>
                                 </li>
 
                                 <li class="list-group-item d-flex justify-content-between bg-light">
                                     <span>State</span>
-                                    <strong>{{item.1.state|capfirst}}</strong>
+                                    <strong>{{item.0.address.0|capfirst}}</strong>
                                 </li>
 
                                 <li class="list-group-item d-flex justify-content-between bg-light">
                                     <span>Phone number</span>
-                                    <strong>{{item.2.phone_no|capfirst}}</strong>
+                                    <strong>{{item.0.mobile.0|capfirst}}</strong>
                                 </li>
 
                                 <li class="list-group-item d-flex justify-content-between bg-light">
+                                    {% if item.0.status == "success" or item.0.status == "successful" or item.0.status == "completed" %}
                                     <div class="text-success">
-                                        <h6 class="my-0">Status</h6>
+                                        <h6 class="my-0" style="color:green;font-weight:bold;">Status</h6>
                                     </div>
-                                    <span class="text-success">{{item.0.status|capfirst}}</span>
+                                    <span class="my-0" style="color:green;font-weight:bold;">{{item.0.status|capfirst}}</span>
+                                    {% else %}
+                                    <div class="text-success">
+                                        <h6 class="my-0" style="color:red;font-weight:bold;">Status</h6>
+                                    </div>
+                                    <span class="my-0" style="color:red;font-weight:bold;">{{item.0.status|capfirst}}</span>
+                                    {% endif %}
                                 </li>
 
                                 <li class="list-group-item d-flex justify-content-between bg-light">
@@ -85,153 +99,444 @@ ADi meals | Transactions
                                     <strong>{{item.0.time}}</strong>
                                 </li>
 
-                                <li class="list-group-item d-flex justify-content-between">
-                                    <span>Total (NGN)</span>
-                                    <strong>₦{{item.0.content_object.food_price}}</strong>
-                                </li><br>
-                            </li>
-                        </ul>
-                    </div>
-            {% elif item.0.content_type == soup_model %}
-
-                <h3><span class="text-muted">Unitary soup</span>
-                    <span class="badge badge-secondary badge-pill">3</span></h3>
-                    <div class="col-md-4 order-md-2 mb-4 display-4 ">
-                        <ul class="list-group mb-3">
-                            <li class="list-group-item d-flex justify-content-between lh-condensed">
-                                <div>
-                                    <h6 class="my-0">{{item.0.content_object.soup_item|capfirst}} | {{item.0.boxsize|capfirst}} | {{item.0.protein|capfirst}} | {{item.0.subprotein|capfirst}}</h6>
-                                </div>
-
-                                <div class="col-md-3 text-left">
-                                    <img src={{item.0.content_object.image.url}} class="img-fluid" alt="Adi Foods"
-                                    data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
-                                </div>
-
                                 <li class="list-group-item d-flex justify-content-between bg-light">
-                                    <span>User</span>
-                                    <strong>{{item.0.user|capfirst}}</strong>
+                                    <span>Food_price</span>
+                                    <strong>{{item.0.content_object.food_price}}</strong>
                                 </li>
 
                                 <li class="list-group-item d-flex justify-content-between bg-light">
-                                    <span>Street name</span>
-                                    <strong>{{item.1.street_name|capfirst}}</strong>
-                                </li>
-
-                                <li class="list-group-item d-flex justify-content-between bg-light">
-                                    <span>L.c.d.a</span>
-                                    <strong>{{item.1.lcda|capfirst}}</strong>
-                                </li>
-
-                                <li class="list-group-item d-flex justify-content-between bg-light">
-                                    <span>L.g.a</span>
-                                    <strong>{{item.1.lga|capfirst}}</strong>
-                                </li>
-
-                                <li class="list-group-item d-flex justify-content-between bg-light">
-                                    <span>Division</span>
-                                    <strong>{{item.1.division|capfirst}}</strong>
-                                </li>
-
-                                <li class="list-group-item d-flex justify-content-between bg-light">
-                                    <span>State</span>
-                                    <strong>{{item.1.state|capfirst}}</strong>
-                                </li>
-
-                                <li class="list-group-item d-flex justify-content-between bg-light">
-                                    <span>Phone number</span>
-                                    <strong>{{item.2.phone_no|capfirst}}</strong>
-                                </li>
-
-                                <li class="list-group-item d-flex justify-content-between bg-light">
-                                    <div class="text-success">
-                                        <h6 class="my-0">Status</h6>
-                                    </div>
-                                    <span class="text-success">{{item.0.status|capfirst}}</span>
-                                </li>
-
-                                <li class="list-group-item d-flex justify-content-between bg-light">
-                                    <span>Date</span>
-                                    <strong>{{item.0.datetime}}</strong>
-                                </li>
-
-                                <li class="list-group-item d-flex justify-content-between bg-light">
-                                    <span>Time</span>
-                                    <strong>{{item.0.time}}</strong>
+                                    <span>Delivery</span>
+                                    <strong>{{item.0.delivery}}</strong>
                                 </li>
 
                                 <li class="list-group-item d-flex justify-content-between">
                                     <span>Total (NGN)</span>
                                     <strong>₦{{item.0.amount}}</strong>
-                                </li><br>
+                                </li>
+                                
+                                {% if user.admin or user.staff %}
+                                    <li id="block" class="list-group-item d-flex justify-content-between_{{item.0.pk}}" 
+                                    {% if item.0.order_status == "pending" %}
+                                        style="background-color:orange;"
+                                    {% elif item.0.order_status == "preparing" %}
+                                        style="background-color:red;"
+                                    {% elif item.0.order_status == "ready" %}
+                                        style="background-color:#cc7a00;"
+                                    {% elif item.0.order_status == "out for delivery" %}
+                                        style="background-color:purple;"
+                                    {% else %}
+                                        style="background-color:green;"
+                                    {% endif %}>
+                                        <div class="foodUpdateContainer button">
+                                            <button class="food-update" value="{{item.0.pk}}" name="order_update" style="color:whitesmoke;">{{item.0.order_status | capfirst}}</button>
+                                        </div>
+                                    </li>
+                                    
+                                    <div class="start-delivery" value="{{item.0.pk}}" 
+                                        {% if item.0.order_status == "out for delivery" %}
+                                        style="display:inline"
+                                        {% else %}
+                                        style="display:none"
+                                        {% endif %}>
+                                        <li class="list-group-item d-flex justify-content-between_start-delivery_{{item.0.pk}}" style="background-color:black;">
+                                            <div class="foodUpdateContainer button">
+                                                <button class="delivery-process" value="{{item.0.pk}}" style="color:whitesmoke;">Track Your Progress</button>
+                                            </div>
+                                        </li>
+                                    </div>
+                                    
+                                {% else %}
+                                    <li class="list-group-item d-flex justify-content-between_{{item.0.pk}}" style="background-color:orange;">
+                                        <p class="food-update" value="{{item.0.pk}}" name="order_update" style="color:whitesmoke;margin:5px;">{{item.0.order_status | capfirst}}</p>
+                                    </li>
+
+                                    <div class="start-delivery" value="{{item.0.pk}}"
+                                        {% if item.0.order_status == "out for delivery" %}
+                                        style="display:inline"
+                                        {% else %}
+                                        style="display:none"
+                                        {% endif %}>
+                                        <li class="list-group-item d-flex justify-content-between" style="background-color:black;">
+                                            <div class="">
+                                                <button style="color:whitesmoke;">Track My Order</button>
+                                            </div>
+                                        </li>
+                                    </div>
+                                {% endif %}
+                                
+                                <div class="hidden-form-order">
+                                    <div class="food-content">
+                                        <form class="mbr-form form-with-styler" method="POST" action="">
+                                            {% csrf_token %}
+                                            <div class="foodClass">
+                                                <label for="protein">Food Update</label>
+                                                <select class="form-control d-block w-100" name="change_food_{{item.0.pk}}" required>
+                                                    <option></option>
+                                                </select>
+                                                
+                                                <input type="hidden" name="order_id" value="{{ item.0.pk }}">
+
+                                                <input type="submit" value="update" class="button-update" style="margin-top: 20px;">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <br>
+
                             </li>
                         </ul>
                     </div>
+                
+                <script>
+                    (function() {
+                        const orderId = "{{ item.0.pk }}";
 
-                    {% else %}
+                        const socket = new WebSocket(
+                            `ws://${window.location.host}/ws/payments/all_transactions/${orderId}/`
+                        );
+
+                        socket.onopen = () => console.log(`✅ WebSocket connected for order ${orderId}`);
+
+                        socket.onmessage = function(e) {
+                            const data = JSON.parse(e.data);
+
+                            // Select the correct button by order ID
+                            const btn = document.querySelector(
+                                `button.food-update[value="${data.order_id}"]`
+                            );
+
+                            const startDeliveryBtn = document.querySelector(
+                                `.start-delivery[value="${data.order_id}"]`
+                            );
+                            
+                            if (btn) {
+                                btn.textContent =
+                                    data.food_value.charAt(0).toUpperCase() + data.food_value.slice(1);
+
+                                const backgroundList = document.querySelector(`.justify-content-between_${data.order_id}`)
+                                
+                                if (data.food_value.toLowerCase() === "preparing") {
+                                    backgroundList.style.backgroundColor = "red";
+                                }
+                                else if (data.food_value.toLowerCase() === "ready") {
+                                    backgroundList.style.backgroundColor = "#cc7a00";
+                                }
+                                else if (data.food_value.toLowerCase() === "out for delivery") {
+                                    backgroundList.style.backgroundColor = "purple";
+                                    if (startDeliveryBtn) {
+                                        startDeliveryBtn.style.display = "inline";
+                                    }
+                                }
+                                else {
+                                    backgroundList.style.backgroundColor = "green";
+                                    if (startDeliveryBtn) {
+                                        startDeliveryBtn.style.display = "none";
+                                    }
+                                }
+                            }
+                        };
+                    })();
+                </script>
+
+                {% elif item.0.content_type == soup_model %}
+
+                    <h3><span class="text-muted">Unitary soup</span>
+                        <span class="badge badge-secondary badge-pill">3</span>
+                    </h3>
+
+                        <div class="col-md-4 order-md-2 mb-4 display-4" id="{{item.0.pk}}">
+                            <ul class="list-group mb-3">
+                                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                    <div>
+                                        <h6 class="my-0">{{item.0.content_object.soup_item|capfirst}} | {{item.0.boxsize|capfirst}} | {{item.0.protein|capfirst}} | {{item.0.subprotein|capfirst}}</h6>
+                                    </div>
+
+                                    <div class="col-md-3 text-left">
+                                        <img src={{item.0.content_object.image.url}} style="width:100px;height:100px" class="img-fluid" alt="Adi Foods"
+                                        data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                                    </div>
+
+                                    <li class="list-group-item d-flex justify-content-between bg-light">
+                                        <span>User</span>
+                                        <strong>{{item.0.user|capfirst}}</strong>
+                                    </li>
+
+                                    <li class="list-group-item d-flex justify-content-between bg-light">
+                                        <span>Street name</span>
+                                        <strong>{{item.0.address.4|capfirst}}</strong>
+                                    </li>
+
+                                    <li class="list-group-item d-flex justify-content-between bg-light">
+                                        <span>L.c.d.a</span>
+                                        <strong>{{item.0.address.3|capfirst}}</strong>
+                                    </li>
+
+                                    <li class="list-group-item d-flex justify-content-between bg-light">
+                                        <span>L.g.a</span>
+                                        <strong>{{item.0.address.2|capfirst}}</strong>
+                                    </li>
+
+                                    <li class="list-group-item d-flex justify-content-between bg-light">
+                                        <span>Division</span>
+                                        <strong>{{item.0.address.1|capfirst}}</strong>
+                                    </li>
+
+                                    <li class="list-group-item d-flex justify-content-between bg-light">
+                                        <span>State</span>
+                                        <strong>{{item.0.address.0|capfirst}}</strong>
+                                    </li>
+
+                                    <li class="list-group-item d-flex justify-content-between bg-light">
+                                        <span>Phone number</span>
+                                        <strong>{{item.0.mobile.0|capfirst}}</strong>
+                                    </li>
+
+                                    <li class="list-group-item d-flex justify-content-between bg-light">
+                                        {% if item.0.status == "success" or item.0.status == "successful" or item.0.status == "completed" %}
+                                        <div class="text-success">
+                                            <h6 class="my-0" style="color:green;font-weight:bold;">Status</h6>
+                                        </div>
+                                        <span class="my-0" style="color:green;font-weight:bold;">{{item.0.status|capfirst}}</span>
+                                        {% else %}
+                                        <div class="text-success">
+                                            <h6 class="my-0" style="color:red;font-weight:bold;">Status</h6>
+                                        </div>
+                                        <span class="my-0" style="color:red;font-weight:bold;">{{item.0.status|capfirst}}</span>
+                                        {% endif %}
+                                    </li>
+
+                                    <li class="list-group-item d-flex justify-content-between bg-light">
+                                        <span>Date</span>
+                                        <strong>{{item.0.datetime}}</strong>
+                                    </li>
+
+                                    <li class="list-group-item d-flex justify-content-between bg-light">
+                                        <span>Time</span>
+                                        <strong>{{item.0.time}}</strong>
+                                    </li>
+
+                                    {% if item.0.boxsize == "mini box" %}
+
+                                    <li class="list-group-item d-flex justify-content-between bg-light">
+                                        <span>Soup price</span>
+                                        <strong>{{item.0.content_object.mini_box_price}}</strong>
+                                    </li>
+
+                                    {% elif item.0.boxsize == "medium box" %}
+
+                                    <li class="list-group-item d-flex justify-content-between bg-light">
+                                        <span>Soup price</span>
+                                        <strong>{{item.0.content_object.medium_box_price}}</strong>
+                                    </li>
+
+                                    {% elif item.0.boxsize == "mega box" %}
+
+                                    <li class="list-group-item d-flex justify-content-between bg-light">
+                                        <span>Soup price</span>
+                                        <strong>{{item.0.content_object.mega_box_price}}</strong>
+                                    </li>
+
+                                    {% endif %}
+
+                                    <li class="list-group-item d-flex justify-content-between bg-light">
+                                        <span>Delivery</span>
+                                        <strong>{{item.0.delivery}}</strong>
+                                    </li>
+
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <span>Total (NGN)</span>
+                                        <strong>₦{{item.0.amount}}</strong>
+                                    </li>
+                                    
+                                    {#This button is used to update user order#}
+                                    {% if user.admin or user.staff %}
+                                        <li class="list-group-item d-flex justify-content-between_{{item.0.pk}}" 
+                                        {% if item.0.order_status == "pending" %}
+                                            style="background-color:orange;"
+                                        {% elif item.0.order_status == "preparing" %}
+                                            style="background-color:red;"
+                                        {% elif item.0.order_status == "ready" %}
+                                            style="background-color:#cc7a00;"
+                                        {% elif item.0.order_status == "out for delivery" %}
+                                            style="background-color:purple;"
+                                        {% else %}
+                                            style="background-color:green;"
+                                        {% endif %}>
+                                            <div class="foodUpdateContainer button">
+                                                <button class="food-update" value="{{item.0.pk}}" name="order_update" style="color:whitesmoke;">{{item.0.order_status | capfirst}}</button>
+                                            </div>
+                                        </li>
+                                        
+                                        <div class="start-delivery" value="{{item.0.pk}}"
+                                            {% if item.0.order_status == "out for delivery" %}
+                                            style="display:inline"
+                                            {% else %}
+                                            style="display:none"
+                                            {% endif %}>
+                                            <li class="list-group-item d-flex justify-content-between" style="background-color:black;">
+                                                <div class="foodUpdateContainer button">
+                                                    <button disabled style="color:whitesmoke;">Track Your Progress</button>
+                                                </div>
+                                            </li>
+                                        </div>
+
+                                    {% else %}
+                                        <li class="list-group-item d-flex justify-content-between_{{item.0.pk}}" style="background-color:orange;">
+                                            <p class="food-update" value="{{item.0.pk}}" name="order_update" style="color:whitesmoke;margin:5px;">{{item.0.order_status | capfirst}}</p>
+                                        </li>
+
+                                        <div class="start-delivery" value="{{item.0.pk}}"
+                                            {% if item.0.order_status == "out for delivery" %}
+                                            style="display:inline"
+                                            {% else %}
+                                            style="display:none"
+                                            {% endif %}>
+                                            <li class="list-group-item d-flex justify-content-between" style="background-color:black;">
+                                                <div class="">
+                                                    <button style="color:whitesmoke;">Track My Order</button>
+                                                </div>
+                                            </li>
+                                        </div>
+                                    {% endif %}
+
+                                    <div class="hidden-form-order">
+                                        <div class="food-content">
+                                            <form class="mbr-form form-with-styler" method="POST" action="">
+                                                {% csrf_token %}
+                                                <div class="foodClass">
+                                                    <label for="protein">Food Update</label>
+                                                    <select class="form-control d-block w-100" name="change_food_{{item.0.pk}}" required>
+                                                        <option></option>
+                                                    </select>
+                                                    
+                                                    <input type="hidden" name="order_id" value="{{ item.0.pk }}">
+
+                                                    <input type="submit" value="update" class="button-update" style="margin-top: 20px;">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                    <br>
+
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <script>
+                            (function() {
+                                const orderId = "{{ item.0.pk }}";
+
+                                const socket = new WebSocket(
+                                    `ws://${window.location.host}/ws/payments/all_transactions/${orderId}/`
+                                );
+
+                                socket.onopen = () => console.log(`✅ WebSocket connected for order ${orderId}`);
+
+                                socket.onmessage = function(e) {
+                                    const data = JSON.parse(e.data);
+
+                                    // Select the correct button by order ID
+                                    const btn = document.querySelector(
+                                        `button.food-update[value="${data.order_id}"]`
+                                    );
+
+                                    const startDeliveryBtn = document.querySelector(
+                                        `.start-delivery[value="${data.order_id}"]`
+                                    );
+                                    
+                                    if (btn) {
+                                        btn.textContent =
+                                            data.food_value.charAt(0).toUpperCase() + data.food_value.slice(1);
+
+                                        const backgroundList = document.querySelector(`.justify-content-between_${data.order_id}`)
+                                        
+                                        if (data.food_value.toLowerCase() === "preparing") {
+                                            backgroundList.style.backgroundColor = "red";
+                                        }
+                                        else if (data.food_value.toLowerCase() === "ready") {
+                                            backgroundList.style.backgroundColor = "#cc7a00";
+                                        }
+                                        else if (data.food_value.toLowerCase() === "out for delivery") {
+                                            backgroundList.style.backgroundColor = "purple";
+                                            if (startDeliveryBtn) {
+                                                startDeliveryBtn.style.display = "inline";
+                                            }
+                                        }
+                                        else {
+                                            backgroundList.style.backgroundColor = "green";
+                                            if (startDeliveryBtn) {
+                                                startDeliveryBtn.style.display = "none";
+                                            }
+                                        }
+                                    }
+                                };
+                            })();
+                        </script>
+
+                {% else %}
                     <h3><span class="text-muted">Cart items</span>
                         <span class="badge badge-secondary badge-pill">3</span></h3>
         
-                        <div class="col-md-4 order-md-2 mb-4 display-4 ">
+                        <div class="col-md-4 order-md-2 mb-4 display-4" id="{{item.0.pk}}">
                             <ul class="list-group mb-3">
                                 <li class="list-group-item d-flex justify-content-between lh-condensed">
-        
-                                    {% for item in item.3 %}{#This iterates if takes(item)#}
+                                    {% for item in item.1 %}{#This iterates if takes(item)#}
                                         {% if item.3.food_item %}{#This checks if the item returned in takes(item) is food or soup item#}
-                                        
+                
                                             <li class="list-group-item d-flex justify-content-between lh-condensed">
                                 
                                                 <div>
-                                                    <h6 class="my-0">{{item.3.food_item|capfirst}} | {{item.1|capfirst}} | {{item.2|capfirst}} | <strong>Quantity {{item.4|capfirst}}</strong> | ₦{{item.3.food_price}}</h6>
+                                                    <h6 class="my-0">{{item.3.food_item|capfirst}} {% if item.3.protein_exist == "yes" %} | {{item.1|capfirst}} | {{item.2|capfirst}} {% endif %} | <strong>Quantity {{item.4|capfirst}}</strong> | ₦{{item.3.food_price}}</h6>
                                                 </div>
                         
                                                 <div class="col-md-3 text-left">
-                                                    <img src={{item.3.image.url}} class="img-fluid" alt="Adi Foods"
+                                                    <img src={{item.3.image.url}} style="width:100px;height:100px" class="img-fluid" alt="Adi Foods"
                                                     data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
                                                 </div>
                                     
                                             </li>
         
-                                        {% elif item.3.soup_item and item.0 == "mini" %}
-                                        
+                                        {% elif item.3.soup_item and item.3.mini_box_name == "mini box" %}
+        
                                             <li class="list-group-item d-flex justify-content-between lh-condensed">
                                 
                                                 <div>
-                                                    <h6 class="my-0">{{item.3.soup_item|capfirst}} | {{item.0|capfirst}} | {{item.1|capfirst}} | {{item.2|capfirst}} | <strong>Quantity {{item.4|capfirst}}</strong> | ₦{{item.3.mini_box_price}}</h6>
+                                                    <h6 class="my-0">{{item.3.soup_item|capfirst}} | {{item.3.mini_box_name|capfirst}} | {{item.1|capfirst}} | {{item.2|capfirst}} | <strong>Quantity {{item.4|capfirst}}</strong> | ₦{{item.3.mini_box_price}}</h6>
                                                 </div>
                         
                                                 <div class="col-md-3 text-left">
-                                                    <img src={{item.3.image.url}} class="img-fluid" alt="Adi Foods"
+                                                    <img src={{item.3.image.url}} style="width:100px;height:100px" class="img-fluid" alt="Adi Foods"
                                                     data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
                                                 </div>
                                     
                                             </li>
         
-                                        {% elif item.3.soup_item and item.0 == "medium" %}
+                                        {% elif item.3.soup_item and item.3.medium_box_name == "medium box" %}
                                         
                                             <li class="list-group-item d-flex justify-content-between lh-condensed">
                                 
                                                 <div>
-                                                    <h6 class="my-0">{{item.3.soup_item|capfirst}} | {{item.0|capfirst}} | {{item.1|capfirst}} | {{item.2|capfirst}} | <strong>Quantity {{item.4|capfirst}}</strong> | ₦{{item.3.medium_box_price}}</h6>
+                                                    <h6 class="my-0">{{item.3.soup_item|capfirst}} | {{item.3.medium_box_name|capfirst}} | {{item.1|capfirst}} | {{item.2|capfirst}} | <strong>Quantity {{item.4|capfirst}}</strong> | ₦{{item.3.medium_box_price}}</h6>
                                                 </div>
                         
                                                 <div class="col-md-3 text-left">
-                                                    <img src={{item.3.image.url}} class="img-fluid" alt="Adi Foods"
+                                                    <img src={{item.3.image.url}} style="width:100px;height:100px" class="img-fluid" alt="Adi Foods"
                                                     data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
                                                 </div>
                                     
                                             </li>
         
-                                        {% elif item.3.soup_item and item.0 == "mega" %}
+                                        {% elif item.3.soup_item and item.3.mega_box_name == "mega box" %}
                                         
                                             <li class="list-group-item d-flex justify-content-between lh-condensed">
                                 
                                                 <div>
-                                                    <h6 class="my-0">{{item.3.soup_item|capfirst}} | {{item.0|capfirst}} | {{item.1|capfirst}} | {{item.2|capfirst}} | <strong>Quantity {{item.4|capfirst}}</strong> | ₦{{item.3.mega_box_price}}</h6>
+                                                    <h6 class="my-0">{{item.3.soup_item|capfirst}} | {{item.3.mega_box_name|capfirst}} | {{item.1|capfirst}} | {{item.2|capfirst}} | <strong>Quantity {{item.4|capfirst}}</strong> | ₦{{item.3.mega_box_price}}</h6>
                                                 </div>
                         
                                                 <div class="col-md-3 text-left">
-                                                    <img src={{item.3.image.url}} class="img-fluid" alt="Adi Foods"
+                                                    <img src={{item.3.image.url}} style="width:100px;height:100px" class="img-fluid" alt="Adi Foods"
                                                     data-bs-slide-to="4" data-slide-to="4" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
                                                 </div>
                                     
@@ -248,39 +553,46 @@ ADi meals | Transactions
     
                                     <li class="list-group-item d-flex justify-content-between bg-light">
                                         <span>Street name</span>
-                                        <strong>{{item.1.street_name|capfirst}}</strong>
+                                        <strong>{{item.0.address.4|capfirst}}</strong>
                                     </li>
     
                                     <li class="list-group-item d-flex justify-content-between bg-light">
                                         <span>L.c.d.a</span>
-                                        <strong>{{item.1.lcda|capfirst}}</strong>
+                                        <strong>{{item.0.address.3|capfirst}}</strong>
                                     </li>
     
                                     <li class="list-group-item d-flex justify-content-between bg-light">
                                         <span>L.g.a</span>
-                                        <strong>{{item.1.lga|capfirst}}</strong>
+                                        <strong>{{item.0.address.2|capfirst}}</strong>
                                     </li>
     
                                     <li class="list-group-item d-flex justify-content-between bg-light">
                                         <span>Division</span>
-                                        <strong>{{item.1.division|capfirst}}</strong>
+                                        <strong>{{item.0.address.1|capfirst}}</strong>
                                     </li>
     
                                     <li class="list-group-item d-flex justify-content-between bg-light">
                                         <span>State</span>
-                                        <strong>{{item.1.state|capfirst}}</strong>
+                                        <strong>{{item.0.address.0|capfirst}}</strong>
                                     </li>
     
                                     <li class="list-group-item d-flex justify-content-between bg-light">
                                         <span>Phone number</span>
-                                        <strong>{{item.2.phone_no|capfirst}}</strong>
+                                        <strong>{{item.0.mobile.0|capfirst}}</strong>
                                     </li>
     
                                     <li class="list-group-item d-flex justify-content-between bg-light">
+                                        {% if item.0.status == "success" or item.0.status == "successful" or item.0.status == "completed" %}
                                         <div class="text-success">
-                                            <h6 class="my-0">Status</h6>
+                                            <h6 class="my-0" style="color:green;font-weight:bold;">Status</h6>
                                         </div>
-                                        <span class="text-success">{{item.0.status|capfirst}}</span>
+                                        <span class="my-0" style="color:green;font-weight:bold;">{{item.0.status|capfirst}}</span>
+                                        {% else %}
+                                        <div class="text-success">
+                                            <h6 class="my-0" style="color:red;font-weight:bold;">Status</h6>
+                                        </div>
+                                        <span class="my-0" style="color:red;font-weight:bold;">{{item.0.status|capfirst}}</span>
+                                        {% endif %}
                                     </li>
     
                                     <li class="list-group-item d-flex justify-content-between bg-light">
@@ -292,24 +604,154 @@ ADi meals | Transactions
                                         <span>Time</span>
                                         <strong>{{item.0.time}}</strong>
                                     </li>
+
+                                    <li class="list-group-item d-flex justify-content-between bg-light">
+                                        <span>Delivery</span>
+                                        <strong>{{item.0.delivery}}</strong>
+                                    </li>
+
+                                    <li class="list-group-item d-flex justify-content-between bg-light">
+                                        <span>Cart item price</span>
+                                        <strong>{{item.0.cart_item_price}}</strong>
+                                    </li>
     
                                     <li class="list-group-item d-flex justify-content-between">
                                         <span>Total (NGN)</span>
                                         <strong>₦{{item.0.amount}}</strong>
-                                    </li><br>
-                               </li>
+                                    </li>
+                                    
+                                    {% if user.admin or user.staff %}
+                                        <li class="list-group-item d-flex justify-content-between_{{item.0.pk}}" 
+                                        {% if item.0.order_status == "pending" %}
+                                            style="background-color:orange;"
+                                        {% elif item.0.order_status == "preparing" %}
+                                            style="background-color:red;"
+                                        {% elif item.0.order_status == "ready" %}
+                                            style="background-color:#cc7a00;"
+                                        {% elif item.0.order_status == "out for delivery" %}
+                                            style="background-color:purple;"
+                                        {% else %}
+                                            style="background-color:green;"
+                                        {% endif %}>
+                                            <div class="foodUpdateContainer button">
+                                                <button class="food-update" value="{{item.0.pk}}" name="order_update" style="color:whitesmoke;">{{item.0.order_status | capfirst}}</button>
+                                            </div>
+                                        </li>
+                                        
+                                        <div class="start-delivery" value="{{item.0.pk}}"
+                                            {% if item.0.order_status == "out for delivery" %}
+                                            style="display:inline"
+                                            {% else %}
+                                            style="display:none"
+                                            {% endif %}>
+                                            <li class="list-group-item d-flex justify-content-between" style="background-color:black;">
+                                                <div class="foodUpdateContainer button">
+                                                    <button disabled style="color:whitesmoke;">Track Your Progress</button>
+                                                </div>
+                                            </li>
+                                        </div>
+
+                                    {% else %}
+                                        <li class="list-group-item d-flex justify-content-between_{{item.0.pk}}" style="background-color:orange;">
+                                            <p class="food-update" value="{{item.0.pk}}" name="order_update" style="color:whitesmoke;margin:5px;">{{item.0.order_status | capfirst}}</p>
+                                        </li>
+
+                                        <div class="start-delivery" value="{{item.0.pk}}"
+                                            {% if item.0.order_status == "out for delivery" %}
+                                            style="display:inline"
+                                            {% else %}
+                                            style="display:none"
+                                            {% endif %}>
+                                            <li class="list-group-item d-flex justify-content-between" style="background-color:black;">
+                                                <div class="">
+                                                    <button style="color:whitesmoke;">Track My Order</button>
+                                                </div>
+                                            </li>
+                                        </div>
+                                    {% endif %}
+                                
+                                    <div class="hidden-form-order">
+                                        <div class="food-content">
+                                            <form class="mbr-form form-with-styler" method="POST" action="">
+                                                {% csrf_token %}
+                                                <div class="foodClass">
+                                                    <label for="protein">Food Update</label>
+                                                    <select class="form-control d-block w-100" name="change_food_{{item.0.pk}}" required>
+                                                        <option></option>
+                                                    </select>
+
+                                                    <input type="hidden" name="order_id" value="{{ item.0.pk }}">
+
+                                                    <input type="submit" value="update" class="button-update" style="margin-top: 20px;">
+                                                </div>
+                                            </form>
+
+                                        </div>
+                                    </div>
+
+                                    <br>
+
+                                </li>
                             </ul>
                         </div>
 
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
+                        <script>
+                            (function() {
+                                const orderId = "{{ item.0.pk }}";
+
+                                const socket = new WebSocket(
+                                    `ws://${window.location.host}/ws/payments/all_transactions/${orderId}/`
+                                );
+
+                                socket.onopen = () => console.log(`✅ WebSocket connected for order ${orderId}`);
+
+                                socket.onmessage = function(e) {
+                                    const data = JSON.parse(e.data);
+
+                                    // Select the correct button by order ID
+                                    const btn = document.querySelector(
+                                        `button.food-update[value="${data.order_id}"]`
+                                    );
+
+                                    const startDeliveryBtn = document.querySelector(
+                                        `.start-delivery[value="${data.order_id}"]`
+                                    );
+                                    
+                                    if (btn) {
+                                        btn.textContent =
+                                            data.food_value.charAt(0).toUpperCase() + data.food_value.slice(1);
+
+                                        const backgroundList = document.querySelector(`.justify-content-between_${data.order_id}`)
+                                        
+                                        if (data.food_value.toLowerCase() === "preparing") {
+                                            backgroundList.style.backgroundColor = "red";
+                                        }
+                                        else if (data.food_value.toLowerCase() === "ready") {
+                                            backgroundList.style.backgroundColor = "#cc7a00";
+                                        }
+                                        else if (data.food_value.toLowerCase() === "out for delivery") {
+                                            backgroundList.style.backgroundColor = "purple";
+                                            if (startDeliveryBtn) {
+                                                startDeliveryBtn.style.display = "inline";
+                                            }
+                                        }
+                                        else {
+                                            backgroundList.style.backgroundColor = "green";
+                                            if (startDeliveryBtn) {
+                                                startDeliveryBtn.style.display = "none";
+                                            }
+                                        }
+                                    }
+                                };
+                            })();
+                        </script>
+
+                {% endif %}
+            {% endfor %}
             
         </center>
     </div>
 </section>
 
 {% endblock %}
-
-
 

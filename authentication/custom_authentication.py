@@ -1,10 +1,10 @@
 from django.db.models import Q
-from django.contrib.auth import get_user_model
+#from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
-from django.contrib.auth.hashers import check_password
+#from django.contrib.auth.hashers import check_password
 from .models import User 
 
-
+'''
 class EmailorUsernameModelBackend(ModelBackend):
     def authenticate(self, request, username, password=None, **kwargs):
         
@@ -13,7 +13,7 @@ class EmailorUsernameModelBackend(ModelBackend):
         if username is None:
             username = kwargs.get(user_model.USERNAME_FIELD)
         
-        users = user_model._default_manager.filter(Q(**{user_model.USERNAME_FIELD: username}) | Q(email__iexact=username))
+        users = user_model._default_manager.filter(Q(**{user_model.USERNAME_FIELD: username}) | Q(mobile__iexact=username))
 
 
         for user in users:
@@ -22,11 +22,14 @@ class EmailorUsernameModelBackend(ModelBackend):
 
 
         #if not users:
-         #   user_model().set_password(password)
+         #   user_model().set_password(password)'''
 
 
+class EmailorUsernameModelBackend(ModelBackend):
+    def authenticate(self, request, username, password=None):
+
+        users = User._default_manager.filter(Q(**{User.USERNAME_FIELD:username}) | Q(mobile__startswith=username))
         
-
-
-
-        
+        for user in users:
+            if user.check_password(password):
+                return user

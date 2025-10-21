@@ -5,6 +5,19 @@ from django.conf import settings
 from django.conf.urls.static import static
 from cart.models import CartItemsFood,Cart
 from django.http import HttpResponse
+from django_celery_beat.models import PeriodicTask, IntervalSchedule
+import json
+
+# every hour
+schedule, _ = IntervalSchedule.objects.get_or_create(every=1, period=IntervalSchedule.MINUTES)
+
+PeriodicTask.objects.get_or_create(
+    interval=schedule,
+    name='Delete Old Anonymous Carts',
+    task='ADi-meals-mobile.tasks.delete_old_anonymous_carts',
+)
+
+
 
 def home(request):
     fname = ""
@@ -65,7 +78,6 @@ urlpatterns = [
     path('payments/',include('payments.urls')),
     path('profile/',profile,name='profile'),
     path('address/',include('address.urls')),
-    path('review/',include('review.urls')),
     path('cart/',include('cart.urls')),
     path('accounts/',include('allauth.urls')),
     path('about/',about,name='about'),
@@ -73,6 +85,8 @@ urlpatterns = [
     path('base/',base,name='base'),
     path('terms_of_service/',terms_of_service,name='terms_of_service'),
     path('privacy_policy/',privacy_policy,name='privacy_policy'),
+    path('geo/',include('geodjango.urls')),
+    path('webpush/',include('webpush.urls')),
     
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

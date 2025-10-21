@@ -7,6 +7,24 @@ ADi meals | Sign up
 
 {% block pageBody %}
 
+
+{% comment "" %}
+<script>
+    function enforcePrefix() {
+        const input = document.getElementById('mobile');
+        const prefix = '+234';
+        if (!input.value.startsWith(prefix)) {
+            input.value = prefix;
+            /*input.value = prefix + input.value;*/
+        }
+    }
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const input = document.getElementById('mobile');
+        input.value = '+234';
+        input.addEventListener('input', enforcePrefix);
+    });
+</script>{% endcomment %}
+
 <section data-bs-version="5.1" class="image2 cid-u0tuxl367X" id="image2-7">
 
     <div class="container">
@@ -27,24 +45,25 @@ ADi meals | Sign up
                         {% csrf_token %}
                         
                         <div class="dragArea row">
-                            <div class="col-md col-sm-12 form-group mb-3" data-for="fname">
-                                <input type="text" name="fname" value="{{fname}}" placeholder="First Name" data-form-field="name" class="form-control" id="fname" required>
-                            </div>
-
                             <div class="col-md col-sm-12 form-group mb-3" data-for="lname">
                                 <input type="text" id="lname" name="lname" value="{{lname}}" placeholder="Last Name" data-form-field="lname" class="form-control" required>
                             </div>
 
-                            <div class="col-12 form-group mb-3" data-for="username">
-                                <input type="text" id="username" name="username" value="{{username}}" placeholder="Username" class="form-control" required>
+                            <div class="col-md col-sm-12 form-group mb-3" data-for="fname">
+                                <input type="text" name="fname" value="{{fname}}" placeholder="First Name" data-form-field="name" class="form-control" id="fname" required>
                             </div>
 
                             <div class="col-12 form-group mb-3" data-for="email">
                                 <input type="email" id="email" name="email" value="{{email}}" placeholder="Email Address" class="form-control" required>
                             </div>
 
+                            <div class="col-12 form-group mb-3" data-for="mobile">
+                                <input type="text" id="mobile" name="mobile" value="{{mobile}}" placeholder="Mobile no" class="form-control" required>
+                                <div id="passhelp" class="form-text" style="color:red;font-weight:bold;">We will send a code via whatsapp.</div>
+                            </div>
+                            
                             <div class="col-12 form-group mb-3" data-for="password">
-                                <input type="password" name="password" placeholder="password" class="form-control" required>
+                                <input type="password" name="password" value="{{password}}" placeholder="password" class="form-control" required>
 
                                 <div id="passhelp" class="form-text">We'll never share your password with anyone else.</div><br>
                                 <div id="passhelp" class="form-text">Hint</div>
@@ -58,13 +77,13 @@ ADi meals | Sign up
                             </div>
 
                             <div class="col-12 form-group mb-3" data-for="confirmPassword">
-                                <input type="password" name="password2" placeholder="Confirm password" class="form-control" required>
+                                <input type="password" name="password2" value="{{password2}}" placeholder="Confirm password" class="form-control" required>
                             </div>
 
                             <div class="col-12 form-group mb-3">
                                 <label class="form-check-label" for="exampleCheck1">
                                     <input type="checkbox" class="form-check-input" name="termsofservice" required>
-                                        By registering, you agree to ADimeals 
+                                        By registering, you agree to ADi meals's 
                                         <a style="color:blue;" href="{% url 'privacy_policy' %}">
                                             Privacy Policy</a> ,
                                         <a style="color:blue;" href="{% url 'terms_of_service' %}">

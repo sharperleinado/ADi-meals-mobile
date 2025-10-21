@@ -2,10 +2,12 @@ from django.test import TestCase
 from dotenv import load_dotenv
 import pyotp
 from datetime import datetime,timedelta
-from sms import send_sms
 from twilio.rest import Client
-from twilio.base.exceptions import TwilioException
 import os
+from django.shortcuts import redirect
+from sms import send_sms
+from django.contrib import messages
+from twilio.base.exceptions import TwilioException
 load_dotenv()
 
 
@@ -17,54 +19,49 @@ auth_token = os.getenv('TWILIO_AUTH_TOKEN')
 client = Client(account_sid, auth_token)
 
 
-def update_mobile_send_otp(request):
-    message = ""
-    totp = pyotp.TOTP(pyotp.random_base32(), interval=60)
+def generate_otp(request):
+    totp = pyotp.TOTP(pyotp.random_base32(), interval=600)
     otp = totp.now()
     request.session['otp_secret_key'] = totp.secret
-    valid_date = datetime.now() + timedelta(minutes=1)
+    valid_date = datetime.now() + timedelta(minutes=10)
     request.session['otp_valid_date'] = str(valid_date)
-    
+    return otp
+
+
+
+
+#This function is to add otp to user creation mail or forget password mail.
+def generate_activateorreset_otp(request):
+    totp = pyotp.TOTP(pyotp.random_base32(), interval=86400)
+    otp = totp.now()
+    request.session['otp_secret_key_resetoractivate'] = totp.secret
+    valid_date = datetime.now() + timedelta(hours=24)
+    request.session['otp_valid_date_resetoractivate'] = str(valid_date)
+    return otp
+
+
+
+def send_generated_otp(request):
+    message = ""
     try:
-        recepient = request.session['update_mobile']
-        message = client.messages.create(
-        from_='ADi meals',
-        body=f"Thank you for choosing ADi meals. Your one time password is {otp}",
-        to=[recepient]
-        )
+        recepient = f"+234{request.session['mobile']}"
         #message = client.messages.create(
-        #from_='whatsapp:+14155238886',
-        #content_sid='HXb5b62575e6e4ff6129ad7c8efe1f983e',
-        #content_variables={"1":otp},
-        #to='whatsapp:+2348162581463'
+        #    from_='ADi meals',
+        #    body=f"Thank you for choosing ADi meals. Your one time password is {generate_otp(request)}.",
+        #    to=[recepient]
         #)
-        print(message.sid)
-        return message
-    except TwilioException as e:
-        print(f"TwilioRestException: {e}")
-        print(f"Error Code: {e.code}")
-        print(f"Error Message: {e.msg}")
-    except KeyError:
-        pass
 
-
-
-def create_mobile_send_otp(request):
-    message = ""
-    totp = pyotp.TOTP(pyotp.random_base32(), interval=60)
-    otp = totp.now()
-    request.session['otp_secret_key'] = totp.secret
-    valid_date = datetime.now() + timedelta(minutes=1)
-    request.session['otp_valid_date'] = str(valid_date)
-    
-    try:
-        recipient = request.session['create_phone_number']
         message = client.messages.create(
-        from_='ADi meals',
-        body=f"Thank you for choosing ADi meals. Your one time password is {otp}",
-        to=[recipient]
+            from_='whatsapp:+15558211520',
+            content_sid='HX6a5a70792e270b59d50d8962cd03679f',
+            content_variables=f'{{"1":"{generate_otp(request)}"}}',
+            messaging_service_sid='MGe116e40a44d5f9e02e59777c14762cff',
+            to=f"whatsapp:{recepient}"
         )
-        print(message.sid)
+
+        print(f"Message SID: {message.sid}")
+        print(f"Status: {message.status}")
+        print(f"To: {message.to}")
         return message
     except TwilioException as e:
         print(f"TwilioRestException: {e}")
@@ -72,44 +69,33 @@ def create_mobile_send_otp(request):
         print(f"Error Message: {e.msg}")
     except KeyError:
         pass
+    except ConnectionError:
+        messages.info(request, "Error while sending OTP, Ensure that you have a working internet")
+        return redirect('authentication:edit_account')
 
 
 '''
-def update_mobile_send_otp(request):
-    message = ""
-    totp = pyotp.TOTP(pyotp.random_base32(), interval=60)
-    otp = totp.now()
-    request.session['otp_secret_key'] = totp.secret
-    valid_date = datetime.now() + timedelta(minutes=1)
-    request.session['otp_valid_date'] = str(valid_date)
-    
+def send_generated_otp(request):
     try:
-        recipient = request.session['update_mobile']
+        recipient = request.session['mobile']
         return send_sms(
-        f"Thank you for choosing ADi meals. Your one time password is {otp}",
-        "ADi meals",
-        [recipient],
-        )
-    except KeyError:
-        pass
-
-
-
-def create_mobile_send_otp(request):
-    message = ""
-    totp = pyotp.TOTP(pyotp.random_base32(), interval=60)
-    otp = totp.now()
-    request.session['otp_secret_key'] = totp.secret
-    valid_date = datetime.now() + timedelta(minutes=1)
-    request.session['otp_valid_date'] = str(valid_date)
-    
-    try:
-        recipient = request.session['create_phone_number']
-        return send_sms(
-        f"Thank you for choosing ADi meals. Your one time password is {otp}",
-        "ADi meals",
-        [recipient],
-        )
+            f"Thank you for choosing ADi meals. Your one time password is {generate_otp(request)}",
+            "ADi meals",
+            [recipient],
+            )
     except KeyError:
         pass'''
+
+
+'''
+valid_date = datetime.now() + timedelta(minutes=1)
+while True:
+    time_diff = valid_date - datetime.now()
+    if datetime.now() >= valid_date:
+        print("Count down reached zero!")
+        break
+    hours, remainder = divmod(int(time_diff.total_seconds()), 3600)
+    minutes, seconds = divmod(remainder, 60)
+    print(f"{hours:02}:{minutes:02}:{seconds:02}", end="\r")
+    time.sleep(1)'''
 

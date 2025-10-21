@@ -9,6 +9,7 @@ ADi meals | Edit me
 {% endblock %}
 {% block pageBody %}
 
+{% comment "" %}
 <script>
     function enforcePrefix() {
         const input = document.getElementById('update_mobile_no');
@@ -22,7 +23,7 @@ ADi meals | Edit me
         input.value = '+234';
         input.addEventListener('input', enforcePrefix);
     });
-</script>
+</script>{% endcomment %}
 
 <section data-bs-version="5.1" class="image2 cid-u0tuxl367X" id="image2-7">
     <div class="container">
@@ -39,34 +40,11 @@ ADi meals | Edit me
             
             <div class="col-12 col-lg">
                 <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
+        
                     <form action="" method="POST" class="mbr-form form-with-styler" data-form-title="Form Name">
                         {% csrf_token %}
                         
                         <div class="dragArea row">
-                           
-                            <div class="col-12 form-group mb-3" data-for="update_mobile_no">
-                                <input type="text" name="update_mobile_no" id="update_mobile_no" class="form-control" value="+234">
-                            </div>
-
-                            <p class="display-4 ">Please, be sure to input your correct mobile number.</p>
-                            <p class="display-4 ">Example: "+234" + "812345...."</p>
-                            <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
-                                <button type="submit" class="btn btn-primary display-4 w-100 ">Update Mobile</button>
-                            </div>
-                        </div>
-
-            
-                    </form><br><br><br>
-
-
-                    <form action="" method="POST" class="mbr-form form-with-styler" data-form-title="Form Name">
-                        {% csrf_token %}
-                        
-                        <div class="dragArea row">
-                           
-                            <div class="col-12 form-group mb-3" data-for="username">
-                                <input type="text" id="username" name="username" placeholder="Username" class="form-control">
-                            </div>
 
                             <div class="col-12 form-group mb-3" data-for="fname">
                                 <input type="text" id="fname" name="fname" placeholder="First name" class="form-control">
@@ -80,7 +58,11 @@ ADi meals | Edit me
                                 <input type="email" id="email" name="email" placeholder="Email Address" class="form-control">
                             </div>
 
-                            <p class="display-4 ">Update your Username, First name, Last name, and E-mail here.</p>
+                            <div class="col-12 form-group mb-3" data-for="mobile">
+                                <input type="text" id="mobile" name="mobile" placeholder="Mobile no" class="form-control">
+                            </div>
+
+                            <p class="display-4 ">Update your First name, Last name, E-mail or Mobile no here.</p>
                             <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
                                 <button type="submit" class="btn btn-primary display-4 w-100 ">Update</button>
                             </div>

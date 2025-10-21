@@ -28,20 +28,24 @@ SECRET_KEY = 'django-insecure-38w+yczvta+h61ca9jq6^&z%18)dd!g)ktznjmw)n5cw+qmhd7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['adimeals.com', '13.60.195.70']
+ALLOWED_HOSTS = ['adimeals.com']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'webpush',
+    'daphne',
+    'redis',
+    'channels',
     'cart.apps.CartConfig',
-    'review.apps.ReviewConfig',
     'phonenumber_field',
     'address.apps.AddressConfig',
     'payments.apps.PaymentsConfig',
     'search_box.apps.SearchBoxConfig',
     'food_app.apps.FoodAppConfig',
     'authentication.apps.AuthenticationConfig',
+    'geodjango.apps.GeodjangoConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -50,6 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'pyotp',
+    'django_celery_beat',
     'django.contrib.sites',#
     #3rd party
     'allauth',
@@ -63,6 +68,11 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.instagram',
 ]
 
+CELERY_BROKER_URL = 'redis://localhost:6379/0'  # or whatever broker you use
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -74,6 +84,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'allauth.account.middleware.AccountMiddleware',#
 ]
 
 ROOT_URLCONF = 'my_site.urls'
@@ -96,9 +107,10 @@ TEMPLATES = [
     },
 ]
 
-AUTHENTICATION_BACKENDS = [
-    'allauth.account.auth_backends.AuthenticationBackend',
-]
+#This is used when using default authentication as in User or AbstractUser
+#AUTHENTICATION_BACKENDS = [
+#    'allauth.account.auth_backends.AuthenticationBackend',
+#]
 
 SITE_ID = 2
 ACCOUNT_EMAIL_VERIFICATION = "none"
@@ -143,22 +155,37 @@ ACCOUNT_EMAIL_VERIFICATION = "optional"      # Optional or "mandatory" if you wa
 SOCIALACCOUNT_STORE_TOKENS = True            # Store social provider tokens for API access
 
 
-SMS_BACKEND = 'sms.backends.twilio.SmsBackend'
-#SMS_BACKEND = 'sms.backends.console.SmsBackend'
+#SMS_BACKEND = 'sms.backends.twilio.SmsBackend'
+SMS_BACKEND = 'sms.backends.console.SmsBackend'
 
 WSGI_APPLICATION = 'my_site.wsgi.application'
+ASGI_APPLICATION = 'my_site.asgi.application' #This is to connect with Daphne.
+
 
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
+'''
 DATABASES = {
-    'default': {
+   'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
+}'''
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',#'django.db.backends.postgresql',
+        'NAME': 'adimeals',
+        'USER': 'postgres',
+        'PASSWORD': '74201134',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
 }
 
+#GDAL_LIBRARY_PATH = r'C:\OSGeo4W\bin\gdal311.dll' #This is to locate the gdal Osgeo file for gdal.
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -223,3 +250,22 @@ NUMBER_GROUPING=3
 
 PHONENUMBER_DEFAULT_FORMAT = 'INTERNATIONAL'
 PHONENUMBER_DEFAULT_REGION = 'NG'
+
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("adimeals.com", 6379)],#[("localhost", 6379)]
+            #"hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
+
+
+WEBPUSH_SETTINGS = {
+    "VAPID_PUBLIC_KEY": os.getenv('VAPID_PUBLIC_KEY'),
+    "VAPID_PRIVATE_KEY": os.getenv('VAPID_PRIVATE_KEY'),
+    "VAPID_ADMIN_EMAIL": os.getenv('VAPID_ADMIN_EMAIL'),
+}
+

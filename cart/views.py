@@ -2,15 +2,10 @@ from django.shortcuts import render,redirect
 from django.contrib import messages
 from .models import CartItemsFood,Cart
 from django.http import JsonResponse
-from django.contrib.contenttypes.models import ContentType
 from django.http.response import JsonResponse
+from django.contrib.contenttypes.models import ContentType
 import json
-from authentication.models import Mobile
-from payments.views import tx_ref
-from address.models import UserAddress
-from django.template import *
-from django.urls import reverse
-from payments.models import Transactions
+from authentication.models import User
 
 # Create your views here.
 
@@ -18,80 +13,88 @@ from payments.models import Transactions
 food_model = ContentType.objects.get(model="food")
 soup_model = ContentType.objects.get(model="soup")
 
-def returns_item(items,food_category):
-    new_items = []
-    for item in items:
-        if item.content_type == food_model:
-            total_price = item.total_price(item.food_category)
-            new_list = [item,total_price]
-            new_items.append(new_list)
-        elif item.content_type == soup_model and item.food_category == item.food_category:
-            total_price = item.total_price(item.food_category)
-            new_list = [item,total_price]
-            new_items.append(new_list)
-    return new_items
+
+def returns_item(item,food_category):
+    if item.content_type == food_model:
+        total_price = item.total_price(food_category)
+        new_list = [item,total_price]
+    elif item.content_type == soup_model and item.food_category == food_category:
+        total_price = item.total_price(food_category)
+        new_list = [item,total_price]
+    return new_list
+
+
 
 def cart_items(request):
-    try:
-        new_cartitems = ""
-        cart = ""
-        protein = ""
+    new_cartitems = []
+    cart = ""
+    protein = ""
 
-        request.session['protein'] = {'beef':['fried beef','boiled beef'],
-                                            'chicken':['fried chicken','boiled chicken'],
-                                            'fish':['fried fish','boiled fish'],
-                                            'goat':['fried goat','boiled goat'],
-                                            }
-        
-        protein = request.session['protein'].items()
-
-        try:
-            if request.user.is_authenticated:
-                cart = Cart.objects.get(user=request.user)
-            else:
-                cart = Cart.objects.get(session_id=request.session['cart_users'],is_paid=False)
-            cartitems = cart.cartitems.all()
-            if len(cartitems) == 0:
-                messages.info(request,"Add to cart to view items!")
-                return redirect(request.META.get('HTTP_REFERER'))
-            else:
-                new_cartitems = returns_item(cartitems,"mini_box")
-
-                if request.method == "POST":
-                    protein_select = request.POST.get("protein")
-                    subprotein_select = request.POST.get("subprotein")
-                    item = request.POST.get("item_id")
-                    print(item)
-
-                    cartitemfood = CartItemsFood.objects.get(cart=cart,object_id=item)
-                
-                    if cartitemfood.protein is not protein_select and cartitemfood.subprotein is not subprotein_select:
-                        cartitemfood.protein = protein_select
-                        cartitemfood.subprotein = subprotein_select
-                        cartitemfood.save()
-                    else:
-                        pass
-                    messages.info(request,"You have successfully changed protein")
-                    return redirect(request.META.get('HTTP_REFERER'))
-                    
-        except Mobile.DoesNotExist:
-            messages.info(request,"Add Mobile no before viewing cart!")
-            return redirect(request.META.get('HTTP_REFERER'))
-        except Cart.DoesNotExist:
-            messages.info(request,"Add to cart to view items!")
-            return redirect(request.META.get('HTTP_REFERER'))
-        except KeyError:
-            messages.info(request,"Add to cart to view items!")
-            return redirect(request.META.get('HTTP_REFERER'))
-    except:
-        pass
+    request.session['protein'] = {'beef':['fried beef','boiled beef'],
+                                        'chicken':['fried chicken','boiled chicken'],
+                                        'fish':['fried fish','boiled fish'],
+                                        'goat':['fried goat','boiled goat'],
+                                        }
     
-    return render(request,'cart/new.html',{
+    protein = request.session['protein'].items()
+
+    try:
+        if request.user.is_authenticated:
+            cart = Cart.objects.get(user=request.user)
+        else:
+            cart = Cart.objects.get(session_id=request.session['cart_users'],is_paid=False)
+        cartitems = cart.cartitems.all()
+
+        if len(cartitems) == 0:
+            messages.info(request,"Add to cart to view items!")
+            return redirect(request.META.get('HTTP_REFERER'))
+        else:
+            for item in cartitems:
+                new_cartitems.append(returns_item(item,item.food_category))
+            new_cartitems = new_cartitems
+            
+            if request.method == "POST":
+                protein_select = request.POST.get("protein")
+                subprotein_select = request.POST.get("subprotein")
+                item = request.POST.get("item_id")
+                food_category = request.POST.get("food_category")
+
+                cartitemfood = CartItemsFood.objects.get(cart=cart,object_id=item,food_category=food_category)
+                print(cartitemfood.content_object)
+                def return_protein(item):#here protein return was defined to return the particular item of the protein change.
+                    if item.content_type == food_model:
+                       protein = [item.content_object.food_item,cartitemfood.total_price(item.food_category)]
+                    elif item.content_type == soup_model:
+                        protein [item.content_object.soup_item,cartitemfood.total_price(item.food_category)]
+                    return protein
+            
+                if cartitemfood.protein is not protein_select and cartitemfood.subprotein is not subprotein_select:
+                    cartitemfood.protein = protein_select
+                    cartitemfood.subprotein = subprotein_select
+                    cartitemfood.save()
+                else:
+                    messages.info(request,"Item and Protein already exist in cart!")
+                    return redirect(request.META.get('HTTP_REFERER'))
+                
+                #messages.info(request, f"You have successfully changed protein")
+                messages.info(request, f"You have successfully changed protein to {protein_select.capitalize()} | {subprotein_select.capitalize()} for {return_protein(cartitemfood)[0].capitalize()} | Total = {return_protein(cartitemfood)[1]}")
+                return redirect(request.META.get('HTTP_REFERER'))
+    except Cart.DoesNotExist:
+        messages.info(request,"Add to cart to view items!")
+        return redirect(request.META.get('HTTP_REFERER'))
+    except KeyError:
+        messages.info(request,"Add to cart to view items!")
+        return redirect(request.META.get('HTTP_REFERER'))
+    
+    return render(request,'cart/cartitems_kunkky.html',{
         'food':food_model,
         'soup':soup_model,
-        'new':new_cartitems,
+        'new':new_cartitems[::-1],
         'protein':protein,
         })
+
+
+
 
 def change_cart_protein(request):
     if request.method == "POST":
@@ -121,7 +124,8 @@ def cart_buttons(request):
             if name == "add-item":
                 item = cart_items.get(object_id=object_id,food_category=form)
                 item.quantity += 1
-                item.save()
+                if item.quantity <= 10:
+                    item.save()
                 cartitem_price = item.total_price(item.food_category)
                 new_quantity = item.quantity
                 total_quantities = total_quantities + 1
@@ -154,7 +158,8 @@ def cart_buttons(request):
             if name == "add-item":
                 item = cart_items.get(object_id=object_id,food_category=form)
                 item.quantity += 1
-                item.save()
+                if item.quantity <= 10:
+                    item.save()
                 cartitem_price = item.total_price(item.food_category)
                 new_quantity = item.quantity
                 total_quantities = total_quantities + 1
@@ -191,83 +196,11 @@ def clear_all(request):
     print(cart)
 
     if request.user.is_authenticated:
-        cart_object = Cart.objects.get(session_id=cart)
+        cart_object = Cart.objects.get(uid=cart)
         cart_object.delete()
     else:
-        cart_object = Cart.objects.get(session_id=cart)
+        cart_object = Cart.objects.get(uid=cart)
         cart_object.delete()
     
     return JsonResponse(data,safe=False)
-
-
-def checkout(request):
-    address = ""
-    cart = ""
-    new_cartitems = ""
-    cart_pk = ""
-    username = ""
-    phone_no = ""
-    email = ""
-
-    try:
-        if request.user.is_authenticated:
-            cart = Cart.objects.get(user=request.user)
-            address = UserAddress.objects.get(user=request.user)
-            username = address.user.username
-            email = address.user.email
-            mobile = Mobile.objects.get(user=request.user)
-            phone_no = mobile.phone_no
-
-            new = request.session.get('cartitems')
-            del new 
-
-            if request.method == "POST":
-                payment_method = request.POST["paymentMethod"]
-                if payment_method == "flutterwave":
-                    print(payment_method)
-                    return redirect(reverse('payments:flutterwave', kwargs={
-                        'username': username,
-                        'email': email,
-                        'phone_no': phone_no,
-                        'price': cart.total_price(),
-                        'pk': cart.pk,
-                        'slug': cart.uid,
-                    }))
-                elif payment_method == "paystack":
-                    return redirect(reverse('payments:paystack', kwargs={
-                        'username': username,
-                        'email': email,
-                        'phone_no': phone_no,
-                        'price': int(cart.total_price()),
-                        'pk': cart.pk,
-                        'slug': cart.uid,
-                    }))
-                else:
-                    messages.info(request, "Please, kindly make use of Flutterwave or Paystack payment gateway. We are currently integrating Interswitch.")
-                    return redirect(request.META.get('HTTP_REFERER'))
-        else:
-            cart = Cart.objects.get(session_id=request.session['cart_users'],is_paid=False)
-            address = "Anonymousstreet.com"
-            username = "Anonymous-User"
-            email = "Anonymoususer@gmail.com"
-            phone_no = "081-AnonymousUser"
-        cartitems = cart.cartitems.all()
-        new_cartitems = returns_item(cartitems,"mini_box")
-            
-    except Mobile.DoesNotExist:
-        messages.info(request,"Add MOBILE NUMBER before proceeding to pay!")
-        return redirect('authentication:mobile')
-    except UserAddress.DoesNotExist:
-        messages.info(request,"Add ADDRESS before proceeding to pay!")
-        return redirect('address:register_address')
-
-    return render(request,'cart/checkout.html',{
-        'address':address,
-        'username':username,
-        'email': email,
-        'food':food_model,
-        'soup':soup_model,
-        'new':new_cartitems,
-        'phone_no':phone_no,
-        })
 

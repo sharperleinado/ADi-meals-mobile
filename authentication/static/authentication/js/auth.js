@@ -50,9 +50,22 @@ function fetchData(url, data, targetSelect) {
     .then(res => res.json())
     .then(data => {
         console.log(data)
-        targetSelect.innerHTML = '<option selected=""></option>';
+        /*targetSelect.innerHTML = '<option selected=""></option>';*/
         data.forEach(item => {
-            targetSelect.innerHTML += `<option value="${item}">${item[0].toUpperCase() + item.slice(1)}</option>`;
+            /*targetSelect.innerHTML += `<option value="${item}">${item[0].toUpperCase() + item.slice(1)}</option>`;*/
+            targetSelect.innerHTML = '<option selected=""></option>';
+
+            // Check if it's LCDA level (i.e. values are arrays like ['Ajegunle', 800])
+            if (Array.isArray(data[0])) {
+                data.forEach(item => {
+                    const [name, id] = item;
+                    targetSelect.innerHTML += `<option value="${name}">${name}</option>`;
+                });
+            } else {
+                data.forEach(item => {
+                    targetSelect.innerHTML += `<option value="${item}">${item[0].toUpperCase() + item.slice(1)}</option>`;
+                });
+            }
         });
     })
     .catch(error => {
@@ -60,4 +73,11 @@ function fetchData(url, data, targetSelect) {
     });
 }
 
+/*for enforcing recaptcha*/
+window.addEventListener('load', () => {
+  const $recaptcha = document.querySelector('#g-recaptcha-response');
+  if ($recaptcha) {
+    $recaptcha.setAttribute('required', 'required');
+  }
+})
 
